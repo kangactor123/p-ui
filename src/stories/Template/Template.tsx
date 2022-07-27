@@ -1,5 +1,9 @@
 import React, { ReactElement } from "react";
 
+/**
+ * Template Component
+ */
+
 export interface IProps {}
 
 function StoryTemplate(props: IProps): ReactElement {

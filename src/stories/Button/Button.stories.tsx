@@ -10,17 +10,17 @@ export default {
 
 const firstTemplete: Story<ButtonProps> = (args) => {
   const { text = "first" } = args;
-  return <Button text={text} {...args} />;
+  return <Button {...args} text={text} />;
 };
 
 const secondTemplete: Story<ButtonProps> = (args) => {
   const { text = "second" } = args;
-  return <Button text={text} {...args} />;
+  return <Button {...args} text={text} />;
 };
 
 const thirdTemplete: Story<ButtonProps> = (args) => {
   const { text = "third" } = args;
-  return <Button text={text} {...args} />;
+  return <Button {...args} text={text} />;
 };
 
 export const First = firstTemplete.bind({});

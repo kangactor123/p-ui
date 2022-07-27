@@ -2,6 +2,11 @@ import React, { ReactElement } from "react";
 import ReactLoading from "react-loading";
 import styled from "@emotion/styled";
 
+/**
+ * Spinner Component
+ * @returns Spinner
+ */
+
 export enum SpinnerSize {
   small = 20,
   medium = 60,
@@ -29,13 +34,6 @@ export interface ISpinnerProps {
   width?: number | string;
   className?: any;
   fixed?: boolean;
-}
-
-function getSize(size: SpinnerSize) {
-  return {
-    width: size,
-    height: size,
-  };
 }
 
 const Wrapper = styled.div`
@@ -82,7 +80,8 @@ function Spinner(props: ISpinnerProps): ReactElement {
         }
       : {
           ...props,
-          ...getSize(size),
+          width: size,
+          height: size,
         };
 
   return loading ? (
