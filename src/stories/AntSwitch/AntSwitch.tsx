@@ -8,6 +8,18 @@ import styled from "@emotion/styled";
  * Props 의 ClassName 이 사용이 될까요?
  */
 
+// const Ant = styled(Switch)`
+//   color: #fff;
+//   width: 40px;
+//   height: 19px;
+//   padding: 0;
+//   display: flex;
+//   justify-content: flex-start;
+//   & .MuiButtonBase-root {
+//     justify-content: flex-start;
+//   }
+// `;
+
 const AntSwitchComponent = MUIStyled(Switch)<SwitchProps>({
   color: "#fff",
   width: 40,

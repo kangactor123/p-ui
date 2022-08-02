@@ -1,4 +1,4 @@
-import { TabProps as MUITabsProps } from "@mui/material";
+import { TabProps as MUITabsProps, Tabs } from "@mui/material";
 import React, { ReactElement } from "react";
 
 /**
@@ -19,7 +19,11 @@ export type TabsProps = {
 export interface ITabProps extends MUITabsProps {}
 
 function Tab(props: ITabProps): ReactElement {
-  return <div>This is Template</div>;
+  return (
+    <>
+      <Tabs></Tabs>
+    </>
+  );
 }
 
 export default Tab;
