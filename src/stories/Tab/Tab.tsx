@@ -2,7 +2,7 @@ import { TabProps as MUITabsProps, Tabs } from "@mui/material";
 import React, { ReactElement } from "react";
 
 /**
- * Tab Component
+ * 작업 필요
  */
 
 //  export type TabListProps = {

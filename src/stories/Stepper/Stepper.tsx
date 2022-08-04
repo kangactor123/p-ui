@@ -12,7 +12,7 @@ import { IconStepperComplete } from "../../common/icons";
 import styled from "@emotion/styled";
 
 /**
- * Template Component
+ * 작업 필요
  */
 
 const IconBox = styled.div`

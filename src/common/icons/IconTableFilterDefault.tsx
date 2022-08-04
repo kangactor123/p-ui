@@ -1,0 +1,22 @@
+const IconTableFilterDefault = (): JSX.Element => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <g fill="none" fill-rule="evenodd">
+        <g>
+          <g>
+            <path d="M0 0L24 0 24 24 0 24z" />
+          </g>
+          <path fill="#797D85" d="M2 3L22 3 12.019 14.006z" />
+          <path fill="#797D85" d="M10 7L14 7 14 20.283 10 17.848z" />
+        </g>
+      </g>
+    </svg>
+  );
+};
+
+export default IconTableFilterDefault;
