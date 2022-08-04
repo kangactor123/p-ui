@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { ClassNames } from '@emotion/react';
+import { cx } from '@emotion/css';
 import { Button, IconButton, Input } from '@mui/material';
 import { MouseEvent, MouseEventHandler, PropsWithChildren, ReactElement, useCallback, useState } from 'react';
 import { TableInstance } from 'react-table';
@@ -63,21 +62,17 @@ export const InstanceSmallIconActionButton = <T extends object>({
   variant,
 }: InstanceActionButton<T>) => {
   return (
-    <ClassNames>
-      {({ cx }) => (
-        <MUITooltip arrow title={label} aria-label={label}>
-          <span>
-            <IconButton
-              className={cx({ rightIcons: variant === 'right' }, { leftIcons: variant === 'left' })}
-              onClick={onClick(instance)}
-              disabled={!enabled(instance)}
-            >
-              {icon}
-            </IconButton>
-          </span>
-        </MUITooltip>
-      )}
-    </ClassNames>
+    <MUITooltip arrow title={label} aria-label={label}>
+      <span>
+        <IconButton
+          className={cx({ rightIcons: variant === 'right' }, { leftIcons: variant === 'left' })}
+          onClick={onClick(instance)}
+          disabled={!enabled(instance)}
+        >
+          {icon}
+        </IconButton>
+      </span>
+    </MUITooltip>
   );
 };
 
@@ -89,25 +84,21 @@ export const SmallIconActionButton = <T extends object>({
   variant,
 }: ActionButton<T>) => {
   return (
-    <ClassNames>
-      {({ cx }) => (
-        <MUITooltip arrow title={label} aria-label={label}>
-          <span style={{ display: 'inline-block' }}>
-            <IconButton
-              className={cx({ rightIcons: variant === 'right' }, { leftIcons: variant === 'left' })}
-              onClick={onClick}
-              disabled={!enabled}
-            >
-              {icon}
-            </IconButton>
-          </span>
-        </MUITooltip>
-      )}
-    </ClassNames>
+    <MUITooltip arrow title={label} aria-label={label}>
+      <span style={{ display: 'inline-block' }}>
+        <IconButton
+          className={cx({ rightIcons: variant === 'right' }, { leftIcons: variant === 'left' })}
+          onClick={onClick}
+          disabled={!enabled}
+        >
+          {icon}
+        </IconButton>
+      </span>
+    </MUITooltip>
   );
 };
 
-type TableToolbar<T extends object> = {
+type TTableToolbar<T extends object> = {
   instance: TableInstance<T>;
   globalFilter?: string;
   setGlobalFilter?: any;
@@ -141,7 +132,7 @@ export function TableToolbar<T extends object>({
   useServerPaging = false,
   columnVisibleSettingExclude = [],
   t,
-}: PropsWithChildren<TableToolbar<T>>): ReactElement | null {
+}: PropsWithChildren<TTableToolbar<T>>): ReactElement | null {
   const { columns } = instance;
   const [searchKeyword, setSearchKeyword] = useState(globalFilter);
   const [refreshKey, setRefreshKey] = useState(Math.random());
@@ -204,56 +195,52 @@ export function TableToolbar<T extends object>({
   );
 
   return (
-    <ClassNames>
-      {({ cx, css }) => (
-        <MUIToolbar>
-          <div className={'input-wrap'}>
-            <Input
-              className={cx({ isSearchStyle }, 'search-input')}
-              onChange={handleKeywordChange}
-              onKeyDown={handleKeywordKeyDown}
-              onBlur={handleKeywordBlur}
-              value={searchKeyword || ''}
-              inputProps={{
-                placeholder: t('Search'),
-              }}
+    <MUIToolbar>
+      <div className={'input-wrap'}>
+        <Input
+          className={cx({ isSearchStyle }, 'search-input')}
+          onChange={handleKeywordChange}
+          onKeyDown={handleKeywordKeyDown}
+          onBlur={handleKeywordBlur}
+          value={searchKeyword || ''}
+          inputProps={{
+            placeholder: t('Search'),
+          }}
+        />
+        {searchKeyword && (
+          <IconButton className={'search-input-clear'} onClick={handleDeleteSearchKeyword}>
+            <IconUploadClose />
+          </IconButton>
+        )}
+      </div>
+      <div className={'right-buttons'}>
+        {!useServerPaging ? (
+          <>
+            <SmallIconActionButton<T>
+              icon={<IconTableFilterDefault />}
+              onClick={handleFilterClick}
+              label={t('Filter by columns')}
+              variant="right"
             />
-            {searchKeyword && (
-              <IconButton className={'search-input-clear'} onClick={handleDeleteSearchKeyword}>
-                <IconUploadClose />
-              </IconButton>
-            )}
-          </div>
-          <div className={'right-buttons'}>
-            {!useServerPaging ? (
-              <>
-                <SmallIconActionButton<T>
-                  icon={<IconTableFilterDefault />}
-                  onClick={handleFilterClick}
-                  label={t('Filter by columns')}
-                  variant="right"
-                />
-                <SmallIconActionButton<T>
-                  icon={<IconCsvDownload />}
-                  onClick={downloadCSV}
-                  label={t('Export to CSV')}
-                  variant="right"
-                />
-              </>
-            ) : null}
+            <SmallIconActionButton<T>
+              icon={<IconCsvDownload />}
+              onClick={downloadCSV}
+              label={t('Export to CSV')}
+              variant="right"
+            />
+          </>
+        ) : null}
 
-            {onRefresh && (
-              <SmallIconActionButton<T>
-                key={refreshKey}
-                icon={<IconTableRefresh />}
-                onClick={handleRefresh}
-                label={t('Refresh')}
-                variant="right"
-              />
-            )}
-          </div>
-        </MUIToolbar>
-      )}
-    </ClassNames>
+        {onRefresh && (
+          <SmallIconActionButton<T>
+            key={refreshKey}
+            icon={<IconTableRefresh />}
+            onClick={handleRefresh}
+            label={t('Refresh')}
+            variant="right"
+          />
+        )}
+      </div>
+    </MUIToolbar>
   );
 }

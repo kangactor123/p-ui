@@ -42,8 +42,9 @@ const column = () => [
 
 const Template: Story<ITable<Student>> = (args) => {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const columns = column();
   return (
-    <Table {...args} name="student" idColumn="name" selectedRows={selectedRows} data={tableData} columns={column()} />
+    <Table {...args} name="student" idColumn="name" selectedRows={selectedRows} data={tableData} columns={columns} />
   );
 };
 
