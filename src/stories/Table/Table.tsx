@@ -1,3 +1,5 @@
+import { ClassNames, css } from '@emotion/react';
+import { KeyboardArrowUp } from '@mui/icons-material';
 import { debounce, keyBy, mapValues } from 'lodash';
 import React, {
   Fragment,
@@ -6,41 +8,64 @@ import React, {
   ReactElement,
   ReactNode,
   useCallback,
+  useRef,
   useState,
 } from 'react';
 import {
   ActionType,
   Cell,
+  CellProps,
   HeaderGroup,
+  HeaderProps,
+  Hooks,
   IdType,
   Meta,
   Row,
   TableInstance,
   TableOptions,
   TableState,
+  useColumnOrder,
+  useExpanded,
+  useFilters,
+  useFlexLayout,
+  useGlobalFilter,
+  useGroupBy,
+  usePagination,
+  useResizeColumns,
+  useRowSelect,
+  useSortBy,
   useTable,
 } from 'react-table';
-import { getGlobalFilteredRows } from './Filter/ColumnFilter';
+import ColumnFilter, { getGlobalFilteredRows } from './Filter/ColumnFilter';
 import { ALL_VALUE, TableNumberPagination } from './Pagination/TableNumberPagination';
 import { ResizeHandle } from './ResizeHandle';
-import { TableBody, TableLabel, TableSortLabel, TableSortLabelWrap, WrapBox } from './style/table.style';
+import {
+  HeaderCheckbox,
+  NoDataDiv,
+  RowCheckbox,
+  RowRadio,
+  TableBody,
+  TableHeadCell,
+  TableHeadRow,
+  TableLabel,
+  TableSortLabel,
+  TableSortLabelWrap,
+  WrapBox,
+} from './style/table.style';
 import { TableToolbar } from './Toolbar/TableToolbar';
 import { useLocalStorage } from './utils';
-
-/**
- * 작업 필요
- */
+import { regExp } from './utils/util';
+import { Translation } from '../../common/type';
 
 export interface ITable<T extends object = {}> extends TableOptions<T> {
   name: string;
   idColumn?: string | null;
   selectedRows?: (number | string)[];
   renderRowSubComponent?: (row: Row<T>) => ReactNode;
-  selectDisabled?: (row: Row<T>) => boolean; //row disabled
-  excludeDisabledColumns?: string[]; //row disabled
+  selectDisabled?: (row: Row<T>) => boolean;
+  excludeDisabledColumns?: string[];
   searchNoDataComponent?: React.ReactNode;
   noDataComponent?: React.ReactNode;
-  isSmallTable?: boolean;
   onAdd?: (instance: TableInstance<T>) => MouseEventHandler;
   onDelete?: (instance: TableInstance<T>) => MouseEventHandler;
   onEdit?: (instance: TableInstance<T>) => MouseEventHandler;
@@ -51,6 +76,7 @@ export interface ITable<T extends object = {}> extends TableOptions<T> {
   onChangePageSize?: (e: any) => void;
   onChangePageInfo?: (e: any) => void;
   onSelectionChange?: (rowIds: any, instance: TableInstance<T>) => void;
+  isSmallTable?: boolean;
   totalCount?: number;
   useWrap?: boolean;
   useToolbar?: boolean;
@@ -75,13 +101,93 @@ export interface ITable<T extends object = {}> extends TableOptions<T> {
   useServerPaging?: boolean;
   isAllowManualSelection?: boolean;
   hiddenColumns?: string[];
-  isVirtualScroll?: boolean;
-  virtualScrollHeight?: number;
   rowHeight?: number;
   columnVisibleSettingExclude?: string[];
   searchKeyword?: string | null;
   useAll?: boolean;
+  t: (key: string, options?: any) => string;
 }
+
+function toggleSelect(instance: any) {
+  return (event: any) => {
+    if (!instance.state.selectedRowIds[instance.getRowId(instance.row.original)]) {
+      instance.toggleAllRowsSelected(false);
+      instance.row.toggleRowSelected(true);
+    } else {
+      event.preventDefault();
+    }
+  };
+}
+
+function TableCheckboxSelectHeader({ getToggleAllPageRowsSelectedProps, page }: HeaderProps<any>) {
+  const { onChange, ...props } = getToggleAllPageRowsSelectedProps();
+
+  const handleChange = useCallback(
+    (event: any) => {
+      if (onChange instanceof Function) {
+        const disabledRows: Row[] = [];
+        page.forEach((row) => {
+          disabledRows.push({
+            ...row,
+          });
+        });
+        onChange(event);
+        setTimeout(() => {
+          disabledRows.forEach((row) => {
+            row.toggleRowSelected(row.isSelected);
+          });
+        });
+      }
+    },
+    [onChange, page],
+  );
+
+  return <HeaderCheckbox color="primary" onChange={handleChange} {...props} />;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function TableCheckboxSelectCell({ row }: CellProps<any>) {
+  return <RowCheckbox color="primary" {...row.getToggleRowSelectedProps()} />;
+}
+
+function TableRadioSelectCell(instance: any, ...rest: any[]) {
+  return (
+    <ClassNames>
+      {({ cx }) => (
+        <RowRadio
+          name="select-radio"
+          checked={instance.row.isSelected}
+          color="primary"
+          disabled={instance.selectDisabled(instance.row)}
+          onClick={toggleSelect(instance)}
+          checkedIcon={<span className={cx(['radioIcon', 'radioCheckedIcon'])} />}
+          icon={<span className={'radioIcon'} />}
+        />
+      )}
+    </ClassNames>
+  );
+}
+
+const selectionHooks = (type: 'checkbox' | 'radio', hooks: Hooks<any>) => {
+  hooks.allColumns.push((columns) => [
+    {
+      id: type === 'checkbox' ? '_selector' : 'selector_',
+      disableResizing: true,
+      disableGroupBy: true,
+      minWidth: 35,
+      width: 35,
+      maxWidth: 35,
+      Header: type === 'checkbox' ? TableCheckboxSelectHeader : <></>,
+      Cell: type === 'checkbox' ? TableCheckboxSelectCell : TableRadioSelectCell,
+    },
+    ...columns,
+  ]);
+  hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
+    // fix the parent group of the selection button to not be resizable
+    const selectionGroupHeader = headerGroups[0].headers[0];
+    selectionGroupHeader.canResize = false;
+  });
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getStyles = <T extends object>(props: any, disableResizing = false, align = 'left', useBorder = false) => [
@@ -97,26 +203,56 @@ const getStyles = <T extends object>(props: any, disableResizing = false, align 
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const headerProps = <T extends object>(props: any, { column }: Meta<T, { column: HeaderGroup<T> }>) =>
+  getStyles(props, column && column.disableResizing, column && column.align);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const cellProps = <T extends object>(props: any, { cell }: Meta<T, { cell: Cell<T> }>) => {
   const column = cell.column as HeaderGroup<T> & { useColumnBorder?: boolean };
   return getStyles(props, column && column.disableResizing, column && column.align, column && column.useColumnBorder);
 };
 
-const getStatusClassName = (status: string) => {
-  let className = '';
-  if (status === AssessmentStatus.FAILED) {
-    className = 'row-status-failed';
-  } else if (status === AssessmentStatus.CANCELLED) {
-    className = 'row-status-canceled';
-  } else if (status === AssessmentStatus.COMPLETED) {
-    className = 'row-status-completed';
-  } else if (status === AssessmentStatus.IN_PROGRESS) {
-    className = 'row-status-in-progress';
-  } else if (status === AssessmentStatus.PENDING) {
-    className = 'row-status-padding';
-  }
-  return className;
-};
+const hooks = [
+  useColumnOrder,
+  useFilters,
+  useGlobalFilter,
+  useGroupBy,
+  useSortBy,
+  useExpanded,
+  useFlexLayout,
+  usePagination,
+  useResizeColumns,
+  useRowSelect,
+];
+
+const hooskWithSelection = (type: 'checkbox' | 'radio') => [
+  ...hooks,
+  (hooks: Hooks<any>) => selectionHooks(type, hooks),
+];
+
+function getHooks(useSelection: boolean, selectionType: 'checkbox' | 'radio') {
+  return useSelection ? hooskWithSelection(selectionType) : hooks.slice(0, -1);
+}
+
+function globalFilterFunc<T extends object>(
+  rows: Row<T>[],
+  columIds: string[],
+  filterValue: string,
+  // t: (value: string) => string,
+): Row<T>[] {
+  return rows.filter((row, index) => {
+    return columIds.some((id) => {
+      if (exceptFilterColumnIds.includes(id || '') || id?.endsWith('_isAction')) {
+        return false;
+      }
+      const _value = row.values[id];
+      const message = _value?.props?.message;
+      const value = message ? message : _value;
+
+      return regExp(filterValue, 'i').test(value);
+    });
+  });
+}
 
 const defaultColumn = {
   // Filter: ColumnFilter,
@@ -136,7 +272,17 @@ export const exceptFilterColumnIds = [
   'assessmentData',
 ];
 
-export interface ITableProps {}
+const searchNoDataComponent = (t: Translation) => (
+  <div style={{ color: '#8995ae' }}>{t('No results found. Please alter your search')}</div>
+);
+
+const noDataComponent = (t: Translation) => {
+  if (t instanceof Function) {
+    return <div>{t('You do not have any data')}</div>;
+  } else {
+    return <></>;
+  }
+};
 
 function Table<T extends object>(props: PropsWithChildren<ITable<T>>): ReactElement {
   const {
@@ -176,15 +322,17 @@ function Table<T extends object>(props: PropsWithChildren<ITable<T>>): ReactElem
     isSelectionClearByFilterChange = true,
     isSearchStyle = true,
     useServerPaging = false,
-    isVirtualScroll = false,
     renderRowSubComponent,
     columnVisibleSettingExclude = [],
     searchKeyword = '',
     useAll = true,
+    t,
   } = props;
 
   const [initialState, setInitialState] = useLocalStorage(`tableState:${name}`, {});
   const [useColumnFilter, setUseColumnFilter] = useState(!!initialState.useColumnFilter);
+  const [currentRow, setCurrentRow] = useState({});
+  const headerContainer = useRef(null);
 
   const getRowId = idColumn ? (row: any = {}) => row[idColumn] : undefined;
 
@@ -331,16 +479,14 @@ function Table<T extends object>(props: PropsWithChildren<ITable<T>>): ReactElem
       ...props,
       getRowId,
       columns,
-      // filterTypes,
       defaultColumn,
-      // useControlledState,
       stateReducer,
       initialState: {
         ...initialState,
         hiddenColumns: initialState.hiddenColumns || hiddenColumns,
         selectedRowIds: selectedRowIds,
         pageIndex: pageNumber - 1,
-        pageSize: initialState.pageSize || pageSize,
+        pageSize: initialState.pageSize || pageSizeProp,
         pageQueryEnabled,
         ...(searchKeyword ? { globalFilter: searchKeyword } : {}),
       },
@@ -351,243 +497,282 @@ function Table<T extends object>(props: PropsWithChildren<ITable<T>>): ReactElem
     ...getHooks(useSelection, selectionType),
   );
 
+  const renderNoDataComponent = () => {
+    if (globalFilter) {
+      return props.searchNoDataComponent ? props.searchNoDataComponent : searchNoDataComponent(t);
+    } else {
+      return props.noDataComponent ? props.noDataComponent : noDataComponent(t);
+    }
+  };
+
   const {
     getTableProps,
     headerGroups,
     getTableBodyProps,
     page,
-    // totalcount 가 있으면 서버사이드 페이징이라고 인식하고 전체 rows로 출력한다.
     rows,
     prepareRow,
     setGlobalFilter,
-    toggleAllRowsSelected,
-    state: { filters, globalFilter = searchKeyword },
+    state: { globalFilter = searchKeyword },
   } = instance;
+
+  const cellClickHandler = (cell: Cell<T>, event: any) => {
+    if (
+      useSelection &&
+      cell.column.id !== '_selector' &&
+      cell.column.id !== 'selector_' &&
+      cell.column.id !== 'expander' &&
+      !cell.column.id.endsWith('_isAction')
+    ) {
+      if (!selectDisabled(cell.row)) {
+        if (selectionType === 'radio' && !cell.row.isSelected) {
+          instance.toggleAllRowsSelected(false);
+          cell.row.toggleRowSelected(!cell.row.isSelected);
+        }
+        if (selectionType === 'checkbox') {
+          cell.row.toggleRowSelected(!cell.row.isSelected);
+        }
+      }
+      onClick && onClick(cell.row, instance);
+    } else {
+      const tempCurrentRow = cell.row;
+      setCurrentRow({ ...tempCurrentRow });
+      if (event.shiftKey && cell.column.id === '_selector') {
+        if (!(currentRow as any).id) {
+          return;
+        }
+        let currentIndex = 0;
+        let targetIndex = 0;
+        currentIndex = page.findIndex((page) => page.id === (currentRow as any).id) || 0;
+        targetIndex = page.findIndex((page) => page.id === tempCurrentRow.id) || 0;
+        const startIndex = currentIndex > targetIndex ? targetIndex : currentIndex;
+        const endIndex = currentIndex > targetIndex ? currentIndex : targetIndex;
+        for (let i = startIndex; i < endIndex + 1; i++) {
+          if (cell?.row?.isSelected) {
+            page[i].cells[0].row.toggleRowSelected(false);
+          } else {
+            if (!page[i].cells[0].row.isSelected) page[i].cells[0].row.toggleRowSelected(true);
+          }
+        }
+      }
+    }
+  };
 
   return (
     <>
-      <WrapBox useWrap={useWrap} className={'table-div'}>
-        {useToolbar ? (
-          <TableToolbar
-            globalFilter={globalFilter}
-            setGlobalFilter={setGlobalFilter}
-            useColumnFilter={useColumnFilter}
-            setUseColumnFilter={setUseColumnFilter}
-            instance={instance}
-            isSearchStyle={isSearchStyle}
-            useServerPaging={useServerPaging}
-            {...{ onAdd, onDelete, onEdit, onRefresh, onSearchKeyword }}
-            columnVisibleSettingExclude={columnVisibleSettingExclude}
-          />
-        ) : null}
-        <div
-          className={cx(
-            'table-wrap',
-            {
-              'use-toolbar': useToolbar,
-              'use-pagination': usePagination,
-            },
-            'table-wrap-global',
-            isVirtualScroll && dataCount > 1000 ? 'virtual-div' : '',
-          )}
-        >
-          <div className={classes.tableTable} {...getTableProps()} {...props.tableDivProps}>
-            <div
-              ref={headerContainer}
-              className={cx(classes.tableHead, isVirtualScroll && dataCount > 1000 ? 'virtual-head' : '')}
-            >
-              {headerGroups.map((headerGroup, headerGroupIdx) => (
-                <div
-                  {...headerGroup.getHeaderGroupProps()}
-                  className={cx(
-                    classes.tableHeadRow,
-                    'table-head-row',
-                    headerGroups.length > 1 ? 'db-table-head-row' : '',
-                  )}
-                  key={headerGroupIdx}
-                >
-                  {headerGroup.headers.map((column, columnIdx) => {
-                    const _column = column as HeaderGroup<T> & {
-                      useColumnBorder?: boolean;
-                    };
-                    const style: any = {
-                      textAlign: column.align ? column.align : 'left ',
-                    };
-                    const tableSortDivStyle = {
-                      borderRight: _column.useColumnBorder ? '1px solid #dbdbdb' : 'none',
-                    };
-                    if (centerGroupColumn.length > -1) {
-                      const columnId = column.id.substring(0, column.id.lastIndexOf('_'));
-                      if (centerGroupColumn.indexOf(columnId) > -1) {
-                        style.width = '100%';
-                        style.textAlign = 'center';
-                      }
-                    }
-                    const tempHeaderGroup: any = {
-                      ...column.getHeaderProps(headerProps),
-                    };
-                    const parseProps = Object.keys(column.getHeaderProps(headerProps)).reduce(
-                      (acc: any, propKey: string) => {
-                        if (propKey !== 'style') {
-                          acc[propKey] = tempHeaderGroup[propKey];
+      <ClassNames>
+        {({ cx }) => (
+          <WrapBox useWrap={useWrap} className={'table-div'}>
+            {useToolbar ? (
+              <TableToolbar
+                downloadCSV={() => {}}
+                t={(key: string) => ''}
+                globalFilter={globalFilter}
+                setGlobalFilter={setGlobalFilter}
+                useColumnFilter={useColumnFilter}
+                setUseColumnFilter={setUseColumnFilter}
+                instance={instance}
+                isSearchStyle={isSearchStyle}
+                useServerPaging={useServerPaging}
+                {...{ onAdd, onDelete, onEdit, onRefresh, onSearchKeyword }}
+                columnVisibleSettingExclude={columnVisibleSettingExclude}
+              />
+            ) : null}
+            <div className={useToolbar || usePagination ? 'use-toolbar' : ''}>
+              <div className={'tableTable'} {...getTableProps()} {...props.tableDivProps}>
+                <div ref={headerContainer} className={'tableHead'}>
+                  {headerGroups.map((headerGroup, headerGroupIdx) => (
+                    <TableHeadRow
+                      {...headerGroup.getHeaderGroupProps()}
+                      className={headerGroups.length > 1 ? 'db-table-head-row' : ''}
+                      key={headerGroupIdx}
+                    >
+                      {headerGroup.headers.map((column, columnIdx) => {
+                        const _column = column as HeaderGroup<T> & {
+                          useColumnBorder?: boolean;
+                        };
+                        const style: any = {
+                          textAlign: column.align ? column.align : 'left ',
+                        };
+                        if (centerGroupColumn.length > -1) {
+                          const columnId = column.id.substring(0, column.id.lastIndexOf('_'));
+                          if (centerGroupColumn.indexOf(columnId) > -1) {
+                            style.width = '100%';
+                            style.textAlign = 'center';
+                          }
                         }
-                        return acc;
-                      },
-                      {},
-                    );
-                    let headerStyle = tempHeaderGroup.style;
-                    let isFixColumnBorder = false;
-                    if (groupColumnStartIndex.length > -1 && groupColumnStartIndex.indexOf(column.id) > -1) {
-                      if (columnIdx > 0) {
-                        isFixColumnBorder = true;
-                      }
-                      headerStyle = {
-                        ...headerStyle,
-                        height: '60px',
-                        marginTop: '-30px',
-                      };
-                    }
+                        const tempHeaderGroup: any = {
+                          ...column.getHeaderProps(headerProps),
+                        };
+                        const parseProps = Object.keys(column.getHeaderProps(headerProps)).reduce(
+                          (acc: any, propKey: string) => {
+                            if (propKey !== 'style') {
+                              acc[propKey] = tempHeaderGroup[propKey];
+                            }
+                            return acc;
+                          },
+                          {},
+                        );
+                        let headerStyle = tempHeaderGroup.style;
+                        let isFixColumnBorder = false;
+                        if (groupColumnStartIndex.length > -1 && groupColumnStartIndex.indexOf(column.id) > -1) {
+                          if (columnIdx > 0) {
+                            isFixColumnBorder = true;
+                          }
+                          headerStyle = {
+                            ...headerStyle,
+                            height: '60px',
+                            marginTop: '-30px',
+                          };
+                        }
 
-                    if (cellBackgroundColorColumn.length > -1 && cellBackgroundColorColumn.indexOf(column.id) > -1) {
-                      headerStyle = {
-                        ...headerStyle,
-                        backgroundColor: '#f6f7f9',
-                      };
-                    }
+                        if (
+                          cellBackgroundColorColumn.length > -1 &&
+                          cellBackgroundColorColumn.indexOf(column.id) > -1
+                        ) {
+                          headerStyle = {
+                            ...headerStyle,
+                            backgroundColor: '#f6f7f9',
+                          };
+                        }
 
-                    return (
-                      <div
-                        {...parseProps}
-                        style={headerStyle}
-                        className={cx(
-                          classes.tableHeadCell,
-                          isFixColumnBorder ? 'fix-column-border' : '',
-                          'table__head--cell',
-                        )}
-                        key={columnIdx}
-                      >
-                        {column.canSort ? (
-                          <TableSortLabelWrap useColumnBorder={_column.useColumnBorder as boolean}>
-                            <TableSortLabel
-                              active={column.isSorted}
-                              direction={column.isSortedDesc ? 'desc' : 'asc'}
-                              {...column.getSortByToggleProps()}
-                              style={style}
-                            >
-                              {column.render('Header')}
-                            </TableSortLabel>
-                          </TableSortLabelWrap>
-                        ) : (
-                          <TableLabel style={style} align={column.align as string}>
-                            {column.render('Header')}
-                          </TableLabel>
-                        )}
-                        {useColumnFilter && column.id !== '_selector' && column.canFilter && column.render('Filter')}
-                        {column.canResize && <ResizeHandle column={column} />}
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-            <TableBody {...getTableBodyProps()}>
-              {(totalCount ? rows : page).length ? (
-                (totalCount ? rows : page).map((row, pageIdx) => {
-                  prepareRow(row);
-                  const rowStatus = (row.original as any)['status'];
-                  const statusClassName = isRowStatus ? getStatusClassName(rowStatus) : '';
-                  const disabledRow = selectDisabled(row);
-                  const makeStyles = cx(
-                    classes.tableRow,
-                    { rowSelected: row.isSelected },
-                    statusClassName,
-                    'table-row',
-                  );
-                  return (
-                    <Fragment key={pageIdx}>
-                      <div {...row.getRowProps()} className={makeStyles}>
-                        {row.cells.map((cell, cellIdx) => {
-                          const cellPropObj: any = cell.getCellProps(cellProps);
-                          const disabledCell =
-                            disabledRow && !excludeDisabledColumns.includes((cell.render('id') as string) || '');
-                          const cellStyle: any = cellPropObj.style;
-                          cellStyle.alignItems = 'baseline';
-                          cellStyle.paddingTop = '10px';
-                          cellStyle.paddingBottom = '10px';
-
-                          return (
-                            <div
-                              {...cellPropObj}
-                              onClick={(e) => {
-                                if (disabledRow) {
-                                  return;
+                        return (
+                          <TableHeadCell
+                            {...parseProps}
+                            style={headerStyle}
+                            css={
+                              isFixColumnBorder &&
+                              css`
+                                position: relative;
+                                &::after {
+                                  content: '';
+                                  position: absolute;
+                                  top: 50%;
+                                  right: 0;
+                                  transform: translateY(-50%);
+                                  width: 1px;
+                                  height: 80%;
+                                  background: #ced5df;
                                 }
-                                cellClickHandler(cell, e);
-                              }}
-                              className={cx(
-                                classes.tableCell,
-                                {
-                                  disabledCell,
-                                },
-                                'table-cell',
-                              )}
-                              key={cellIdx}
-                            >
-                              {cell.isGrouped ? (
-                                <>
-                                  <TableSortLabel
-                                    classes={{
-                                      iconDirectionAsc: classes.iconDirectionAsc,
-                                      iconDirectionDesc: classes.iconDirectionDesc,
-                                    }}
-                                    active
-                                    direction={row.isExpanded ? 'desc' : 'asc'}
-                                    IconComponent={KeyboardArrowUp}
-                                    {...row.getToggleRowExpandedProps()}
-                                    className={classes.cellIcon}
-                                  />
-                                  {cell.render('Cell')} ({row.subRows.length})
-                                </>
-                              ) : cell.isAggregated ? (
-                                cell.render('Aggregated')
-                              ) : cell.isPlaceholder ? null : (
-                                cell.render('Cell')
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                      {(row.isExpanded || allExpanded) && renderRowSubComponent instanceof Function && (
-                        <div className={'sub-component'}>{renderRowSubComponent(row)}</div>
-                      )}
-                    </Fragment>
-                  );
-                })
-              ) : (
-                <div
-                  className={cx(!isSmallTable ? styles['no-data'] : styles['small-table-no-data'], 'global-no-data')}
-                >
-                  {renderNoDataComponent()}
+                              `
+                            }
+                            className={'table__head--cell'}
+                            key={columnIdx}
+                          >
+                            {column.canSort ? (
+                              <TableSortLabelWrap useColumnBorder={_column.useColumnBorder as boolean}>
+                                <TableSortLabel
+                                  active={column.isSorted}
+                                  direction={column.isSortedDesc ? 'desc' : 'asc'}
+                                  {...column.getSortByToggleProps()}
+                                  style={style}
+                                >
+                                  {column.render('Header')}
+                                </TableSortLabel>
+                              </TableSortLabelWrap>
+                            ) : (
+                              <TableLabel style={style} align={column.align as string}>
+                                {column.render('Header')}
+                              </TableLabel>
+                            )}
+                            {useColumnFilter &&
+                              column.id !== '_selector' &&
+                              column.canFilter &&
+                              column.render('Filter')}
+                            {column.canResize && <ResizeHandle column={column} />}
+                          </TableHeadCell>
+                        );
+                      })}
+                    </TableHeadRow>
+                  ))}
                 </div>
-              )}
-            </TableBody>
-          </div>
-        </div>
-        {usePagination ? (
-          <TableNumberPagination
-            instance={instance}
-            pageQueryEnabled={pageQueryEnabled}
-            isLeft={true}
-            isSubRowStyle={isSubRowStyle}
-            usePerPage={usePerPage}
-            totalCount={totalCount}
-            onChangePageInfo={onChangePageInoHanlder}
-            onChangePage={onChangePageHanlder}
-            useAll={useAll}
-          />
-        ) : null}
-      </WrapBox>
-      );
+                <TableBody {...getTableBodyProps()}>
+                  {(totalCount ? rows : page).length ? (
+                    (totalCount ? rows : page).map((row, pageIdx) => {
+                      prepareRow(row);
+                      // const rowStatus = (row.original as any)['status'];
+                      // const statusClassName = isRowStatus ? getStatusClassName(rowStatus) : '';
+                      const disabledRow = selectDisabled(row);
+                      // const makeStyles = cx(classes.tableRow, { rowSelected: row.isSelected }, statusClassName);
+                      return (
+                        <Fragment key={pageIdx}>
+                          <div {...row.getRowProps()} className={'tableRow'}>
+                            {row.cells.map((cell, cellIdx) => {
+                              const cellPropObj: any = cell.getCellProps(cellProps);
+                              const disabledCell =
+                                disabledRow && !excludeDisabledColumns.includes((cell.render('id') as string) || '');
+                              // const cellStyle: any = cellPropObj.style;
+                              // cellStyle.alignItems = 'baseline';
+                              // cellStyle.paddingTop = '10px';
+                              // cellStyle.paddingBottom = '10px';
+
+                              return (
+                                <div
+                                  {...cellPropObj}
+                                  onClick={(e) => {
+                                    if (disabledRow) {
+                                      return;
+                                    }
+                                    cellClickHandler(cell, e);
+                                  }}
+                                  className={'tableCell'}
+                                  key={cellIdx}
+                                >
+                                  {cell.isGrouped ? (
+                                    <>
+                                      <TableSortLabel
+                                        classes={
+                                          row.isExpanded
+                                            ? { iconDirectionDesc: 'tranform: rotate(180deg)' }
+                                            : { iconDirectionAsc: 'transform: rotate(90deg)' }
+                                        }
+                                        active
+                                        direction={row.isExpanded ? 'desc' : 'asc'}
+                                        IconComponent={KeyboardArrowUp}
+                                        {...row.getToggleRowExpandedProps()}
+                                        className={'cellIcon'}
+                                      />
+                                      {cell.render('Cell')} ({row.subRows.length})
+                                    </>
+                                  ) : cell.isAggregated ? (
+                                    cell.render('Aggregated')
+                                  ) : cell.isPlaceholder ? null : (
+                                    cell.render('Cell')
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                          {(row.isExpanded || allExpanded) && renderRowSubComponent instanceof Function && (
+                            <div className={'sub-component'}>{renderRowSubComponent(row)}</div>
+                          )}
+                        </Fragment>
+                      );
+                    })
+                  ) : (
+                    <NoDataDiv className={cx(!isSmallTable ? 'no-data' : 'small-table-no-data')}>
+                      {renderNoDataComponent()}
+                    </NoDataDiv>
+                  )}
+                </TableBody>
+              </div>
+            </div>
+            {usePagination ? (
+              <TableNumberPagination
+                instance={instance}
+                pageQueryEnabled={pageQueryEnabled}
+                isLeft={true}
+                isSubRowStyle={isSubRowStyle}
+                usePerPage={usePerPage}
+                totalCount={totalCount}
+                onChangePageInfo={onChangePageInfoHanlder}
+                onChangePage={onChangePageHandler}
+                useAll={useAll}
+              />
+            ) : null}
+          </WrapBox>
+        )}
+      </ClassNames>
     </>
   );
 }

@@ -1,6 +1,6 @@
-export { default as Button } from "./stories/Button";
-export { default as Spinner } from "./stories/Spinner";
-export { default as BlankLink } from "./stories/BlankLink";
+export * from './stories/Button';
+export * from './stories/Spinner';
+export * from './stories/BlankLink';
 
 //template
-export { default as Template } from "./stories/Template";
+export * from './stories/Template';

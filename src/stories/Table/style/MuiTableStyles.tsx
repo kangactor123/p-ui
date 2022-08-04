@@ -1,4 +1,3 @@
-// import { Checkbox, Radio, Theme, createStyles, makeStyles, styled } from '@material-ui/core';
 import { Checkbox, createStyles, makeStyles, Radio, styled, Theme } from '@mui/material';
 import React from 'react';
 
@@ -368,62 +367,4 @@ export const useSubTableStyles = makeStyles((theme: Theme) =>
       },
     },
   }),
-);
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const areEqual = (prevProps: any, nextProps: any) =>
-  prevProps.checked === nextProps.checked && prevProps.indeterminate === nextProps.indeterminate;
-
-export const HeaderCheckbox = React.memo(
-  styled(Checkbox)({
-    fontSize: '1rem',
-    margin: '-8px 0 -8px -15px',
-    width: '36px',
-    height: '36px',
-    padding: '8px 9px',
-    '& svg': {
-      width: '16px',
-      height: '16px',
-    },
-    '&:hover': {
-      backgroundColor: 'transparent',
-    },
-  }),
-  areEqual,
-);
-
-export const RowCheckbox = React.memo(
-  styled(Checkbox)({
-    fontSize: '14px',
-    margin: '-9px 0 -8px -15px',
-    padding: '8px 9px 9px 9px',
-    width: '36px',
-    height: '36px',
-    '&:hover': {
-      backgroundColor: 'transparent',
-    },
-    '& svg': {
-      width: 16,
-      height: 16,
-    },
-  }),
-  // areEqual,
-);
-
-export const RowRadio = React.memo(
-  styled(Radio)({
-    fontSize: '14px',
-    margin: '-9px 0 -8px -15px',
-    padding: '8px 9px 9px 9px',
-    width: '36px',
-    height: '36px',
-    '&:hover': {
-      backgroundColor: 'transparent',
-    },
-    '& svg': {
-      width: 16,
-      height: 16,
-    },
-  }),
-  // areEqual,
 );

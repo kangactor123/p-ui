@@ -2,7 +2,7 @@
 // import cx from 'classnames';
 import React from 'react';
 import { ColumnInstance } from 'react-table';
-import { useStyles } from './style/TableStyles';
+import { useStyles } from './style/MuiTableStyles';
 
 export const ResizeHandle = <T extends {}>({ column }: { column: ColumnInstance<T> }) => {
   return (

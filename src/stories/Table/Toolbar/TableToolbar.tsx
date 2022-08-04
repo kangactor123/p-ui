@@ -1,72 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Button, IconButton, Theme, Toolbar, Tooltip, createStyles, makeStyles } from '@material-ui/core';
-import classnames from 'classnames';
-import React, {
-  MouseEvent,
-  MouseEventHandler,
-  PropsWithChildren,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { ClassNames } from '@emotion/react';
+import { Button, IconButton, Input } from '@mui/material';
+import { MouseEvent, MouseEventHandler, PropsWithChildren, ReactElement, useCallback, useState } from 'react';
 import { TableInstance } from 'react-table';
-import { IconTableRefresh, IconTableFilterDefault, IconCsvDownload, IconUploadClose } from 'common/icons';
-
-import { TableMouseEventHandler } from './types/react-table-config';
-import { ColumnHidePage } from './ColumnHidePage';
-import { FilterPage } from './FilterPage';
-import { InputText } from 'components/FormControls';
-import FilterListIcon from '@material-ui/icons/FilterList';
-
-import classNames from 'classnames/bind';
-import styles from './Table.module.scss';
-import { useTranslation } from 'react-i18next';
-import { downloadReport } from './utils';
-import { useStylesTooltip } from 'common/helpers';
-
-import { getProjectId } from 'common/lib/utils';
-import { useProject, useGetProject } from 'modules/projects';
-
-const cx = classNames.bind(styles);
-
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolbar: {
-      display: 'flex',
-      minHeight: '48px',
-      justifyContent: 'space-between',
-      paddingLeft: 10,
-    },
-    searchInput: {
-      width: 400,
-    },
-    leftButtons: {},
-    rightButtons: {
-      marginRight: '-15px',
-      display: 'flex',
-    },
-    leftIcons: {
-      '&:first-of-type': {
-        marginLeft: -12,
-      },
-    },
-    rightIcons: {
-      padding: 8,
-      // marginTop: '-6px',
-      width: 40,
-      height: 40,
-    },
-    searchInputClear: {
-      position: 'absolute',
-      right: 8,
-      top: 8,
-      padding: 0,
-      width: 16,
-      height: 16,
-    },
-  }),
-);
+import { IconCsvDownload, IconTableFilterDefault, IconTableRefresh, IconUploadClose } from '../../../common/icons';
+import { Translation } from '../../../common/type';
+import { MUIToolbar, MUITooltip } from '../style/table.style';
+import { TableMouseEventHandler } from '../Type/react-table-config';
 
 type InstanceActionButton<T extends object> = {
   instance: TableInstance<T>;
@@ -122,20 +62,22 @@ export const InstanceSmallIconActionButton = <T extends object>({
   enabled = () => true,
   variant,
 }: InstanceActionButton<T>) => {
-  const classes = useStyles({});
-  const tooltipClasses = useStylesTooltip();
   return (
-    <Tooltip arrow title={label} aria-label={label} classes={tooltipClasses}>
-      <span>
-        <IconButton
-          className={classnames({ [classes.rightIcons]: variant === 'right', [classes.leftIcons]: variant === 'left' })}
-          onClick={onClick(instance)}
-          disabled={!enabled(instance)}
-        >
-          {icon}
-        </IconButton>
-      </span>
-    </Tooltip>
+    <ClassNames>
+      {({ cx }) => (
+        <MUITooltip arrow title={label} aria-label={label}>
+          <span>
+            <IconButton
+              className={cx({ rightIcons: variant === 'right' }, { leftIcons: variant === 'left' })}
+              onClick={onClick(instance)}
+              disabled={!enabled(instance)}
+            >
+              {icon}
+            </IconButton>
+          </span>
+        </MUITooltip>
+      )}
+    </ClassNames>
   );
 };
 
@@ -146,20 +88,22 @@ export const SmallIconActionButton = <T extends object>({
   enabled = true,
   variant,
 }: ActionButton<T>) => {
-  const classes = useStyles({});
-  const tooltipClasses = useStylesTooltip();
   return (
-    <Tooltip arrow title={label} aria-label={label} classes={tooltipClasses}>
-      <span style={{ display: 'inline-block' }}>
-        <IconButton
-          className={classnames({ [classes.rightIcons]: variant === 'right', [classes.leftIcons]: variant === 'left' })}
-          onClick={onClick}
-          disabled={!enabled}
-        >
-          {icon}
-        </IconButton>
-      </span>
-    </Tooltip>
+    <ClassNames>
+      {({ cx }) => (
+        <MUITooltip arrow title={label} aria-label={label}>
+          <span style={{ display: 'inline-block' }}>
+            <IconButton
+              className={cx({ rightIcons: variant === 'right' }, { leftIcons: variant === 'left' })}
+              onClick={onClick}
+              disabled={!enabled}
+            >
+              {icon}
+            </IconButton>
+          </span>
+        </MUITooltip>
+      )}
+    </ClassNames>
   );
 };
 
@@ -174,9 +118,11 @@ type TableToolbar<T extends object> = {
   onEdit?: TableMouseEventHandler;
   onRefresh?: (e: any) => void;
   onSearchKeyword?: (e: any) => void;
+  downloadCSV: () => void;
   isSearchStyle?: boolean;
   useServerPaging?: boolean;
   columnVisibleSettingExclude?: string[];
+  t: Translation;
 };
 
 export function TableToolbar<T extends object>({
@@ -190,28 +136,15 @@ export function TableToolbar<T extends object>({
   onEdit,
   onRefresh,
   onSearchKeyword,
+  downloadCSV,
   isSearchStyle = true,
   useServerPaging = false,
   columnVisibleSettingExclude = [],
+  t,
 }: PropsWithChildren<TableToolbar<T>>): ReactElement | null {
   const { columns } = instance;
-  const classes = useStyles();
-  const [getProject] = useGetProject();
-
   const [searchKeyword, setSearchKeyword] = useState(globalFilter);
-
-  const { t } = useTranslation();
-
-  const projectId = getProjectId();
-  const project = useProject(projectId);
-
   const [refreshKey, setRefreshKey] = useState(Math.random());
-
-  useEffect(() => {
-    if (!project && projectId) {
-      getProject(projectId);
-    }
-  }, [projectId]);
 
   const handleFilterClick = useCallback(
     (event: MouseEvent) => {
@@ -231,12 +164,12 @@ export function TableToolbar<T extends object>({
     }
   }, [searchKeyword, setGlobalFilter, onSearchKeyword]);
 
-  const handleKeywordChange = useCallback(({ target: { value } }) => {
+  const handleKeywordChange = useCallback(({ target: { value } }: any) => {
     setSearchKeyword(value);
   }, []);
 
   const handleKeywordKeyDown = useCallback(
-    (event) => {
+    (event: any) => {
       if (event.keyCode === 13) {
         search();
       }
@@ -245,7 +178,7 @@ export function TableToolbar<T extends object>({
   );
 
   const handleKeywordBlur = useCallback(
-    (event) => {
+    (event: any) => {
       search();
     },
     [search],
@@ -260,12 +193,8 @@ export function TableToolbar<T extends object>({
     }
   }, [onSearchKeyword, setGlobalFilter]);
 
-  const downloadCsv = useCallback(() => {
-    downloadReport<T>(columns, instance.data, (instance as any).name, project?.projectName);
-  }, [columns, instance, project]);
-
   const handleRefresh = useCallback(
-    (event) => {
+    (event: any) => {
       setRefreshKey(Math.random());
       if (onRefresh instanceof Function) {
         onRefresh(event);
@@ -274,57 +203,57 @@ export function TableToolbar<T extends object>({
     [onRefresh],
   );
 
-  // toolbar with add, edit, delete, filter/search column select.
   return (
-    <Toolbar className={classes.toolbar}>
-      <div className={styles['search']}>
-        <InputText
-          className={cx(isSearchStyle ? classes.searchInput : '', 'search-input')}
-          onChange={handleKeywordChange}
-          onKeyDown={handleKeywordKeyDown}
-          onBlur={handleKeywordBlur}
-          variant={'standard'}
-          value={searchKeyword || ''}
-          inputProps={{
-            placeholder: t('Search'),
-          }}
-        />
-        {searchKeyword && (
-          <IconButton className={classes.searchInputClear} onClick={handleDeleteSearchKeyword}>
-            <IconUploadClose />
-          </IconButton>
-        )}
-      </div>
-      <div className={classes.rightButtons}>
-        {/* <FilterPage<T> instance={instance} onClose={handleClose} show={filterOpen} anchorEl={anchorEl} /> */}
-        {!useServerPaging ? (
-          <>
-            <SmallIconActionButton<T>
-              icon={<IconTableFilterDefault />}
-              onClick={handleFilterClick}
-              label={t('Filter by columns')}
-              variant="right"
+    <ClassNames>
+      {({ cx, css }) => (
+        <MUIToolbar>
+          <div className={'input-wrap'}>
+            <Input
+              className={cx({ isSearchStyle }, 'search-input')}
+              onChange={handleKeywordChange}
+              onKeyDown={handleKeywordKeyDown}
+              onBlur={handleKeywordBlur}
+              value={searchKeyword || ''}
+              inputProps={{
+                placeholder: t('Search'),
+              }}
             />
-            <SmallIconActionButton<T>
-              icon={<IconCsvDownload />}
-              onClick={downloadCsv}
-              label={t('Export to CSV')}
-              variant="right"
-            />
-          </>
-        ) : null}
+            {searchKeyword && (
+              <IconButton className={'search-input-clear'} onClick={handleDeleteSearchKeyword}>
+                <IconUploadClose />
+              </IconButton>
+            )}
+          </div>
+          <div className={'right-buttons'}>
+            {!useServerPaging ? (
+              <>
+                <SmallIconActionButton<T>
+                  icon={<IconTableFilterDefault />}
+                  onClick={handleFilterClick}
+                  label={t('Filter by columns')}
+                  variant="right"
+                />
+                <SmallIconActionButton<T>
+                  icon={<IconCsvDownload />}
+                  onClick={downloadCSV}
+                  label={t('Export to CSV')}
+                  variant="right"
+                />
+              </>
+            ) : null}
 
-        {onRefresh && (
-          <SmallIconActionButton<T>
-            key={refreshKey}
-            icon={<IconTableRefresh />}
-            onClick={handleRefresh}
-            label={t('Refresh')}
-            variant="right"
-          />
-        )}
-        <ColumnHidePage<T> instance={instance} exclude={columnVisibleSettingExclude} />
-      </div>
-    </Toolbar>
+            {onRefresh && (
+              <SmallIconActionButton<T>
+                key={refreshKey}
+                icon={<IconTableRefresh />}
+                onClick={handleRefresh}
+                label={t('Refresh')}
+                variant="right"
+              />
+            )}
+          </div>
+        </MUIToolbar>
+      )}
+    </ClassNames>
   );
 }
