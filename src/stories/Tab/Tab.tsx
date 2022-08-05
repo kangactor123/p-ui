@@ -1,28 +1,55 @@
-import { TabProps as MUITabsProps, Tabs } from "@mui/material";
-import React, { ReactElement } from "react";
+import { Tabs as MUITabs, TabProps, TabsProps as MUITabsProps, Tab as MUITab } from '@mui/material';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 
-/**
- * 작업 필요
- */
+function a11yProps(index: any) {
+  return {
+    id: `tab-${index}`,
+    'aria-controls': `tabpanel-${index}`,
+  };
+}
 
-//  export type TabListProps = {
-//   path?: string;
-// } & TabProps;
+export type TabListProps = {
+  path?: string;
+} & TabProps;
 
 export type TabsProps = {
-  onChange?: (activeValue: string | number) => void;
-  // tabList: TabListProps[];
+  tabList: TabListProps[];
   activeValue?: string | number;
   delayTime?: number;
+  onChange?: (activeValue: string | number) => void;
+  handleClick: (tab: TabListProps) => void;
+  handleChange: (event: React.ChangeEvent<{}>, newValue: string) => void;
 } & MUITabsProps;
 
-export interface ITabProps extends MUITabsProps {}
+Tab.defaultProps = {
+  indicatorColor: 'primary',
+};
 
-function Tab(props: ITabProps): ReactElement {
+function Tab({
+  tabList,
+  activeValue,
+  delayTime,
+  onChange,
+  handleChange,
+  handleClick,
+  ...props
+}: TabsProps): ReactElement {
+  const defaultTabValue = useMemo(
+    () => (tabList.length ? (activeValue ? activeValue : tabList[0].value) : ''),
+    [tabList, activeValue],
+  );
+  const [value, setValue] = useState(defaultTabValue);
+
+  useEffect(() => {
+    setValue(activeValue);
+  }, [activeValue]);
+
   return (
-    <>
-      <Tabs></Tabs>
-    </>
+    <MUITabs value={value} onChange={handleChange} {...props}>
+      {tabList.map((tab) => (
+        <MUITab onClick={() => handleClick(tab)} key={tab.value} {...tab} {...a11yProps(tab.value)} />
+      ))}
+    </MUITabs>
   );
 }
 
