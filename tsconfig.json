@@ -16,14 +16,10 @@
     "noEmit": false,
     "jsx": "react-jsx",
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "jsxImportSource": "@emotion/react"
   },
   // "include": ["./src/lib/**/*.tsx", "./src/lib/**/*.ts"]
-  "include": [
-    "./src/stories/**/*.tsx",
-    "./src/stories/**/*.ts",
-    "src/index.ts",
-    "src/stories/index.js"
-  ],
+  "include": ["./src/stories/**/*.tsx", "./src/stories/**/*.ts", "src/index.ts", "src/stories/index.js"],
   "exclude": ["./src/stories/**/*.stories.tsx", "./src/stories/Template/**"]
 }
