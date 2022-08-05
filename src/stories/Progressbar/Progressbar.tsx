@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { ReactElement } from 'react';
 import { css } from '@emotion/react';
-import { Box, LinearProgress, makeStyles, Typography, styled as MUIStyled } from '@mui/material';
-// import LinearProgress from '@mui/material/LinearProgress';
-// import Box from '@mui/material/Box';
+import { Box, LinearProgress, Typography } from '@mui/material';
 // import { useTranslation } from 'react-i18next';
 
 export interface IProgressbarProps {
