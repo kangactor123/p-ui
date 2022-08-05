@@ -14,12 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "jsx": "react-jsx",
+    "jsx": "react",
+    "strictNullChecks": true,
     "declaration": true,
     "outDir": "./dist",
     "jsxImportSource": "@emotion/react"
   },
-  // "include": ["./src/lib/**/*.tsx", "./src/lib/**/*.ts"]
   "include": ["./src/stories/**/*.tsx", "./src/stories/**/*.ts", "src/index.ts", "src/stories/index.js"],
   "exclude": ["./src/stories/**/*.stories.tsx", "./src/stories/Template/**"]
 }

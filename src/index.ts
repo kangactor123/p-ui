@@ -4,4 +4,3 @@ export * from './stories/BlankLink';
 export * from './stories/Progressbar';
 
 //template
-export * from './stories/Template';

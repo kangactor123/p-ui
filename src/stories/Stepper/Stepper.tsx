@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode } from 'react';
 import {
   Orientation,
   StepConnector,
@@ -7,9 +7,9 @@ import {
   Stepper as MUIStepper,
   Step,
   StepLabel as MUIStepLabel,
-} from "@mui/material";
-import { IconStepperComplete } from "../../common/icons";
-import styled from "@emotion/styled";
+} from '@mui/material';
+// import { IconStepperComplete } from "../../common/icons";
+import styled from '@emotion/styled';
 
 /**
  * 작업 필요
@@ -38,14 +38,14 @@ const StepLabel = styled(MUIStepLabel)`
 `;
 
 const QontoConnector = MUIStyled(StepConnector)({
-  "& .MuiStepConnector-active": {
-    borderColor: "#4285f4",
+  '& .MuiStepConnector-active': {
+    borderColor: '#4285f4',
   },
-  "& .Mui-completed": {
-    borderColor: "#4285f4",
+  '& .Mui-completed': {
+    borderColor: '#4285f4',
   },
-  "& .MuiStepConnector-line": {
-    borderColor: "#bec5d3",
+  '& .MuiStepConnector-line': {
+    borderColor: '#bec5d3',
     borderTopWidth: 2,
   },
 });
@@ -54,7 +54,8 @@ function QontoStepIcon(props: StepIconProps, completedSet: Set<number>) {
   const { active, icon } = props;
 
   return completedSet.has((icon as number) - 1) ? (
-    <IconStepperComplete />
+    // <IconStepperComplete />
+    <></>
   ) : active ? (
     <ActiveBox>0{icon}</ActiveBox>
   ) : (
@@ -79,15 +80,11 @@ function Stepper({
   activeStep,
   completed,
   steps,
-  orientation = "vertical",
+  orientation = 'vertical',
   ...props
 }: IStepperProps): ReactElement {
   return (
-    <MUIStepper
-      connector={<QontoConnector />}
-      activeStep={activeStep}
-      orientation={orientation}
-    >
+    <MUIStepper connector={<QontoConnector />} activeStep={activeStep} orientation={orientation}>
       {steps.map(({ title, value }, index) => (
         <Step key={index}>
           <StepLabel
@@ -95,7 +92,7 @@ function Stepper({
             StepIconComponent={(props) => QontoStepIcon(props, completed)}
             onClick={handleStep(index)}
           >
-            {title || value + ""}
+            {title || value + ''}
           </StepLabel>
         </Step>
       ))}
