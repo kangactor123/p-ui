@@ -1,4 +1,4 @@
-import { ClassNames, css } from '@emotion/react';
+import { css, cx } from '@emotion/css';
 import { KeyboardArrowUp } from '@mui/icons-material';
 import { debounce, keyBy, mapValues } from 'lodash';
 import React, {
@@ -152,19 +152,15 @@ function TableCheckboxSelectCell({ row }: CellProps<any>) {
 
 function TableRadioSelectCell(instance: any, ...rest: any[]) {
   return (
-    <ClassNames>
-      {({ cx }) => (
-        <RowRadio
-          name="select-radio"
-          checked={instance.row.isSelected}
-          color="primary"
-          disabled={instance.selectDisabled(instance.row)}
-          onClick={toggleSelect(instance)}
-          checkedIcon={<span className={cx(['radioIcon', 'radioCheckedIcon'])} />}
-          icon={<span className={'radioIcon'} />}
-        />
-      )}
-    </ClassNames>
+    <RowRadio
+      name="select-radio"
+      checked={instance.row.isSelected}
+      color="primary"
+      disabled={instance.selectDisabled(instance.row)}
+      onClick={toggleSelect(instance)}
+      checkedIcon={<span className={cx(['radioIcon', 'radioCheckedIcon'])} />}
+      icon={<span className={'radioIcon'} />}
+    />
   );
 }
 
@@ -560,219 +556,209 @@ function Table<T extends object>(props: PropsWithChildren<ITable<T>>): ReactElem
 
   return (
     <>
-      <ClassNames>
-        {({ cx }) => (
-          <WrapBox useWrap={useWrap} className={'table-div'}>
-            {useToolbar ? (
-              <TableToolbar
-                downloadCSV={() => {}}
-                t={(key: string) => ''}
-                globalFilter={globalFilter}
-                setGlobalFilter={setGlobalFilter}
-                useColumnFilter={useColumnFilter}
-                setUseColumnFilter={setUseColumnFilter}
-                instance={instance}
-                isSearchStyle={isSearchStyle}
-                useServerPaging={useServerPaging}
-                {...{ onAdd, onDelete, onEdit, onRefresh, onSearchKeyword }}
-                columnVisibleSettingExclude={columnVisibleSettingExclude}
-              />
-            ) : null}
-            <div className={useToolbar || usePagination ? 'use-toolbar' : ''}>
-              <div className={'tableTable'} {...getTableProps()} {...props.tableDivProps}>
-                <div ref={headerContainer} className={'tableHead'}>
-                  {headerGroups.map((headerGroup, headerGroupIdx) => (
-                    <TableHeadRow
-                      {...headerGroup.getHeaderGroupProps()}
-                      className={headerGroups.length > 1 ? 'db-table-head-row' : ''}
-                      key={headerGroupIdx}
-                    >
-                      {headerGroup.headers.map((column, columnIdx) => {
-                        const _column = column as HeaderGroup<T> & {
-                          useColumnBorder?: boolean;
-                        };
-                        const style: any = {
-                          textAlign: column.align ? column.align : 'left ',
-                        };
-                        if (centerGroupColumn.length > -1) {
-                          const columnId = column.id.substring(0, column.id.lastIndexOf('_'));
-                          if (centerGroupColumn.indexOf(columnId) > -1) {
-                            style.width = '100%';
-                            style.textAlign = 'center';
-                          }
+      <WrapBox useWrap={useWrap} className={'table-div'}>
+        {useToolbar ? (
+          <TableToolbar
+            downloadCSV={() => {}}
+            t={(key: string) => ''}
+            globalFilter={globalFilter}
+            setGlobalFilter={setGlobalFilter}
+            useColumnFilter={useColumnFilter}
+            setUseColumnFilter={setUseColumnFilter}
+            instance={instance}
+            isSearchStyle={isSearchStyle}
+            useServerPaging={useServerPaging}
+            {...{ onAdd, onDelete, onEdit, onRefresh, onSearchKeyword }}
+            columnVisibleSettingExclude={columnVisibleSettingExclude}
+          />
+        ) : null}
+        <div className={useToolbar || usePagination ? 'use-toolbar' : ''}>
+          <div className={'tableTable'} {...getTableProps()} {...props.tableDivProps}>
+            <div ref={headerContainer} className={'tableHead'}>
+              {headerGroups.map((headerGroup, headerGroupIdx) => (
+                <TableHeadRow
+                  {...headerGroup.getHeaderGroupProps()}
+                  className={headerGroups.length > 1 ? 'db-table-head-row' : ''}
+                  key={headerGroupIdx}
+                >
+                  {headerGroup.headers.map((column, columnIdx) => {
+                    const _column = column as HeaderGroup<T> & {
+                      useColumnBorder?: boolean;
+                    };
+                    const style: any = {
+                      textAlign: column.align ? column.align : 'left ',
+                    };
+                    if (centerGroupColumn.length > -1) {
+                      const columnId = column.id.substring(0, column.id.lastIndexOf('_'));
+                      if (centerGroupColumn.indexOf(columnId) > -1) {
+                        style.width = '100%';
+                        style.textAlign = 'center';
+                      }
+                    }
+                    const tempHeaderGroup: any = {
+                      ...column.getHeaderProps(headerProps),
+                    };
+                    const parseProps = Object.keys(column.getHeaderProps(headerProps)).reduce(
+                      (acc: any, propKey: string) => {
+                        if (propKey !== 'style') {
+                          acc[propKey] = tempHeaderGroup[propKey];
                         }
-                        const tempHeaderGroup: any = {
-                          ...column.getHeaderProps(headerProps),
-                        };
-                        const parseProps = Object.keys(column.getHeaderProps(headerProps)).reduce(
-                          (acc: any, propKey: string) => {
-                            if (propKey !== 'style') {
-                              acc[propKey] = tempHeaderGroup[propKey];
-                            }
-                            return acc;
-                          },
-                          {},
-                        );
-                        let headerStyle = tempHeaderGroup.style;
-                        let isFixColumnBorder = false;
-                        if (groupColumnStartIndex.length > -1 && groupColumnStartIndex.indexOf(column.id) > -1) {
-                          if (columnIdx > 0) {
-                            isFixColumnBorder = true;
-                          }
-                          headerStyle = {
-                            ...headerStyle,
-                            height: '60px',
-                            marginTop: '-30px',
-                          };
-                        }
+                        return acc;
+                      },
+                      {},
+                    );
+                    let headerStyle = tempHeaderGroup.style;
+                    let isFixColumnBorder = false;
+                    if (groupColumnStartIndex.length > -1 && groupColumnStartIndex.indexOf(column.id) > -1) {
+                      if (columnIdx > 0) {
+                        isFixColumnBorder = true;
+                      }
+                      headerStyle = {
+                        ...headerStyle,
+                        height: '60px',
+                        marginTop: '-30px',
+                      };
+                    }
 
-                        if (
-                          cellBackgroundColorColumn.length > -1 &&
-                          cellBackgroundColorColumn.indexOf(column.id) > -1
-                        ) {
-                          headerStyle = {
-                            ...headerStyle,
-                            backgroundColor: '#f6f7f9',
-                          };
-                        }
+                    if (cellBackgroundColorColumn.length > -1 && cellBackgroundColorColumn.indexOf(column.id) > -1) {
+                      headerStyle = {
+                        ...headerStyle,
+                        backgroundColor: '#f6f7f9',
+                      };
+                    }
 
-                        return (
-                          <TableHeadCell
-                            {...parseProps}
-                            style={headerStyle}
-                            css={
-                              isFixColumnBorder &&
-                              css`
-                                position: relative;
-                                &::after {
-                                  content: '';
-                                  position: absolute;
-                                  top: 50%;
-                                  right: 0;
-                                  transform: translateY(-50%);
-                                  width: 1px;
-                                  height: 80%;
-                                  background: #ced5df;
-                                }
-                              `
-                            }
-                            className={'table__head--cell'}
-                            key={columnIdx}
-                          >
-                            {column.canSort ? (
-                              <TableSortLabelWrap useColumnBorder={_column.useColumnBorder as boolean}>
-                                <TableSortLabel
-                                  active={column.isSorted}
-                                  direction={column.isSortedDesc ? 'desc' : 'asc'}
-                                  {...column.getSortByToggleProps()}
-                                  style={style}
-                                >
-                                  {column.render('Header')}
-                                </TableSortLabel>
-                              </TableSortLabelWrap>
-                            ) : (
-                              <TableLabel style={style} align={column.align as string}>
-                                {column.render('Header')}
-                              </TableLabel>
-                            )}
-                            {useColumnFilter &&
-                              column.id !== '_selector' &&
-                              column.canFilter &&
-                              column.render('Filter')}
-                            {column.canResize && <ResizeHandle column={column} />}
-                          </TableHeadCell>
-                        );
-                      })}
-                    </TableHeadRow>
-                  ))}
-                </div>
-                <TableBody {...getTableBodyProps()}>
-                  {(totalCount ? rows : page).length ? (
-                    (totalCount ? rows : page).map((row, pageIdx) => {
-                      prepareRow(row);
-                      // const rowStatus = (row.original as any)['status'];
-                      // const statusClassName = isRowStatus ? getStatusClassName(rowStatus) : '';
-                      const disabledRow = selectDisabled(row);
-                      // const makeStyles = cx(classes.tableRow, { rowSelected: row.isSelected }, statusClassName);
-                      return (
-                        <Fragment key={pageIdx}>
-                          <div {...row.getRowProps()} className={'tableRow'}>
-                            {row.cells.map((cell, cellIdx) => {
-                              const cellPropObj: any = cell.getCellProps(cellProps);
-                              const disabledCell =
-                                disabledRow && !excludeDisabledColumns.includes((cell.render('id') as string) || '');
-                              // const cellStyle: any = cellPropObj.style;
-                              // cellStyle.alignItems = 'baseline';
-                              // cellStyle.paddingTop = '10px';
-                              // cellStyle.paddingBottom = '10px';
-
-                              return (
-                                <div
-                                  {...cellPropObj}
-                                  onClick={(e) => {
-                                    if (disabledRow) {
-                                      return;
-                                    }
-                                    cellClickHandler(cell, e);
-                                  }}
-                                  className={'tableCell'}
-                                  key={cellIdx}
-                                >
-                                  {cell.isGrouped ? (
-                                    <>
-                                      <TableSortLabel
-                                        classes={
-                                          row.isExpanded
-                                            ? { iconDirectionDesc: 'tranform: rotate(180deg)' }
-                                            : { iconDirectionAsc: 'transform: rotate(90deg)' }
-                                        }
-                                        active
-                                        direction={row.isExpanded ? 'desc' : 'asc'}
-                                        IconComponent={KeyboardArrowUp}
-                                        {...row.getToggleRowExpandedProps()}
-                                        className={'cellIcon'}
-                                      />
-                                      {cell.render('Cell')} ({row.subRows.length})
-                                    </>
-                                  ) : cell.isAggregated ? (
-                                    cell.render('Aggregated')
-                                  ) : cell.isPlaceholder ? null : (
-                                    cell.render('Cell')
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </div>
-                          {(row.isExpanded || allExpanded) && renderRowSubComponent instanceof Function && (
-                            <div className={'sub-component'}>{renderRowSubComponent(row)}</div>
-                          )}
-                        </Fragment>
-                      );
-                    })
-                  ) : (
-                    <NoDataDiv className={cx(!isSmallTable ? 'no-data' : 'small-table-no-data')}>
-                      {renderNoDataComponent()}
-                    </NoDataDiv>
-                  )}
-                </TableBody>
-              </div>
+                    return (
+                      <TableHeadCell
+                        {...parseProps}
+                        style={headerStyle}
+                        // css={
+                        //   isFixColumnBorder &&
+                        //   css`
+                        //     position: relative;
+                        //     &::after {
+                        //       content: '';
+                        //       position: absolute;
+                        //       top: 50%;
+                        //       right: 0;
+                        //       transform: translateY(-50%);
+                        //       width: 1px;
+                        //       height: 80%;
+                        //       background: #ced5df;
+                        //     }
+                        //   `
+                        // }
+                        className={'table__head--cell'}
+                        key={columnIdx}
+                      >
+                        {column.canSort ? (
+                          <TableSortLabelWrap useColumnBorder={_column.useColumnBorder as boolean}>
+                            <TableSortLabel
+                              active={column.isSorted}
+                              direction={column.isSortedDesc ? 'desc' : 'asc'}
+                              {...column.getSortByToggleProps()}
+                              style={style}
+                            >
+                              {column.render('Header')}
+                            </TableSortLabel>
+                          </TableSortLabelWrap>
+                        ) : (
+                          <TableLabel style={style} align={column.align as string}>
+                            {column.render('Header')}
+                          </TableLabel>
+                        )}
+                        {useColumnFilter && column.id !== '_selector' && column.canFilter && column.render('Filter')}
+                        {column.canResize && <ResizeHandle column={column} />}
+                      </TableHeadCell>
+                    );
+                  })}
+                </TableHeadRow>
+              ))}
             </div>
-            {usePagination ? (
-              <TableNumberPagination
-                instance={instance}
-                pageQueryEnabled={pageQueryEnabled}
-                isLeft={true}
-                isSubRowStyle={isSubRowStyle}
-                usePerPage={usePerPage}
-                totalCount={totalCount}
-                onChangePageInfo={onChangePageInfoHanlder}
-                onChangePage={onChangePageHandler}
-                useAll={useAll}
-              />
-            ) : null}
-          </WrapBox>
-        )}
-      </ClassNames>
+            <TableBody {...getTableBodyProps()}>
+              {(totalCount ? rows : page)?.length ? (
+                (totalCount ? rows : page)?.map((row, pageIdx) => {
+                  prepareRow(row);
+                  // const rowStatus = (row.original as any)['status'];
+                  // const statusClassName = isRowStatus ? getStatusClassName(rowStatus) : '';
+                  const disabledRow = selectDisabled(row);
+                  // const makeStyles = cx(classes.tableRow, { rowSelected: row.isSelected }, statusClassName);
+                  return (
+                    <Fragment key={pageIdx}>
+                      <div {...row.getRowProps()} className={'tableRow'}>
+                        {row.cells.map((cell, cellIdx) => {
+                          const cellPropObj: any = cell.getCellProps(cellProps);
+                          const disabledCell =
+                            disabledRow && !excludeDisabledColumns.includes((cell.render('id') as string) || '');
+                          // const cellStyle: any = cellPropObj.style;
+                          // cellStyle.alignItems = 'baseline';
+                          // cellStyle.paddingTop = '10px';
+                          // cellStyle.paddingBottom = '10px';
+
+                          return (
+                            <div
+                              {...cellPropObj}
+                              onClick={(e) => {
+                                if (disabledRow) {
+                                  return;
+                                }
+                                cellClickHandler(cell, e);
+                              }}
+                              className={'tableCell'}
+                              key={cellIdx}
+                            >
+                              {cell.isGrouped ? (
+                                <>
+                                  <TableSortLabel
+                                    classes={
+                                      row.isExpanded
+                                        ? { iconDirectionDesc: 'tranform: rotate(180deg)' }
+                                        : { iconDirectionAsc: 'transform: rotate(90deg)' }
+                                    }
+                                    active
+                                    direction={row.isExpanded ? 'desc' : 'asc'}
+                                    IconComponent={KeyboardArrowUp}
+                                    {...row.getToggleRowExpandedProps()}
+                                    className={'cellIcon'}
+                                  />
+                                  {cell.render('Cell')} ({row.subRows.length})
+                                </>
+                              ) : cell.isAggregated ? (
+                                cell.render('Aggregated')
+                              ) : cell.isPlaceholder ? null : (
+                                cell.render('Cell')
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      {(row.isExpanded || allExpanded) && renderRowSubComponent instanceof Function && (
+                        <div className={'sub-component'}>{renderRowSubComponent(row)}</div>
+                      )}
+                    </Fragment>
+                  );
+                })
+              ) : (
+                <NoDataDiv className={cx(!isSmallTable ? 'no-data' : 'small-table-no-data')}>
+                  {renderNoDataComponent()}
+                </NoDataDiv>
+              )}
+            </TableBody>
+          </div>
+        </div>
+        {usePagination ? (
+          <TableNumberPagination
+            instance={instance}
+            pageQueryEnabled={pageQueryEnabled}
+            isLeft={true}
+            isSubRowStyle={isSubRowStyle}
+            usePerPage={usePerPage}
+            totalCount={totalCount}
+            onChangePageInfo={onChangePageInfoHanlder}
+            onChangePage={onChangePageHandler}
+            useAll={useAll}
+          />
+        ) : null}
+      </WrapBox>
     </>
   );
 }

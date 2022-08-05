@@ -1,22 +1,18 @@
 {
   "name": "osci-playce-ui",
   "version": "0.1.2",
-  "private": false,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "browser": "./browser/specific/main.js",
+  "main": "index.ts",
   "dependencies": {
+    "@emotion/css": "^11.10.0",
     "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.9.3",
+    "@emotion/styled": "^11.10.0",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
-    "@types/classnames": "^2.3.1",
     "@types/node": "^16.11.44",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/react-router": "^5.1.18",
     "@types/react-router-dom": "^5.3.3",
-    "classnames": "^2.3.1",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -27,10 +23,10 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
     "prepare": "rm -rf dist && mkdir dist && tsc",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
@@ -79,6 +75,8 @@
     "jhLee"
   ],
   "devDependencies": {
+    "@craco/craco": "^6.4.5",
+    "@emotion/babel-preset-css-prop": "^11.10.0",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
     "@storybook/addon-interactions": "^6.5.9",
