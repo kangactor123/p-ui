@@ -8,6 +8,9 @@ export default {
   component: StoryProgressbar,
 } as ComponentMeta<typeof StoryProgressbar>;
 
-const Progressbar: Story<IProgressbarProps> = (args) => <StoryProgressbar {...args} />;
+const Progressbar: Story<IProgressbarProps> = (args) => {
+  const { value = 50, backgroundColor = '#c4c9d3', progressColor = '#4285f4' } = args;
+  return <StoryProgressbar {...args} value={value} progressColor={progressColor} backgroundColor={backgroundColor} />;
+};
 
 export const Basic = Progressbar.bind({});

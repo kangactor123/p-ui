@@ -8,8 +8,9 @@ export interface IProgressbarProps {
   //Todo: define props
   className?: string;
   value: number;
-  isWidgetProgress?: boolean;
   isLabel?: boolean;
+  progressColor?: string;
+  backgroundColor?: string;
 }
 
 const wrapper = css`
@@ -17,35 +18,35 @@ const wrapper = css`
   position: relative;
 `;
 
-const muiBox = css`
-  margin-right: '0px';
-`;
-
-const muiProgress = css`
-  border-radius: 4px;
-  height: 16px;
-`;
-
-const muiTypography = css`
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: bold;
-`;
-
-const widgetProgressLabelBox = css`
-  position: absolute;
-  left: 44%;
-`;
-
-const labelBox = css`
-  position: absolute;
-  left: 49%;
-  top: 1px;
-`;
-
 function Progressbar(props: IProgressbarProps): ReactElement {
   // const { t } = useTranslation();
-  const { className, value, isWidgetProgress, isLabel = true } = props;
+  const { className, value, isLabel = true, backgroundColor, progressColor } = props;
+
+  const muiBox = css`
+    margin-right: '0px';
+  `;
+
+  const muiProgress = css`
+    border-radius: 4px;
+    height: 16px;
+    background-color: ${backgroundColor};
+
+    & > span {
+      background-color: ${progressColor};
+    }
+  `;
+
+  const muiTypography = css`
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+  `;
+
+  const labelBox = css`
+    position: absolute;
+    left: 49%;
+    top: 1px;
+  `;
 
   return (
     <div css={wrapper} className={className}>
@@ -54,7 +55,7 @@ function Progressbar(props: IProgressbarProps): ReactElement {
           <LinearProgress variant="determinate" value={value} css={muiProgress} />
         </Box>
         {isLabel ? (
-          <Box css={isWidgetProgress ? widgetProgressLabelBox : labelBox} minWidth={35}>
+          <Box css={labelBox} minWidth={35}>
             <Typography css={muiTypography} variant="body2" color="textSecondary">
               {`${Math.round(value)}%`}
             </Typography>
