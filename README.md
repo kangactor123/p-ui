@@ -4,8 +4,11 @@
 
 ## 디자인 시스템 설치
 
+- NEXUS 반영 전
+
 ```
-yarn add ssh://git@github.com:OpenSourceConsulting/playce-ui.git
+// package.json 에 추가 후 yarn install
+"playce-ui": "ssh://git@github.com:OpenSourceConsulting/playce-ui.git#dev",
 ```
 
 ## script
