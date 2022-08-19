@@ -1,22 +1,12 @@
 # Playce-UI
 
-- Playce 제품 Frontend 개발에서 공통적으로 사용할 수 있는 UI 라이브러리
+- Playce 제품 Frontend 개발에서 공통적으로 사용할 수 있는 디자인 시스템
 
-## Package.json (추가 설치된 라이브러리)
-
-- @emotion/react @emotion/styled : emotion 을 통한 작업을 위해 설치
-- @mui/icons-material @mui/material : Common UI Component
-- @types/react-router-dom @types/react-router react-router-dom : BlankLink 를 위해서 설치
-- react-loading : spinner
-- react-table
+## 디자인 시스템 설치
 
 ```
-npm i react-table
-npm i --save-dev @types/react-table
+yarn add ssh://git@github.com:OpenSourceConsulting/playce-ui.git
 ```
-
-- storybook
-- lodash
 
 ## script
 
@@ -24,4 +14,16 @@ npm i --save-dev @types/react-table
 
 ```
 npm run storybook
+```
+
+- 컴포넌트 작업 후 빌드 (build 스크립트가 아닌 yarn install 스크립트를 활용)
+
+```
+yarn install
+```
+
+- dist 폴더 삭제 후 생성
+
+```
+npm run prepare
 ```
