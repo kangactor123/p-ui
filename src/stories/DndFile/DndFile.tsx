@@ -42,7 +42,8 @@ function DndFile({ onDrop: onDropProp, children }: IDndFileProps): ReactElement 
   );
 
   return (
-    <Wrapper onDrop={onDrop} onDragOver={dragOverHandler}>
+    // <Wrapper onDrop={onDrop} onDragOver={dragOverHandler}>
+    <Wrapper>
       {children}
     </Wrapper>
   );

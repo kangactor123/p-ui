@@ -9,7 +9,6 @@ export { default as Spinner } from './stories/Spinner';
 export { default as Stepper } from './stories/Stepper';
 export { default as Tab } from './stories/Tab';
 export { default as Tooltip } from './stories/Tooltip';
-
 export * from './stories/Accordion';
 export * from './stories/AntSwitch';
 export * from './stories/BlankLink';
