@@ -1,6 +1,6 @@
-import React, { ReactElement } from "react";
-import ReactLoading from "react-loading";
-import styled from "@emotion/styled";
+import React, { ReactElement } from 'react';
+import ReactLoading from 'react-loading';
+import styled from '@emotion/styled';
 
 /**
  * Spinner Component
@@ -14,15 +14,15 @@ export enum SpinnerSize {
 }
 
 export enum SpinnerType {
-  blank = "blank",
-  balls = "balls",
-  bars = "bars",
-  bubbles = "bubbles",
-  cubes = "cubes",
-  cylon = "cylon",
-  spin = "spin",
-  spinningBubbles = "spinningBubbles",
-  spokes = "spokes",
+  blank = 'blank',
+  balls = 'balls',
+  bars = 'bars',
+  bubbles = 'bubbles',
+  cubes = 'cubes',
+  cylon = 'cylon',
+  spin = 'spin',
+  spinningBubbles = 'spinningBubbles',
+  spokes = 'spokes',
 }
 
 export interface ISpinnerProps {
@@ -65,28 +65,30 @@ const Loading = styled(ReactLoading)`
 function Spinner(props: ISpinnerProps): ReactElement {
   const {
     loading = true,
+
     width = 0,
     height = 0,
     size = SpinnerSize.large,
-    className = "",
+
+    className = '',
   } = props;
 
-  const loadingProps =
+  const { color = 'black', type = SpinnerType.bars, ...otherProps } = props;
+
+  const widthHeight =
     width && height
       ? {
-          ...props,
           width,
           height,
         }
       : {
-          ...props,
           width: size,
           height: size,
         };
 
   return loading ? (
     <Wrapper className={className}>
-      <Loading key={Math.random()} {...loadingProps} />
+      <Loading key={Math.random()} color={color} type={type} {...widthHeight} {...otherProps} />
     </Wrapper>
   ) : (
     <></>
