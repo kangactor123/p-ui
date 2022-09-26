@@ -1,12 +1,9 @@
 import React, { ReactElement, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import Button from '../Button';
 import { IconTogCollapseGray, IconTogExpandGray } from '../icons';
 import { IAccordionAction } from './type';
 
-function AccordionAction<T>({ expanded, setExpanded }: IAccordionAction<T>): ReactElement {
-  const { t } = useTranslation();
-
+function AccordionAction<T>({ expanded, setExpanded, isEng }: IAccordionAction<T>): ReactElement {
   const isAllCollapsed = useCallback(() => {
     return expanded && !Object.keys(expanded).some((key) => expanded[key as keyof T]);
   }, [expanded]);
@@ -23,7 +20,10 @@ function AccordionAction<T>({ expanded, setExpanded }: IAccordionAction<T>): Rea
     }
   }, [expanded, isAllCollapsed, setExpanded]);
 
-  const label = useMemo(() => (isAllCollapsed() ? t('Expand All') : t('Collapse All')), [isAllCollapsed, t]);
+  const label = useMemo(
+    () => (isAllCollapsed() ? (isEng ? 'Expand All' : '전체 확장') : isEng ? 'Collapse All' : '전체 축소'),
+    [isAllCollapsed, isEng],
+  );
 
   const icon = useMemo(() => (isAllCollapsed() ? <IconTogExpandGray /> : <IconTogCollapseGray />), [isAllCollapsed]);
 
