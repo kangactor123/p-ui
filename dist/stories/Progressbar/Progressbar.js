@@ -18,7 +18,6 @@ import { css } from '@emotion/react';
 import { Box, LinearProgress, Typography } from '@mui/material';
 var wrapper = css(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  width: 100%;\n  position: relative;\n"], ["\n  width: 100%;\n  position: relative;\n"])));
 function Progressbar(props) {
-    // const { t } = useTranslation();
     var className = props.className, value = props.value, _a = props.isLabel, isLabel = _a === void 0 ? true : _a, backgroundColor = props.backgroundColor, progressColor = props.progressColor;
     var muiBox = css(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    margin-right: '0px';\n  "], ["\n    margin-right: '0px';\n  "])));
     var muiProgress = css(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    border-radius: 4px;\n    height: 16px;\n    background-color: ", ";\n\n    & > span {\n      background-color: ", ";\n    }\n  "], ["\n    border-radius: 4px;\n    height: 16px;\n    background-color: ", ";\n\n    & > span {\n      background-color: ", ";\n    }\n  "])), backgroundColor, progressColor);

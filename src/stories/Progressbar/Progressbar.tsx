@@ -19,7 +19,6 @@ const wrapper = css`
 `;
 
 function Progressbar(props: IProgressbarProps): ReactElement {
-  // const { t } = useTranslation();
   const { className, value, isLabel = true, backgroundColor, progressColor } = props;
 
   const muiBox = css`

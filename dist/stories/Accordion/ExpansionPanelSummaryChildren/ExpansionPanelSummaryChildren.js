@@ -20,16 +20,11 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { Fragment as _Fragment, jsx as _jsx } from "@emotion/react/jsx-runtime";
-import { Tooltip } from '@mui/material';
-function getIconSizeStyle(size) {
-    if (size === void 0) { size = 18; }
-    var width = typeof size === 'number' ? "".concat(size, "px") : size;
-    return { width: width, height: width };
+import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
+import { AccordionSummary as ExpansionPanelSummary, } from '@mui/material';
+import { ArrowWrap } from '../Accordion.style';
+function ExpansionPanelSummaryChildren(_a) {
+    var expanded = _a.expanded, children = _a.children, useEdgeEndIcon = _a.useEdgeEndIcon, useEdgeStartIcon = _a.useEdgeStartIcon, useEndIcon = _a.useEndIcon, expandIcon = _a.expandIcon, props = __rest(_a, ["expanded", "children", "useEdgeEndIcon", "useEdgeStartIcon", "useEndIcon", "expandIcon"]);
+    return (_jsxs(ExpansionPanelSummary, __assign({ expandIcon: useEdgeEndIcon ? expandIcon : undefined }, props, { children: [useEdgeStartIcon ? _jsx(ArrowWrap, {}) : null, children, useEndIcon ? (_jsx(ArrowWrap, {})) : null] })));
 }
-function GuideTooltip(_a) {
-    var size = _a.size, tooltipProps = __rest(_a, ["size"]);
-    var _b = tooltipProps.iconProps || {}, style = _b.style, iconProps = __rest(_b, ["style"]);
-    return (_jsx(Tooltip, __assign({}, tooltipProps, { children: _jsx(_Fragment, {}) })));
-}
-export default GuideTooltip;
+export default ExpansionPanelSummaryChildren;
