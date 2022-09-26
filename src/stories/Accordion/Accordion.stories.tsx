@@ -1,13 +1,24 @@
 import React from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
-import StoryAccordion, { IAccordionProps } from './Accordion';
+import Accordion from './Accordion';
+import { IAccordionProps } from './type';
 
 export default {
   title: 'Component/Accordion',
-  component: StoryAccordion,
-} as ComponentMeta<typeof StoryAccordion>;
+  component: Accordion,
+} as ComponentMeta<typeof Accordion>;
 
-const Accordion: Story<IAccordionProps> = (args) => <StoryAccordion {...args} />;
+const StoryAccordion: Story<IAccordionProps> = (args) => {
+  return (
+    <Accordion
+      {...args}
+      name={'아코디언'}
+      expanded={true}
+      onChange={() => {}}
+      summaryProps={{ children: <div>props</div> }}
+    />
+  );
+};
 
-export const Basic = Accordion.bind({});
+export const Basic = StoryAccordion.bind({});

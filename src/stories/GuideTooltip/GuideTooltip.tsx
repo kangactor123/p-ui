@@ -14,10 +14,10 @@ function getIconSizeStyle(size: IGuideTooltipProps['size'] = 18): Record<'width'
 function GuideTooltip({ size, ...tooltipProps }: IGuideTooltipProps): ReactElement {
   const { style, ...iconProps } = tooltipProps.iconProps || {};
   return (
-    // <Tooltip {...tooltipProps}>
-    //   <IconInfo style={{ ...getIconSizeStyle(size), ...style }} {...iconProps} />
-    // </Tooltip>
-    <></>
+    <Tooltip {...tooltipProps}>
+      <></>
+      {/* <IconInfo style={{ ...getIconSizeStyle(size), ...style }} {...iconProps} /> */}
+    </Tooltip>
   );
 }
 

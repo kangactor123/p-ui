@@ -15,8 +15,7 @@
     "isolatedModules": true,
     "noEmit": false,
     "jsx": "react-jsx",
-    "strictNullChecks": true,
-    "declaration": true,
+    // "declaration": true,
     "outDir": "./dist",
     "jsxImportSource": "@emotion/react"
   },

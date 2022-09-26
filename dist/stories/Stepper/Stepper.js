@@ -28,6 +28,7 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "@emotion/reac
 import { StepConnector, styled as MUIStyled, Stepper as MUIStepper, Step, StepLabel as MUIStepLabel, } from '@mui/material';
 // import { IconStepperComplete } from "../../common/icons";
 import styled from '@emotion/styled';
+import { createTheme, ThemeProvider } from '@mui/system';
 /**
  * 작업 필요
  */
@@ -47,6 +48,23 @@ var QontoConnector = MUIStyled(StepConnector)({
         borderTopWidth: 2,
     },
 });
+var stepperTheme = createTheme({
+    components: {
+        MUIStepper: {
+            StepConnector: {
+                vertical: {
+                    marginLeft: '9px',
+                    margin: '-2px 0px -3px 0px',
+                    padding: '0px',
+                },
+                lineVertical: {
+                    minHeight: '35px',
+                    borderLeftWidth: '2px',
+                },
+            },
+        },
+    },
+});
 function QontoStepIcon(props, completedSet) {
     var active = props.active, icon = props.icon;
     return completedSet.has(icon - 1) ? (
@@ -55,14 +73,14 @@ function QontoStepIcon(props, completedSet) {
 }
 function Stepper(_a) {
     var handleStep = _a.handleStep, activeStep = _a.activeStep, completed = _a.completed, steps = _a.steps, _b = _a.orientation, orientation = _b === void 0 ? 'vertical' : _b, props = __rest(_a, ["handleStep", "activeStep", "completed", "steps", "orientation"]);
-    return (_jsx(MUIStepper, __assign({ connector: _jsx(QontoConnector, {}), activeStep: activeStep, orientation: orientation }, { children: steps.map(function (_a, index) {
-            var title = _a.title, value = _a.value;
-            return (_jsx(Step, { children: _jsx(StepLabel
-                // disabled={disabled}
-                , __assign({ 
+    return (_jsx(ThemeProvider, __assign({ theme: stepperTheme }, { children: _jsx(MUIStepper, __assign({ connector: _jsx(QontoConnector, {}), activeStep: activeStep, orientation: orientation }, { children: steps.map(function (_a, index) {
+                var title = _a.title, value = _a.value;
+                return (_jsx(Step, { children: _jsx(StepLabel
                     // disabled={disabled}
-                    StepIconComponent: function (props) { return QontoStepIcon(props, completed); }, onClick: handleStep(index) }, { children: title || value + '' })) }, index));
-        }) })));
+                    , __assign({ 
+                        // disabled={disabled}
+                        StepIconComponent: function (props) { return QontoStepIcon(props, completed); }, onClick: handleStep(index) }, { children: title || value + '' })) }, index));
+            }) })) })));
 }
 export default Stepper;
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4;

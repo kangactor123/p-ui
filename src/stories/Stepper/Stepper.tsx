@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 // import { IconStepperComplete } from "../../common/icons";
 import styled from '@emotion/styled';
+import { createTheme, ThemeProvider } from '@mui/system';
 
 /**
  * 작업 필요
@@ -50,6 +51,24 @@ const QontoConnector = MUIStyled(StepConnector)({
   },
 });
 
+const stepperTheme = createTheme({
+  components: {
+    MUIStepper: {
+      StepConnector: {
+        vertical: {
+          marginLeft: '9px',
+          margin: '-2px 0px -3px 0px',
+          padding: '0px',
+        },
+        lineVertical: {
+          minHeight: '35px',
+          borderLeftWidth: '2px',
+        },
+      },
+    },
+  },
+});
+
 function QontoStepIcon(props: StepIconProps, completedSet: Set<number>) {
   const { active, icon } = props;
 
@@ -84,19 +103,21 @@ function Stepper({
   ...props
 }: IStepperProps): ReactElement {
   return (
-    <MUIStepper connector={<QontoConnector />} activeStep={activeStep} orientation={orientation}>
-      {steps.map(({ title, value }, index) => (
-        <Step key={index}>
-          <StepLabel
-            // disabled={disabled}
-            StepIconComponent={(props) => QontoStepIcon(props, completed)}
-            onClick={handleStep(index)}
-          >
-            {title || value + ''}
-          </StepLabel>
-        </Step>
-      ))}
-    </MUIStepper>
+    <ThemeProvider theme={stepperTheme}>
+      <MUIStepper connector={<QontoConnector />} activeStep={activeStep} orientation={orientation}>
+        {steps.map(({ title, value }, index) => (
+          <Step key={index}>
+            <StepLabel
+              // disabled={disabled}
+              StepIconComponent={(props) => QontoStepIcon(props, completed)}
+              onClick={handleStep(index)}
+            >
+              {title || value + ''}
+            </StepLabel>
+          </Step>
+        ))}
+      </MUIStepper>
+    </ThemeProvider>
   );
 }
 

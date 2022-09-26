@@ -1,55 +1,31 @@
-import React, { ReactElement, useMemo } from "react";
-import { Link as RouterLink, LinkProps } from "react-router-dom";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import styled from "@emotion/styled";
+import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
+import LaunchIcon from '@mui/icons-material/Launch';
+import { css } from '@emotion/react';
+import { IBlankLinkProps } from './type';
 
-// }
-
-/**
- * Link 태그는 Router 안에서만 활성화 됩니다.
- * Storybook 에서 작성하면
- * useHref() may be used only in the context of a <Router> component.
- * 해당 에러가 나옵니다.
- */
-
-export interface IBlankLinkProps extends LinkProps {
-  text: string;
-  isLeftIcon?: boolean;
-}
-
-const Link = styled(RouterLink)`
-  vertical-align: middle;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const Icon = styled(OpenInNewIcon)<{ isLeftIcon: boolean }>`
-  margin-left: ${(props) => !props.isLeftIcon && "5px"};
-  margin-right: ${(props) => props.isLeftIcon && "5px"};
-  vertical-align: middle;
-`;
-
-function BlankLink(props: IBlankLinkProps): ReactElement {
-  const { to, text, isLeftIcon = false } = props;
-  const LinkIcon = useMemo(
-    () => () => <Icon isLeftIcon={isLeftIcon} fontSize="small" />,
-    [isLeftIcon]
-  );
+function BlankLink({ children, isForwardIcon = false, ...props }: IBlankLinkProps): ReactElement {
   return (
-    <Link to={to} target="_blank">
-      {isLeftIcon ? (
-        <>
-          <LinkIcon />
-          {text}
-        </>
-      ) : (
-        <>
-          {text}
-          <LinkIcon />
-        </>
-      )}
+    <Link
+      css={css`
+        display: flex;
+        color: #4285f4;
+        align-items: center;
+        flex-direction: ${isForwardIcon ? 'row-reverse' : 'row'};
+        margin-left: ${isForwardIcon ? '0px' : '5px'};
+        margin-right: ${isForwardIcon ? '5px' : '0px'};
+      `}
+      target="_blank"
+      {...props}
+    >
+      {children}
+      <LaunchIcon
+        fontSize="small"
+        css={css`
+          margin-left: ${isForwardIcon ? '0px' : '5px'};
+          margin-right: ${isForwardIcon ? '5px' : '0px'};
+        `}
+      />
     </Link>
   );
 }
