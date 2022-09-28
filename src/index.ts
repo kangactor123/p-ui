@@ -27,3 +27,6 @@ export * from './stories/Spinner';
 export * from './stories/Stepper';
 export * from './stories/Tab';
 export * from './stories/Tooltip';
+
+// Icons
+export * from './stories/icons';
