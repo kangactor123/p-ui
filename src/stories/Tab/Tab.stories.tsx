@@ -14,11 +14,11 @@ const Template: Story<TabsProps> = (args) => {
     setActiveValue(newValue);
   };
   const handleClick = (tab: TabListProps) => {};
-  const [activeValue, setActiveValue] = useState('gd');
+  const [activeValue, setActiveValue] = useState('overview');
 
   const [tabsProps, setTabsProps] = useState([
     {
-      label: 'Details',
+      label: 'overview',
       value: 'overview',
     },
     {
@@ -39,15 +39,18 @@ const Template: Story<TabsProps> = (args) => {
     },
   ]);
   return (
-    <Tab
-      {...args}
-      activeValue={activeValue}
-      handleChange={handleChange}
-      handleClick={handleClick}
-      onClick={() => {}}
-      textColor="primary"
-      tabList={tabsProps}
-    />
+    <div>
+      <Tab
+        {...args}
+        value={activeValue}
+        activeValue={activeValue}
+        handleChange={handleChange}
+        handleClick={handleClick}
+        onClick={() => {}}
+        textColor="primary"
+        tabList={tabsProps}
+      />
+    </div>
   );
 };
 

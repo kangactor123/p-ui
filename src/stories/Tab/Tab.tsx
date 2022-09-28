@@ -1,5 +1,6 @@
-import { Tabs as MUITabs, TabProps, TabsProps as MUITabsProps, Tab as MUITab } from '@mui/material';
+import { Tabs as MUITabs, TabProps, TabsProps as MUITabsProps, Tab as MUITab, ThemeProvider } from '@mui/material';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { tabsTheme } from './Tab.style';
 
 function a11yProps(index: any) {
   return {
@@ -45,11 +46,13 @@ function Tab({
   }, [activeValue]);
 
   return (
-    <MUITabs value={value} onChange={handleChange} {...props}>
-      {tabList.map((tab) => (
-        <MUITab onClick={() => handleClick(tab)} key={tab.value} {...tab} {...a11yProps(tab.value)} />
-      ))}
-    </MUITabs>
+    <ThemeProvider theme={tabsTheme}>
+      <MUITabs value={value} onChange={handleChange} {...props}>
+        {tabList.map((tab) => (
+          <MUITab onClick={() => handleClick(tab)} key={tab.value} {...tab} {...a11yProps(tab.value)} />
+        ))}
+      </MUITabs>
+    </ThemeProvider>
   );
 }
 
