@@ -10,23 +10,22 @@ export interface IOptionsType {
 
 export interface IDropdownProps {
   options: IOptionsType[];
-  hasArrowIcon?: boolean;
+  title?: string | ReactElement;
+  tooltip?: string;
+  isIconButton?: boolean;
+  iconButtonProps?: IconButtonProps;
   buttonProps?: ButtonProps;
   onClickOption?: (key: string, id?: number) => void;
-  title?: string | ReactElement;
-  isIconButton?: boolean;
-  tooltip?: string;
-  iconButtonProps?: IconButtonProps;
 }
 
 function Dropdown({
   options,
-  onClickOption,
-  buttonProps,
   title = '',
-  isIconButton = false,
   tooltip = '',
+  isIconButton = false,
   iconButtonProps,
+  buttonProps,
+  onClickOption,
 }: IDropdownProps): ReactElement {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isOpen = Boolean(anchorEl);
