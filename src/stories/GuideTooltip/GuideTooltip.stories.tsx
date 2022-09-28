@@ -8,6 +8,6 @@ export default {
   component: StoryGuideTooltip,
 } as ComponentMeta<typeof StoryGuideTooltip>;
 
-const GuideTooltip: Story<IGuideTooltipProps> = (args) => <StoryGuideTooltip {...args} />;
+const GuideTooltip: Story<IGuideTooltipProps> = (args) => <StoryGuideTooltip {...args} title={'Title'} />;
 
 export const Basic = GuideTooltip.bind({});

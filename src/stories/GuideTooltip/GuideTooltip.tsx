@@ -1,5 +1,6 @@
 import { Tooltip, TooltipProps } from '@mui/material';
 import React, { ReactElement } from 'react';
+import { IconInfo } from '../icons';
 
 export interface IGuideTooltipProps extends Omit<TooltipProps, 'children'> {
   size?: number | string;
@@ -15,8 +16,7 @@ function GuideTooltip({ size, ...tooltipProps }: IGuideTooltipProps): ReactEleme
   const { style, ...iconProps } = tooltipProps.iconProps || {};
   return (
     <Tooltip {...tooltipProps}>
-      <></>
-      {/* <IconInfo style={{ ...getIconSizeStyle(size), ...style }} {...iconProps} /> */}
+      <IconInfo style={{ ...getIconSizeStyle(size), ...style }} {...iconProps} />
     </Tooltip>
   );
 }

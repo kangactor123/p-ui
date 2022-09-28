@@ -9,6 +9,10 @@ export default {
   component: Tooltip,
 } as ComponentMeta<typeof Tooltip>;
 
-const Template: Story<TooltipProps> = (args) => <Tooltip {...args} />;
+const TooltipTemplate: Story<TooltipProps> = (args) => (
+  <Tooltip {...args} title={'test'} arrow>
+    <span>test</span>
+  </Tooltip>
+);
 
-export const Basic = Template.bind({});
+export const Basic = TooltipTemplate.bind({});
