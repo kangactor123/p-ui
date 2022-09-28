@@ -1,28 +1,50 @@
-import React from "react";
-import Button, { ButtonProps } from "./Button";
-
-import { ComponentMeta, Story } from "@storybook/react";
+import React, { useCallback, useMemo, useState } from 'react';
+import Button, { ButtonProps } from './Button';
+import { ComponentMeta, Story } from '@storybook/react';
+import { Input } from '@mui/material';
+import { isEmpty } from 'lodash';
 
 export default {
-  title: "Component/Button",
+  title: 'Component/Button',
   component: Button,
 } as ComponentMeta<typeof Button>;
 
-const firstTemplete: Story<ButtonProps> = (args) => {
-  const { text = "first" } = args;
+const FirstTemplete: Story<ButtonProps> = (args) => {
+  const { text = 'first' } = args;
   return <Button {...args} text={text} />;
 };
 
-const secondTemplete: Story<ButtonProps> = (args) => {
-  const { text = "second" } = args;
-  return <Button {...args} text={text} />;
+const SecondTemplete: Story<ButtonProps> = (args) => {
+  const { text = 'second' } = args;
+  const [value, setValue] = useState('');
+  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = event;
+    setValue(value);
+  }, []);
+
+  const validation = useMemo(() => {
+    return isEmpty(value) && true;
+  }, [value]);
+
+  return (
+    <div>
+      <div>
+        <Input type="text" value={value} onChange={handleChange} />
+      </div>
+      <br />
+      <Button
+        {...args}
+        text={text}
+        disabled={validation}
+        color="primary"
+        variant="contained"
+        onClick={() => alert('띠용')}
+      />
+    </div>
+  );
 };
 
-const thirdTemplete: Story<ButtonProps> = (args) => {
-  const { text = "third" } = args;
-  return <Button {...args} text={text} />;
-};
-
-export const First = firstTemplete.bind({});
-export const Second = secondTemplete.bind({});
-export const Third = thirdTemplete.bind({});
+export const First = FirstTemplete.bind({});
+export const DisableButton = SecondTemplete.bind({});
