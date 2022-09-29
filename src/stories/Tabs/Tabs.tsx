@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback } from 'react';
-import { Tabs as MuiTabs, Tab as MuiTab, TabsProps, TabProps, ThemeProvider } from '@mui/material';
+import { Tabs as MuiTabs, Tab as MuiTab, TabsProps, TabProps } from '@mui/material';
 import styled from '@emotion/styled';
-import { tabsTheme } from './Tabs.style';
 
 export interface ITabListProps extends TabProps {
   path?: string;
@@ -26,13 +25,11 @@ function Tabs({ tabList, value, onChange, ...props }: ITabsProps): ReactElement 
   );
 
   return (
-    // <ThemeProvider theme={tabsTheme}>
     <MuiTabs value={value} onChange={handleChange} {...props}>
       {tabList.map((tab) => (
         <Tab key={tab.value} {...tab} />
       ))}
     </MuiTabs>
-    // </ThemeProvider>
   );
 }
 
