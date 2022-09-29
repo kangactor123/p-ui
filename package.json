@@ -30,7 +30,8 @@
     "start": "craco start",
     "test": "craco test",
     "eject": "craco eject",
-    "prepare": "rm -rf dist && mkdir dist && tsc",
+    "build": "yarn prepare",
+    "prepare": "rm -rf dist && mkdir dist && tsc && copyfiles -f src/stories/icons/svg/*.svg dist/stories/icons/svg/",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -94,6 +95,7 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/react-table": "^7.0.28",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "dotenv-webpack": "^8.0.0",
     "prop-types": "^15.8.1",
