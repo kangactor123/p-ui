@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React, { ReactElement } from 'react';
 import { css } from '@emotion/react';
 import { Box, LinearProgress, Typography } from '@mui/material';
