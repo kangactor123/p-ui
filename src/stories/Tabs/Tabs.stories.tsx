@@ -32,7 +32,7 @@ const tabList = [
 ];
 
 const Template: Story<ITabsProps> = (args) => {
-  const [activeTab, setActiveTab] = useState(() => tabList[0].value);
+  const [activeTab, setActiveTab] = useState(tabList[0].value);
   const handleChange = useCallback((event: React.SyntheticEvent, value: string) => {
     setActiveTab(value);
   }, []);
