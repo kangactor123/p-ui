@@ -18,9 +18,10 @@ export interface IDefinitionListProps {
   //Todo: define props
   value: IDefinitionValue[];
   type?: TDefinitionType;
+  isEng: boolean;
 }
 
-function DefinitionList({ value, type = 'multi' }: IDefinitionListProps): ReactElement {
+function DefinitionList({ value, type = 'multi', isEng }: IDefinitionListProps): ReactElement {
   return (
     <Dl>
       {value?.map(({ title, description, style, copyProps }, index) => (
@@ -29,7 +30,7 @@ function DefinitionList({ value, type = 'multi' }: IDefinitionListProps): ReactE
           <Dd>
             {description}
             {!copyProps?.disabled && description && (
-              <Clipboard title={title} value={(copyProps?.value || description) as string} isEng={true} />
+              <Clipboard title={title} value={(copyProps?.value || description) as string} isEng={isEng} />
             )}
           </Dd>
         </ItemWrap>
