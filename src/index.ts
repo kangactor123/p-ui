@@ -10,7 +10,7 @@ export { default as Paper } from './stories/Paper';
 export { default as Progressbar } from './stories/Progressbar';
 export { default as Spinner } from './stories/Spinner';
 export { default as Stepper } from './stories/Stepper';
-export { default as Tab } from './stories/Tab';
+export { default as Tabs } from './stories/Tabs';
 export { default as Tooltip } from './stories/Tooltip';
 
 export * from './stories/Accordion';
@@ -25,7 +25,7 @@ export * from './stories/Paper';
 export * from './stories/Progressbar';
 export * from './stories/Spinner';
 export * from './stories/Stepper';
-export * from './stories/Tab';
+export * from './stories/Tabs';
 export * from './stories/Tooltip';
 
 // Icons
