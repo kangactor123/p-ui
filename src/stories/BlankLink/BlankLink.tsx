@@ -14,6 +14,7 @@ function BlankLink({ children, isForwardIcon = false, ...props }: IBlankLinkProp
         flex-direction: ${isForwardIcon ? 'row-reverse' : 'row'};
         margin-left: ${isForwardIcon ? '0px' : '5px'};
         margin-right: ${isForwardIcon ? '5px' : '0px'};
+        text-decoration: none;
       `}
       target="_blank"
       {...props}
