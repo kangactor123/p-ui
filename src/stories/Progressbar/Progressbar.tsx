@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { css } from '@emotion/react';
 import { Box, LinearProgress, Typography } from '@mui/material';
-// import { useTranslation } from 'react-i18next';
 
 export interface IProgressbarProps {
   //Todo: define props
