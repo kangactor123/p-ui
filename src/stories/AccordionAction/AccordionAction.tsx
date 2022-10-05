@@ -3,6 +3,11 @@ import Button from '../Button';
 import { IconTogCollapseGray, IconTogExpandGray } from '../icons';
 import { IAccordionAction } from './type';
 
+/**
+ * 다국어 처리 임시
+ * isEng props 를 통해서 영한 번역
+ * Provider 를 통해서 t 함수를 구독해서 사용할 예정
+ */
 function AccordionAction<T>({ expanded, setExpanded, isEng }: IAccordionAction<T>): ReactElement {
   const isAllCollapsed = useCallback(() => {
     return expanded && !Object.keys(expanded).some((key) => expanded[key as keyof T]);
@@ -27,7 +32,11 @@ function AccordionAction<T>({ expanded, setExpanded, isEng }: IAccordionAction<T
 
   const icon = useMemo(() => (isAllCollapsed() ? <IconTogExpandGray /> : <IconTogCollapseGray />), [isAllCollapsed]);
 
-  return <Button variant="text" onClick={handleClick} endIcon={icon} text={label} />;
+  return (
+    <Button variant="text" onClick={handleClick} endIcon={icon}>
+      {label}
+    </Button>
+  );
 }
 
 export default AccordionAction;

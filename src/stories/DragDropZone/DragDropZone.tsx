@@ -88,13 +88,9 @@ function DragDropZone({
           <div>Drag and drop file here</div>
           <div>or</div>
         </TextArea>
-        <Button
-          css={addFileBtn}
-          variant={'contained'}
-          onClick={openFinder}
-          disabled={Boolean(isExistFile)}
-          text={'Add File'}
-        />
+        <Button css={addFileBtn} variant={'contained'} onClick={openFinder} disabled={Boolean(isExistFile)}>
+          Add File
+        </Button>
       </DropZone>
       {isExistFile ? (
         <SelectedFile>
