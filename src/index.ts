@@ -38,3 +38,6 @@ export * from './stories/Dropdown';
 
 // Icons
 export * from './stories/icons';
+
+// Providers
+export * from './providers';

@@ -1,15 +1,16 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react';
 import { IconButton as MuiIconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import copy from 'copy-to-clipboard';
 import styled from '@emotion/styled';
 import { IconCopy } from '../icons';
+import { usePlayceTranslation } from '../../providers/Translation/usePlayceTranslation';
 
 export interface IClipboardProps {
   //Todo: define props
   value: string;
   title: string;
-  isEng: boolean;
+  isEng?: boolean;  // 정리 필요
 }
 
 const IconButton = styled(MuiIconButton)(`
@@ -17,13 +18,14 @@ const IconButton = styled(MuiIconButton)(`
   height: 24px;
 `);
 
-function Clipboard({ value, title, isEng }: IClipboardProps): ReactElement {
+function Clipboard({ value, title }: IClipboardProps): ReactElement {
+  const { t } = usePlayceTranslation();
   const [showTooltip, setShowTooltip] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [tooltipTitle, setTooltipTitle] = useState<string>(isEng ? 'Clipboard copy' : '클립보드 복사');
+  const [tooltipTitle, setTooltipTitle] = useState<NonNullable<ReactNode>>(t('Clipboard copy'));
 
   const handleOnCopy = useCallback(() => {
-    setTooltipTitle(`${title} ${isEng ? 'Copied' : '복사됨'}`);
+    setTooltipTitle(`${title} ${t('Copied')}`);
     copy(value);
     setIsCopied(true);
 
@@ -32,12 +34,12 @@ function Clipboard({ value, title, isEng }: IClipboardProps): ReactElement {
       setIsCopied(false);
       clearTimeout(timeout);
     }, 1000);
-  }, [value, title, isEng]);
+  }, [t, title, value]);
 
   const handleOnMouseEnter = useCallback(() => {
-    setTooltipTitle(isEng ? 'Clipboard copy' : '클립보드 복사');
+    setTooltipTitle(t('Clipboard copy'));
     setShowTooltip(true);
-  }, [isEng]);
+  }, [t]);
 
   const handleOnMouseLeave = useCallback(() => {
     if (!isCopied) {
