@@ -1,24 +1,24 @@
-import React, { ReactElement } from "react";
-import {
-  Button as MUIButton,
-  ButtonProps as MUIButtonProps,
-} from "@mui/material";
+import React, { ReactElement } from 'react';
+import { Button as MUIButton, ButtonProps } from '@mui/material';
+import { css } from '@emotion/react';
 
-/**
- * Button Docs
- * MUI Component 활용
- */
+export interface IButtonProps extends ButtonProps {}
 
-export interface ButtonProps extends MUIButtonProps {
-  text: string;
-}
-
-function Button(props: ButtonProps): ReactElement {
-  return <MUIButton {...props}>{props.text}</MUIButton>;
+function Button(props: IButtonProps): ReactElement {
+  return (
+    <MUIButton
+      {...props}
+      css={css`
+        text-transform: none;
+      `}
+    >
+      {props.children}
+    </MUIButton>
+  );
 }
 
 Button.defaultProps = {
-  variant: "outlined",
+  variant: 'outlined',
 };
 
 export default Button;
