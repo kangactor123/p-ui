@@ -1,10 +1,11 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react';
 import { IconButton as MuiIconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import copy from 'copy-to-clipboard';
 import styled from '@emotion/styled';
 import { IconCopy } from '../icons';
 import { useTranslation } from 'react-i18next';
+import { TranslationContext } from '../../providers/Translation/Translation';
 
 export interface IClipboardProps {
   //Todo: define props
@@ -19,10 +20,11 @@ const IconButton = styled(MuiIconButton)(`
 `);
 
 function Clipboard({ value, title }: IClipboardProps): ReactElement {
-  const { t } = useTranslation();
+  const i18n  = useContext(TranslationContext);
+  const { t } = useTranslation('translation', { i18n });
   const [showTooltip, setShowTooltip] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [tooltipTitle, setTooltipTitle] = useState<string>(t('Clipboard copy'));
+  const [tooltipTitle, setTooltipTitle] = useState<NonNullable<ReactNode>>(t('Clipboard copy'));
 
   const handleOnCopy = useCallback(() => {
     setTooltipTitle(`${title} ${t('Copied')}`);
@@ -34,12 +36,12 @@ function Clipboard({ value, title }: IClipboardProps): ReactElement {
       setIsCopied(false);
       clearTimeout(timeout);
     }, 1000);
-  }, [title, t, value]);
+  }, [title, value]);
 
   const handleOnMouseEnter = useCallback(() => {
     setTooltipTitle(t('Clipboard copy'));
     setShowTooltip(true);
-  }, [t]);
+  }, []);
 
   const handleOnMouseLeave = useCallback(() => {
     if (!isCopied) {
