@@ -1,17 +1,15 @@
-import React, { PropsWithChildren, ReactElement } from 'react';
-import { i18n as Ti18n } from 'i18next';
+import React, { PropsWithChildren, ReactElement, useEffect } from 'react';
+import { I18nextProvider } from 'react-i18next';
 
-import translationEN from '../../locales/en/translation.json';
-import translationKO from '../../locales/ko/translation.json';
-import { TranslationContext } from './Translation';
+import i18n from '../../i18n';
 
 export interface ITranslationProps extends PropsWithChildren {
-  i18n: Ti18n;
+  language: string;
 }
 
-export function TranslationProvider({ children, i18n }: ITranslationProps): ReactElement {
-  i18n.addResources('en', 'translation', translationEN);
-  i18n.addResources('ko', 'translation', translationKO);
-  i18n.addResources('ko-KR', 'translation', translationKO);
-  return <TranslationContext.Provider value={i18n}>{children}</TranslationContext.Provider>;
+export function TranslationProvider({ children, language = 'en' }: ITranslationProps): ReactElement {
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
+  return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
 }

@@ -1,10 +1,10 @@
-import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react';
+import React, { ReactElement, ReactNode, useCallback, useState } from 'react';
 import { IconButton as MuiIconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import copy from 'copy-to-clipboard';
 import styled from '@emotion/styled';
 import { IconCopy } from '../icons';
-import { usePlayceTranslation } from '../../providers/Translation/usePlayceTranslation';
+import { useTranslation } from 'react-i18next';
 
 export interface IClipboardProps {
   //Todo: define props
@@ -19,7 +19,7 @@ const IconButton = styled(MuiIconButton)(`
 `);
 
 function Clipboard({ value, title }: IClipboardProps): ReactElement {
-  const { t } = usePlayceTranslation();
+  const { t } = useTranslation();
   const [showTooltip, setShowTooltip] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [tooltipTitle, setTooltipTitle] = useState<NonNullable<ReactNode>>(t('Clipboard copy'));
