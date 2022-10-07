@@ -47,5 +47,4 @@ export const Basic = DefinitionList.bind({});
 Basic.args = {
   value: value,
   type: 'multi',
-  isEng: true,
 };

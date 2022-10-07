@@ -7,10 +7,8 @@ import { IconCopy } from '../icons';
 import { useTranslation } from 'react-i18next';
 
 export interface IClipboardProps {
-  //Todo: define props
   value: string;
   title: string;
-  isEng?: boolean;  // 정리 필요
 }
 
 const IconButton = styled(MuiIconButton)(`
