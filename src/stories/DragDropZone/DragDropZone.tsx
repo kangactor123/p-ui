@@ -1,7 +1,7 @@
 import React, { ChangeEvent, forwardRef, ReactElement, useCallback, useState } from 'react';
-import { css } from '@emotion/react';
 import DragDrop from '../DragDrop';
 import filesize from 'filesize';
+import { useTranslation } from 'react-i18next';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 import {
@@ -41,10 +41,7 @@ function DragDropZone({
   guideText = '',
 }: IDragDropZoneProps): ReactElement {
   const [fileInputKey, setFileInputKey] = useState<number>(0);
-
-  const disableInput = css`
-    display: none;
-  `;
+  const { t } = useTranslation();
 
   const onDropHandler = useCallback(
     (dropFile: File) => {
@@ -85,11 +82,11 @@ function DragDropZone({
           css={disabledInput}
         />
         <TextArea>
-          <div>Drag and drop file here</div>
-          <div>or</div>
+          <div>{t('Drag and drop file here')}</div>
+          <div>{t('or')}</div>
         </TextArea>
         <Button css={addFileBtn} variant={'contained'} onClick={openFinder} disabled={Boolean(isExistFile)}>
-          Add File
+          {t('Add File')}
         </Button>
       </DropZone>
       {isExistFile ? (
