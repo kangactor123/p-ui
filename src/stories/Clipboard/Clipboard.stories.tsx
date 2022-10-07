@@ -13,7 +13,6 @@ const Clipboard: Story<IClipboardProps> = (args) => <StoryClipboard {...args} />
 export const Basic = Clipboard.bind({});
 
 Basic.args = {
-  isEng: 'true',
   value: 'hello world',
   title: 'hello world',
 };

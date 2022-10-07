@@ -37,7 +37,7 @@ const SecondStory: Story<IAccordionProps> = () => {
   );
   return (
     <div>
-      <AccordionAction<TTest> expanded={expand} setExpanded={setExpand} isEng={false} />
+      <AccordionAction<TTest> expanded={expand} setExpanded={setExpand} />
       <Accordion
         name={'test'}
         expanded={expand.test}
