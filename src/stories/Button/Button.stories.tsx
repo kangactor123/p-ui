@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import Button, { IButtonProps } from './Button';
+import Button from './Button';
 import { ComponentMeta, Story } from '@storybook/react';
-import { Input } from '@mui/material';
+import { ButtonProps as IButtonProps, Input } from '@mui/material';
 import { isEmpty } from 'lodash';
 
 export default {
@@ -10,12 +10,10 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 const FirstTemplete: Story<IButtonProps> = (args) => {
-  // const { text = 'first' } = args;
   return <Button {...args} />;
 };
 
 const SecondTemplete: Story<IButtonProps> = (args) => {
-  // const { text = 'Template' } = args;
   const [value, setValue] = useState('');
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const {
