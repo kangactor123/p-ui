@@ -1,6 +1,7 @@
-import React, { ReactElement, useCallback } from 'react';
-import { Tabs as MuiTabs, Tab as MuiTab, TabsProps, TabProps } from '@mui/material';
+import React, { ReactElement, useCallback, useContext } from 'react';
+import { Tabs as MuiTabs, Tab as MuiTab, TabsProps, TabProps, ThemeOptions, ThemeProvider } from '@mui/material';
 import styled from '@emotion/styled';
+import { PlayceThemeContext } from '../../providers';
 
 export interface ITabListProps extends TabProps {
   path?: string;
@@ -15,6 +16,8 @@ const Tab = styled(MuiTab)(`
 `);
 
 function Tabs({ tabList, value, onChange, ...props }: ITabsProps): ReactElement {
+  const theme = useContext(PlayceThemeContext);
+
   const handleChange = useCallback(
     (event: React.SyntheticEvent, value: any) => {
       if (onChange instanceof Function) {
@@ -25,11 +28,13 @@ function Tabs({ tabList, value, onChange, ...props }: ITabsProps): ReactElement 
   );
 
   return (
-    <MuiTabs value={value} onChange={handleChange} {...props}>
-      {tabList.map((tab) => (
-        <Tab key={tab.value} {...tab} />
-      ))}
-    </MuiTabs>
+    <ThemeProvider theme={theme as ThemeOptions}>
+      <MuiTabs value={value} onChange={handleChange} {...props}>
+        {tabList.map((tab) => (
+          <Tab key={tab.value} {...tab} />
+        ))}
+      </MuiTabs>
+    </ThemeProvider>
   );
 }
 
