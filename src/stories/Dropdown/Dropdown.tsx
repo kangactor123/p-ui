@@ -1,6 +1,7 @@
-import React, { MouseEvent, ReactElement, useCallback, useState } from 'react';
-import { Button, ButtonProps, IconButton, IconButtonProps, Menu, MenuItem } from '@mui/material';
+import React, { MouseEvent, ReactElement, useCallback, useContext, useState } from 'react';
+import { Button, ButtonProps, IconButton, IconButtonProps, Menu, MenuItem, ThemeOptions, ThemeProvider } from '@mui/material';
 import Tooltip from '../Tooltip';
+import { PlayceThemeContext } from '../../providers';
 
 export interface IOptionsType {
   key: string;
@@ -27,6 +28,7 @@ function Dropdown({
   buttonProps,
   onClickOption,
 }: IDropdownProps): ReactElement {
+  const theme = useContext(PlayceThemeContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isOpen = Boolean(anchorEl);
 
@@ -50,7 +52,7 @@ function Dropdown({
   );
 
   return (
-    <>
+    <ThemeProvider theme={theme as ThemeOptions}>
       {isIconButton ? (
         <Tooltip arrow title={tooltip} aria-label={tooltip}>
           <IconButton onClick={handleClick} {...iconButtonProps}>
@@ -76,7 +78,7 @@ function Dropdown({
           </MenuItem>
         ))}
       </Menu>
-    </>
+    </ThemeProvider>
   );
 }
 
