@@ -1,24 +1,26 @@
-import React, { ReactElement } from "react";
-import {
-  Button as MUIButton,
-  ButtonProps as MUIButtonProps,
-} from "@mui/material";
+import React, { ReactElement, useContext } from 'react';
+import { Button as MUIButton, ButtonProps as IButtonProps, ThemeOptions, ThemeProvider } from '@mui/material';
+import { css } from '@emotion/react';
+import { PlayceThemeContext } from '../../providers';
 
-/**
- * Button Docs
- * MUI Component 활용
- */
-
-export interface ButtonProps extends MUIButtonProps {
-  text: string;
-}
-
-function Button(props: ButtonProps): ReactElement {
-  return <MUIButton {...props}>{props.text}</MUIButton>;
+function Button(props: IButtonProps): ReactElement {
+  const theme = useContext(PlayceThemeContext);
+  return (
+    <ThemeProvider theme={theme as ThemeOptions}>
+      <MUIButton
+        {...props}
+        css={css`
+          text-transform: none;
+        `}
+      >
+        {props.children}
+      </MUIButton>
+    </ThemeProvider>
+  );
 }
 
 Button.defaultProps = {
-  variant: "outlined",
+  variant: 'outlined',
 };
 
 export default Button;

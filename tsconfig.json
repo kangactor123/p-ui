@@ -19,6 +19,13 @@
     "outDir": "./dist",
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["./src/stories/**/*.tsx", "./src/stories/**/*.ts", "src/index.ts", "src/stories/index.js"],
+  "include": [
+    "./src/stories/**/*.tsx",
+    "./src/stories/**/*.ts",
+    "src/index.ts",
+    "src/stories/index.js",
+    "./src/providers/**/*.tsx",
+    "./src/providers/**/*.ts"
+  ],
   "exclude": ["./src/stories/**/*.stories.tsx", "./src/stories/Template/**"]
 }

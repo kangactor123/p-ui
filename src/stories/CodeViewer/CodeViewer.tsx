@@ -41,8 +41,6 @@ function CodeViewer({
   showLineNumbers = true,
   ...props
 }: ICodeViewerProps): ReactElement {
-  // const { t } = useTranslation();
-
   return (
     <div css={wrapperStyle}>
       <SyntaxHighlighter

@@ -18,7 +18,7 @@ const AccordionAction: Story<IAccordionAction<AccordionType>> = (args) => {
     test: true,
   });
 
-  return <StoryAccordionAction<AccordionType> setExpanded={setFirst} expanded={first} isEng={false} />;
+  return <StoryAccordionAction<AccordionType> setExpanded={setFirst} expanded={first} />;
 };
 
 export const Basic = AccordionAction.bind({});

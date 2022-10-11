@@ -15,7 +15,6 @@ export { default as Tooltip } from './stories/Tooltip';
 export { default as Clipboard } from './stories/Clipboard';
 export { default as DefinitionList } from './stories/DefinitionList';
 export { default as DragDropZone } from './stories/DragDropZone';
-export { default as t } from './stories/Translation';
 export { default as Dropdown } from './stories/Dropdown';
 
 export * from './stories/Accordion';
@@ -35,8 +34,10 @@ export * from './stories/Tooltip';
 export * from './stories/Clipboard';
 export * from './stories/DefinitionList';
 export * from './stories/DragDropZone';
-export * from './stories/Translation';
 export * from './stories/Dropdown';
 
 // Icons
 export * from './stories/icons';
+
+// Providers
+export * from './providers';
