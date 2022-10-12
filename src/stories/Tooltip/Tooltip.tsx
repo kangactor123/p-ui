@@ -6,7 +6,7 @@ function Tooltip(props: TooltipProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
   return (
     <ThemeProvider theme={theme as ThemeOptions}>
-      <MUITooltip {...props} />;
+      <MUITooltip {...props} />
     </ThemeProvider>
   );
 }
