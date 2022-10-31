@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import Tooltip from '../Tooltip';
 import { PlayceThemeContext } from '../../providers';
+import styled from '@emotion/styled';
 
 export interface IOptionsType {
   key: string;
@@ -28,6 +29,11 @@ export interface IDropdownProps {
   buttonProps?: ButtonProps;
   onClickOption?: (key: string, id?: number) => void;
 }
+
+const MenuList = styled.li<{ split: boolean }>`
+  padding: 3px 0;
+  border-bottom: ${({ split }) => (split ? '1px solid #d8d8d8' : 0)};
+`;
 
 function Dropdown({
   options,
@@ -83,14 +89,11 @@ function Dropdown({
       )}
       <Menu sx={{ marginTop: '3px' }} anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
         {options?.map(({ key, label, disabled, split }) => (
-          <MenuItem
-            key={key}
-            onClick={handleOptionClick(key)}
-            disabled={disabled}
-            sx={split ? { borderBottom: '1px solid rgba(0,0,0,0.6)' } : {}}
-          >
-            {label}
-          </MenuItem>
+          <MenuList key={key} split={split || false}>
+            <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
+              {label}
+            </MenuItem>
+          </MenuList>
         ))}
       </Menu>
     </ThemeProvider>
