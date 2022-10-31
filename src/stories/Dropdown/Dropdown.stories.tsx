@@ -10,16 +10,11 @@ export default {
 } as ComponentMeta<typeof StoryDropdown>;
 
 const options: IOptionsType[] = [
-  {
-    label: 'edit',
-    key: 'edit',
-    disabled: true,
-    split: true,
-  },
-  {
-    label: 'delete',
-    key: 'delete',
-  },
+  { label: 'Documentation', key: 'changePassword' },
+  { label: 'Download User Guide', key: 'signOut', split: true },
+  { label: 'Support Center', key: 'signOut', split: true },
+  { label: 'Subscriptions', key: 'signOut', split: true },
+  { label: 'About Playce Migrator', key: 'signOut' },
 ];
 
 const handleUserDropDownClick = (key: string) => {
