@@ -1,5 +1,14 @@
 import React, { MouseEvent, ReactElement, useCallback, useContext, useState } from 'react';
-import { Button, ButtonProps, IconButton, IconButtonProps, Menu, MenuItem, ThemeOptions, ThemeProvider } from '@mui/material';
+import {
+  Button,
+  ButtonProps,
+  IconButton,
+  IconButtonProps,
+  Menu,
+  MenuItem,
+  ThemeOptions,
+  ThemeProvider,
+} from '@mui/material';
 import Tooltip from '../Tooltip';
 import { PlayceThemeContext } from '../../providers';
 
@@ -7,6 +16,7 @@ export interface IOptionsType {
   key: string;
   label: ReactElement | string;
   disabled?: boolean;
+  split?: boolean;
 }
 
 export interface IDropdownProps {
@@ -72,8 +82,13 @@ function Dropdown({
         </Button>
       )}
       <Menu sx={{ marginTop: '3px' }} anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
-        {options?.map(({ key, label, disabled }) => (
-          <MenuItem key={key} onClick={handleOptionClick(key)} disabled={disabled}>
+        {options?.map(({ key, label, disabled, split }) => (
+          <MenuItem
+            key={key}
+            onClick={handleOptionClick(key)}
+            disabled={disabled}
+            sx={split ? { borderBottom: '1px solid rgba(0,0,0,0.6)' } : {}}
+          >
             {label}
           </MenuItem>
         ))}

@@ -14,6 +14,7 @@ const options: IOptionsType[] = [
     label: 'edit',
     key: 'edit',
     disabled: true,
+    split: true,
   },
   {
     label: 'delete',
