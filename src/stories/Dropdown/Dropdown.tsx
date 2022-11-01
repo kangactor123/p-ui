@@ -56,6 +56,7 @@ function Dropdown({
 
   const handleClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    event.currentTarget.blur();
   }, []);
 
   const handleClose = useCallback(() => {
