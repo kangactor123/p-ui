@@ -19,3 +19,11 @@ export { ReactComponent as IconDownload } from './svg/ic-download.svg';
 export { ReactComponent as IconArrowDownBlueGray } from './svg/icon-ic-arrow-down-blue-grey.svg';
 export { ReactComponent as IconArrowRightBlueGray } from './svg/icon-ic-arrow-right-blue-grey.svg';
 export { ReactComponent as IconInfo } from './svg/icon-ic-info.svg';
+export { ReactComponent as IconValidationError } from './svg/ic-validation.svg';
+export { ReactComponent as IconValidationSuccess } from './svg/icon-ic-svc-on.svg';
+
+// add
+export { ReactComponent as IconCanceledOutlined } from './svg/ic-canceled-outlined.svg';
+export { ReactComponent as IconDownloadCurrentColor } from './svg/ic-download-current-color.svg';
+export { ReactComponent as IconViewGrayMoreWhite } from './svg/icon-ic-more-white.svg';
+export { ReactComponent as IconSelectArrow } from './svg/icon-ic-table-arrow-down.svg';
