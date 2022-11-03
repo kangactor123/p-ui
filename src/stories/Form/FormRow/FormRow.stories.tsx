@@ -8,6 +8,12 @@ export default {
   component: StoryFormRow,
 } as ComponentMeta<typeof StoryFormRow>;
 
-const FormRow: Story<IFormRowProps> = (args) => <StoryFormRow {...args} />;
+const FormRow: Story<IFormRowProps> = (args) => {
+  return (
+    <StoryFormRow label={'this is sample'} required>
+      input
+    </StoryFormRow>
+  );
+};
 
 export const Basic = FormRow.bind({});
