@@ -90,6 +90,7 @@ function Dropdown({
           startIcon={buttonProps?.startIcon}
           variant={buttonProps?.variant}
           color={buttonProps?.color}
+          {...buttonProps}
         >
           {title}
         </Button>
