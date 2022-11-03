@@ -1,12 +1,27 @@
 import React, { MouseEvent, ReactElement, useCallback, useContext, useState } from 'react';
-import { Button, ButtonProps, IconButton, IconButtonProps, Menu, MenuItem, ThemeOptions, ThemeProvider } from '@mui/material';
+import {
+  Button,
+  ButtonProps,
+  IconButton,
+  IconButtonProps,
+  Menu,
+  MenuItem,
+  SxProps,
+  Theme,
+  ThemeOptions,
+  ThemeProvider,
+} from '@mui/material';
 import Tooltip from '../Tooltip';
 import { PlayceThemeContext } from '../../providers';
+import styled from '@emotion/styled';
+import { SerializedStyles } from '@emotion/react';
 
 export interface IOptionsType {
   key: string;
   label: ReactElement | string;
   disabled?: boolean;
+  split?: boolean;
+  liCss?: SerializedStyles;
 }
 
 export interface IDropdownProps {
@@ -17,7 +32,13 @@ export interface IDropdownProps {
   iconButtonProps?: IconButtonProps;
   buttonProps?: ButtonProps;
   onClickOption?: (key: string, id?: number) => void;
+  menuSx?: SxProps<Theme>;
 }
+
+const MenuList = styled.li<{ split: boolean }>`
+  padding: 3px 0;
+  border-bottom: ${({ split }) => (split ? '1px solid #d8d8d8' : 0)};
+`;
 
 function Dropdown({
   options,
@@ -27,6 +48,7 @@ function Dropdown({
   iconButtonProps,
   buttonProps,
   onClickOption,
+  menuSx,
 }: IDropdownProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -34,6 +56,7 @@ function Dropdown({
 
   const handleClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    event.currentTarget.blur();
   }, []);
 
   const handleClose = useCallback(() => {
@@ -71,11 +94,13 @@ function Dropdown({
           {title}
         </Button>
       )}
-      <Menu sx={{ marginTop: '3px' }} anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
-        {options?.map(({ key, label, disabled }) => (
-          <MenuItem key={key} onClick={handleOptionClick(key)} disabled={disabled}>
-            {label}
-          </MenuItem>
+      <Menu sx={{ marginTop: '3px', ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
+        {options?.map(({ key, label, disabled, split, liCss }) => (
+          <MenuList key={key} split={split || false} css={liCss}>
+            <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
+              {label}
+            </MenuItem>
+          </MenuList>
         ))}
       </Menu>
     </ThemeProvider>
