@@ -15,7 +15,7 @@ const InputFile: Story<TInputFileProps<TSample>> = (args) => {
   const { control } = useForm<TSampleFormControl>({
     mode: 'all',
     defaultValues: {
-      sample: 'this is sample',
+      sample: '',
     },
   });
   return <StoryInputFile {...args} control={control} rules={{ required: true }} name={'sample'} />;

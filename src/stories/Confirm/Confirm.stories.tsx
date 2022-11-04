@@ -8,6 +8,22 @@ export default {
   component: StoryConfirm,
 } as ComponentMeta<typeof StoryConfirm>;
 
-const Confirm: Story<IConfirmProps> = (args) => <StoryConfirm {...args} />;
+const Confirm: Story<IConfirmProps> = (args) => {
+  return (
+    <Confirm
+      open
+      title={'title'}
+      onOk={() => {}}
+      onCancel={() => {}}
+      size="large"
+      isOkButton
+      isCloseIcon
+      okLabel={'Ok'}
+      cancelLabel={'Cancel'}
+    >
+      <div>this is sample Confirm component</div>
+    </Confirm>
+  );
+};
 
 export const Basic = Confirm.bind({});
