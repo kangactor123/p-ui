@@ -1,13 +1,14 @@
-import React, { ReactElement, useCallback, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react';
 import { css } from '@emotion/react';
 import { FieldValues, useController } from 'react-hook-form';
-import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { InputAdornment, TextField, TextFieldProps, ThemeOptions, ThemeProvider } from '@mui/material';
 import { TControl } from '../../../../common/type';
 import { isValidFileFormat } from '../../../../common/helper';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { IconCloseSmall, IconFileUpload } from '../../../icons';
 import useAlert from '../../../Confirm/hooks/useAlert';
+import { PlayceThemeContext } from '../../../../providers';
 
 export type TInputFileProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {
@@ -48,6 +49,7 @@ function InputFile<T extends FieldValues>({
 }: TInputFileProps<T>): ReactElement {
   const { t } = useTranslation();
   const accept = inputProps.accept;
+  const theme = useContext(PlayceThemeContext);
   const [fileInputKey, setFileInputKey] = useState<number>(0);
   const reader = useMemo(() => new FileReader(), []);
   const {
@@ -82,36 +84,38 @@ function InputFile<T extends FieldValues>({
   );
 
   return (
-    <FileInputWrap>
-      <FileInput
-        key={fileInputKey}
-        type="file"
-        variant={variant}
-        onChange={onSelectFile}
-        inputProps={{ maxLength: 255, ...inputProps, accept }}
-        ref={ref}
-        disabled={Boolean(value)}
-        {...props}
-      />
-      <TextField
-        variant={variant}
-        value={value}
-        placeholder={placeholder}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconContainer>
-                {value ? (
-                  <IconCloseSmall onClick={() => deleteFile(onChange)} css={iconFileDelete} />
-                ) : (
-                  <IconFileUpload />
-                )}
-              </IconContainer>
-            </InputAdornment>
-          ),
-        }}
-      />
-    </FileInputWrap>
+    <ThemeProvider theme={theme as ThemeOptions}>
+      <FileInputWrap>
+        <FileInput
+          key={fileInputKey}
+          type="file"
+          variant={variant}
+          onChange={onSelectFile}
+          inputProps={{ maxLength: 255, ...inputProps, accept }}
+          ref={ref}
+          disabled={Boolean(value)}
+          {...props}
+        />
+        <TextField
+          variant={variant}
+          value={value}
+          placeholder={placeholder}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconContainer>
+                  {value ? (
+                    <IconCloseSmall onClick={() => deleteFile(onChange)} css={iconFileDelete} />
+                  ) : (
+                    <IconFileUpload />
+                  )}
+                </IconContainer>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </FileInputWrap>
+    </ThemeProvider>
   );
 }
 

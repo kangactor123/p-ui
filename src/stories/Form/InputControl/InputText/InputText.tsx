@@ -1,7 +1,8 @@
-import React, { ChangeEvent, ReactElement, useCallback } from 'react';
-import { TextFieldProps, TextField } from '@mui/material';
+import React, { ChangeEvent, ReactElement, useCallback, useContext } from 'react';
+import { TextFieldProps, TextField, ThemeProvider, ThemeOptions } from '@mui/material';
 import { FieldValues, useController } from 'react-hook-form';
 import { TControl } from '../../../../common/type';
+import { PlayceThemeContext } from '../../../../providers';
 
 export type TInputTextProps<T extends FieldValues> = TextFieldProps & TControl<T>;
 
@@ -17,6 +18,7 @@ function InputText<T extends FieldValues>({
   onChange,
   ...props
 }: TInputTextProps<T>): ReactElement {
+  const theme = useContext(PlayceThemeContext);
   const {
     field: { value, onChange: controlChange },
   } = useController({
@@ -36,13 +38,15 @@ function InputText<T extends FieldValues>({
   );
 
   return (
-    <TextField
-      variant={variant}
-      value={value}
-      onChange={handleChange}
-      inputProps={{ maxLength: 255, ...inputProps }}
-      {...props}
-    />
+    <ThemeProvider theme={theme as ThemeOptions}>
+      <TextField
+        variant={variant}
+        value={value}
+        onChange={handleChange}
+        inputProps={{ maxLength: 255, ...inputProps }}
+        {...props}
+      />
+    </ThemeProvider>
   );
 }
 
