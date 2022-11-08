@@ -1,9 +1,10 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import { css } from '@emotion/react';
-import { IconButton, InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { IconButton, InputAdornment, TextField, TextFieldProps, ThemeOptions, ThemeProvider } from '@mui/material';
 import { useController, FieldValues } from 'react-hook-form';
 import { TControl } from '../../../../common/type';
 import { IconPasswordHide, IconPasswordShow, IconUploadClose } from '../../../icons';
+import { PlayceThemeContext } from '../../../../providers';
 
 export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {
@@ -29,6 +30,7 @@ function InputPassword<T extends FieldValues>({
   ...props
 }: TInputPasswordProps<T>): ReactElement {
   const [isVisible, setIsVisible] = useState(false);
+  const theme = useContext(PlayceThemeContext);
   const visibleChange = () => setIsVisible((prev) => !prev);
   const {
     field: { value, onChange },
@@ -39,7 +41,7 @@ function InputPassword<T extends FieldValues>({
   });
 
   return (
-    <>
+    <ThemeProvider theme={theme as ThemeOptions}>
       <TextField
         {...props}
         variant={variant}
@@ -61,7 +63,7 @@ function InputPassword<T extends FieldValues>({
           <IconUploadClose />
         </IconButton>
       )}
-    </>
+    </ThemeProvider>
   );
 }
 
