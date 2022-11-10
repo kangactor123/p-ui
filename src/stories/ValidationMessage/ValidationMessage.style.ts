@@ -1,11 +1,12 @@
 import { css } from '@emotion/react';
 
 export const helperStyle = css`
+  width: 100%;
   font-size: 12px;
   padding-right: 50px;
   position: relative;
   padding-right: 40px;
-  width: 250px;
+  min-width: 250px;
   margin-top: 10px;
 
   & .msg {
