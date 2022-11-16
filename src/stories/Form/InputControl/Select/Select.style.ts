@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
-import { Select as MUISelect, styled as MUIStyled } from '@mui/material';
+import { StyledComponent } from '@emotion/styled/types/base';
+import { Select as MUISelect, SelectProps, styled as MUIStyled } from '@mui/material';
 
-export const SelectComponent = MUIStyled(MUISelect)({
+export const SelectComponent: StyledComponent<SelectProps, {} , {}> = MUIStyled(MUISelect)({
   '& .MuiSelect-select': {
     fontSize: 14,
     padding: '11px 32px 10px 12px',

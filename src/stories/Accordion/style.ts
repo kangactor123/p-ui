@@ -1,15 +1,16 @@
-import styled from '@emotion/styled';
+import styled, { StyledComponent } from '@emotion/styled';
 import {
   Accordion as MuiAccordion,
   AccordionDetails as MuiAccordionDetails,
   AccordionSummary as MuiAccordionSummary,
+  AccordionSummaryProps,
 } from '@mui/material';
 
 export const AccordionPanel = styled(MuiAccordion)({
   marginBottom: '16px',
 });
 
-export const AccordionSummary = styled(MuiAccordionSummary)({
+export const AccordionSummary: StyledComponent<AccordionSummaryProps, {}, {}> = styled(MuiAccordionSummary)({
   '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
     transform: 'rotate(360deg)',
   },
