@@ -94,7 +94,7 @@ export interface IStepperProps {
   handleStep: (idx: number) => () => void;
 }
 
-function Stepper({
+export function Stepper({
   handleStep,
   activeStep,
   completed,
