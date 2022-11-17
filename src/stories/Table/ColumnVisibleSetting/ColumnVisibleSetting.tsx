@@ -138,7 +138,7 @@ export function ColumnVisibleSetting(
           onClick={handleToggle}
           aria-haspopup="true"
           aria-controls={open ? 'menu-list-grow' : undefined}
-          label={t('Show / hide columns')}
+          label={t('Show / Hide columns')}
           variant="right"
         />
       )}
