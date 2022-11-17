@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
-import { Button } from '@mui/material';
 import { IconTableArrowRightCurrentColor } from '../icons';
 import { css, SerializedStyles } from '@emotion/react';
+import Button from '../../Button';
 
 export const noDataComponentWithoutButtonByMessage = (message: string): ReactElement => (
   <>
@@ -40,9 +40,9 @@ export function TableNoDataComponent({
   buttonDisplay = true,
   buttonDisabled = false,
 }: {
-  buttonTitle: string;
   message: string;
   buttonDisplay?: boolean;
+  buttonTitle?: string;
   buttonOnClick?: () => void;
   buttonDisabled?: boolean;
   style?: SerializedStyles;
@@ -59,7 +59,7 @@ export function TableNoDataComponent({
           endIcon={<IconTableArrowRightCurrentColor />}
           css={nodataStyle}
         >
-          {buttonTitle}
+          {buttonTitle || ''}
         </Button>
       ) : null}
     </>
