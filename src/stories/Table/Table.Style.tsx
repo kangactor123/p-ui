@@ -560,7 +560,7 @@ export const filterStyle = css`
       font-size: 14px;
       padding-left: 35px;
       padding-right: 28px;
-      height: 19px;
+      height: 30px;
       box-sizing: border-box;
     }
   }
