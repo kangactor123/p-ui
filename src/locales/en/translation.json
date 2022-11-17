@@ -5,5 +5,16 @@
   "Collapse All": "Collapse All",
   "Drag and drop file here": "Drag and drop file here",
   "or": "or",
-  "Add File": "Add File"
+  "Add File": "Add File",
+  "(empty)": "(empty)",
+  "Show / Hide Columns": "Show/Hide columns",
+  "Restore Defaults": "Restore Defaults",
+  "You do not have any data": "You do not have any data",
+  "All": "All",
+  "Rows per page": "Rows per page",
+  "Filter by columns": "Filter by columns",
+  "Export to CSV": "Export to CSV",
+  "Refresh": "Refresh",
+  "Save": "Save",
+  "Cancel": "Cancel"
 }
