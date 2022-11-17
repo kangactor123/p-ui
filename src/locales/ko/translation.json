@@ -14,5 +14,7 @@
   "Rows per page": "페이지 당 행 수",
   "Filter by columns": "필터",
   "Export to CSV": "CSV로 내보내기",
-  "Refresh": "새로고침"
+  "Refresh": "새로고침",
+  "Save": "저장",
+  "Cancel": "취소"
 }

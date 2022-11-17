@@ -14,5 +14,7 @@
   "Rows per page": "Rows per page",
   "Filter by columns": "Filter by columns",
   "Export to CSV": "Export to CSV",
-  "Refresh": "Refresh"
+  "Refresh": "Refresh",
+  "Save": "Save",
+  "Cancel": "Cancel"
 }
