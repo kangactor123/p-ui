@@ -23,7 +23,7 @@ import { regExp } from '../../common/helper';
 const classes = css({
   position: 'absolute',
   right: 16,
-  top: 8,
+  top: 17,
   padding: 0,
   width: 16,
   height: 16,
