@@ -569,7 +569,7 @@ export const filterStyle = css`
     position: absolute;
     top: 4px;
     left: 10px;
-    content: url(icons/ic-app-search.svg);
+    content: url(${searchIcon});
   }
 
   .search-input input::placeholder {
