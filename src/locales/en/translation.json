@@ -18,5 +18,10 @@
   "Refresh": "Refresh",
   "Save": "Save",
   "Cancel": "Cancel",
-  "Search": "Search"
+  "Search": "Search",
+  "OK": "OK",
+  "Error": "Error",
+  "Unsupported file format": "Unsupported file format",
+  "No results found. Please alter your search": "No results found. Please alter your search.",
+  "You do not have any data.": "You do not have any data."
 }
