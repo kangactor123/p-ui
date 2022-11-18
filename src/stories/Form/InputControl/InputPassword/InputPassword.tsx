@@ -1,5 +1,4 @@
 import React, { ReactElement, useContext, useState } from 'react';
-import { css } from '@emotion/react';
 import { IconButton, InputAdornment, TextField, TextFieldProps, ThemeOptions, ThemeProvider } from '@mui/material';
 import { useController, FieldValues } from 'react-hook-form';
 import { TControl } from '../../../../common/type';
@@ -10,16 +9,6 @@ export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {
     useClearBtn?: boolean;
   };
-
-const iconButton = css`
-  padding: 0;
-  margin-right: -4px;
-`;
-
-const clearPwBtn = css`
-  position: absolute;
-  right: 30px;
-`;
 
 function InputPassword<T extends FieldValues>({
   variant = 'outlined',
@@ -47,22 +36,20 @@ function InputPassword<T extends FieldValues>({
         variant={variant}
         value={value}
         onChange={onChange}
+        type={isVisible ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton css={iconButton} edge="end" aria-label="toggle password visibility" onClick={visibleChange}>
-                {isVisible ? <IconPasswordShow /> : <IconPasswordHide />}
-              </IconButton>
+              {value && useClearBtn && (
+                <IconButton onClick={() => onChange('')}>
+                  <IconUploadClose />
+                </IconButton>
+              )}
+              <IconButton onClick={visibleChange}>{isVisible ? <IconPasswordShow /> : <IconPasswordHide />}</IconButton>
             </InputAdornment>
           ),
         }}
-        type={isVisible ? 'text' : 'password'}
       />
-      {value && useClearBtn && (
-        <IconButton css={clearPwBtn} onClick={() => onChange('')}>
-          <IconUploadClose />
-        </IconButton>
-      )}
     </ThemeProvider>
   );
 }

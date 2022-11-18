@@ -1,13 +1,13 @@
 {
   "Clipboard copy": "클립보드 복사",
   "Copied": "복사됨",
-  "Expand All": "전체 확장",
-  "Collapse All": "전체 축소",
-  "Drag and drop file here": "여기에 업로드할 파일을 끌어서 놓습니다.",
+  "Expand All": "펼치기",
+  "Collapse All": "접기",
+  "Drag and drop file here": "업로드할 파일을 여기에 끌어 놓으십시오.",
   "or": "또는",
   "Add File": "파일 추가",
   "(empty)": "(비어있음)",
-  "Show / Hide Columns": "표시/숨김",
+  "Show / Hide Columns": "표시 항목 선택",
   "Select All": "모두 선택",
   "Restore Defaults": "기본값 복원",
   "You do not have any data": "표시할 데이터가 없습니다",
@@ -18,5 +18,10 @@
   "Refresh": "새로고침",
   "Save": "저장",
   "Cancel": "취소",
-  "Search": "검색"
+  "Search": "검색",
+  "OK": "확인",
+  "Error": "오류",
+  "Unsupported file format": "지원하지 않는 파일 형식입니다.",
+  "No results found. Please alter your search": "검색할 내용을 찾을 수 없습니다. 검색어를 다시 입력하십시오.",
+  "You do not have any data.": "표시할 내용이 없습니다."
 }

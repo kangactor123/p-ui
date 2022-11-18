@@ -23,10 +23,11 @@ export type TRadioColor = 'primary' | 'secondary' | 'default' | undefined;
 type TRadioGroupProps = MUIRadioGroupProps;
 
 export type TRadioProps<T extends FieldValues> = {
+  options: TRadioOptionProps[];
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   radioColor?: TRadioColor;
   size?: 'small' | 'medium';
   flexDirection?: 'row' | 'column';
-  options: TRadioOptionProps[];
 } & TRadioGroupProps &
   TControl<T>;
 
@@ -36,6 +37,7 @@ const RadioGroup = styled(MUIRadioGroup)<{ flexDirection: string }>`
 
 function Radio<T extends FieldValues>({
   flexDirection = 'row',
+  onChange,
   name,
   rules,
   control,
@@ -45,7 +47,7 @@ function Radio<T extends FieldValues>({
   const theme = useContext(PlayceThemeContext);
   const color = props.radioColor || 'primary';
   const {
-    field: { value, onChange },
+    field: { value, onChange: controlChange },
   } = useController({
     name,
     rules,
@@ -55,7 +57,11 @@ function Radio<T extends FieldValues>({
 
   const onRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     const radioValue = (event.target as HTMLInputElement).value;
-    onChange(radioValue);
+
+    if (onChange instanceof Function) {
+      onChange(event);
+    }
+    controlChange(radioValue);
   };
 
   return (

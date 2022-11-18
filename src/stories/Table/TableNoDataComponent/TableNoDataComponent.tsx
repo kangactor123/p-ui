@@ -1,9 +1,7 @@
 import React, { ReactElement } from 'react';
-import { Button } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-
 import { IconTableArrowRightCurrentColor } from '../icons';
 import { css, SerializedStyles } from '@emotion/react';
+import Button from '../../Button';
 
 export const noDataComponentWithoutButtonByMessage = (message: string): ReactElement => (
   <>
@@ -35,7 +33,6 @@ export const nodataStyle = css`
 `;
 
 export function TableNoDataComponent({
-  type,
   message,
   buttonTitle,
   buttonOnClick,
@@ -43,18 +40,16 @@ export function TableNoDataComponent({
   buttonDisplay = true,
   buttonDisabled = false,
 }: {
-  type: string;
+  message: string;
   buttonDisplay?: boolean;
+  buttonTitle?: string;
   buttonOnClick?: () => void;
   buttonDisabled?: boolean;
-  buttonTitle?: string;
-  message?: string;
   style?: SerializedStyles;
 }): ReactElement {
-  const { t } = useTranslation();
   return (
     <>
-      <div css={style}>{message || t('You do not have any {{type}}.', { type })}</div>
+      <div css={style}>{message}</div>
       {buttonDisplay && buttonOnClick ? (
         <Button
           color="primary"
@@ -64,7 +59,7 @@ export function TableNoDataComponent({
           endIcon={<IconTableArrowRightCurrentColor />}
           css={nodataStyle}
         >
-          {buttonTitle ? t(buttonTitle) : t('Add {{type}}', { type })}
+          {buttonTitle || ''}
         </Button>
       ) : null}
     </>
