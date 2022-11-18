@@ -20,7 +20,7 @@ function Progressbar(props: IProgressbarProps): ReactElement {
   const { className, value, isLabel = true, backgroundColor, progressColor } = props;
 
   const muiBox = css`
-    margin-right: '0px';
+    margin-right: 0px;
   `;
 
   const muiProgress = css`
