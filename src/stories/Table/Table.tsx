@@ -14,6 +14,7 @@ import React, {
   useRef,
   FunctionComponent,
   ChangeEvent,
+  useMemo,
 } from 'react';
 import {
   ActionType,
@@ -579,9 +580,9 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
 
   const renderNoDataComponent = () => {
     if (globalFilter) {
-      return props.searchNoDataComponent ? props.searchNoDataComponent : searchNoDataComponent(t);
+      return props.searchNoDataComponent ? props.searchNoDataComponent : searchNoDataComponent;
     } else {
-      return props.noDataComponent ? props.noDataComponent : noDataComponent(t);
+      return props.noDataComponent ? props.noDataComponent : noDataComponent;
     }
   };
 
@@ -636,6 +637,13 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     },
     [onChangePage],
   );
+
+  const searchNoDataComponent = useMemo(
+    () => <div style={{ color: '#8995ae' }}>{t('No results found. Please alter your search')}</div>,
+    [t],
+  );
+
+  const noDataComponent = useMemo(() => <div>{t('You do not have any data.')}</div>, [t]);
 
   return (
     <div css={tableWrapStyles} className={cx(useWrap ? 'wrap' : 'noWrapBox')}>
@@ -843,12 +851,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     </div>
   );
 }
-
-const searchNoDataComponent = (t: any) => (
-  <div style={{ color: '#8995ae' }}>{t('No results found. Please alter your search')}</div>
-);
-
-const noDataComponent = (t: any) => <div>{t('You do not have any data.')}</div>;
 
 export default Table;
 
