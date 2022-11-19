@@ -57,11 +57,10 @@ function Radio<T extends FieldValues>({
 
   const onRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     const radioValue = (event.target as HTMLInputElement).value;
-    controlChange(radioValue);
-
     if (onChange instanceof Function) {
       onChange(event);
     }
+    controlChange(radioValue);
   };
 
   return (
