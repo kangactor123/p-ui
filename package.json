@@ -1,6 +1,6 @@
 {
   "name": "@playce-ui/core",
-  "version": "0.9.59",
+  "version": "0.9.61",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "browser": "./browser/specific/main.js",
