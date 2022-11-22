@@ -36,7 +36,6 @@ export interface IDropdownProps {
 }
 
 const MenuList = styled.li<{ split: boolean }>`
-  padding: 3px 0;
   border-bottom: ${({ split }) => (split ? '1px solid #d8d8d8' : 0)};
 `;
 
@@ -95,7 +94,7 @@ function Dropdown({
           {title}
         </Button>
       )}
-      <Menu sx={{ marginTop: '3px', ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
+      <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
         {options?.map(({ key, label, disabled, split, liCss }) => (
           <MenuList key={key} split={split || false} css={liCss}>
             <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
