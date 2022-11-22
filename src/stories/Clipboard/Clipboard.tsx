@@ -3,7 +3,7 @@ import { IconButton as MuiIconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import copy from 'copy-to-clipboard';
 import styled from '@emotion/styled';
-import { IconCopy } from '../icons';
+import { DuplicateCopyIcon } from '../icons';
 import { useTranslation } from 'react-i18next';
 
 export interface IClipboardProps {
@@ -56,7 +56,7 @@ function Clipboard({ value, title }: IClipboardProps): ReactElement {
       onMouseLeave={handleOnMouseLeave}
     >
       <IconButton size="small" onClick={handleOnCopy}>
-        <IconCopy />
+        <DuplicateCopyIcon />
       </IconButton>
     </Tooltip>
   );

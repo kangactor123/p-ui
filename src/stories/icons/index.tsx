@@ -27,3 +27,4 @@ export { ReactComponent as IconCanceledOutlined } from './svg/ic-canceled-outlin
 export { ReactComponent as IconDownloadCurrentColor } from './svg/ic-download-current-color.svg';
 export { ReactComponent as IconViewGrayMoreWhite } from './svg/icon-ic-more-white.svg';
 export { ReactComponent as IconSelectArrow } from './svg/icon-ic-table-arrow-down.svg';
+export { ReactComponent as DuplicateCopyIcon } from './svg/icon-duplicate-copy.svg';
