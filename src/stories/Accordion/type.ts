@@ -9,3 +9,7 @@ export interface IAccordionProps extends Omit<AccordionProps, 'onChange'> {
   detailsProps?: AccordionDetailsProps;
   onChange?: (name: string | number, expanded: boolean) => void;
 }
+
+export interface IExpanded {
+  [key: string]: boolean;
+}
