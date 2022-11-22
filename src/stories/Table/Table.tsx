@@ -749,7 +749,11 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                       ) : (
                         <div style={style}>{column.render('Header')}</div>
                       )}
-                      {useColumnFilter && column.id !== '_selector' && column.canFilter && column.render('Filter')}
+                      {useColumnFilter &&
+                        !exceptFilterColumnIds.includes(column.id) &&
+                        !/_isAction$/i.test(column.id) &&
+                        column.canFilter &&
+                        column.render('Filter')}
                       {column.canResize && <ResizeHandle column={column} />}
                     </div>
                   );
