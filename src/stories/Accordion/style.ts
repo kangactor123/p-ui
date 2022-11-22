@@ -20,6 +20,6 @@ export const AccordionDetails = styled(MuiAccordionDetails)({
   padding: '8px 32px 36px',
 });
 
-export const Title = styled.h3`
+export const AccordionTitle = styled.h3`
   margin: auto 0;
 `;

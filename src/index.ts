@@ -16,6 +16,7 @@ export { default as Clipboard } from './stories/Clipboard';
 export { default as DefinitionList } from './stories/DefinitionList';
 export { default as DragDropZone } from './stories/DragDropZone';
 export { default as Dropdown } from './stories/Dropdown';
+export { default as DiffViewer } from './stories/DiffViewer';
 
 export { default as FormRow } from './stories/Form/FormRow';
 export { default as FormGroup } from './stories/Form/FormGroup';
@@ -48,6 +49,7 @@ export * from './stories/Clipboard';
 export * from './stories/DefinitionList';
 export * from './stories/DragDropZone';
 export * from './stories/Dropdown';
+export * from './stories/DiffViewer';
 
 export * from './stories/Form/FormRow';
 export * from './stories/Form/FormGroup';
