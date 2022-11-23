@@ -57,7 +57,7 @@ export function multiSelectFilter<T extends object>(
   }
   const result = rows.filter((row: Row<T>) => {
     return columnIds.some((columnId: string) => {
-      if (exceptColumnIds.includes(columnId) || columnId.endsWith('_isAction')) {
+      if (exceptColumnIds.includes(columnId) || /_isAction$/i.test(columnId)) {
         return true;
       }
       const value = row.values[columnId];
@@ -78,7 +78,7 @@ export function getGlobalFilteredRows<T extends object>(
 
   return rows.filter((row: Row<T>, index) => {
     return allColumns.some(({ id, accessor }: Column) => {
-      if (exceptColumnIds.includes(id || '') || id?.endsWith('_isAction')) {
+      if (exceptColumnIds.includes(id || '') || /_isAction$/i.test(id || '')) {
         return false;
       }
 

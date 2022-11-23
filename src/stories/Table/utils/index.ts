@@ -5,6 +5,7 @@
 import { TFunction } from 'react-i18next';
 import { Column } from 'react-table';
 import dayjs from 'dayjs';
+import { exceptFilterColumnIds } from '../Table';
 
 export * from './useDebounce';
 export * from './useLocalStorage';
@@ -59,14 +60,14 @@ export const downloadReport = <T extends object>(
   t: TFunction,
 ) => {
   const targetColumns = columns.filter(
-    (column: Column<T>) => column.id !== 'expander' && column.id !== 'File Download',
+    (column: Column<T>) => !exceptFilterColumnIds.includes(column.id || '') && !/_isAction$/i.test(column.id || ''),
   );
   const headers =
     targetColumns
       .filter((column: Column<T>) => column.Header && column.Header !== '')
       .map((column: any) => {
         const _header = column.Header;
-        const header = Object.prototype.hasOwnProperty.call(_header?.props, 'message')
+        const header = Object.prototype.hasOwnProperty.call(_header?.props || {}, 'message')
           ? t(_header?.props?.message, _header?.props?.options)
           : _header;
 
