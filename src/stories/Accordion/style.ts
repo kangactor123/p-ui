@@ -6,20 +6,19 @@ import {
   AccordionSummaryProps,
 } from '@mui/material';
 
-export const AccordionPanel = styled(MuiAccordion)({
-  marginBottom: '16px',
-});
+export const AccordionPanel = styled(MuiAccordion)({});
 
 export const AccordionSummary: StyledComponent<AccordionSummaryProps, {}, {}> = styled(MuiAccordionSummary)({
   '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
     transform: 'rotate(360deg)',
   },
-  padding: '0 26px',
-});
-export const AccordionDetails = styled(MuiAccordionDetails)({
-  padding: '8px 32px 36px',
 });
 
-export const AccordionTitle = styled.h3`
+export const AccordionDetails = styled(MuiAccordionDetails)({});
+
+export const AccordionTitle = styled.span`
   margin: auto 0;
+  color: #202020;
+  font-size: 16px;
+  font-weight: 600;
 `;

@@ -2,7 +2,7 @@ import { AccordionSummaryProps, AccordionProps, AccordionDetailsProps } from '@m
 
 export interface IAccordionProps extends Omit<AccordionProps, 'onChange'> {
   summaryProps: AccordionSummaryProps & {
-    iconPosition?: 'start' | 'end';
+    iconPosition?: 'start' | 'end' | 'right';
     useEdgeEndIcon?: boolean;
   };
   name: string | number;

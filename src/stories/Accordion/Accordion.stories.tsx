@@ -4,7 +4,7 @@ import { ComponentMeta, Story } from '@storybook/react';
 import Accordion from './Accordion';
 import { IAccordionProps } from './type';
 import AccordionAction from '../AccordionAction';
-import { Title } from './style';
+import { AccordionTitle } from './style';
 
 export default {
   title: 'Component/Accordion',
@@ -42,7 +42,7 @@ const SecondStory: Story<IAccordionProps> = () => {
         name={'test'}
         expanded={expand.test}
         onChange={handleExpand}
-        summaryProps={{ children: <Title>Test</Title> }}
+        summaryProps={{ children: <AccordionTitle>Test</AccordionTitle> }}
       >
         <div>this is sample test</div>
       </Accordion>
