@@ -28,3 +28,4 @@ export { ReactComponent as IconDownloadCurrentColor } from './svg/ic-download-cu
 export { ReactComponent as IconViewGrayMoreWhite } from './svg/icon-ic-more-white.svg';
 export { ReactComponent as IconSelectArrow } from './svg/icon-ic-table-arrow-down.svg';
 export { ReactComponent as DuplicateCopyIcon } from './svg/icon-duplicate-copy.svg';
+export { ReactComponent as DropdownDownIcon } from './svg/icon-dropdown-down.svg';
