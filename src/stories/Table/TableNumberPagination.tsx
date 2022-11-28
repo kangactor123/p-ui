@@ -41,6 +41,9 @@ const numberStyles = css({
     padding: '0 10px',
     fontSize: '12px',
     height: '28px',
+    '& span': {
+      borderRadius: '3px',
+    },
   },
   '& .Mui-selected': {
     backgroundColor: '#808080 !important',
@@ -262,11 +265,11 @@ export function TableNumberPagination<TModel extends object>({
           defaultPage={1}
           page={pageIndex + 1}
           onChange={handleNumberChangePage}
+          className={cx({ subTable: isSubRowStyle })}
           css={css`
             ${paginationStyle}
             ${numberStyles}
           `}
-          className={cx({ subTable: isSubRowStyle })}
         />
       </div>
     </ThemeProvider>
