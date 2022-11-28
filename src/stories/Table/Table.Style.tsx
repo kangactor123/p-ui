@@ -100,10 +100,10 @@ export const tableStyles = {
     outline: 0,
     verticalAlign: 'middle',
     '&:hover > div': {
-      backgroundColor: 'rgba(34, 139, 230, 0.06)',
+      backgroundColor: '#F5F6F8',
     },
     '&.rowSelected > div': {
-      backgroundColor: 'rgba(34, 139, 230, 0.12)',
+      backgroundColor: 'rgba(204, 229, 255, 0.35)',
     },
   }),
   tableSortLabelWrap: css({
@@ -280,7 +280,7 @@ export const subTableStyles = {
       backgroundColor: '#ffffff',
     },
     '&.rowSelected > div': {
-      backgroundColor: 'rgba(34, 139, 230, 0.12)',
+      backgroundColor: 'rgba(204, 229, 255, 0.35)',
     },
   }),
   tableCell: css({
