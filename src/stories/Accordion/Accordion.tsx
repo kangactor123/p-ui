@@ -35,7 +35,7 @@ function Accordion({
               ...(iconPosition === 'right' ? { ...{ flexGrow: '0', marginRight: '13px' } } : { undefined }),
             },
             flexDirection: iconPosition === 'start' ? 'row-reverse' : undefined,
-            justifyContent: iconPosition === 'right' ? 'start' : 'center',
+            justifyContent: iconPosition === 'right' ? 'start !important' : 'center',
             '& .MuiAccordionSummary-expandIconWrapper': {
               transform: 'rotate(270deg)',
             },

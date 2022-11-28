@@ -20,5 +20,5 @@ export const AccordionTitle = styled.span`
   margin: auto 0;
   color: #202020;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
 `;
