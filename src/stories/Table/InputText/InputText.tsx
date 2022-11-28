@@ -1,18 +1,7 @@
 import React, { ReactElement, useState, useCallback, useEffect, ChangeEvent } from 'react';
-import { TextFieldProps, TextField as MuiTextField } from '@mui/material';
+import { TextFieldProps, TextField } from '@mui/material';
 
-export type TInputTextProps = TextFieldProps;
-
-/**
- * @description Lagacy (Deprecated): Control 로 다루지 않는 InputText
- */
-
-function InputText({
-  value,
-  inputProps = {},
-  variant = 'outlined',
-  ...props
-}: TInputTextProps): ReactElement {
+function InputText({ value, InputProps, variant = 'outlined', ...props }: TextFieldProps): ReactElement {
   const [inputValue, setInputValue] = useState<unknown>(value || '');
 
   const onChangeHanlder = useCallback(
@@ -31,13 +20,7 @@ function InputText({
   }, [value]);
 
   return (
-    <MuiTextField
-      variant={variant}
-      inputProps={{ maxLength: 255, ...inputProps }}
-      {...props}
-      onChange={onChangeHanlder}
-      value={inputValue}
-    />
+    <TextField {...props} variant={variant} InputProps={InputProps} onChange={onChangeHanlder} value={inputValue} />
   );
 }
 

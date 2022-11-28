@@ -15,7 +15,7 @@ export const tableMixin = {
       width: 1px;
       height: 80%;
       background: #ced5df;
-    } // before, after
+    }
   `,
 };
 
@@ -46,46 +46,38 @@ export const tableStyles = {
   }),
   tableTable: css({
     borderSpacing: 0,
-    // NOTE: 100% <<= (100% - 48px)
-    // In Table.module.scss: height is changed by use-toolbar and use-pagination.
     height: '100%',
     fontFamily: '"Roboto", "Helvetica", "Arial", "sans-serif"',
-    // overflow: 'hidden',
     overflowX: 'auto',
-    // border: '1px solid rgba(224, 224, 224, 1)',
-    fontSize: '13px',
+    fontSize: '14px',
   }),
   tableHeadRow: css({
     outline: 0,
     verticalAlign: 'middle',
     color: '#1b2635',
-    backgroundColor: '#edf2f6',
     borderRadius: '3px',
     fontWeight: 700,
     position: 'relative',
     '&:hover $resizeHandle': {
       opacity: 1,
     },
+    borderBottom: '2px solid #DFE1E6',
   }),
   tableHeadCell: css({
     paddingLeft: '10px',
     textAlign: 'left',
     height: '40px',
     verticalAlign: 'inherit',
-    // color: theme.palette.text.primary,
     color: '#191f28',
     '&:first-of-type': {
       paddingLeft: '16px',
     },
-    backgroundColor: '#edf2f6',
   }),
   resizeHandle: css({
     position: 'absolute',
     cursor: 'col-resize',
     zIndex: 99,
     opacity: 0,
-    // borderLeft: `1px solid ${theme.palette.primary.light}`,
-    // borderRight: `1px solid ${theme.palette.primary.light}`,
     borderLeft: `1px solid #42a5f5`,
     borderRight: `1px solid #42a5f5`,
     height: '50%',
@@ -112,9 +104,6 @@ export const tableStyles = {
     },
     '&.rowSelected > div': {
       backgroundColor: 'rgba(34, 139, 230, 0.12)',
-      // '&:hover > div': {
-      //   backgroundColor: 'rgba(34, 139, 230, 0.12)',
-      // },
     },
   }),
   tableSortLabelWrap: css({
@@ -188,11 +177,9 @@ export const tableStyles = {
     flex: '1 1 auto',
     width: '100%',
     flexDirection: 'column',
-    // maxHeight: '36px',
     minHeight: '50px',
     maxHeight: 'calc(100% - 40px)',
     overflowY: 'auto',
-    // overflowX: 'hidden',
     minWidth: 'fit-content',
   }),
   tableLabel: css({
@@ -234,21 +221,16 @@ export const subTableStyles = {
   }),
   tableTable: css({
     borderSpacing: 0,
-    // NOTE: 100% <<= (100% - 48px)
-    // In Table.module.scss: height is changed by use-toolbar and use-pagination.
     height: '100%',
     fontFamily: '"Roboto", "Helvetica", "Arial", "sans-serif"',
     overflow: 'hidden',
-    fontSize: '13px',
-    // overflowX: 'auto',
-    // border: '1px solid rgba(224, 224, 224, 1)',
+    fontSize: '14px',
   }),
   tableHeadRow: css({
     outline: 0,
     verticalAlign: 'middle',
     fontSize: '13px',
     color: '#1b2635',
-    backgroundColor: '#edf2f6',
     fontWeight: 700,
     position: 'relative',
     boxShadow: 'inset 0 -1px 0 0 #dbdbdb, inset 0 1px 0 0 #dbdbdb',
@@ -258,11 +240,10 @@ export const subTableStyles = {
   }),
   tableHeadCell: css({
     paddingLeft: '10px',
-    fontSize: '13px',
+    fontSize: '14px',
     textAlign: 'left',
     height: '36px',
     verticalAlign: 'inherit',
-    // color: theme.palette.text.primary,
     color: '#191f28',
     '&:first-of-type': {
       paddingLeft: '16px',
@@ -298,14 +279,8 @@ export const subTableStyles = {
       borderBottom: '1px solid #dbdbdb',
       backgroundColor: '#ffffff',
     },
-    '&:hover > div': {
-      // backgroundColor: 'rgba(34, 139, 230, 0.06)',
-    },
     '&.rowSelected > div': {
       backgroundColor: 'rgba(34, 139, 230, 0.12)',
-      // '&:hover > div': {
-      //   backgroundColor: 'rgba(34, 139, 230, 0.12)',
-      // },
     },
   }),
   tableCell: css({
@@ -375,14 +350,13 @@ export const subTableStyles = {
     width: '100%',
     borderBottom: '1px solid #dbdbdb',
     flexDirection: 'column',
-    // maxHeight: '36px',
     maxHeight: 'calc(100% - 40px)',
     minHeight: '36px',
     overflowY: 'auto',
     overflowX: 'hidden',
     minWidth: 'fit-content',
     backgroundColor: '#fff',
-    fontSize: '13px',
+    fontSize: '14px',
   }),
   cellIcon: css({
     '& svg': {
@@ -395,7 +369,6 @@ export const subTableStyles = {
 
 export const tableWrapStyles = css`
   &.wrap {
-    // full size of parent
     height: 100%;
     min-height: 250px;
     position: relative;
@@ -436,8 +409,6 @@ export const tableWrapStyles = css`
     position: relative;
     overflow-x: auto;
 
-    // NOTE: Toolbar: 48px, pagination: 40px
-
     :global(.MuiButton-label) {
       font-size: 12px;
     }
@@ -448,27 +419,14 @@ export const tableWrapStyles = css`
   }
 
   .search-input {
-    border-bottom: solid 1px rgba(102, 112, 134, 0.4) !important;
-    width: 400px;
+    width: 300px;
+    height: 32px;
+    background-color: #fafbfc;
   }
 
   .search-input input {
-    padding-left: 36px;
-    padding-right: 28px;
+    padding: 5px 16px;
     font-size: 14px;
-  }
-
-  .search-input::before {
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: 6px;
-    content: url(${searchIcon});
-  }
-
-  .search-input input::placeholder {
-    font-style: italic;
-    color: #000;
   }
 
   .search-input-clear {
@@ -479,8 +437,6 @@ export const tableWrapStyles = css`
     ${tableMixin['@table-border']}
     height: 100%;
   }
-
-  // TBD detail component styles
 
   .disabledCell {
     opacity: 0.4;
@@ -532,7 +488,7 @@ export const tableWrapStyles = css`
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
   }
 `;
 
@@ -584,7 +540,6 @@ export const filterStyle = css`
   }
 
   .filter-item {
-    // margin: 0 10px;
     padding: 0 10px;
     width: 100%;
   }

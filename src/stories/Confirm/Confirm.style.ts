@@ -8,12 +8,7 @@ const FONT_SMALL_SIZE = '20px';
 const FONT_MEDIUM_SIZE = '20px';
 const FONT_LARGE_SIZE = '24px';
 
-export const confirmTheme = (
-  size: string,
-  customWSize?: string,
-  customHSize?: string,
-  backgroundColor?: string,
-) =>
+export const confirmTheme = (size: string, customWSize?: string, customHSize?: string, backgroundColor?: string) =>
   createTheme({
     components: {
       MuiPaper: {
@@ -57,30 +52,9 @@ export const confirmTheme = (
                 : size === 'large'
                 ? '20px !important'
                 : '11px !important',
-            paddingBottom:
-              size === 'small'
-                ? '11px'
-                : size === 'medium'
-                ? '20px'
-                : size === 'large'
-                ? '20px'
-                : '11px',
-            paddingLeft:
-              size === 'small'
-                ? '17px'
-                : size === 'medium'
-                ? '20px'
-                : size === 'large'
-                ? '20px'
-                : '11px',
-            paddingRight:
-              size === 'small'
-                ? '17px'
-                : size === 'medium'
-                ? '20px'
-                : size === 'large'
-                ? '20px'
-                : '11px',
+            paddingBottom: size === 'small' ? '11px' : size === 'medium' ? '20px' : size === 'large' ? '20px' : '11px',
+            paddingLeft: size === 'small' ? '17px' : size === 'medium' ? '20px' : size === 'large' ? '20px' : '11px',
+            paddingRight: size === 'small' ? '17px' : size === 'medium' ? '20px' : size === 'large' ? '20px' : '11px',
           },
         },
       },

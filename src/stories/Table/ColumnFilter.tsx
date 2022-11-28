@@ -1,13 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/naming-convention */
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-// scss style import
 import { IconButton, Popover } from '@mui/material';
-import { IconTableUploadClose, IconTableFilterDefault } from './icons';
+import { IconTableUploadClose, FilterIcon } from './icons';
 import { Column, Row } from 'react-table';
 import 'react-virtualized/styles.css';
 import VirtualScroll from './VirtualScroll';
@@ -17,8 +12,8 @@ import { cx } from '@emotion/css';
 import { css } from '@emotion/react';
 import { filterStyle } from './Table.Style';
 import { Checkbox } from '../Form/InputControl';
-import InputText from './InputText';
 import { regExp } from '../../common/helper';
+import InputText from './InputText';
 
 const classes = css({
   position: 'absolute',
@@ -122,14 +117,11 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
     (filters: any[]) => {
       const values = filters.map((value: any): TCheckboxOption => {
         return {
-          label:
-            typeof value !== 'number' && !value ? t('(empty)') : translation ? t(value) : value,
+          label: typeof value !== 'number' && !value ? t('(empty)') : translation ? t(value) : value,
           // value에 번역이 안되서 추가.
           value: translation ? t(value) : value,
           checked:
-            !initialFilter ||
-            initialFilter.length === 0 ||
-            initialFilter.some((option: any) => option === value),
+            !initialFilter || initialFilter.length === 0 || initialFilter.some((option: any) => option === value),
         };
       });
       return filterSorting
@@ -154,9 +146,7 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
 
   const [options, setOptions] = useState<TCheckboxOption[]>(initialOptions);
 
-  const [filteredOptions, setFilteredOptions] = useState<TCheckboxOption[]>([
-    ...initialFilteredOptions,
-  ]);
+  const [filteredOptions, setFilteredOptions] = useState<TCheckboxOption[]>([...initialFilteredOptions]);
 
   const getPreFilteredRows = useCallback(() => {
     let complete = false;
@@ -172,9 +162,7 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
         const column = allColumns.find((column: Column) => column.id === initialFilter.id);
         if (column) {
           const { id: currentId, canFilter, filter, filterValue } = column;
-          return !canFilter || currentId === id
-            ? newRows
-            : filter(newRows, [currentId], filterValue);
+          return !canFilter || currentId === id ? newRows : filter(newRows, [currentId], filterValue);
         } else {
           return newRows;
         }
@@ -298,17 +286,13 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
     if (isOpen) {
       setSearch('');
 
-      const currentFilter = initialFilters.find(
-        (initialFilter: TFilter) => initialFilter.id === id,
-      );
+      const currentFilter = initialFilters.find((initialFilter: TFilter) => initialFilter.id === id);
       const preFilteredRows = getPreFilteredRows();
 
       if (currentFilter) {
         setFilteredOptions(
           options
-            .filter((option) =>
-              preFilteredRows.some((row: Row<T>) => row.values[id] === option.value),
-            )
+            .filter((option) => preFilteredRows.some((row: Row<T>) => row.values[id] === option.value))
             .map((option) => {
               option.checked = currentFilter.value.includes(option.value);
               return option;
@@ -316,9 +300,7 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
         );
       } else {
         const temp = options
-          .filter((option) =>
-            globalFilteredRows.some((row: Row<T>) => row.values[id] === option.value),
-          )
+          .filter((option) => globalFilteredRows.some((row: Row<T>) => row.values[id] === option.value))
           .map((option) => {
             option.checked = true;
             return option;
@@ -359,22 +341,11 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
   }
 
   const checkedAll = !filteredOptions.some((option) => !option.checked);
-  const filtered = initialFilter.length;
 
   return (
     <>
       <IconButton aria-describedby={filterId} onClick={handleClick}>
-        <IconTableFilterDefault
-          css={
-            filtered
-              ? css`
-                  path:not(:first-of-type) {
-                    fill: #000;
-                  }
-                `
-              : ''
-          }
-        />
+        <FilterIcon />
       </IconButton>
       <Popover
         id={filterId}
@@ -391,7 +362,6 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
         onBackdropClick={handleClose}
         css={filterStyle}
       >
-        {/* <Select multiple options=></Select> */}
         <div className={'filter-popover'}>
           <div className={'search'}>
             <InputText
@@ -399,15 +369,10 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
               onChange={handleChangeInput}
               variant="outlined"
               value={search}
-              // fullWidth
               placeholder={t('Search')}
             />
             {search && (
-              <IconButton
-                css={classes}
-                className={cx('filter-search-clear')}
-                onClick={handleDeleteSearch}
-              >
+              <IconButton css={classes} className={cx('filter-search-clear')} onClick={handleDeleteSearch}>
                 <IconTableUploadClose />
               </IconButton>
             )}
@@ -420,7 +385,6 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
                 className: cx('filter-all', 'filter-label'),
               }}
               value={''}
-              // disabled={search.length > 0 && filteredOptions.length !== options.length}
               onChange={handleChangeCheckboxAll}
               className={'filter-checkbox'}
             />

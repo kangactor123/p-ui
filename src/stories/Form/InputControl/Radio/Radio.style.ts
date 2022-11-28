@@ -16,7 +16,6 @@ export const icon = css`
     width: 16px;
     height: 16px;
     background-image: radial-gradient(#fff, #fff 28%, transparent 32%);
-    content: '';
   }
 `;
 

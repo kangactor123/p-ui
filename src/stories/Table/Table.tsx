@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { TableSortLabel } from '@mui/material';
-import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import React, {
   Fragment,
   MouseEventHandler,
@@ -57,6 +54,7 @@ import { cx } from '@emotion/css';
 import { css } from '@emotion/react';
 import { debounce } from 'lodash';
 import { regExp } from '../../common/helper';
+import { KeyboardUpIcon } from './icons';
 
 export const exceptFilterColumnIds = [
   '_selector',
@@ -133,7 +131,6 @@ const defaultColumn = {
   // maxWidth: 200, // maxWidth is only used as a limit for resizing
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getStyles = (props: any, align = 'left', useBorder = false) => [
   props,
   {
@@ -146,7 +143,6 @@ const getStyles = (props: any, align = 'left', useBorder = false) => [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TableCheckboxSelectHeader({
   getToggleAllPageRowsSelectedProps,
   page,
@@ -179,7 +175,6 @@ function TableCheckboxSelectHeader({
   return <HeaderCheckbox color="primary" onChange={handleChange} {...props} />;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TableCheckboxSelectCell({ row }: CellProps<any>) {
   return <RowCheckbox color="primary" {...row.getToggleRowSelectedProps()} />;
 }
@@ -195,7 +190,6 @@ function toggleSelect(instance: any) {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TableRadioSelectCell(instance: any) {
   return (
     <RowRadio
@@ -445,12 +439,10 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
         sortBy,
         filters,
         globalFilter,
-        // pageIndex,
         pageSize: tablePageSize as number,
         hiddenColumns,
         columnResizing,
         useColumnFilter,
-        // selectedRowIds: globalFilter !== prevGlobalFilter ? {} : selectedRowIds,
       };
 
       if (
@@ -525,7 +517,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
       columns,
       filterTypes,
       defaultColumn: defaultColumn as Partial<Column<TModel>> | undefined,
-      // useControlledState,
       stateReducer,
       initialState: {
         ...initialState,
@@ -596,7 +587,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     ) {
       if (!selectDisabled(cell.row)) {
         if (selectionType === 'radio' && !cell.row.isSelected) {
-          // if (!instance?.selectDisabled(cell.row)) {
           instance.toggleAllRowsSelected(false);
           cell.row.toggleRowSelected(!cell.row.isSelected);
         }
@@ -670,7 +660,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
           'table-wrap-global',
         )}
       >
-        {/* <FilterChipBar<T> instance={instance} /> */}
         <div css={classes.tableTable} {...getTableProps()} {...props.tableDivProps}>
           <div ref={headerContainer} css={classes.tableHead}>
             {headerGroups.map((headerGroup, headerGroupIdx) => (
@@ -810,7 +799,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                                   }}
                                   active
                                   direction={row.isExpanded ? 'desc' : 'asc'}
-                                  IconComponent={KeyboardArrowUp}
+                                  IconComponent={KeyboardUpIcon}
                                   {...row.getToggleRowExpandedProps()}
                                 />
                                 {cell.render('Cell')} ({row.subRows.length})

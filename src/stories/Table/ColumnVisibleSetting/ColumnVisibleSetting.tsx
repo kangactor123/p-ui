@@ -16,7 +16,7 @@ import * as ls from 'local-storage';
 
 import { SmallIconActionButton } from '../TableToolbar';
 import { ClickAwayListener, Grow, IconButton, Link, Paper, Popper } from '@mui/material';
-import { IconTableClosePopup, IconTableSetting } from '../icons';
+import { IconTableClosePopup, SettingIcon } from '../icons';
 import { css } from '@emotion/react';
 import { styles } from './ColumnSetting.style';
 import { Checkbox } from '../../Form/InputControl';
@@ -79,12 +79,9 @@ export function ColumnVisibleSetting(
     close();
   }, [close, name, onSave, visibles]);
 
-  const handleChange = useCallback(
-    ({ target: { checked, value } }: ChangeEvent<HTMLInputElement>) => {
-      setVisibles((prev) => (checked ? prev.concat(value) : prev.filter((id) => id !== value)));
-    },
-    [],
-  );
+  const handleChange = useCallback(({ target: { checked, value } }: ChangeEvent<HTMLInputElement>) => {
+    setVisibles((prev) => (checked ? prev.concat(value) : prev.filter((id) => id !== value)));
+  }, []);
 
   const handleToggle = useCallback((e: MouseEvent) => {
     e.preventDefault();
@@ -134,7 +131,7 @@ export function ColumnVisibleSetting(
         </div>
       ) : (
         <SmallIconActionButton
-          icon={<IconTableSetting />}
+          icon={<SettingIcon />}
           onClick={handleToggle}
           aria-haspopup="true"
           aria-controls={open ? 'menu-list-grow' : undefined}
@@ -199,12 +196,7 @@ export function ColumnVisibleSetting(
                     >
                       {t('Save')}
                     </Button>
-                    <Button
-                      onClick={close}
-                      css={styles['cancel-btn']}
-                      color="primary"
-                      variant="text"
-                    >
+                    <Button onClick={close} css={styles['cancel-btn']} color="primary" variant="text">
                       {t('Cancel')}
                     </Button>
                   </div>
