@@ -35,8 +35,11 @@ export interface IDropdownProps {
   menuSx?: SxProps<Theme>;
 }
 
-const MenuList = styled.li<{ split: boolean }>`
-  border-bottom: ${({ split }) => (split ? '1px solid #d8d8d8' : 0)};
+const MenuList = styled.li``;
+
+const SplitLine = styled.hr`
+  border: 0.5px solid #e6e9ef;
+  margin: 8px 0;
 `;
 
 function Dropdown({
@@ -96,11 +99,14 @@ function Dropdown({
       )}
       <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
         {options?.map(({ key, label, disabled, split, liCss }) => (
-          <MenuList key={key} split={split || false} css={liCss}>
-            <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
-              {label}
-            </MenuItem>
-          </MenuList>
+          <>
+            <MenuList key={key} css={liCss}>
+              <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
+                {label}
+              </MenuItem>
+            </MenuList>
+            {split ? <SplitLine /> : null}
+          </>
         ))}
       </Menu>
     </ThemeProvider>
