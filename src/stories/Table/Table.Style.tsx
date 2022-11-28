@@ -133,14 +133,13 @@ export const tableStyles = {
   }),
   tableSortLabel: css({
     whiteSpace: 'nowrap',
-    display: 'block',
+    display: 'flex',
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     '& svg': {
       width: 18,
       height: 18,
-      position: 'absolute',
       bottom: 0,
       marginLeft: 2,
     },
@@ -307,14 +306,14 @@ export const subTableStyles = {
   }),
   tableSortLabel: css({
     whiteSpace: 'nowrap',
-    display: 'block',
+    display: 'flex',
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     '& svg': {
       width: 18,
       height: 18,
-      position: 'absolute',
+      // position: 'absolute',
       bottom: 0,
       marginLeft: 2,
     },
@@ -369,6 +368,8 @@ export const subTableStyles = {
 
 export const tableWrapStyles = css`
   &.wrap {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     min-height: 250px;
     position: relative;
