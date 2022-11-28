@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { Button, IconButton, Toolbar, TooltipClasses } from '@mui/material';
+import { Button, IconButton, InputAdornment, Toolbar, TooltipClasses } from '@mui/material';
 import React, {
   ChangeEvent,
   MouseEventHandler,
@@ -12,12 +12,7 @@ import React, {
   MouseEvent,
 } from 'react';
 import { TableInstance } from 'react-table';
-import {
-  IconTableRefresh,
-  IconTableFilterDefault,
-  IconTableCsvDownload,
-  IconTableUploadClose,
-} from './icons';
+import { IconTableUploadClose, SearchIcon, FilterIcon, DownloadIcon, RefreshIcon } from './icons';
 
 import { TableMouseEventHandler } from './types/react-table-config';
 import { ColumnHidePage } from './ColumnHidePage';
@@ -43,9 +38,10 @@ const tooltipClasses: Partial<TooltipClasses> = {
 export const classes = {
   toolbar: css({
     display: 'flex',
-    minHeight: '48px !important',
+    minHeight: '32px !important',
     justifyContent: 'space-between',
-    paddingLeft: 10,
+    paddingLeft: '12px !important',
+    marginBottom: '20px',
   }),
   search: css({
     position: 'relative',
@@ -104,24 +100,14 @@ export const InstanceLabeledActionButton = <TModel extends object>({
   enabled = () => true,
 }: TInstanceActionButton<TModel>): ReactElement => {
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={onClick(instance)}
-      disabled={!enabled(instance)}
-    >
+    <Button variant="contained" color="primary" onClick={onClick(instance)} disabled={!enabled(instance)}>
       {icon}
       {label}
     </Button>
   );
 };
 
-export const LabeledActionButton = ({
-  icon,
-  onClick,
-  label,
-  enabled = true,
-}: TActionButton): ReactElement => {
+export const LabeledActionButton = ({ icon, onClick, label, enabled = true }: TActionButton): ReactElement => {
   return (
     <Button variant="contained" color="primary" onClick={onClick} disabled={!enabled}>
       {icon}
@@ -156,13 +142,7 @@ export const InstanceSmallIconActionButton = <TModel extends object>({
   );
 };
 
-export const SmallIconActionButton = ({
-  icon,
-  onClick,
-  label,
-  enabled = true,
-  variant,
-}: TActionButton) => {
+export const SmallIconActionButton = ({ icon, onClick, label, enabled = true, variant }: TActionButton) => {
   return (
     <Tooltip arrow title={label} aria-label={label} classes={tooltipClasses}>
       <span style={{ display: 'inline-block' }}>
@@ -231,12 +211,9 @@ export function TableToolbar<TModel extends object>({
     }
   }, [searchKeyword, setGlobalFilter, onSearchKeyword]);
 
-  const handleKeywordChange = useCallback(
-    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      setSearchKeyword(value);
-    },
-    [],
-  );
+  const handleKeywordChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(value);
+  }, []);
 
   const handleKeywordKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -274,19 +251,23 @@ export function TableToolbar<TModel extends object>({
     [onRefresh],
   );
 
-  // toolbar with add, edit, delete, filter/search column select.
   return (
     <Toolbar css={classes.toolbar}>
-      <div css={classes.search}>
+      <div>
         <InputText
           className={cx(isSearchStyle ? `${classes.searchInput}` : '', 'search-input')}
           onChange={handleKeywordChange}
           onKeyDown={handleKeywordKeyDown}
           onBlur={handleKeywordBlur}
-          variant={'standard'}
           value={searchKeyword || ''}
-          inputProps={{
+          InputProps={{
+            sx: { height: 32 },
             placeholder: t('Search'),
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            ),
           }}
         />
         {searchKeyword && (
@@ -299,13 +280,13 @@ export function TableToolbar<TModel extends object>({
         {!useServerPaging ? (
           <>
             <SmallIconActionButton
-              icon={<IconTableFilterDefault />}
+              icon={<FilterIcon />}
               onClick={handleFilterClick}
               label={t('Filter by columns')}
               variant="right"
             />
             <SmallIconActionButton
-              icon={<IconTableCsvDownload />}
+              icon={<DownloadIcon />}
               onClick={downloadCsv}
               label={t('Export to CSV')}
               variant="right"
@@ -315,7 +296,7 @@ export function TableToolbar<TModel extends object>({
         {onRefresh && (
           <SmallIconActionButton
             key={refreshKey}
-            icon={<IconTableRefresh />}
+            icon={<RefreshIcon />}
             onClick={handleRefresh}
             label={t('Refresh')}
             variant="right"

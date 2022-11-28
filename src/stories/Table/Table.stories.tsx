@@ -3,6 +3,7 @@ import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
 import Table, { ITable } from './Table';
 import { Column } from 'react-table';
+import { BrowserRouter } from 'react-router-dom';
 
 export default {
   title: 'Component/Table',
@@ -40,7 +41,11 @@ const Template: Story<ITable<SampleData>> = (args) => {
     { id: 3, name: 'Sample3', count: 30 },
   ];
   // story에서는 임시적으로 pagination과 toolbar사용을 막음
-  return <Table name="table-sample" columns={sampleColumns} data={data} usePagination={false} useToolbar={false} />;
+  return (
+    <BrowserRouter>
+      <Table name="table-sample" columns={sampleColumns} data={data} />
+    </BrowserRouter>
+  );
 };
 
 export const Basic = Template.bind({});

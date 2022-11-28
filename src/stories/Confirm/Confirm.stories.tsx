@@ -25,5 +25,3 @@ const Confirm: Story<IConfirmProps> = (args) => {
     </Confirm>
   );
 };
-
-export const Basic = Confirm.bind({});
