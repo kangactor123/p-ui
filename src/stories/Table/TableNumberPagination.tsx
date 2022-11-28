@@ -13,6 +13,7 @@ export const ALL_VALUE = 100000000;
 const wrapperCss = css`
   position: relative;
   display: flex;
+  justify-content: center;
 `;
 
 const numberStyles = css({
@@ -20,8 +21,6 @@ const numberStyles = css({
   paddingTop: 10,
   minHeight: '40px',
   minWidth: '7px',
-  position: 'absolute',
-  left: '50%',
   width: 'auto',
   '& > ul': {
     float: 'right',
@@ -31,7 +30,8 @@ const numberStyles = css({
   },
   '& ul > li:not(:first-of-type ):not(:last-child) > button:not(.Mui-selected)': {
     backgroundColor: 'transparent',
-    color: '#BABCBF',
+    color: '#808080',
+    transition: 'none',
     '&:hover': {
       backgroundColor: '#dfe1e4',
     },
@@ -41,6 +41,9 @@ const numberStyles = css({
     padding: '0 10px',
     fontSize: '12px',
     height: '28px',
+    '& span': {
+      borderRadius: '3px',
+    },
   },
   '& .Mui-selected': {
     backgroundColor: '#808080 !important',
@@ -49,7 +52,14 @@ const numberStyles = css({
     padding: '0 10px',
     borderRadius: '3px',
   },
+  '& :hover': {
+    borderRadius: '3px',
+  },
 });
+
+const rowPerPageStyle = css`
+  position: absolute;
+`;
 
 const paginationStyle = css`
   width: 100%;
@@ -242,6 +252,7 @@ export function TableNumberPagination<TModel extends object>({
             onRowsPerPageChange={onRowsPerPageChange}
             css={css`
               ${paginationStyle}
+              ${rowPerPageStyle}
             `}
             className={cx({ subTable: isSubRowStyle })}
             ActionsComponent={() => null}
@@ -254,11 +265,11 @@ export function TableNumberPagination<TModel extends object>({
           defaultPage={1}
           page={pageIndex + 1}
           onChange={handleNumberChangePage}
+          className={cx({ subTable: isSubRowStyle })}
           css={css`
             ${paginationStyle}
             ${numberStyles}
           `}
-          className={cx({ subTable: isSubRowStyle })}
         />
       </div>
     </ThemeProvider>

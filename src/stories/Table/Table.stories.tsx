@@ -39,11 +39,26 @@ const Template: Story<ITable<SampleData>> = (args) => {
     { id: 1, name: 'Sample1', count: 5 },
     { id: 2, name: 'Sample2', count: 10 },
     { id: 3, name: 'Sample3', count: 30 },
+    { id: 1, name: 'Sample1', count: 5 },
+    { id: 2, name: 'Sample2', count: 10 },
+    { id: 3, name: 'Sample3', count: 30 },
+    { id: 1, name: 'Sample1', count: 5 },
+    { id: 2, name: 'Sample2', count: 10 },
+    { id: 3, name: 'Sample3', count: 30 },
+    { id: 1, name: 'Sample1', count: 5 },
+    { id: 2, name: 'Sample2', count: 10 },
+    { id: 3, name: 'Sample3', count: 30 },
+    { id: 1, name: 'Sample1', count: 5 },
+    { id: 2, name: 'Sample2', count: 10 },
+    { id: 3, name: 'Sample3', count: 30 },
+    { id: 1, name: 'Sample1', count: 5 },
+    { id: 2, name: 'Sample2', count: 10 },
+    { id: 3, name: 'Sample3', count: 30 },
   ];
   // story에서는 임시적으로 pagination과 toolbar사용을 막음
   return (
     <BrowserRouter>
-      <Table name="table-sample" columns={sampleColumns} data={data} />
+      <Table name="table-sample" columns={sampleColumns} data={data} idColumn={null} usePagination={true} />
     </BrowserRouter>
   );
 };
