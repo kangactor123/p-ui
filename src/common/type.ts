@@ -6,3 +6,7 @@ export type TControl<T extends FieldValues> = {
   name: FieldPath<T>;
   rules?: Omit<RegisterOptions<T>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
 };
+
+export type TSize = {
+  size?: 'small' | 'medium' | 'large' | string;
+};
