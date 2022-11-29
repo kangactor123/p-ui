@@ -29,3 +29,5 @@ export { ReactComponent as IconViewGrayMoreWhite } from './svg/icon-ic-more-whit
 export { ReactComponent as IconSelectArrow } from './svg/icon-ic-table-arrow-down.svg';
 export { ReactComponent as DuplicateCopyIcon } from './svg/icon-duplicate-copy.svg';
 export { ReactComponent as DropdownDownIcon } from './svg/icon-dropdown-down.svg';
+export { ReactComponent as RemoveIcon } from './svg/icon-remove.svg';
+export { ReactComponent as AddSmallIcon } from './svg/icon-add-small.svg';

@@ -108,16 +108,14 @@ function Dropdown({
         </Button>
       )}
       <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose} size={size}>
-        {options?.map(({ key, label, disabled, split, liCss }) => (
-          <>
-            <MenuList key={key} css={liCss}>
-              <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
-                {label}
-              </MenuItem>
-            </MenuList>
-            {split ? <SplitLine /> : null}
-          </>
-        ))}
+        {options?.map(({ key, label, disabled, split, liCss }) => [
+          <MenuList key={key} css={liCss}>
+            <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
+              {label}
+            </MenuItem>
+          </MenuList>,
+          split ? <SplitLine /> : null,
+        ])}
       </Menu>
     </ThemeProvider>
   );

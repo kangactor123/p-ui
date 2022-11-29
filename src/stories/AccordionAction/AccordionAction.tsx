@@ -1,10 +1,15 @@
 import React, { ReactElement, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button';
-import { IconTogCollapseGray, IconTogExpandGray } from '../icons';
+import { AddSmallIcon, RemoveIcon } from '../icons';
 import { IAccordionAction } from './type';
 
-function AccordionAction<T>({ expanded, setExpanded }: IAccordionAction<T>): ReactElement {
+function AccordionAction<T>({
+  expanded,
+  setExpanded,
+  buttonProps = { variant: 'text', color: 'primary', size: 'small' },
+  iconPosition = 'start',
+}: IAccordionAction<T>): ReactElement {
   const { t } = useTranslation();
   const isAllCollapsed = useCallback(() => {
     return expanded && !Object.keys(expanded).some((key) => expanded[key as keyof T]);
@@ -24,10 +29,15 @@ function AccordionAction<T>({ expanded, setExpanded }: IAccordionAction<T>): Rea
 
   const label = useMemo(() => (isAllCollapsed() ? t('Expand All') : t('Collapse All')), [isAllCollapsed, t]);
 
-  const icon = useMemo(() => (isAllCollapsed() ? <IconTogExpandGray /> : <IconTogCollapseGray />), [isAllCollapsed]);
+  const icon = useMemo(() => (isAllCollapsed() ? <AddSmallIcon /> : <RemoveIcon />), [isAllCollapsed]);
 
   return (
-    <Button variant="text" onClick={handleClick} endIcon={icon}>
+    <Button
+      onClick={handleClick}
+      {...(iconPosition === 'start' ? { ...{ startIcon: icon } } : { ...{ endIcon: icon } })}
+      sx={{ color: '#999999' }}
+      {...buttonProps}
+    >
       {label}
     </Button>
   );
