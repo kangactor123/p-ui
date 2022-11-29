@@ -135,7 +135,7 @@ export const tableStyles = {
 
   tableSortLabel: css({
     whiteSpace: 'nowrap',
-    display: 'block',
+    display: 'block !important',
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -173,11 +173,13 @@ export const tableStyles = {
   }),
 
   tableBody: css({
+    width: '100%',
+    height: '100%',
+    position: 'relative',
     paddingBottom: '10px',
     paddingTop: '8px',
     display: 'flex',
     flex: '1 1 auto',
-    width: '100%',
     flexDirection: 'column',
     minHeight: '50px',
     maxHeight: 'calc(100% - 40px)',
@@ -246,7 +248,6 @@ export const subTableStyles = {
     textAlign: 'left',
     height: '36px',
     verticalAlign: 'inherit',
-    // overflow: 'hidden',
     color: '#191f28',
     '&:first-of-type': {
       paddingLeft: '16px',
@@ -309,8 +310,8 @@ export const subTableStyles = {
     alignItems: 'center',
   }),
   tableSortLabel: css({
-    whiteSpace: 'nowrap',
     display: 'block',
+    whiteSpace: 'nowrap',
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -348,9 +349,11 @@ export const subTableStyles = {
   }),
 
   tableBody: css({
+    width: '100%',
+    height: '100%',
+    position: 'relative',
     display: 'flex',
     flex: '1 1 auto',
-    width: '100%',
     borderBottom: '1px solid #dbdbdb',
     flexDirection: 'column',
     maxHeight: 'calc(100% - 40px)',
