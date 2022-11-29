@@ -69,6 +69,7 @@ export const tableStyles = {
     height: '40px',
     verticalAlign: 'inherit',
     color: '#191f28',
+    overflow: 'hidden',
     '&:first-of-type': {
       paddingLeft: '16px',
     },
@@ -243,6 +244,7 @@ export const subTableStyles = {
     textAlign: 'left',
     height: '36px',
     verticalAlign: 'inherit',
+    overflow: 'hidden',
     color: '#191f28',
     '&:first-of-type': {
       paddingLeft: '16px',
