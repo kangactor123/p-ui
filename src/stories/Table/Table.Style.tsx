@@ -107,13 +107,6 @@ export const tableStyles = {
       backgroundColor: 'rgba(204, 229, 255, 0.35)',
     },
   }),
-  tableSortLabelWrap: css({
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }),
   tableCell: css({
     paddingLeft: '10px',
     paddingRight: '10px',
@@ -132,13 +125,22 @@ export const tableStyles = {
       wordBreak: 'break-all',
     },
   }),
+  tableSortLabelWrap: css({
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }),
+
   tableSortLabel: css({
     whiteSpace: 'nowrap',
-    display: 'flex',
+    display: 'block',
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     '& svg': {
+      position: 'absolute',
       width: 18,
       height: 18,
       bottom: 0,
@@ -244,7 +246,7 @@ export const subTableStyles = {
     textAlign: 'left',
     height: '36px',
     verticalAlign: 'inherit',
-    overflow: 'hidden',
+    // overflow: 'hidden',
     color: '#191f28',
     '&:first-of-type': {
       paddingLeft: '16px',
@@ -308,14 +310,14 @@ export const subTableStyles = {
   }),
   tableSortLabel: css({
     whiteSpace: 'nowrap',
-    display: 'flex',
+    display: 'block',
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     '& svg': {
       width: 18,
       height: 18,
-      // position: 'absolute',
+      position: 'absolute',
       bottom: 0,
       marginLeft: 2,
     },
