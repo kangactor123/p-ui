@@ -4,17 +4,19 @@ import {
   ButtonProps,
   IconButton,
   IconButtonProps,
-  Menu,
+  Menu as MuiMenu,
   MenuItem,
   SxProps,
   Theme,
   ThemeOptions,
   ThemeProvider,
+  styled as MUIStyled,
 } from '@mui/material';
 import Tooltip from '../Tooltip';
 import { PlayceThemeContext } from '../../providers';
 import styled from '@emotion/styled';
 import { SerializedStyles } from '@emotion/react';
+import { TSize } from '../../common/type';
 
 export interface IOptionsType {
   key: string;
@@ -33,7 +35,14 @@ export interface IDropdownProps {
   buttonProps?: ButtonProps;
   onClickOption?: (key: string, id?: number) => void;
   menuSx?: SxProps<Theme>;
+  size?: 'small' | 'medium' | 'large' | string;
 }
+
+const Menu = MUIStyled(MuiMenu)<TSize>(({ size }) => ({
+  '& .MuiList-root': {
+    minWidth: size === 'small' ? '200px' : size === 'medium' ? '220px' : size === 'large' ? '240px' : size,
+  },
+}));
 
 const MenuList = styled.li``;
 
@@ -51,6 +60,7 @@ function Dropdown({
   buttonProps,
   onClickOption,
   menuSx,
+  size = 'medium',
 }: IDropdownProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -97,7 +107,7 @@ function Dropdown({
           {title}
         </Button>
       )}
-      <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
+      <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose} size={size}>
         {options?.map(({ key, label, disabled, split, liCss }) => (
           <>
             <MenuList key={key} css={liCss}>

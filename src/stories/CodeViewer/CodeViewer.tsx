@@ -27,7 +27,7 @@ const wrapperStyle = css`
   .linenumber {
     background-color: rgba(216, 216, 216, 0.34);
     min-height: 16px;
-    min-width: 44px !important;
+    min-width: 51px !important;
     padding-right: 7px !important;
     margin-right: 16px;
   }
