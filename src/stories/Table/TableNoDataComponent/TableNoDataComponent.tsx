@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { IconTableArrowRightCurrentColor } from '../icons';
 import { css, SerializedStyles } from '@emotion/react';
 import Button from '../../Button';
 
@@ -53,10 +52,10 @@ export function TableNoDataComponent({
       {buttonDisplay && buttonOnClick ? (
         <Button
           color="primary"
-          variant="text"
+          variant="outlined"
+          size="small"
           disabled={buttonDisabled}
           onClick={buttonOnClick}
-          endIcon={<IconTableArrowRightCurrentColor />}
           css={nodataStyle}
         >
           {buttonTitle || ''}

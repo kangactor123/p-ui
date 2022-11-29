@@ -173,6 +173,7 @@ export const tableStyles = {
   }),
 
   tableBody: css({
+    position: 'relative',
     paddingBottom: '10px',
     paddingTop: '8px',
     display: 'flex',
@@ -348,6 +349,7 @@ export const subTableStyles = {
   }),
 
   tableBody: css({
+    position: 'relative',
     display: 'flex',
     flex: '1 1 auto',
     width: '100%',
