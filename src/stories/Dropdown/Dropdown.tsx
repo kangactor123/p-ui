@@ -48,7 +48,7 @@ const Menu = MUIStyled(MuiMenu)<TSize>(({ size }) => ({
     boxShadow: 'none',
     filter: 'drop-shadow(0px 6px 20px rgba(0, 0, 0, 0.2))',
     borderRadius: '8px',
-    // transform: 'translateY(10px) !important',
+    transform: 'translateY(10px) !important',
   },
   '& .MuiList-root': {
     minWidth:
