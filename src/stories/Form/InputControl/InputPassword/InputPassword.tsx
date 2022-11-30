@@ -1,23 +1,56 @@
 import React, { ReactElement, useContext, useState } from 'react';
-import { IconButton, InputAdornment, TextField, TextFieldProps, ThemeOptions, ThemeProvider } from '@mui/material';
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  TextFieldProps,
+  Theme,
+  ThemeOptions,
+  ThemeProvider,
+} from '@mui/material';
+import { SxProps } from '@mui/system';
 import { useController, FieldValues } from 'react-hook-form';
 import { TControl } from '../../../../common/type';
-import { IconPasswordHide, IconPasswordShow, IconUploadClose } from '../../../icons';
+import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
+import { Size } from '../../../../common/enum';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { textFieldStyle } from '../InputText';
 
-export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
+export type TInputPasswordProps<T extends FieldValues> = Omit<TextFieldProps, 'size'> &
   TControl<T> & {
     useClearBtn?: boolean;
+    size?: Size | string;
+    isError?: boolean;
   };
 
+const IconBox = styled(IconButton)`
+  padding: 4px;
+`;
+
+const passwordFieldStyle = css`
+  ${textFieldStyle}
+  & input {
+    padding: 0;
+  }
+  & .MuiInputBase-root {
+    padding-right: 4px;
+  }
+`;
+
 function InputPassword<T extends FieldValues>({
+  inputProps = {},
   variant = 'outlined',
   useClearBtn = true,
   control,
   name,
   rules,
+  isError,
+  size = Size.Medium,
   ...props
 }: TInputPasswordProps<T>): ReactElement {
+  const { sx: inputSx } = inputProps;
   const [isVisible, setIsVisible] = useState(false);
   const theme = useContext(PlayceThemeContext);
   const visibleChange = () => setIsVisible((prev) => !prev);
@@ -29,25 +62,40 @@ function InputPassword<T extends FieldValues>({
     control,
   });
 
+  const inputStyle: SxProps<Theme> = {
+    padding: size === Size.Large ? '15px 12px' : size === Size.Medium ? '8px 17px 10px 15px' : '5px 8px',
+    ...inputSx,
+  };
+
   return (
     <ThemeProvider theme={theme as ThemeOptions}>
       <TextField
         {...props}
-        variant={variant}
+        css={css`
+          ${passwordFieldStyle}
+          & fieldset {
+            border-color: ${isError ? '#D83A52' : '#C5C7D0'};
+          }
+        `}
         value={value}
+        variant={variant}
         onChange={onChange}
         type={isVisible ? 'text' : 'password'}
+        sx={{ width: 300, ...props.sx }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               {value && useClearBtn && (
-                <IconButton onClick={() => onChange('')}>
-                  <IconUploadClose />
-                </IconButton>
+                <IconBox onClick={() => onChange('')} disableRipple>
+                  <ClearIcon />
+                </IconBox>
               )}
-              <IconButton onClick={visibleChange}>{isVisible ? <IconPasswordShow /> : <IconPasswordHide />}</IconButton>
+              <IconBox onClick={visibleChange} disableRipple>
+                {isVisible ? <VisibleIcon /> : <InvisibleIcon />}
+              </IconBox>
             </InputAdornment>
           ),
+          sx: inputStyle,
         }}
       />
     </ThemeProvider>
