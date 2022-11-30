@@ -99,13 +99,13 @@ function Confirm(props: IConfirmProps): ReactElement {
           <div> {dialogActionLeftButtons}</div>
           <div css={rightButtons}>
             {isCancelButton && (
-              <Button onClick={handleCancel} color="primary" variant="text">
+              <Button onClick={handleCancel} color="primary" variant="text" size="small">
                 {cancelLabel}
               </Button>
             )}
             {dialogActionRightButtons}
             {isOkButton && (
-              <Button onClick={handleOk} color="primary" autoFocus variant="contained" {...okProps}>
+              <Button onClick={handleOk} color="primary" autoFocus variant="contained" size="small" {...okProps}>
                 {okLabel}
               </Button>
             )}
