@@ -1,19 +1,21 @@
 import styled from '@emotion/styled';
 
 export const FormRow = styled.div`
+  margin-bottom: 20px;
+
   & .label {
-    margin-bottom: 7px;
+    margin-bottom: 5px;
     & span {
-      font-size: 13px;
-      line-height: 1.54;
-      color: rgba(56, 58, 63, 0.8);
+      font-size: 14px;
+      line-height: 22px;
+      font-weight: 500;
+      color: #808080;
     }
   }
   & .required::after {
     content: '*';
-    color: #228be7;
+    color: #e22134;
     vertical-align: middle;
     margin-left: 3px;
   }
-  margin-bottom: 25px;
 `;
