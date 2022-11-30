@@ -23,6 +23,7 @@ export type TInputPasswordProps<T extends FieldValues> = Omit<TextFieldProps, 's
     useClearBtn?: boolean;
     size?: Size | string;
     isError?: boolean;
+    iconSize?: Size | undefined;
   };
 
 const IconBox = styled(IconButton)`
@@ -48,6 +49,7 @@ function InputPassword<T extends FieldValues>({
   rules,
   isError,
   size = Size.Medium,
+  iconSize,
   ...props
 }: TInputPasswordProps<T>): ReactElement {
   const { sx: inputSx } = inputProps;
@@ -70,7 +72,6 @@ function InputPassword<T extends FieldValues>({
   return (
     <ThemeProvider theme={theme as ThemeOptions}>
       <TextField
-        {...props}
         css={css`
           ${passwordFieldStyle}
           & fieldset {
@@ -86,17 +87,18 @@ function InputPassword<T extends FieldValues>({
           endAdornment: (
             <InputAdornment position="end">
               {value && useClearBtn && (
-                <IconBox onClick={() => onChange('')} disableRipple>
+                <IconBox onClick={() => onChange('')} disableRipple size={iconSize}>
                   <ClearIcon />
                 </IconBox>
               )}
-              <IconBox onClick={visibleChange} disableRipple>
+              <IconBox onClick={visibleChange} disableRipple size={iconSize}>
                 {isVisible ? <VisibleIcon /> : <InvisibleIcon />}
               </IconBox>
             </InputAdornment>
           ),
           sx: inputStyle,
         }}
+        {...props}
       />
     </ThemeProvider>
   );
