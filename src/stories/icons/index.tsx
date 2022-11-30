@@ -27,7 +27,11 @@ export { ReactComponent as IconCanceledOutlined } from './svg/ic-canceled-outlin
 export { ReactComponent as IconDownloadCurrentColor } from './svg/ic-download-current-color.svg';
 export { ReactComponent as IconViewGrayMoreWhite } from './svg/icon-ic-more-white.svg';
 export { ReactComponent as IconSelectArrow } from './svg/icon-ic-table-arrow-down.svg';
+
 export { ReactComponent as DuplicateCopyIcon } from './svg/icon-duplicate-copy.svg';
 export { ReactComponent as DropdownDownIcon } from './svg/icon-dropdown-down.svg';
 export { ReactComponent as RemoveIcon } from './svg/icon-remove.svg';
 export { ReactComponent as AddSmallIcon } from './svg/icon-add-small.svg';
+export { ReactComponent as ClearIcon } from './svg/icon-clear.svg';
+export { ReactComponent as InvisibleIcon } from './svg/icon-invisible.svg';
+export { ReactComponent as VisibleIcon } from './svg/icon-visible.svg';

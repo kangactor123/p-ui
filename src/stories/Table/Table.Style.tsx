@@ -173,18 +173,6 @@ export const tableStyles = {
   }),
 
   tableBody: css({
-    // width: '100%',
-    // height: '100%',
-    // position: 'relative',
-    // paddingBottom: '10px',
-    // paddingTop: '8px',
-    // display: 'flex',
-    // flex: '1 1 auto',
-    // flexDirection: 'column',
-    // minHeight: '50px',
-    // maxHeight: 'calc(100% - 40px)',
-    // overflowY: 'auto',
-    // minWidth: 'fit-content',
     paddingBottom: '10px',
     paddingTop: '8px',
     display: 'flex',

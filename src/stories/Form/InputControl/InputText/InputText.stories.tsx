@@ -4,6 +4,7 @@ import { ComponentMeta, Story } from '@storybook/react';
 import StoryInputText, { TInputTextProps } from './InputText';
 import { TSample } from '../CodeEditor/CodeEditor.stories';
 import { useForm } from 'react-hook-form';
+import { Size } from '../../../../common/enum';
 
 export default {
   title: 'Component/InputText',
@@ -17,11 +18,21 @@ export type TSampleFormControl = {
 const InputText: Story<TInputTextProps<TSample>> = (args) => {
   const { control } = useForm<TSampleFormControl>({
     mode: 'all',
-    defaultValues: {
-      sample: 'this is sample',
-    },
+    // defaultValues: {
+    //   sample: 'this is sample',
+    // },
   });
-  return <StoryInputText {...args} control={control} rules={{ required: true }} name={'sample'} />;
+  return (
+    <StoryInputText
+      {...args}
+      control={control}
+      rules={{ required: true }}
+      name={'sample'}
+      placeholder={'this is placeholder'}
+      // size={Size.}
+      // isError={true}
+    />
+  );
 };
 
 export const Basic = InputText.bind({});
