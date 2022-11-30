@@ -22,6 +22,7 @@ export const textFieldStyle = css`
 `;
 
 /**
+ * @param inputSize: default 는 'medium', 'large', 'small
  * @returns control 로 다룰수 있는 InputText
  */
 function InputText<T extends FieldValues>({
