@@ -9,8 +9,9 @@ import {
   SxProps,
   Theme,
   ThemeOptions,
-  ThemeProvider,
   styled as MUIStyled,
+  PopoverOrigin,
+  ThemeProvider,
 } from '@mui/material';
 import Tooltip from '../Tooltip';
 import { PlayceThemeContext } from '../../providers';
@@ -35,12 +36,31 @@ export interface IDropdownProps {
   buttonProps?: ButtonProps;
   onClickOption?: (key: string, id?: number) => void;
   menuSx?: SxProps<Theme>;
-  size?: 'small' | 'medium' | 'large' | string;
+  size?: 'small' | 'medium' | 'large' | 'mini' | string;
+  positionProps?: {
+    anchorOrigin?: PopoverOrigin;
+    transformOrigin?: PopoverOrigin;
+  };
 }
 
 const Menu = MUIStyled(MuiMenu)<TSize>(({ size }) => ({
+  '& .MuiPaper-root': {
+    boxShadow: 'none',
+    filter: 'drop-shadow(0px 6px 20px rgba(0, 0, 0, 0.2))',
+    borderRadius: '8px',
+    transform: 'translateY(10px) !important',
+  },
   '& .MuiList-root': {
-    minWidth: size === 'small' ? '200px' : size === 'medium' ? '220px' : size === 'large' ? '240px' : size,
+    minWidth:
+      size === 'mini'
+        ? '160px'
+        : size === 'small'
+        ? '200px'
+        : size === 'medium'
+        ? '220px'
+        : size === 'large'
+        ? '240px'
+        : size,
   },
 }));
 
@@ -48,7 +68,7 @@ const MenuList = styled.li``;
 
 const SplitLine = styled.hr`
   border: 0.5px solid #e6e9ef;
-  margin: 8px 0;
+  margin: 0;
 `;
 
 function Dropdown({
@@ -61,6 +81,7 @@ function Dropdown({
   onClickOption,
   menuSx,
   size = 'medium',
+  positionProps,
 }: IDropdownProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -107,7 +128,7 @@ function Dropdown({
           {title}
         </Button>
       )}
-      <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose} size={size}>
+      <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose} size={size} {...positionProps}>
         {options?.map(({ key, label, disabled, split, liCss }) => [
           <MenuList key={key} css={liCss}>
             <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
