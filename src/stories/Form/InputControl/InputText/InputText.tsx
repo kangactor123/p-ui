@@ -7,12 +7,11 @@ import { Size } from '../../../../common/enum';
 import { css } from '@emotion/react';
 import { SxProps } from '@mui/system';
 
-export type TInputTextProps<T extends FieldValues> = Omit<TextFieldProps, 'size'> &
-  TControl<T> & { size?: Size | string; isError?: boolean };
+export type TInputTextProps<T extends FieldValues> = TextFieldProps &
+  TControl<T> & { inputSize?: 'large' | 'medium' | 'small'; isError?: boolean };
 
 export const textFieldStyle = css`
   & input {
-    /* padding: 0; */
     font-size: 14px;
     color: #323338;
   }
@@ -28,12 +27,11 @@ export const textFieldStyle = css`
 function InputText<T extends FieldValues>({
   inputProps = {},
   variant = 'outlined',
-  sx,
   name,
   rules,
   control,
   onChange,
-  size = Size.Medium,
+  inputSize = Size.Medium,
   isError,
   ...props
 }: TInputTextProps<T>): ReactElement {
@@ -58,7 +56,7 @@ function InputText<T extends FieldValues>({
   );
 
   const inputStyle: SxProps<Theme> = {
-    padding: size === Size.Large ? '15px 12px' : size === Size.Medium ? '8px 17px 10px 15px' : '5px 8px',
+    padding: inputSize === Size.Large ? '13px 15px' : inputSize === Size.Medium ? '9px 15px' : '5px 15px',
     ...inputSx,
   };
 
@@ -69,7 +67,6 @@ function InputText<T extends FieldValues>({
         variant={variant}
         onChange={handleChange}
         inputProps={{ maxLength: 255, sx: inputStyle, ...input }}
-        sx={{ width: 300, ...sx }}
         css={css`
           ${textFieldStyle}
           & fieldset {

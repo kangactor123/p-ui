@@ -15,20 +15,14 @@ import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 import { textFieldStyle } from '../InputText';
 
-export type TInputPasswordProps<T extends FieldValues> = Omit<TextFieldProps, 'size'> &
+export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {
     useClearBtn?: boolean;
-    size?: Size | string;
+    inputSize?: 'large' | 'medium' | 'small';
     isError?: boolean;
-    iconSize?: Size | undefined;
   };
-
-const IconBox = styled(IconButton)`
-  padding: 4px;
-`;
 
 const passwordFieldStyle = css`
   ${textFieldStyle}
@@ -48,8 +42,7 @@ function InputPassword<T extends FieldValues>({
   name,
   rules,
   isError,
-  size = Size.Medium,
-  iconSize,
+  inputSize = Size.Medium,
   ...props
 }: TInputPasswordProps<T>): ReactElement {
   const { sx: inputSx } = inputProps;
@@ -65,35 +58,36 @@ function InputPassword<T extends FieldValues>({
   });
 
   const inputStyle: SxProps<Theme> = {
-    padding: size === Size.Large ? '15px 12px' : size === Size.Medium ? '8px 17px 10px 15px' : '5px 8px',
+    padding: inputSize === Size.Large ? '13px 15px' : inputSize === Size.Medium ? '9px 15px' : '5px 15px',
     ...inputSx,
   };
+
+  const textfieldCss = css`
+    ${passwordFieldStyle}
+    & fieldset {
+      border-color: ${isError ? '#D83A52' : '#C5C7D0'};
+    }
+  `;
 
   return (
     <ThemeProvider theme={theme as ThemeOptions}>
       <TextField
-        css={css`
-          ${passwordFieldStyle}
-          & fieldset {
-            border-color: ${isError ? '#D83A52' : '#C5C7D0'};
-          }
-        `}
+        css={textfieldCss}
         value={value}
         variant={variant}
         onChange={onChange}
         type={isVisible ? 'text' : 'password'}
-        sx={{ width: 300, ...props.sx }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               {value && useClearBtn && (
-                <IconBox onClick={() => onChange('')} disableRipple size={iconSize}>
+                <IconButton onClick={() => onChange('')} disableRipple>
                   <ClearIcon />
-                </IconBox>
+                </IconButton>
               )}
-              <IconBox onClick={visibleChange} disableRipple size={iconSize}>
+              <IconButton onClick={visibleChange} disableRipple>
                 {isVisible ? <VisibleIcon /> : <InvisibleIcon />}
-              </IconBox>
+              </IconButton>
             </InputAdornment>
           ),
           sx: inputStyle,
