@@ -1,19 +1,12 @@
 import React, { ReactElement } from 'react';
-import { css, SerializedStyles } from '@emotion/react';
+import { SerializedStyles } from '@emotion/react';
 import Button from '../../Button';
-import styled from '@emotion/styled';
 
 export const noDataComponentWithoutButtonByMessage = (message: string): ReactElement => (
   <>
     <div>{message}</div>
   </>
 );
-
-const NoDataWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-`;
 
 export function TableNoDataComponent({
   message,
@@ -31,20 +24,13 @@ export function TableNoDataComponent({
   style?: SerializedStyles;
 }): ReactElement {
   return (
-    <NoDataWrapper>
+    <>
       <div css={style}>{message}</div>
       {buttonDisplay && buttonOnClick ? (
-        <Button
-          color="primary"
-          variant="outlined"
-          size="small"
-          disabled={buttonDisabled}
-          onClick={buttonOnClick}
-          // css={nodataStyle}
-        >
+        <Button color="primary" variant="outlined" size="small" disabled={buttonDisabled} onClick={buttonOnClick}>
           {buttonTitle || ''}
         </Button>
       ) : null}
-    </NoDataWrapper>
+    </>
   );
 }
