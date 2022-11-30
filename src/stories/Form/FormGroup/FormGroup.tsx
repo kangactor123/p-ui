@@ -10,8 +10,8 @@ export interface IFormGroupProps {
 function FormGroup({ title, children }: IFormGroupProps): ReactElement {
   return (
     <Wrapper>
-      <div className={cx('group-header-label')}>{title}</div>
       <hr className={cx('group-header-hr')} />
+      <div className={cx('group-header-label')}>{title}</div>
       {children}
     </Wrapper>
   );

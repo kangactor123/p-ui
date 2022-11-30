@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
-  margin-top: 30px;
-  & .group-header-label {
-    font-size: 1.4rem;
-    font-weight: 500;
-  }
+  margin-top: 36px;
 
   & .group-header-hr {
-    margin: 12px 0 20px 0;
-    border: 1px solid #dbdbdb;
+    margin-bottom: 26px;
+    border: 0.5px solid #e6e9ef;
+  }
+
+  & .group-header-label {
+    color: #202020;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    margin-bottom: 21px;
   }
 `;

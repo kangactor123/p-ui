@@ -40,7 +40,7 @@ function Confirm(props: IConfirmProps): ReactElement {
     title = '',
     children,
     open,
-    isCloseIcon = true,
+    isCloseIcon,
     isCancelButton = true,
     cancelLabel = t('Cancel'),
     isOkButton = true,
