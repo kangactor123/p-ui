@@ -1,7 +1,7 @@
-import { Theme, ThemeOptions, createTheme } from '@mui/material';
+import { Theme, createTheme } from '@mui/material';
 import { createContext } from 'react';
 
-export type PlayceTheme = Theme | ThemeOptions | undefined;
+export type PlayceTheme = Theme | undefined;
 
 const defaultTheme = createTheme({});
 

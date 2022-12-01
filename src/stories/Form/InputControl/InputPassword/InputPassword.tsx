@@ -5,7 +5,6 @@ import {
   TextField,
   TextFieldProps,
   Theme,
-  ThemeOptions,
   ThemeProvider,
 } from '@mui/material';
 import { SxProps } from '@mui/system';
@@ -42,6 +41,12 @@ const iconButtonCss = css`
   width: 20px;
   height: 20px;
   padding: 0;
+
+  &.MuiButtonBase-root.MuiIconButton-root {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+  }
 `;
 
 /**
@@ -84,7 +89,7 @@ function InputPassword<T extends FieldValues>({
   `;
 
   return (
-    <ThemeProvider theme={theme as ThemeOptions}>
+    <ThemeProvider theme={theme as Theme}>
       <TextField
         css={textfieldCss}
         value={value}

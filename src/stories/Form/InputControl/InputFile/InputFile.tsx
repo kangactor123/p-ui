@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react';
 import { css } from '@emotion/react';
 import { FieldValues, useController } from 'react-hook-form';
-import { InputAdornment, TextField, TextFieldProps, ThemeOptions, ThemeProvider } from '@mui/material';
+import { InputAdornment, TextField, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
 import { TControl } from '../../../../common/type';
 import { isValidFileFormat } from '../../../../common/helper';
 import styled from '@emotion/styled';
@@ -84,7 +84,7 @@ function InputFile<T extends FieldValues>({
   );
 
   return (
-    <ThemeProvider theme={theme as ThemeOptions}>
+    <ThemeProvider theme={theme as Theme}>
       <FileInputWrap>
         <FileInput
           key={fileInputKey}

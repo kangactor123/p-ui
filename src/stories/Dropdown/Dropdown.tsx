@@ -8,7 +8,6 @@ import {
   MenuItem,
   SxProps,
   Theme,
-  ThemeOptions,
   styled as MUIStyled,
   PopoverOrigin,
   ThemeProvider,
@@ -122,7 +121,7 @@ function Dropdown({
   );
 
   return (
-    <ThemeProvider theme={theme as ThemeOptions}>
+    <ThemeProvider theme={theme as Theme}>
       {isIconButton ? (
         <Tooltip arrow title={tooltip} aria-label={tooltip} placement={tooltipPlacement}>
           <IconButton onClick={handleClick} {...iconButtonProps}>

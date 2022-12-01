@@ -4,7 +4,7 @@ import { DropdownDownIcon, IconArrow2DownBlack } from '../icons';
 import { IAccordionProps } from './type';
 import { AccordionDetails, AccordionPanel, AccordionSummary } from './style';
 import { PlayceThemeContext } from '../../providers';
-import { ThemeOptions, ThemeProvider } from '@mui/material';
+import { Theme, ThemeProvider } from '@mui/material';
 
 function Accordion({
   summaryProps: { iconPosition = 'right', useEdgeEndIcon = true, children: summaryChildren, ...summaryProps },
@@ -26,7 +26,7 @@ function Accordion({
   );
 
   return (
-    <ThemeProvider theme={theme as ThemeOptions}>
+    <ThemeProvider theme={theme as Theme}>
       <AccordionPanel defaultExpanded={defaultExpanded} onChange={handleChange} {...props}>
         <AccordionSummary
           css={css({

@@ -8,7 +8,7 @@ import {
   RadioGroupProps as MUIRadioGroupProps,
   FormControl,
   ThemeProvider,
-  ThemeOptions,
+  Theme,
 } from '@mui/material';
 import { cx } from '@emotion/css';
 import { FieldValues, useController } from 'react-hook-form';
@@ -64,7 +64,7 @@ function Radio<T extends FieldValues>({
   };
 
   return (
-    // <ThemeProvider theme={theme as ThemeOptions}>
+    // <ThemeProvider theme={theme as Theme}>
     <FormControl>
       <RadioGroup
         flexDirection={flexDirection}
