@@ -13,7 +13,7 @@ import {
 import { cx } from '@emotion/css';
 import { FieldValues, useController } from 'react-hook-form';
 import styled from '@emotion/styled';
-import { checkedIcon, disabledCheckedIcon, disabledIcon, icon } from './Radio.style';
+import { checkedIcon, disabledCheckedIcon, disabledIcon, icon, FormControlLabel, radioGroup } from './Radio.style';
 import { TControl } from '../../../../common/type';
 import { PlayceThemeContext } from '../../../../providers';
 
@@ -64,37 +64,40 @@ function Radio<T extends FieldValues>({
   };
 
   return (
-    <ThemeProvider theme={theme as ThemeOptions}>
-      <FormControl>
-        <RadioGroup
-          flexDirection={flexDirection}
-          className={cx(props.className)}
-          onChange={onRadioChange}
-          name={name}
-          value={value || ''}
-        >
-          {props.options.map(({ value: optionValue, disabled, label }, index) => {
-            return (
-              <MUIFormControlLabel
-                control={
-                  <MUIRadio
-                    size={props.size}
-                    color={color}
-                    value={optionValue}
-                    icon={<span css={[icon, disabled ? disabledIcon : null]} />}
-                    checkedIcon={<span css={[icon, disabled ? disabledCheckedIcon : checkedIcon]} />}
-                    disabled={disabled}
-                  />
-                }
-                value={optionValue}
-                label={label}
-                key={index}
-              />
-            );
-          })}
-        </RadioGroup>
-      </FormControl>
-    </ThemeProvider>
+    // <ThemeProvider theme={theme as ThemeOptions}>
+    <FormControl>
+      <RadioGroup
+        flexDirection={flexDirection}
+        className={cx(props.className)}
+        onChange={onRadioChange}
+        name={name}
+        value={value || ''}
+        css={radioGroup}
+      >
+        {props.options.map(({ value: optionValue, disabled, label }, index) => {
+          return (
+            <FormControlLabel
+              control={
+                <MUIRadio
+                  size={props.size}
+                  color={color}
+                  value={optionValue}
+                  icon={<span className={'icon'} css={[icon, disabled ? disabledIcon : null]} />}
+                  checkedIcon={
+                    <span className={'checkedIcon'} css={[icon, disabled ? disabledCheckedIcon : checkedIcon]} />
+                  }
+                  disabled={disabled}
+                />
+              }
+              value={optionValue}
+              label={label}
+              key={index}
+            />
+          );
+        })}
+      </RadioGroup>
+    </FormControl>
+    // </ThemeProvider>
   );
 }
 

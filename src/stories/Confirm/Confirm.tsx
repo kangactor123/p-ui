@@ -9,7 +9,7 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { confirmTheme, dialogContent, footer, iconClose, iconCloseButton, rightButtons } from './Confirm.style';
+import { confirmTheme, iconClose, iconCloseButton, rightButtons } from './Confirm.style';
 import { IconClosePopup } from '../icons';
 import Button from '../Button';
 
@@ -92,10 +92,10 @@ function Confirm(props: IConfirmProps): ReactElement {
             </IconButton>
           )}
         </DialogTitle>
-        <DialogContent css={dialogContent}>
+        <DialogContent>
           <div id="alert-dialog-description">{children}</div>
         </DialogContent>
-        <DialogActions css={footer}>
+        <DialogActions>
           <div> {dialogActionLeftButtons}</div>
           <div css={rightButtons}>
             {isCancelButton && (
