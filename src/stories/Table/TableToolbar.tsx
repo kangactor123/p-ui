@@ -49,10 +49,10 @@ export const classes = {
   searchInput: css({
     width: 400,
   }),
-  leftButtons: css({}),
   rightButtons: css({
     marginRight: '-15px',
     display: 'flex',
+    gap: '16px',
   }),
   leftIcons: css({
     '&:first-of-type': {
@@ -61,7 +61,6 @@ export const classes = {
   }),
   rightIcons: css({
     padding: 8,
-    // marginTop: '-6px',
     width: 40,
     height: 40,
   }),

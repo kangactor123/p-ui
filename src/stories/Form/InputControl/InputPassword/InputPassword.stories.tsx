@@ -15,9 +15,21 @@ export default {
 const InputPassword: Story<TInputPasswordProps<TSample>> = (args) => {
   const { control } = useForm<TSampleFormControl>({
     mode: 'all',
-    // defaultValues: {
-    //   sample: 'this is sample',
-    // },
+  });
+  return (
+    <StoryInputPassword
+      {...args}
+      control={control}
+      rules={{ required: true }}
+      name={'sample'}
+      placeholder={'this is placeholder'}
+    />
+  );
+};
+
+const ErrorPassword: Story<TInputPasswordProps<TSample>> = (args) => {
+  const { control } = useForm<TSampleFormControl>({
+    mode: 'all',
   });
   return (
     <StoryInputPassword
@@ -27,9 +39,28 @@ const InputPassword: Story<TInputPasswordProps<TSample>> = (args) => {
       name={'sample'}
       placeholder={'this is placeholder'}
       isError={true}
-      // size={Size.Small}
+      inputSize={Size.Large}
+    />
+  );
+};
+
+const NoClearButtonPassword: Story<TInputPasswordProps<TSample>> = (args) => {
+  const { control } = useForm<TSampleFormControl>({
+    mode: 'all',
+  });
+  return (
+    <StoryInputPassword
+      {...args}
+      control={control}
+      name={'sample'}
+      rules={{ required: true }}
+      placeholder={'this is placeholder'}
+      inputSize={Size.Small}
+      useClearBtn={false}
     />
   );
 };
 
 export const Basic = InputPassword.bind({});
+export const Error = ErrorPassword.bind({});
+export const NoClear = NoClearButtonPassword.bind({});
