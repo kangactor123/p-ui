@@ -41,6 +41,12 @@ const iconButtonCss = css`
   width: 20px;
   height: 20px;
   padding: 0;
+
+  &.MuiButtonBase-root.MuiIconButton-root {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+  }
 `;
 
 /**
