@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useContext } from 'react';
-import { Checkbox as MUICheckbox, CheckboxProps as MUICheckboxProps, ThemeOptions, ThemeProvider } from '@mui/material';
+import { Checkbox as MUICheckbox, CheckboxProps as MUICheckboxProps, Theme, ThemeProvider } from '@mui/material';
 import FormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel';
 import { PlayceThemeContext } from '../../../../providers';
 
@@ -13,7 +13,7 @@ function Checkbox(props: ICheckboxProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
 
   return (
-    <ThemeProvider theme={theme as ThemeOptions}>
+    <ThemeProvider theme={theme as Theme}>
       <FormControlLabel {...labelProps} control={<MUICheckbox {...checkProps} />} label={label} />
     </ThemeProvider>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { ElementType, ReactElement, useCallback, useContext } from 'react';
-import { SelectProps as MUISelectProps, MenuItem, SelectChangeEvent, ThemeOptions, ThemeProvider } from '@mui/material';
+import { SelectProps as MUISelectProps, MenuItem, SelectChangeEvent, Theme, ThemeProvider } from '@mui/material';
 import { cx } from '@emotion/css';
 import { useTranslation } from 'react-i18next';
 import { FieldValues, useController } from 'react-hook-form';
@@ -73,7 +73,7 @@ function Select<T extends FieldValues>({
   );
 
   return (
-    <ThemeProvider theme={theme as ThemeOptions}>
+    <ThemeProvider theme={theme as Theme}>
       <SelectComponent
         {...props}
         className={cx('wrap')}

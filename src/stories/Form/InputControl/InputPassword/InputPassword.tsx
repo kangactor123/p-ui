@@ -5,7 +5,6 @@ import {
   TextField,
   TextFieldProps,
   Theme,
-  ThemeOptions,
   ThemeProvider,
 } from '@mui/material';
 import { SxProps } from '@mui/system';
@@ -84,7 +83,7 @@ function InputPassword<T extends FieldValues>({
   `;
 
   return (
-    <ThemeProvider theme={theme as ThemeOptions}>
+    <ThemeProvider theme={theme as Theme}>
       <TextField
         css={textfieldCss}
         value={value}
