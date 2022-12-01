@@ -30,7 +30,6 @@ export interface IOptionsType {
 export interface IDropdownProps {
   options: IOptionsType[];
   title?: string | ReactElement;
-  tooltip?: string;
   isIconButton?: boolean;
   iconButtonProps?: IconButtonProps;
   buttonProps?: ButtonProps;
@@ -41,6 +40,20 @@ export interface IDropdownProps {
     anchorOrigin?: PopoverOrigin;
     transformOrigin?: PopoverOrigin;
   };
+  tooltip?: string;
+  tooltipPlacement?:
+    | 'bottom-end'
+    | 'bottom-start'
+    | 'bottom'
+    | 'left-end'
+    | 'left-start'
+    | 'left'
+    | 'right-end'
+    | 'right-start'
+    | 'right'
+    | 'top-end'
+    | 'top-start'
+    | 'top';
 }
 
 const Menu = MUIStyled(MuiMenu)<TSize>(({ size }) => ({
