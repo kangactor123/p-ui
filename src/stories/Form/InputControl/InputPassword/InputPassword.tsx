@@ -30,8 +30,18 @@ const passwordFieldStyle = css`
     padding: 0;
   }
   & .MuiInputBase-root {
-    padding-right: 4px;
+    padding-right: 0px;
   }
+`;
+
+const endAdornmentcss = css`
+  padding-right: 12px;
+`;
+
+const iconButtonCss = css`
+  width: 20px;
+  height: 20px;
+  padding: 0;
 `;
 
 /**
@@ -83,13 +93,13 @@ function InputPassword<T extends FieldValues>({
         type={isVisible ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment position="end" css={endAdornmentcss}>
               {value && useClearBtn && (
-                <IconButton onClick={() => onChange('')} disableRipple>
+                <IconButton onClick={() => onChange('')} disableRipple css={iconButtonCss}>
                   <ClearIcon />
                 </IconButton>
               )}
-              <IconButton onClick={visibleChange} disableRipple>
+              <IconButton onClick={visibleChange} disableRipple css={iconButtonCss}>
                 {isVisible ? <VisibleIcon /> : <InvisibleIcon />}
               </IconButton>
             </InputAdornment>

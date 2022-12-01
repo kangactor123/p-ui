@@ -12,6 +12,7 @@ export type TInputTextProps<T extends FieldValues> = TextFieldProps &
 
 export const textFieldStyle = css`
   & input {
+    height: 22px;
     font-size: 14px;
     color: #323338;
   }

@@ -55,7 +55,6 @@ export const tableStyles = {
     outline: 0,
     verticalAlign: 'middle',
     color: '#1b2635',
-    borderRadius: '3px',
     fontWeight: 700,
     position: 'relative',
     '&:hover $resizeHandle': {
@@ -179,7 +178,7 @@ export const tableStyles = {
     flex: '1 1 auto',
     width: '100%',
     flexDirection: 'column',
-    minHeight: '50px',
+    minHeight: '70px',
     maxHeight: 'calc(100% - 40px)',
     overflowY: 'auto',
     minWidth: 'fit-content',
