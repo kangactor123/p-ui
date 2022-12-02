@@ -51,6 +51,7 @@ const StandardDropdown: Story<IDropdownProps> = (args) => (
       startIcon: <IconMoreBlueGray />,
     }}
     onClickOption={handleUserDropDownClick}
+    header={'Title'}
   />
 );
 

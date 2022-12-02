@@ -1,12 +1,5 @@
 import React, { ReactElement, useContext, useState } from 'react';
-import {
-  IconButton,
-  InputAdornment,
-  TextField,
-  TextFieldProps,
-  Theme,
-  ThemeProvider,
-} from '@mui/material';
+import { IconButton, InputAdornment, TextField, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
 import { SxProps } from '@mui/system';
 import { useController, FieldValues } from 'react-hook-form';
 import { TControl } from '../../../../common/type';
@@ -61,7 +54,7 @@ function InputPassword<T extends FieldValues>({
   name,
   rules,
   isError,
-  inputSize = Size.Medium,
+  inputSize = Size.M,
   ...props
 }: TInputPasswordProps<T>): ReactElement {
   const { sx: inputSx } = inputProps;
@@ -77,7 +70,7 @@ function InputPassword<T extends FieldValues>({
   });
 
   const inputStyle: SxProps<Theme> = {
-    padding: inputSize === Size.Large ? '13px 15px' : inputSize === Size.Medium ? '9px 15px' : '5px 15px',
+    padding: inputSize === Size.L ? '13px 15px' : inputSize === Size.M ? '9px 15px' : '5px 15px',
     ...inputSx,
   };
 

@@ -33,7 +33,7 @@ function InputText<T extends FieldValues>({
   rules,
   control,
   onChange,
-  inputSize = Size.Medium,
+  inputSize = Size.M,
   isError,
   ...props
 }: TInputTextProps<T>): ReactElement {
@@ -58,7 +58,7 @@ function InputText<T extends FieldValues>({
   );
 
   const inputStyle: SxProps<Theme> = {
-    padding: inputSize === Size.Large ? '13px 15px' : inputSize === Size.Medium ? '9px 15px' : '5px 15px',
+    padding: inputSize === Size.L ? '13px 15px' : inputSize === Size.M ? '9px 15px' : '5px 15px',
     ...inputSx,
   };
 
