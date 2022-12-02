@@ -103,7 +103,7 @@ function Dropdown({
         </Button>
       )}
       <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose} size={size} {...positionProps}>
-        {header ? <Header>{header}</Header> : null}
+        {header && <Header>{header}</Header>}
         <MenuContainer>
           {options?.map(({ key, label, disabled, split, liCss }) => [
             <MenuList key={key} css={liCss}>
@@ -111,7 +111,7 @@ function Dropdown({
                 {label}
               </MenuItem>
             </MenuList>,
-            split ? <SplitLine /> : null,
+            split && <SplitLine />,
           ])}
         </MenuContainer>
       </Menu>

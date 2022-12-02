@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { Select as MUISelect, styled as MUIStyled } from '@mui/material';
+import { Select as MUISelect, styled as MUIStyled, MenuItem as MUIMenuItem } from '@mui/material';
 import { TSize } from '../../../../common/type';
 
 export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected: boolean }>(({ size, selected }) => ({
@@ -70,3 +70,21 @@ export const labelStyle = css`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
+export const MenuItem: any = MUIStyled(MUIMenuItem)({
+  color: '#323338',
+  fontSize: '14px',
+  fontWeight: 400,
+  lineHeight: '22px',
+  padding: '5px 8px',
+  ':hover': {
+    backgroundColor: '#F5F6F8',
+  },
+  ':disabled': {
+    opacity: '0.4',
+    color: '#323338',
+  },
+  ':active': {
+    background: 'rgba(204, 229, 255, 0.35)',
+  },
+});

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { ElementType, ReactElement, useCallback, useContext } from 'react';
-import { SelectProps as MUISelectProps, MenuItem, SelectChangeEvent, Theme, ThemeProvider } from '@mui/material';
+import { SelectProps as MUISelectProps, SelectChangeEvent, Theme, ThemeProvider } from '@mui/material';
 import { cx } from '@emotion/css';
 import { useTranslation } from 'react-i18next';
 import { FieldValues, useController } from 'react-hook-form';
 import { TControl, TSize } from '../../../../common/type';
-import { labelStyle, SelectComponent, splitStyle } from './Select.style';
+import { labelStyle, SelectComponent, splitStyle, MenuItem } from './Select.style';
 import Checkbox from '../Checkbox';
 import { isArray } from 'lodash';
 import Spinner, { SpinnerSize, SpinnerType } from '../../../Spinner';
@@ -75,8 +75,6 @@ function Select<T extends FieldValues>({
     [props, onChange],
   );
 
-  console.log(value);
-
   return (
     <ThemeProvider theme={theme as Theme}>
       <SelectComponent
@@ -93,6 +91,13 @@ function Select<T extends FieldValues>({
           },
           sx: {
             maxWidth: 640,
+            '& .MuiPaper-root': {
+              boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.2)',
+              transform: 'translateY(7px) !important',
+            },
+            '& .MuiList-root': {
+              padding: '4px',
+            },
           },
         }}
         displayEmpty={displayEmpty}
