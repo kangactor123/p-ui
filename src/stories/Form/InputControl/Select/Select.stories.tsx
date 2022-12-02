@@ -13,7 +13,7 @@ export default {
 
 const tempOptions = [
   { label: 'first', value: 'first' },
-  { label: 'second', value: 'second', disable: true },
+  { label: 'second', value: 'second', disabled: true },
   { label: 'third', value: 'third' },
   { label: 'fourth', value: 'fourth' },
 ];

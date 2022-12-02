@@ -14,7 +14,7 @@ const options: IOptionsType[] = [
   { label: 'Download User Guide', key: 'downloadUserGuide', split: true },
   { label: 'Support Center', key: 'supportCenter', split: true },
   { label: 'Subscriptions', key: 'subscriptions', split: true },
-  { label: 'About Playce Migrator', key: 'about' },
+  { label: 'About Playce Migrator', key: 'about', disabled: true },
 ];
 
 const handleUserDropDownClick = (key: string) => {
