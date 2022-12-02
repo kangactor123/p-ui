@@ -82,8 +82,7 @@ function Dropdown({
   );
 
   return (
-    <>
-      {/* <ThemeProvider theme={theme as Theme}> */}
+    <ThemeProvider theme={theme as Theme}>
       {isIconButton ? (
         <Tooltip arrow title={tooltip} aria-label={tooltip} placement={tooltipPlacement}>
           <IconButton onClick={handleClick} {...iconButtonProps}>
@@ -116,8 +115,7 @@ function Dropdown({
           ])}
         </MenuContainer>
       </Menu>
-      {/* </ThemeProvider> */}
-    </>
+    </ThemeProvider>
   );
 }
 
