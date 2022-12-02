@@ -1,11 +1,48 @@
 import { css } from '@emotion/react';
-import { StyledComponent } from '@emotion/styled/types/base';
-import { Select as MUISelect, SelectProps, styled as MUIStyled } from '@mui/material';
+import { Select as MUISelect, styled as MUIStyled } from '@mui/material';
+import { TSize } from '../../../../common/type';
 
-export const SelectComponent: StyledComponent<SelectProps, {} , {}> = MUIStyled(MUISelect)({
+export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected: boolean }>(({ size, selected }) => ({
+  borderRadius: '4px',
+  color: selected ? '#323338' : '#9195A1',
+  backgroundColor: selected ? '#fff' : 'transparent',
+  '&:hover': {
+    color: '#323338',
+    '& .MuiSelect-select': {
+      border: '1px solid #323338',
+    },
+  },
+  '&.Mui-disabled': {
+    backgroundColor: 'rgba(230, 233, 239, 0.4)',
+    color: 'rgba(103, 104, 121, 0.4)',
+    '& .MuiSelect-select': {
+      border: 'none',
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      border: 'none',
+    },
+  },
+  '&.Mui-focused': {
+    '& .MuiSelect-select': {
+      border: '1px solid #0073EA',
+    },
+  },
   '& .MuiSelect-select': {
-    fontSize: 14,
-    padding: '11px 32px 10px 12px',
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '22px',
+    border: '1px solid #C5C7D0',
+    padding:
+      size === 'small'
+        ? '5px 38px 5px 16px !important'
+        : size === 'medium'
+        ? '9px 40px 9px 16px !important'
+        : size === 'large'
+        ? '12px 40px 12px 18px !important'
+        : null,
+  },
+  '& .MuiSelect-icon': {
+    top: 'auto',
   },
   '& .multi-checkbox': {
     marginLeft: '10px',
@@ -20,7 +57,7 @@ export const SelectComponent: StyledComponent<SelectProps, {} , {}> = MUIStyled(
       marginRight: 8,
     },
   },
-});
+}));
 
 export const splitStyle = css`
   border-top: 1px solid #d8d8d8;

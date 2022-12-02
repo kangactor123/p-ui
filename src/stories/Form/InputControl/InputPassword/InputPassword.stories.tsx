@@ -39,7 +39,7 @@ const ErrorPassword: Story<TInputPasswordProps<TSample>> = (args) => {
       name={'sample'}
       placeholder={'this is placeholder'}
       isError={true}
-      inputSize={Size.Large}
+      inputSize={Size.L}
     />
   );
 };
@@ -55,7 +55,7 @@ const NoClearButtonPassword: Story<TInputPasswordProps<TSample>> = (args) => {
       name={'sample'}
       rules={{ required: true }}
       placeholder={'this is placeholder'}
-      inputSize={Size.Small}
+      inputSize={Size.S}
       useClearBtn={false}
     />
   );

@@ -4,19 +4,18 @@ import {
   ButtonProps,
   IconButton,
   IconButtonProps,
-  Menu as MuiMenu,
   MenuItem,
   SxProps,
   Theme,
-  styled as MUIStyled,
   PopoverOrigin,
   ThemeProvider,
 } from '@mui/material';
 import Tooltip from '../Tooltip';
 import { PlayceThemeContext } from '../../providers';
-import styled from '@emotion/styled';
 import { SerializedStyles } from '@emotion/react';
-import { TSize } from '../../common/type';
+import { TSize, TTooltipPlacement } from '../../common/type';
+import { Size } from '../../common/enum';
+import { Menu, MenuList, SplitLine, Header, MenuContainer } from './Dropdown.style';
 
 export interface IOptionsType {
   key: string;
@@ -34,70 +33,29 @@ export interface IDropdownProps {
   buttonProps?: ButtonProps;
   onClickOption?: (key: string, id?: number) => void;
   menuSx?: SxProps<Theme>;
-  size?: 'small' | 'medium' | 'large' | 'mini' | string;
+  size?: TSize | 'mini';
   positionProps?: {
     anchorOrigin?: PopoverOrigin;
     transformOrigin?: PopoverOrigin;
   };
   tooltip?: string;
-  tooltipPlacement?:
-    | 'bottom-end'
-    | 'bottom-start'
-    | 'bottom'
-    | 'left-end'
-    | 'left-start'
-    | 'left'
-    | 'right-end'
-    | 'right-start'
-    | 'right'
-    | 'top-end'
-    | 'top-start'
-    | 'top';
+  tooltipPlacement?: TTooltipPlacement;
+  header?: string;
 }
-
-const Menu = MUIStyled(MuiMenu)<TSize>(({ size }) => ({
-  '& .MuiPaper-root': {
-    boxShadow: 'none',
-    filter: 'drop-shadow(0px 6px 20px rgba(0, 0, 0, 0.2))',
-    borderRadius: '8px',
-    transform: 'translateY(10px) !important',
-  },
-  '& .MuiList-root': {
-    padding: '8px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-    minWidth:
-      size === 'mini'
-        ? '160px'
-        : size === 'small'
-        ? '200px'
-        : size === 'medium'
-        ? '220px'
-        : size === 'large'
-        ? '240px'
-        : size,
-  },
-}));
-
-const MenuList = styled.li``;
-
-const SplitLine = styled.hr`
-  border: 0.5px solid #e6e9ef;
-  margin: 0;
-`;
 
 function Dropdown({
   options,
   title = '',
   tooltip = '',
+  tooltipPlacement,
   isIconButton = false,
   iconButtonProps,
   buttonProps,
   onClickOption,
   menuSx,
-  size = 'medium',
+  size = Size.M,
   positionProps,
+  header,
 }: IDropdownProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -124,9 +82,10 @@ function Dropdown({
   );
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <>
+      {/* <ThemeProvider theme={theme as Theme}> */}
       {isIconButton ? (
-        <Tooltip arrow title={tooltip} aria-label={tooltip}>
+        <Tooltip arrow title={tooltip} aria-label={tooltip} placement={tooltipPlacement}>
           <IconButton onClick={handleClick} {...iconButtonProps}>
             {title}
           </IconButton>
@@ -145,16 +104,20 @@ function Dropdown({
         </Button>
       )}
       <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={isOpen} onClose={handleClose} size={size} {...positionProps}>
-        {options?.map(({ key, label, disabled, split, liCss }) => [
-          <MenuList key={key} css={liCss}>
-            <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
-              {label}
-            </MenuItem>
-          </MenuList>,
-          split ? <SplitLine /> : null,
-        ])}
+        {header ? <Header>{header}</Header> : null}
+        <MenuContainer>
+          {options?.map(({ key, label, disabled, split, liCss }) => [
+            <MenuList key={key} css={liCss}>
+              <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
+                {label}
+              </MenuItem>
+            </MenuList>,
+            split ? <SplitLine /> : null,
+          ])}
+        </MenuContainer>
       </Menu>
-    </ThemeProvider>
+      {/* </ThemeProvider> */}
+    </>
   );
 }
 

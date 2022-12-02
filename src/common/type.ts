@@ -7,6 +7,18 @@ export type TControl<T extends FieldValues> = {
   rules?: Omit<RegisterOptions<T>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
 };
 
-export type TSize = {
-  size?: 'small' | 'medium' | 'large' | string;
-};
+export type TSize = 'small' | 'medium' | 'large';
+
+export type TTooltipPlacement =
+  | 'bottom-end'
+  | 'bottom-start'
+  | 'bottom'
+  | 'left-end'
+  | 'left-start'
+  | 'left'
+  | 'right-end'
+  | 'right-start'
+  | 'right'
+  | 'top-end'
+  | 'top-start'
+  | 'top';

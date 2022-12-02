@@ -4,13 +4,14 @@ import { SelectProps as MUISelectProps, MenuItem, SelectChangeEvent, Theme, Them
 import { cx } from '@emotion/css';
 import { useTranslation } from 'react-i18next';
 import { FieldValues, useController } from 'react-hook-form';
-import { TControl } from '../../../../common/type';
+import { TControl, TSize } from '../../../../common/type';
 import { labelStyle, SelectComponent, splitStyle } from './Select.style';
 import Checkbox from '../Checkbox';
 import { isArray } from 'lodash';
 import Spinner, { SpinnerSize, SpinnerType } from '../../../Spinner';
-import { IconSelectArrow } from '../../../icons';
+import { DropdownDownIcon, DropdownDownGrayIcon } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
+import { Size } from '../../../../common/enum';
 
 export interface ISelectOption {
   hidden?: boolean;
@@ -30,6 +31,7 @@ export type ISelectProps<T extends FieldValues> = {
   defaultValue?: string | number;
   onChange?: (e: SelectChangeEvent<T>) => void;
   noDataLabel?: string;
+  size?: TSize;
 } & Omit<MUISelectProps, 'onChange'> &
   TControl<T>;
 
@@ -51,6 +53,7 @@ function Select<T extends FieldValues>({
     defaultValue,
     multiple,
     noDataLabel = '',
+    size = Size.M,
   } = props;
   const theme = useContext(PlayceThemeContext);
   const { t } = useTranslation();
@@ -72,6 +75,8 @@ function Select<T extends FieldValues>({
     [props, onChange],
   );
 
+  console.log(value);
+
   return (
     <ThemeProvider theme={theme as Theme}>
       <SelectComponent
@@ -92,12 +97,14 @@ function Select<T extends FieldValues>({
         }}
         displayEmpty={displayEmpty}
         variant={variant}
-        IconComponent={icon || IconSelectArrow}
+        IconComponent={icon || disabled ? DropdownDownGrayIcon : DropdownDownIcon}
         disabled={disabled || loading}
         onChange={handleChange}
         onBlur={onBlur}
         value={value || []}
         renderValue={() => (value ? options.find((option) => option.value === value)?.label : placeholder)}
+        size={size}
+        selected={!!value}
         {...(defaultValue && { defaultValue: { defaultValue } })}
       >
         {children}

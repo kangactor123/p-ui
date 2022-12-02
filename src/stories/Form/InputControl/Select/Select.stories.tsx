@@ -30,6 +30,7 @@ const Select: Story<ISelectProps<TSample>> = (args) => {
       name={'sample'}
       options={tempOptions}
       placeholder={'Select a JDK Version'}
+      size={'large'}
     />
   );
 };
