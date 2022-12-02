@@ -87,6 +87,7 @@ function Dropdown({
   options,
   title = '',
   tooltip = '',
+  tooltipPlacement,
   isIconButton = false,
   iconButtonProps,
   buttonProps,
@@ -122,7 +123,7 @@ function Dropdown({
   return (
     <ThemeProvider theme={theme as Theme}>
       {isIconButton ? (
-        <Tooltip arrow title={tooltip} aria-label={tooltip}>
+        <Tooltip arrow title={tooltip} aria-label={tooltip} placement={tooltipPlacement}>
           <IconButton onClick={handleClick} {...iconButtonProps}>
             {title}
           </IconButton>
