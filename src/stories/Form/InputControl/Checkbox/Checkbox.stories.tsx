@@ -8,6 +8,6 @@ export default {
   component: StoryCheckbox,
 } as ComponentMeta<typeof StoryCheckbox>;
 
-const Checkbox: Story<ICheckboxProps> = (args) => <StoryCheckbox {...args} />;
+const Checkbox: Story<ICheckboxProps> = (args) => <StoryCheckbox {...args} label="test" />;
 
 export const Basic = Checkbox.bind({});

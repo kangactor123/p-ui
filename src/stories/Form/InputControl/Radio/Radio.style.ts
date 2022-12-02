@@ -1,7 +1,16 @@
 import { css } from '@emotion/react';
-import { styled as MUIStyled, FormControlLabel as MUIFormControlLabel } from '@mui/material';
+import {
+  styled as MUIStyled,
+  FormControlLabel as MUIFormControlLabel,
+  FormControlLabelProps,
+  Theme,
+} from '@mui/material';
+import { StyledComponent } from '@emotion/styled';
+import { MUIStyledCommonProps } from '@mui/system';
 
-export const FormControlLabel: any = MUIStyled(MUIFormControlLabel)({
+export const FormControlLabel: StyledComponent<FormControlLabelProps & MUIStyledCommonProps<Theme>, {}, {}> = MUIStyled(
+  MUIFormControlLabel,
+)({
   marginLeft: '-9px',
   marginRight: '30px',
 

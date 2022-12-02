@@ -63,6 +63,10 @@ const Menu = MUIStyled(MuiMenu)<TSize>(({ size }) => ({
     transform: 'translateY(10px) !important',
   },
   '& .MuiList-root': {
+    padding: '8px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
     minWidth:
       size === 'mini'
         ? '160px'
