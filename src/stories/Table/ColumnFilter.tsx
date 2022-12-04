@@ -387,6 +387,7 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
               value={''}
               onChange={handleChangeCheckboxAll}
               className={'filter-checkbox'}
+              indeterminate={checkedAll}
             />
           </div>
           <div className={'filter-split'}>&nbsp;</div>
