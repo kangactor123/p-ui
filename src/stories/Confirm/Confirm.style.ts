@@ -91,7 +91,6 @@ export const confirmTheme = (size: string, customWSize?: string, customHSize?: s
               : size === Size.L
               ? { ...{ ...LARGE_SIZE.paper } }
               : null),
-            backgroundColor: 'red',
           },
         },
       },

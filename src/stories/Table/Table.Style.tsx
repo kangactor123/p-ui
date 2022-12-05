@@ -577,7 +577,6 @@ export const filterStyle = css`
   }
 
   .filter-checkbox {
-    padding: 4px;
     width: 30px;
     height: 30px;
   }

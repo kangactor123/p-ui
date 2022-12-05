@@ -6,32 +6,25 @@ export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected
   borderRadius: '4px',
   color: selected ? '#323338' : '#9195A1',
   backgroundColor: selected ? '#fff' : 'transparent',
+  height: size === 'small' ? '32px' : size === 'medium' ? '40px' : size === 'large' ? '48px' : '40px',
+  border: '1px solid #C5C7D0',
+
   '&:hover': {
     color: '#323338',
-    '& .MuiSelect-select': {
-      border: '1px solid #323338',
-    },
+    border: '1px solid #323338',
   },
   '&.Mui-disabled': {
     backgroundColor: 'rgba(230, 233, 239, 0.4)',
     color: 'rgba(103, 104, 121, 0.4)',
-    '& .MuiSelect-select': {
-      border: 'none',
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      border: 'none',
-    },
+    border: 'none',
   },
   '&.Mui-focused': {
-    '& .MuiSelect-select': {
-      border: '1px solid #0073EA',
-    },
+    border: '1px solid #0073EA',
   },
   '& .MuiSelect-select': {
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '22px',
-    border: '1px solid #C5C7D0',
     padding:
       size === 'small'
         ? '5px 38px 5px 16px !important'
@@ -40,6 +33,9 @@ export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected
         : size === 'large'
         ? '12px 40px 12px 18px !important'
         : null,
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: 'none !important',
   },
   '& .MuiSelect-icon': {
     top: 'auto',
