@@ -2,7 +2,7 @@ import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'rea
 import { useTranslation } from 'react-i18next';
 
 import { IconButton, Popover } from '@mui/material';
-import { IconTableUploadClose, FilterIcon } from './icons';
+import { IconTableUploadClose, FilterIcon, IndeterminateIcon } from './icons';
 import { Column, Row } from 'react-table';
 import 'react-virtualized/styles.css';
 import VirtualScroll from './VirtualScroll';
@@ -387,6 +387,8 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
               value={''}
               onChange={handleChangeCheckboxAll}
               className={'filter-checkbox'}
+              indeterminate={checkedAll}
+              indeterminateIcon={<IndeterminateIcon />}
             />
           </div>
           <div className={'filter-split'}>&nbsp;</div>
