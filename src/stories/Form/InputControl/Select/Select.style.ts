@@ -5,7 +5,7 @@ import { TSize } from '../../../../common/type';
 export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected: boolean }>(({ size, selected }) => ({
   borderRadius: '4px',
   color: selected ? '#323338' : '#9195A1',
-  backgroundColor: selected ? '#fff' : 'transparent',
+  backgroundColor: selected ? 'red' : 'transparent',
   height: size === 'small' ? '32px' : size === 'medium' ? '40px' : size === 'large' ? '48px' : '40px',
   border: '1px solid #C5C7D0',
 
