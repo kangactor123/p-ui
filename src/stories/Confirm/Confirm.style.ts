@@ -5,14 +5,14 @@ import { Size } from '../../common/enum';
 const SMALL_SIZE = {
   paper: {
     minWidth: '400px',
-    minHeight: '121px',
+    minHeight: '126px',
   },
   title: {
     padding: '15px',
     paddingBottom: '0',
     fontSize: '14px',
     fontWeight: 500,
-    lineHeight: '17px',
+    lineHeight: '22px',
     marginBottom: '10px',
   },
   content: {
@@ -30,8 +30,8 @@ const SMALL_SIZE = {
 
 const MEDIUM_SIZE = {
   paper: {
-    minWidth: '700px',
-    minHeight: '400px',
+    minWidth: '550px',
+    minHeight: '250px',
   },
   title: {
     padding: '30px',
@@ -53,27 +53,24 @@ const MEDIUM_SIZE = {
 
 const LARGE_SIZE = {
   paper: {
-    minWidth: '400px',
-    minHeight: '121px',
+    minWidth: '700px',
+    minHeight: '400px',
   },
   title: {
-    padding: '15px',
-    paddingBottom: '0',
-    fontSize: '14px',
+    padding: '30px',
+    fontSize: '20px',
     fontWeight: 500,
-    lineHeight: '17px',
-    marginBottom: '10px',
+    lineHeight: '24px',
+    marginBottom: '5px',
   },
   content: {
-    padding: '0 15px',
-    marginBottom: '10px',
-    fontWeight: 400,
+    padding: '0 30px',
+    fontWeight: 500,
     fontSize: '14px',
     lineHeight: '22px',
   },
   actions: {
-    padding: '15px',
-    paddingTop: 0,
+    padding: '30px',
   },
 };
 
@@ -99,7 +96,7 @@ export const confirmTheme = (size: string, customWSize?: string, customHSize?: s
           root: {
             display: 'flex',
             justifyContent: 'space-between',
-            color: '#323338',
+            color: '#202020',
             ...(size === Size.S
               ? { ...{ ...SMALL_SIZE.title } }
               : size === Size.M
@@ -155,5 +152,5 @@ export const iconClose = css`
 
 export const rightButtons = css`
   display: flex;
-  gap: 8px;
+  gap: 12px;
 `;

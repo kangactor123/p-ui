@@ -1,6 +1,5 @@
 import React, { MouseEvent, ReactElement, useCallback, useContext, useState } from 'react';
 import {
-  Button,
   ButtonProps,
   IconButton,
   IconButtonProps,
@@ -16,6 +15,7 @@ import { SerializedStyles } from '@emotion/react';
 import { TSize, TTooltipPlacement } from '../../common/type';
 import { Size } from '../../common/enum';
 import { Menu, MenuList, SplitLine, Header, MenuContainer } from './Dropdown.style';
+import Button from '../Button';
 
 export interface IOptionsType {
   key: string;
