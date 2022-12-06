@@ -2,11 +2,9 @@ import React, { ChangeEvent, forwardRef, ReactElement, useCallback, useState } f
 import DragDrop from '../DragDrop';
 import filesize from 'filesize';
 import { useTranslation } from 'react-i18next';
-import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 import {
   addFileBtn,
-  closeIcon,
   disabledInput,
   DropZone,
   FileInfo,
@@ -17,6 +15,7 @@ import {
   TextArea,
 } from './DragDropZone.style';
 import Button from '../Button';
+import { DeleteIcon } from '../icons';
 
 export interface IDragDropZoneProps {
   //Todo: define props
@@ -85,23 +84,30 @@ function DragDropZone({
           <div>{t('Drag and drop file here')}</div>
           <div>{t('or')}</div>
         </TextArea>
-        <Button css={addFileBtn} variant={'contained'} onClick={openFinder} disabled={Boolean(isExistFile)}>
-          {t('Add File')}
-        </Button>
+        {isExistFile ? (
+          <SelectedFile>
+            <FileInfo>
+              <FileTitle>{fileName}</FileTitle>
+              <span>({filesize(Number(fileSize))})</span>
+            </FileInfo>
+            <IconButton onClick={onFileRemove} css={iconButtonContainer}>
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          </SelectedFile>
+        ) : (
+          <Button
+            css={addFileBtn}
+            variant={'text'}
+            color={'primary'}
+            size={'small'}
+            onClick={openFinder}
+            disabled={Boolean(isExistFile)}
+          >
+            {t('Add File')}
+          </Button>
+        )}
       </DropZone>
-      {isExistFile ? (
-        <SelectedFile>
-          <FileInfo>
-            <FileTitle>{fileName}</FileTitle>
-            <span>{filesize(Number(fileSize))}</span>
-          </FileInfo>
-          <IconButton onClick={onFileRemove} css={iconButtonContainer}>
-            <CloseIcon fontSize="small" css={closeIcon} />
-          </IconButton>
-        </SelectedFile>
-      ) : (
-        <GuideText>{guideText}</GuideText>
-      )}
+      <GuideText>{guideText}</GuideText>
     </DragDrop>
   );
 }
