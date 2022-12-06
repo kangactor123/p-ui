@@ -36,3 +36,4 @@ export { ReactComponent as AddSmallIcon } from './svg/icon-add-small.svg';
 export { ReactComponent as ClearIcon } from './svg/icon-clear.svg';
 export { ReactComponent as InvisibleIcon } from './svg/icon-invisible.svg';
 export { ReactComponent as VisibleIcon } from './svg/icon-visible.svg';
+export { ReactComponent as DeleteIcon } from './svg/icon-delete.svg';
