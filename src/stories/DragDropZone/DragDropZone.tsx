@@ -85,6 +85,16 @@ function DragDropZone({
           <div>{t('or')}</div>
         </TextArea>
         {isExistFile ? (
+          <SelectedFile>
+            <FileInfo>
+              <FileTitle>{fileName}</FileTitle>
+              <span>({filesize(Number(fileSize))})</span>
+            </FileInfo>
+            <IconButton onClick={onFileRemove} css={iconButtonContainer}>
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          </SelectedFile>
+        ) : (
           <Button
             css={addFileBtn}
             variant={'text'}
@@ -95,16 +105,6 @@ function DragDropZone({
           >
             {t('Add File')}
           </Button>
-        ) : (
-          <SelectedFile>
-            <FileInfo>
-              <FileTitle>{fileName}</FileTitle>
-              <span>({filesize(Number(fileSize))})</span>
-            </FileInfo>
-            <IconButton onClick={onFileRemove} css={iconButtonContainer}>
-              <DeleteIcon fontSize="small" />
-            </IconButton>
-          </SelectedFile>
         )}
       </DropZone>
       <GuideText>{guideText}</GuideText>

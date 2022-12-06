@@ -64,7 +64,7 @@ export const FileInfo = styled.div`
 export const FileTitle = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 192px;
+  max-width: 170px;
   white-space: nowrap;
 `;
 
