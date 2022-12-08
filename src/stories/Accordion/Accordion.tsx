@@ -32,7 +32,7 @@ function Accordion({
           css={css({
             '& .MuiAccordionSummary-content,& .MuiAccordionSummary-content.Mui-expanded': {
               marginLeft: iconPosition === 'start' ? '6px' : '0px',
-              ...(iconPosition === 'right' ? { ...{ flexGrow: '0', marginRight: '13px' } } : { undefined }),
+              ...(iconPosition === 'right' ? { ...{ flexGrow: '0', marginRight: '8px' } } : { undefined }),
             },
             flexDirection: iconPosition === 'start' ? 'row-reverse' : undefined,
             justifyContent: iconPosition === 'right' ? 'start !important' : 'center',
