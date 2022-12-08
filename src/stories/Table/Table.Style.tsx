@@ -138,6 +138,7 @@ export const tableStyles = {
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    color: '#666666',
     '& svg': {
       position: 'absolute',
       width: 18,
@@ -312,6 +313,7 @@ export const subTableStyles = {
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    color: '#666666',
     '& svg': {
       width: 18,
       height: 18,
