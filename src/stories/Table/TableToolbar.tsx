@@ -12,7 +12,7 @@ import React, {
   MouseEvent,
 } from 'react';
 import { TableInstance } from 'react-table';
-import { IconTableUploadClose, SearchIcon, FilterIcon, DownloadIcon, RefreshIcon } from './icons';
+import { IconTableUploadClose, SearchIcon, FilterIcon, DownloadIcon, RefreshIcon, TableSearchIcon } from './icons';
 
 import { TableMouseEventHandler } from './types/react-table-config';
 import { ColumnHidePage } from './ColumnHidePage';
@@ -264,7 +264,7 @@ export function TableToolbar<TModel extends object>({
             placeholder: t('Search'),
             endAdornment: (
               <InputAdornment position="end">
-                <SearchIcon />
+                <TableSearchIcon />
               </InputAdornment>
             ),
           }}
