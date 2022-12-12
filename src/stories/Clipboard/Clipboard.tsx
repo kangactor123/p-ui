@@ -12,8 +12,8 @@ export interface IClipboardProps {
 }
 
 const IconButton = styled(MuiIconButton)(`
-  width: 24px;
-  height: 24px;
+  width: fit-content;
+  height: fit-content;
 `);
 
 function Clipboard({ value, title }: IClipboardProps): ReactElement {

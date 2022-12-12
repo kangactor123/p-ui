@@ -29,7 +29,7 @@ export const TextArea = styled.div`
 
 export const addFileBtn = css`
   background-color: #cce5ff;
-  color: #323338;
+  color: #0073ea;
 `;
 
 export const GuideText = styled.div`
@@ -45,10 +45,11 @@ export const SelectedFile = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  border: 1px solid #c5c7d0;
+  border: 1px solid #4c9aff;
   max-width: 300px;
   height: 32px;
   border-radius: 4px;
+  background-color: #f4f5f7;
 `;
 
 export const FileInfo = styled.div`
@@ -56,7 +57,7 @@ export const FileInfo = styled.div`
   gap: 8px;
   line-height: 22px;
   font-weight: 400;
-  color: #323338;
+  color: #0052cc;
   display: flex;
   margin-right: 8px;
 `;
