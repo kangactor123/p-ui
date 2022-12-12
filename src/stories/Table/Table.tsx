@@ -764,7 +764,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                         const disabledCell =
                           disabledRow && !excludeDisabledColumns.includes((cell.render('id') as string) || '');
                         const cellStyle: any = cellPropObj.style;
-                        cellStyle.alignItems = 'baseline';
+                        cellStyle.alignItems = 'center';
                         cellStyle.paddingTop = '10px';
                         cellStyle.paddingBottom = '10px';
 
