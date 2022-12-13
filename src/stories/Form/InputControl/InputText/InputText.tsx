@@ -5,22 +5,10 @@ import { TControl } from '../../../../common/type';
 import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { css } from '@emotion/react';
-import { SxProps } from '@mui/system';
+import { getInputStyleBySize, textFieldStyle } from '../TextField.style';
 
 export type TInputTextProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & { inputSize?: 'large' | 'medium' | 'small'; isError?: boolean };
-
-export const textFieldStyle = css`
-  & input {
-    height: 22px;
-    font-size: 14px;
-    color: #323338;
-  }
-
-  & input::placeholder {
-    color: #676879;
-  }
-`;
 
 /**
  * @param inputSize: default 는 'medium', 'large', 'small
@@ -38,6 +26,7 @@ function InputText<T extends FieldValues>({
   ...props
 }: TInputTextProps<T>): ReactElement {
   const { sx: inputSx, ...input } = inputProps;
+  const inputStyle = getInputStyleBySize(inputSize);
   const theme = useContext(PlayceThemeContext);
   const {
     field: { value, onChange: controlChange },
@@ -57,10 +46,12 @@ function InputText<T extends FieldValues>({
     [controlChange, onChange],
   );
 
-  const inputStyle: SxProps<Theme> = {
-    padding: inputSize === Size.L ? '13px 15px' : inputSize === Size.M ? '9px 15px' : '5px 15px',
-    ...inputSx,
-  };
+  const textfieldCss = css`
+    ${textFieldStyle}
+    & fieldset {
+      border-color: ${isError ? '#D83A52' : '#C5C7D0'};
+    }
+  `;
 
   return (
     <ThemeProvider theme={theme as Theme}>
@@ -68,13 +59,8 @@ function InputText<T extends FieldValues>({
         value={value}
         variant={variant}
         onChange={handleChange}
+        css={textfieldCss}
         inputProps={{ maxLength: 255, sx: inputStyle, ...input }}
-        css={css`
-          ${textFieldStyle}
-          & fieldset {
-            border-color: ${isError ? '#D83A52' : '#C5C7D0'};
-          }
-        `}
         {...props}
       />
     </ThemeProvider>
