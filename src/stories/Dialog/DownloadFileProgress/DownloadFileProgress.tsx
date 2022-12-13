@@ -86,7 +86,7 @@ function DownloadFileProgress({
       ) : status === Status.FAILED ? (
         <div className="icon-fail-wrap">
           <ErrorIcon />
-          <SearchTooltip tooltip={errorMessage} />
+          <SearchTooltip tooltip={errorMessage} placement="top" />
         </div>
       ) : status === Status.CANCEL ? (
         <DeleteRedIcon />
