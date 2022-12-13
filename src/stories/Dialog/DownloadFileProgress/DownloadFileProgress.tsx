@@ -7,6 +7,7 @@ import useConfirm from '../hooks/useConfirm';
 import { DeleteIcon, CloseSmallIcon, FilesIcon, SuccessIcon, ErrorIcon, DeleteRedIcon } from '../../icons';
 import Progressbar from '../../Progressbar';
 import { cx } from '@emotion/css';
+import SearchTooltip from '../../SearchTooltip';
 
 export enum Status {
   PENDING = 'pending',
@@ -85,7 +86,7 @@ function DownloadFileProgress({
       ) : status === Status.FAILED ? (
         <div className="icon-fail-wrap">
           <ErrorIcon />
-          {/* <SearchTooltip tooltip={errorMessage} /> */}
+          <SearchTooltip tooltip={errorMessage} />
         </div>
       ) : status === Status.CANCEL ? (
         <DeleteRedIcon />
@@ -94,7 +95,7 @@ function DownloadFileProgress({
           <DeleteIcon />
         </IconButton>
       ),
-    [handleCancel, status],
+    [errorMessage, handleCancel, status],
   );
 
   const progressColor = useMemo(
