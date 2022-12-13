@@ -23,5 +23,15 @@
   "Error": "Error",
   "Unsupported file format": "Unsupported file format",
   "No results found. Please alter your search": "No results found. Please alter your search.",
-  "You do not have any data.": "You do not have any data."
+  "You do not have any data.": "You do not have any data.",
+  "Are you sure you want to cancel the download?": "Are you sure you want to cancel the download?",
+  "Continue": "Continue",
+  "Cancel Download": "Cancel Download",
+  "Preparing File": "Preparing File",
+  "Download File": "Download File",
+  "Zipping files": "Zipping files",
+  "Preparing Download": "Preparing Download",
+  "Download Completed": "Download Completed",
+  "Download Cancel": "Download Cancel",
+  "Download Failed": "Download Failed"
 }
