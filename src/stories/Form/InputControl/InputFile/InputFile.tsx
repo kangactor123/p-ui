@@ -6,9 +6,9 @@ import { TControl } from '../../../../common/type';
 import { isValidFileFormat } from '../../../../common/helper';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { IconCloseSmall, IconFileUpload } from '../../../icons';
-import useAlert from '../../../Confirm/hooks/useAlert';
+import { CloseSmallIcon, IconFileUpload } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
+import useAlert from '../../../Dialog/hooks/useAlert';
 
 export type TInputFileProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {
@@ -105,7 +105,7 @@ function InputFile<T extends FieldValues>({
               <InputAdornment position="end">
                 <IconContainer>
                   {value ? (
-                    <IconCloseSmall onClick={() => deleteFile(onChange)} css={iconFileDelete} />
+                    <CloseSmallIcon onClick={() => deleteFile(onChange)} css={iconFileDelete} />
                   ) : (
                     <IconFileUpload />
                   )}

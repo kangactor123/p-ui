@@ -88,5 +88,5 @@ export const disabledCheckedIcon = css`
 `;
 
 export const radioGroup = css`
-  margin-top: 10px;
+  margin-top: 7px;
 `;

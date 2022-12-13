@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { createTheme } from '@mui/material';
-import { Size } from '../../common/enum';
+import { Size } from '../../../common/enum';
 
 const SMALL_SIZE = {
   paper: {
