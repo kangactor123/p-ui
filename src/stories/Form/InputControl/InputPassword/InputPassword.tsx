@@ -7,7 +7,7 @@ import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { css } from '@emotion/react';
-import { textFieldStyle } from '../InputText';
+import { iconButtonCss, textFieldStyle } from '../TextField.style';
 
 export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {
@@ -16,30 +16,8 @@ export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
     isError?: boolean;
   };
 
-const passwordFieldStyle = css`
-  ${textFieldStyle}
-  & input {
-    padding: 0;
-  }
-  & .MuiInputBase-root {
-    padding-right: 0px;
-  }
-`;
-
 const endAdornmentcss = css`
   padding-right: 12px;
-`;
-
-const iconButtonCss = css`
-  width: 20px;
-  height: 20px;
-  padding: 0;
-
-  &.MuiButtonBase-root.MuiIconButton-root {
-    width: 20px;
-    height: 20px;
-    padding: 0;
-  }
 `;
 
 /**
@@ -47,7 +25,7 @@ const iconButtonCss = css`
  * @returns control 로 다룰수 있는 Password Field
  */
 function InputPassword<T extends FieldValues>({
-  inputProps = {},
+  InputProps = {},
   variant = 'outlined',
   useClearBtn = true,
   control,
@@ -57,7 +35,7 @@ function InputPassword<T extends FieldValues>({
   inputSize = Size.M,
   ...props
 }: TInputPasswordProps<T>): ReactElement {
-  const { sx: inputSx } = inputProps;
+  const { sx: inputSx } = InputProps;
   const [isVisible, setIsVisible] = useState(false);
   const theme = useContext(PlayceThemeContext);
   const visibleChange = () => setIsVisible((prev) => !prev);
@@ -75,9 +53,13 @@ function InputPassword<T extends FieldValues>({
   };
 
   const textfieldCss = css`
-    ${passwordFieldStyle}
+    ${textFieldStyle}
     & fieldset {
       border-color: ${isError ? '#D83A52' : '#C5C7D0'};
+    }
+
+    & .MuiInputBase-root {
+      padding-right: 0px;
     }
   `;
 
@@ -89,6 +71,9 @@ function InputPassword<T extends FieldValues>({
         variant={variant}
         onChange={onChange}
         type={isVisible ? 'text' : 'password'}
+        inputProps={{
+          sx: inputStyle,
+        }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end" css={endAdornmentcss}>
@@ -102,7 +87,6 @@ function InputPassword<T extends FieldValues>({
               </IconButton>
             </InputAdornment>
           ),
-          sx: inputStyle,
         }}
         {...props}
       />

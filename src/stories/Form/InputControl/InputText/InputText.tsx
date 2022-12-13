@@ -6,21 +6,10 @@ import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { css } from '@emotion/react';
 import { SxProps } from '@mui/system';
+import { textFieldStyle } from '../TextField.style';
 
 export type TInputTextProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & { inputSize?: 'large' | 'medium' | 'small'; isError?: boolean };
-
-export const textFieldStyle = css`
-  & input {
-    height: 22px;
-    font-size: 14px;
-    color: #323338;
-  }
-
-  & input::placeholder {
-    color: #676879;
-  }
-`;
 
 /**
  * @param inputSize: default 는 'medium', 'large', 'small
@@ -62,19 +51,21 @@ function InputText<T extends FieldValues>({
     ...inputSx,
   };
 
+  const textfieldCss = css`
+    ${textFieldStyle}
+    & fieldset {
+      border-color: ${isError ? '#D83A52' : '#C5C7D0'};
+    }
+  `;
+
   return (
     <ThemeProvider theme={theme as Theme}>
       <TextField
         value={value}
         variant={variant}
         onChange={handleChange}
+        css={textfieldCss}
         inputProps={{ maxLength: 255, sx: inputStyle, ...input }}
-        css={css`
-          ${textFieldStyle}
-          & fieldset {
-            border-color: ${isError ? '#D83A52' : '#C5C7D0'};
-          }
-        `}
         {...props}
       />
     </ThemeProvider>
