@@ -1,10 +1,10 @@
 import React, { ReactElement, useContext } from 'react';
-import { IconButton, TextFieldProps, TextField, SxProps, Theme, InputAdornment, ThemeProvider } from '@mui/material';
+import { IconButton, TextFieldProps, TextField, Theme, InputAdornment, ThemeProvider } from '@mui/material';
 import { cx } from '@emotion/css';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
 import { PlayceThemeContext } from '../../providers';
-import { iconButtonCss, textFieldStyle } from '../Form/InputControl/TextField.style';
+import { getInputStyleBySize, iconButtonCss, textFieldStyle } from '../Form/InputControl/TextField.style';
 
 export type TSearchInputProps = TextFieldProps & {
   placeholder: string;
@@ -25,10 +25,7 @@ function SearchBar(props: TSearchInputProps): ReactElement {
     ...defaultProps
   } = props;
   const theme = useContext(PlayceThemeContext);
-
-  const inputStyle: SxProps<Theme> = {
-    padding: inputSize === Size.L ? '13px 15px' : inputSize === Size.M ? '9px 15px' : '5px 15px',
-  };
+  const inputStyle = getInputStyleBySize(inputSize);
 
   return (
     <ThemeProvider theme={theme as Theme}>

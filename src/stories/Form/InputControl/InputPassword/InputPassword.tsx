@@ -1,13 +1,12 @@
 import React, { ReactElement, useContext, useState } from 'react';
 import { IconButton, InputAdornment, TextField, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
-import { SxProps } from '@mui/system';
 import { useController, FieldValues } from 'react-hook-form';
 import { TControl } from '../../../../common/type';
 import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { css } from '@emotion/react';
-import { iconButtonCss, textFieldStyle } from '../TextField.style';
+import { getInputStyleBySize, iconButtonCss, textFieldStyle } from '../TextField.style';
 
 export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {
@@ -35,7 +34,7 @@ function InputPassword<T extends FieldValues>({
   inputSize = Size.M,
   ...props
 }: TInputPasswordProps<T>): ReactElement {
-  const { sx: inputSx } = InputProps;
+  const inputStyle = getInputStyleBySize(inputSize);
   const [isVisible, setIsVisible] = useState(false);
   const theme = useContext(PlayceThemeContext);
   const visibleChange = () => setIsVisible((prev) => !prev);
@@ -46,11 +45,6 @@ function InputPassword<T extends FieldValues>({
     rules,
     control,
   });
-
-  const inputStyle: SxProps<Theme> = {
-    padding: inputSize === Size.L ? '13px 15px' : inputSize === Size.M ? '9px 15px' : '5px 15px',
-    ...inputSx,
-  };
 
   const textfieldCss = css`
     ${textFieldStyle}
