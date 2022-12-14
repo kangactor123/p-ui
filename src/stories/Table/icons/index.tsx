@@ -8,7 +8,6 @@ export { ReactComponent as IconTableRefresh } from './ic-table-refresh.svg';
 export { ReactComponent as IconTableCsvDownload } from './btn-btn-icon-btn-table-filter-default.svg';
 export { ReactComponent as IconTableSelectArrow } from './icon-ic-table-arrow-down.svg';
 
-export { ReactComponent as SearchIcon } from './ic-app-search.svg';
 export { ReactComponent as DownloadIcon } from './icon-table-download.svg';
 export { ReactComponent as FilterIcon } from './icon-table-filter.svg';
 export { ReactComponent as RefreshIcon } from './icon-table-refresh.svg';

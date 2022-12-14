@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { StyledComponent } from '@emotion/styled';
 import { Checkbox, CheckboxProps, Radio, RadioProps, styled } from '@mui/material';
-import searchIcon from './icons/ic-app-search.svg';
+import searchIcon from '../../stories/icons/svg/icon-search.svg';
 
 export const tableMixin = {
   '@table-border': css`
