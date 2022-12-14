@@ -17,7 +17,6 @@
     "jsx": "react-jsx",
     "declaration": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
     "jsxImportSource": "@emotion/react"
   },
   "include": [

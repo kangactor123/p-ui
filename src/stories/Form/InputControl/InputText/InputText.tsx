@@ -2,10 +2,10 @@ import React, { ChangeEvent, ReactElement, useCallback, useContext } from 'react
 import { TextFieldProps, TextField, ThemeProvider, Theme } from '@mui/material';
 import { FieldValues, useController } from 'react-hook-form';
 import { css } from '@emotion/react';
-import { PlayceThemeContext } from 'providers';
-import { TControl } from 'common/type';
-import { Size } from 'common/enum';
 import { getInputStyleBySize, textFieldStyle } from '../TextField.style';
+import { TControl } from '../../../../common/type';
+import { PlayceThemeContext } from '../../../../providers';
+import { Size } from '../../../../common/enum';
 
 export type TInputTextProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & { inputSize?: 'large' | 'medium' | 'small'; isError?: boolean };
