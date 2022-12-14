@@ -18,6 +18,8 @@ export { default as DragDropZone } from './stories/DragDropZone';
 export { default as Dropdown } from './stories/Dropdown';
 export { default as DiffViewer } from './stories/DiffViewer';
 export { default as SearchTooltip } from './stories/SearchTooltip';
+export { default as ViewMore } from './stories/ViewMore';
+export { default as ToggleButton } from './stories/ToggleButton';
 
 export { default as FormRow } from './stories/Form/FormRow';
 export { default as FormGroup } from './stories/Form/FormGroup';
@@ -54,6 +56,8 @@ export * from './stories/DragDropZone';
 export * from './stories/Dropdown';
 export * from './stories/DiffViewer';
 export * from './stories/SearchTooltip';
+export * from './stories/ViewMore';
+export * from './stories/ToggleButton';
 
 export * from './stories/Form/FormRow';
 export * from './stories/Form/FormGroup';
