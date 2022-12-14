@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
-import StoryDownloadFileProgress, { IDownloadFileProgressProps, Status } from './DownloadFileProgress';
+import StoryDownloadFileProgress, { IDownloadFileProgressProps, DownloadStatus } from './DownloadFileProgress';
 
 export default {
   title: 'Component/DownloadFileProgress',
@@ -19,7 +19,7 @@ Basic.args = {
   progressInfo: {
     percentage: 10,
     loaded: 100,
-    status: Status.FAILED,
+    status: DownloadStatus.FAILED,
   },
   fileName: `test.csv`,
   errorMessage: 'error',

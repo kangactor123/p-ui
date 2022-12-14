@@ -10,7 +10,7 @@ import { cx } from '@emotion/css';
 import SearchTooltip from '../../SearchTooltip';
 import { PlayceThemeContext } from '../../../providers';
 
-export enum Status {
+export enum DownloadStatus {
   PENDING = 'pending',
   INPROGRESS = 'in-progress',
   COMPLETED = 'Completed',
@@ -21,7 +21,7 @@ export enum Status {
 export interface IDownloadProgressInfo {
   percentage: number;
   loaded: number;
-  status: Status;
+  status: DownloadStatus;
 }
 
 export interface IDownloadFileProgressProps {
@@ -37,7 +37,7 @@ export const byteToKB = (bytes: number): string => {
   return `${bytes / 1000} KB`;
 };
 
-const failedCondition = [Status.FAILED, Status.CANCEL];
+const failedCondition = [DownloadStatus.FAILED, DownloadStatus.CANCEL];
 
 function DownloadFileProgress({
   progressInfo,
@@ -73,9 +73,9 @@ function DownloadFileProgress({
 
   const dialogTitle = useMemo(
     () =>
-      status === Status.COMPLETED || status === Status.FAILED || status === Status.CANCEL
+      status === DownloadStatus.COMPLETED || status === DownloadStatus.FAILED || status === DownloadStatus.CANCEL
         ? t(`Download ${status}`)
-        : status === Status.PENDING
+        : status === DownloadStatus.PENDING
         ? t('Preparing Download')
         : t('Download File'),
     [status, t],
@@ -83,14 +83,14 @@ function DownloadFileProgress({
 
   const statusIcon = useMemo(
     () =>
-      status === Status.COMPLETED ? (
+      status === DownloadStatus.COMPLETED ? (
         <SuccessIcon />
-      ) : status === Status.FAILED ? (
+      ) : status === DownloadStatus.FAILED ? (
         <div className="icon-fail-wrap">
           <ErrorIcon />
           <SearchTooltip tooltip={errorMessage} placement="top" />
         </div>
-      ) : status === Status.CANCEL ? (
+      ) : status === DownloadStatus.CANCEL ? (
         <DeleteRedIcon />
       ) : (
         <IconButton onClick={handleCancel} css={iconCancel}>
@@ -121,7 +121,7 @@ function DownloadFileProgress({
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          {status === Status.PENDING ? (
+          {status === DownloadStatus.PENDING ? (
             <div className="file-info">
               <div className="file-title-wrap">
                 <FilesIcon />
