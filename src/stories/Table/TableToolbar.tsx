@@ -152,6 +152,10 @@ export const SmallIconActionButton = ({ icon, onClick, label, enabled = true, va
           )}
           onClick={onClick}
           disabled={!enabled}
+          css={css`
+            width: 32px;
+            height: 32px;
+          `}
         >
           {icon}
         </IconButton>
