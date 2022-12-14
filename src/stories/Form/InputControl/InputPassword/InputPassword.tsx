@@ -1,12 +1,12 @@
 import React, { ReactElement, useContext, useState } from 'react';
 import { IconButton, InputAdornment, TextField, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
 import { useController, FieldValues } from 'react-hook-form';
-import { TControl } from '../../../../common/type';
-import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
-import { PlayceThemeContext } from '../../../../providers';
-import { Size } from '../../../../common/enum';
 import { css } from '@emotion/react';
 import { getInputStyleBySize, iconButtonCss, textFieldStyle } from '../TextField.style';
+import { TControl } from 'common/type';
+import { Size } from 'common/enum';
+import { PlayceThemeContext } from 'providers';
+import { ClearIcon, InvisibleIcon, VisibleIcon } from 'stories/icons';
 
 export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {

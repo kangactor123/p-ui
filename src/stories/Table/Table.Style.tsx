@@ -383,7 +383,6 @@ export const tableWrapStyles = css`
     background-color: #ffffff;
     padding: 8px;
     padding-top: 20px;
-    /* box-shadow: 0 1px 3px 1px #0000001a; */
     .use-toolbar {
       height: calc(100% - 38px);
     }
