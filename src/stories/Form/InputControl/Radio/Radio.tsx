@@ -8,11 +8,12 @@ import {
   FormControl,
   ThemeProvider,
   Theme,
+  FormControlLabel,
+  SxProps,
 } from '@mui/material';
 import { cx } from '@emotion/css';
 import { FieldValues, useController } from 'react-hook-form';
 import styled from '@emotion/styled';
-import { checkedIcon, disabledCheckedIcon, disabledIcon, icon, FormControlLabel, radioGroup } from './Radio.style';
 import { TControl } from '../../../../common/type';
 import { PlayceThemeContext } from '../../../../providers';
 
@@ -27,6 +28,7 @@ export type TRadioProps<T extends FieldValues> = {
   radioColor?: TRadioColor;
   size?: 'small' | 'medium';
   flexDirection?: 'row' | 'column';
+  radioStyle?: SxProps<Theme>;
 } & TRadioGroupProps &
   TControl<T>;
 
@@ -41,6 +43,7 @@ function Radio<T extends FieldValues>({
   rules,
   control,
   defaultValue,
+  radioStyle,
   ...props
 }: TRadioProps<T>): ReactElement {
   const theme = useContext(PlayceThemeContext);
@@ -67,11 +70,11 @@ function Radio<T extends FieldValues>({
       <FormControl>
         <RadioGroup
           flexDirection={flexDirection}
-          className={cx(props.className)}
+          className={cx('radio-group', props.className)}
           onChange={onRadioChange}
           name={name}
           value={value || ''}
-          css={radioGroup}
+          sx={radioStyle}
         >
           {props.options.map(({ value: optionValue, disabled, label }, index) => {
             return (
@@ -81,10 +84,8 @@ function Radio<T extends FieldValues>({
                     size={props.size}
                     color={color}
                     value={optionValue}
-                    icon={<span className={'icon'} css={[icon, disabled ? disabledIcon : null]} />}
-                    checkedIcon={
-                      <span className={'checkedIcon'} css={[icon, disabled ? disabledCheckedIcon : checkedIcon]} />
-                    }
+                    icon={<span className={cx('icon', disabled && 'disabledIcon')} />}
+                    checkedIcon={<span className={cx('icon', disabled ? 'disabledCheckedIcon' : 'checkedIcon')} />}
                     disabled={disabled}
                   />
                 }
