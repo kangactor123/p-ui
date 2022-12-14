@@ -1,13 +1,14 @@
-import React, { ReactElement, useCallback, useMemo } from 'react';
+import React, { ReactElement, useCallback, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { useTranslation } from 'react-i18next';
 import { Dialog, iconCancel } from './DownloadFileProgress.style';
-import { DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { DialogContent, DialogTitle, IconButton, Theme, ThemeProvider } from '@mui/material';
 import useConfirm from '../hooks/useConfirm';
 import { DeleteIcon, CloseSmallIcon, FilesIcon, SuccessIcon, ErrorIcon, DeleteRedIcon } from '../../icons';
 import Progressbar from '../../Progressbar';
 import { cx } from '@emotion/css';
 import SearchTooltip from '../../SearchTooltip';
+import { PlayceThemeContext } from '../../../providers';
 
 export enum Status {
   PENDING = 'pending',
@@ -46,6 +47,7 @@ function DownloadFileProgress({
   errorMessage,
 }: IDownloadFileProgressProps): ReactElement {
   const { t } = useTranslation();
+  const theme = useContext(PlayceThemeContext);
 
   const { percentage, loaded, status } = progressInfo;
 
@@ -104,7 +106,7 @@ function DownloadFileProgress({
   );
 
   return (
-    <>
+    <ThemeProvider theme={theme as Theme}>
       <Dialog
         open={isOpened}
         disableEnforceFocus
@@ -152,7 +154,7 @@ function DownloadFileProgress({
         </DialogContent>
       </Dialog>
       {cancelConfirmDialog.rendered}
-    </>
+    </ThemeProvider>
   );
 }
 

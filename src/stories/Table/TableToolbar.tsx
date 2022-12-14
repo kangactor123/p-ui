@@ -12,7 +12,7 @@ import React, {
   MouseEvent,
 } from 'react';
 import { TableInstance } from 'react-table';
-import { IconTableUploadClose, SearchIcon, FilterIcon, DownloadIcon, RefreshIcon, TableSearchIcon } from './icons';
+import { IconTableUploadClose, FilterIcon, DownloadIcon, RefreshIcon, TableSearchIcon } from './icons';
 
 import { TableMouseEventHandler } from './types/react-table-config';
 import { ColumnHidePage } from './ColumnHidePage';
