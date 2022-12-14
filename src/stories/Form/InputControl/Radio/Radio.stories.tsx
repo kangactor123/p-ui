@@ -5,6 +5,7 @@ import StoryRadio, { TRadioProps } from './Radio';
 import { TSample } from '../CodeEditor/CodeEditor.stories';
 import { useForm } from 'react-hook-form';
 import { TSampleFormControl } from '../InputText/InputText.stories';
+import { storyRadioStyle } from './Radio.style';
 
 export default {
   title: 'Component/Radio',
@@ -23,7 +24,17 @@ const Radio: Story<TRadioProps<TSample>> = (args) => {
       sample: '1',
     },
   });
-  return <StoryRadio {...args} control={control} rules={{ required: true }} name={'sample'} options={options} />;
+
+  return (
+    <StoryRadio
+      {...args}
+      control={control}
+      rules={{ required: true }}
+      name={'sample'}
+      options={options}
+      radioStyle={storyRadioStyle}
+    />
+  );
 };
 
 export const Basic = Radio.bind({});
