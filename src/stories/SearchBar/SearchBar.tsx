@@ -10,6 +10,8 @@ export type TSearchInputProps = TextFieldProps & {
   placeholder: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlurEvent: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDownEvent: (event: React.KeyboardEvent<HTMLDivElement>) => void;
   onDeleteSearchKeyword: () => void;
   inputSize?: 'large' | 'medium' | 'small';
 };
@@ -20,6 +22,8 @@ function SearchBar(props: TSearchInputProps): ReactElement {
     value,
     inputSize = Size.M,
     onChange,
+    onBlurEvent: onBlur,
+    onKeyDownEvent: onKeyDown,
     onDeleteSearchKeyword,
     InputProps = {},
     ...defaultProps
@@ -33,6 +37,8 @@ function SearchBar(props: TSearchInputProps): ReactElement {
         css={textFieldStyle}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
+        onKeyDown={onKeyDown}
         className={cx('search-input')}
         inputProps={{
           sx: inputStyle,
