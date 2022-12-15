@@ -4,12 +4,12 @@ import {
   Theme,
   ThemeProvider,
   Checkbox as MUICheckbox,
-  FormControl,
   FormControlLabel,
   FormControlLabelProps,
 } from '@mui/material';
 import { PlayceThemeContext } from '../../../../providers';
 import { cx } from '@emotion/css';
+import { FormControl } from './Checkbox.style';
 
 export interface ICheckboxProps extends MUICheckboxProps {
   label?: ReactNode;
