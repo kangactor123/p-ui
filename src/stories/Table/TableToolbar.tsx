@@ -50,9 +50,9 @@ export const classes = {
     width: 400,
   }),
   rightButtons: css({
-    marginRight: '-15px',
+    marginRight: '4px',
     display: 'flex',
-    gap: '16px',
+    gap: '32px',
   }),
   leftIcons: css({
     '&:first-of-type': {
@@ -152,10 +152,6 @@ export const SmallIconActionButton = ({ icon, onClick, label, enabled = true, va
           )}
           onClick={onClick}
           disabled={!enabled}
-          css={css`
-            width: 32px !important;
-            height: 32px !important;
-          `}
         >
           {icon}
         </IconButton>
@@ -264,7 +260,12 @@ export function TableToolbar<TModel extends object>({
           onBlur={handleKeywordBlur}
           value={searchKeyword || ''}
           InputProps={{
-            sx: { height: 32 },
+            sx: {
+              height: 32,
+              '&.MuiInputBase-adornedEnd': {
+                paddingRight: '7px',
+              },
+            },
             placeholder: t('Search'),
             endAdornment: (
               <InputAdornment position="end">
