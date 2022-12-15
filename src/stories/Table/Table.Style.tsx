@@ -96,7 +96,9 @@ export const tableStyles = {
     },
   }),
   tableRow: css({
-    color: '#191f28',
+    color: '#202020',
+    fontWeight: 500,
+    fontSize: '14px',
     outline: 0,
     verticalAlign: 'middle',
     '&:hover > div': {
@@ -274,7 +276,9 @@ export const subTableStyles = {
     },
   }),
   tableRow: css({
-    color: '#191f28',
+    color: '#202020',
+    fontWeight: 500,
+    fontSize: '14px',
     outline: 0,
     verticalAlign: 'middle',
     '&:not(:last-of-type)': {
@@ -625,8 +629,8 @@ export const RowCheckbox: StyledComponent<CheckboxProps, {}, {}> = styled(Checkb
     backgroundColor: 'transparent',
   },
   '& svg': {
-    width: 16,
-    height: 16,
+    width: '16px',
+    height: '16px',
   },
   color: '#c4cad6',
 });
@@ -640,7 +644,7 @@ export const RowRadio: StyledComponent<RadioProps, {}, {}> = styled(Radio)({
   '&:hover': {
     backgroundColor: 'transparent',
   },
-  '& svg': {
+  '& svg ': {
     width: 16,
     height: 16,
   },

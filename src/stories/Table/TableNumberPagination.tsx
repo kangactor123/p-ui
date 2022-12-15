@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { cx } from '@emotion/css';
+import { DropdownArrowIcon } from '../icons';
 
 export const ALL_VALUE = 100000000;
 
@@ -46,7 +47,7 @@ const numberStyles = css({
     },
   },
   '& .Mui-selected': {
-    backgroundColor: '#808080 !important',
+    backgroundColor: '#666666 !important',
     fontWeight: '500',
     color: '#ffffff',
     padding: '0 10px',
@@ -91,19 +92,21 @@ const paginationTheme = createTheme({
           marginRight: '15.5px',
         },
         selectLabel: {
-          fontSize: '12px',
-          color: 'rgba(25, 31, 40, 0.6)',
+          fontSize: '14px',
+          fontWeight: 500,
+          lineHeight: '22px',
+          color: '#666666',
         },
         select: {
-          paddingLeft: '6px',
+          paddingLeft: '0px',
           paddingTop: '4px',
           paddingBottom: '4px',
-          paddingRight: '17px !important',
+          paddingRight: '20px !important',
           fontWeight: 500,
+          minWidth: '20px !important',
         },
         selectIcon: {
           color: '#b3b4b8',
-          right: '-2px',
           top: 'calc(50% - 11px)',
         },
         actions: {
@@ -122,8 +125,10 @@ const paginationTheme = createTheme({
           display: 'none',
         },
         displayedRows: {
-          fontSize: '12px',
-          color: 'rgba(25, 31, 40, 0.6)',
+          fontSize: '14px',
+          fontWeight: 500,
+          lineHeight: '22px',
+          color: '#666666',
         },
       },
     },
@@ -250,6 +255,9 @@ export function TableNumberPagination<TModel extends object>({
             page={pageIndex}
             onPageChange={handleChangePage}
             onRowsPerPageChange={onRowsPerPageChange}
+            SelectProps={{
+              IconComponent: DropdownArrowIcon,
+            }}
             css={css`
               ${paginationStyle}
               ${rowPerPageStyle}
