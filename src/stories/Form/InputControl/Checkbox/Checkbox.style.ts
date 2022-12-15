@@ -1,5 +1,25 @@
 import checkedIcon from '../../../icons/svg/icon-checkbox-checked.svg';
 import disabledCheckedIcon from '../../../icons/svg/icon-checkbox-disabled-checked.svg';
+import { styled as MUIStyled, FormControl as MUIFormControl, Theme, FormControlProps } from '@mui/material';
+import { StyledComponent } from '@emotion/styled';
+import { MUIStyledCommonProps } from '@mui/system';
+
+export const FormControl: StyledComponent<FormControlProps & MUIStyledCommonProps<Theme>> = MUIStyled(MUIFormControl)({
+  width: '100%',
+
+  '& .MuiFormControlLabel-root': {
+    position: 'absolute',
+    left: '11px',
+    width: '100%',
+  },
+
+  '& .MuiFormControlLabel-label': {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    maxWidth: 'calc(100% - 23px)',
+    textOverflow: 'ellipsis',
+  },
+});
 
 export const migratorCheckboxStyle = {
   '& .MuiCheckbox-root': {
