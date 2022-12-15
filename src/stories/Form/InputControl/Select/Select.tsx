@@ -107,7 +107,7 @@ function Select<T extends FieldValues>({
         onChange={handleChange}
         onBlur={onBlur}
         value={value || []}
-        renderValue={(value: any) => (value ? options.find((option) => option.value === value)?.label : placeholder)}
+        renderValue={() => (value ? options.find((option) => option.value === value)?.label : placeholder)}
         size={size}
         selected={!!value}
         {...(defaultValue && { defaultValue: { defaultValue } })}
