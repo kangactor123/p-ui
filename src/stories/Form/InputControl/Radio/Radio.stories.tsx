@@ -5,7 +5,7 @@ import StoryRadio, { TRadioProps } from './Radio';
 import { TSample } from '../CodeEditor/CodeEditor.stories';
 import { useForm } from 'react-hook-form';
 import { TSampleFormControl } from '../InputText/InputText.stories';
-import { storyRadioStyle } from './Radio.style';
+import { migratorRadioStyle } from './Radio.style';
 
 export default {
   title: 'Component/Radio',
@@ -13,8 +13,8 @@ export default {
 } as ComponentMeta<typeof StoryRadio>;
 
 const options = [
-  { value: '1', label: '1' },
-  { value: '2', label: '2' },
+  { value: '1', label: '1', disabled: false },
+  { value: '2', label: '2', disabled: true },
 ];
 
 const Radio: Story<TRadioProps<TSample>> = (args) => {
@@ -31,10 +31,13 @@ const Radio: Story<TRadioProps<TSample>> = (args) => {
       control={control}
       rules={{ required: true }}
       name={'sample'}
-      options={options}
-      radioStyle={storyRadioStyle}
+      radioStyle={migratorRadioStyle}
     />
   );
 };
 
-export const Basic = Radio.bind({});
+export const Migrator = Radio.bind({});
+
+Migrator.args = {
+  options: options,
+};
