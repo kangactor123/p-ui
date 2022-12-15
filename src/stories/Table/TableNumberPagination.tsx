@@ -76,6 +76,13 @@ const paginationStyle = css`
 
 const paginationTheme = createTheme({
   components: {
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          color: '#666666',
+        },
+      },
+    },
     MuiTablePagination: {
       styleOverrides: {
         root: {
