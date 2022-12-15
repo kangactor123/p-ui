@@ -67,7 +67,7 @@ export const tableStyles = {
     textAlign: 'left',
     height: '40px',
     verticalAlign: 'inherit',
-    color: '#191f28',
+    color: '#666666',
     overflow: 'hidden',
     '&:first-of-type': {
       paddingLeft: '16px',
@@ -140,7 +140,6 @@ export const tableStyles = {
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    color: '#666666',
     '& svg': {
       position: 'absolute',
       width: 18,
@@ -248,7 +247,7 @@ export const subTableStyles = {
     textAlign: 'left',
     height: '36px',
     verticalAlign: 'inherit',
-    color: '#191f28',
+    color: '#666666',
     '&:first-of-type': {
       paddingLeft: '16px',
     },
@@ -317,7 +316,6 @@ export const subTableStyles = {
     width: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    color: '#666666',
     '& svg': {
       width: 18,
       height: 18,
