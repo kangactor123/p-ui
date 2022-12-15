@@ -42,4 +42,3 @@ export { ReactComponent as CloseSmallIcon } from './svg/icon-close-small.svg';
 export { ReactComponent as FilesIcon } from './svg/icon-files.svg';
 export { ReactComponent as SuccessIcon } from './svg/icon-success.svg';
 export { ReactComponent as ErrorIcon } from './svg/icon-error.svg';
-export { ReactComponent as DropdownArrowIcon } from './svg/icon-dropdown-arrow.svg';

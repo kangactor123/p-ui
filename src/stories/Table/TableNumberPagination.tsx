@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { cx } from '@emotion/css';
-import { DropdownArrowIcon } from '../icons';
+import { DropdownDownIcon } from '../icons';
 
 export const ALL_VALUE = 100000000;
 
@@ -263,7 +263,7 @@ export function TableNumberPagination<TModel extends object>({
             onPageChange={handleChangePage}
             onRowsPerPageChange={onRowsPerPageChange}
             SelectProps={{
-              IconComponent: DropdownArrowIcon,
+              IconComponent: DropdownDownIcon,
             }}
             css={css`
               ${paginationStyle}
