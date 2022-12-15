@@ -1,4 +1,4 @@
-export const storyRadioStyle = {
+export const migratorRadioStyle = {
   '& .MuiFormControlLabel-root': {
     marginLeft: '-9px',
     marginRight: '30px',
