@@ -66,6 +66,7 @@ function InputPassword<T extends FieldValues>({
         onChange={onChange}
         type={isVisible ? 'text' : 'password'}
         inputProps={{
+          ...props.inputProps,
           sx: inputStyle,
         }}
         InputProps={{
@@ -81,6 +82,7 @@ function InputPassword<T extends FieldValues>({
               </IconButton>
             </InputAdornment>
           ),
+          ...InputProps,
         }}
         {...props}
       />
