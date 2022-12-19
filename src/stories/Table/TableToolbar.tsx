@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { Button, IconButton, InputAdornment, Toolbar, TooltipClasses } from '@mui/material';
+import { Button, IconButton, Toolbar, TooltipClasses } from '@mui/material';
 import React, {
   ChangeEvent,
   MouseEventHandler,
@@ -12,18 +12,15 @@ import React, {
   MouseEvent,
 } from 'react';
 import { TableInstance } from 'react-table';
-import { IconTableUploadClose, SearchIcon, FilterIcon, DownloadIcon, RefreshIcon, TableSearchIcon } from './icons';
-
+import { FilterIcon, DownloadIcon, RefreshIcon } from './icons';
 import { TableMouseEventHandler } from './types/react-table-config';
 import { ColumnHidePage } from './ColumnHidePage';
-
 import { useTranslation } from 'react-i18next';
 import { downloadReport } from './utils';
-
 import { css } from '@emotion/react';
 import { cx } from '@emotion/css';
 import Tooltip from '../Tooltip';
-import InputText from './InputText';
+import SearchBar from '../SearchBar';
 
 const tooltipClasses: Partial<TooltipClasses> = {
   arrow: `${css({
@@ -253,27 +250,15 @@ export function TableToolbar<TModel extends object>({
   return (
     <Toolbar css={classes.toolbar}>
       <div>
-        <InputText
-          className={cx(isSearchStyle ? `${classes.searchInput}` : '', 'search-input')}
+        <SearchBar
+          placeholder=""
+          variant="outlined"
+          onDeleteSearchKeyword={handleDeleteSearchKeyword}
           onChange={handleKeywordChange}
-          onKeyDown={handleKeywordKeyDown}
-          onBlur={handleKeywordBlur}
+          onKeyDownEvent={handleKeywordKeyDown}
+          onBlurEvent={handleKeywordBlur}
           value={searchKeyword || ''}
-          InputProps={{
-            sx: { height: 32 },
-            placeholder: t('Search'),
-            endAdornment: (
-              <InputAdornment position="end">
-                <TableSearchIcon />
-              </InputAdornment>
-            ),
-          }}
         />
-        {searchKeyword && (
-          <IconButton css={classes.searchInputClear} onClick={handleDeleteSearchKeyword}>
-            <IconTableUploadClose />
-          </IconButton>
-        )}
       </div>
       <div css={classes.rightButtons}>
         {!useServerPaging ? (
