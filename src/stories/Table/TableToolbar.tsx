@@ -251,7 +251,7 @@ export function TableToolbar<TModel extends object>({
     <Toolbar css={classes.toolbar}>
       <div>
         <SearchBar
-          placeholder=""
+          placeholder={t('Search')}
           variant="outlined"
           onDeleteSearchKeyword={handleDeleteSearchKeyword}
           onChange={handleKeywordChange}
