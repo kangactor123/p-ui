@@ -12,10 +12,6 @@ import { MUIStyledCommonProps } from '@mui/system';
 export const FormControlLabel: StyledComponent<FormControlLabelProps & MUIStyledCommonProps<Theme>> = MUIStyled(
   MUIFormControlLabel,
 )({
-  position: 'absolute',
-  left: '22px',
-  width: '100%',
-
   '& .MuiFormControlLabel-label': {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -37,16 +33,16 @@ export const migratorCheckboxStyle = {
       borderRadius: '2px',
     },
 
-    '.regularBox': {
+    '.regular-box': {
       border: '1px solid #c5c7d0',
       backgroundColor: 'transparent',
     },
 
-    '.disabledBox': {
+    '.disabled-box': {
       backgroundColor: 'rgba(230, 233, 239, 0.4)',
     },
 
-    '.checkedBox': {
+    '.checked-box': {
       backgroundColor: '#0073ea',
       '&::before': {
         display: 'block',
@@ -57,7 +53,7 @@ export const migratorCheckboxStyle = {
       },
     },
 
-    '.disabledCheckedBox': {
+    '.disabled-checked-box': {
       backgroundColor: 'rgba(230, 233, 239, 0.4)',
       '&::before': {
         display: 'block',
@@ -69,10 +65,10 @@ export const migratorCheckboxStyle = {
     },
 
     '&:hover': {
-      '& .regularBox': {
+      '& .regular-box': {
         border: '1px solid #323338',
       },
-      '& .checkedBox': {
+      '& .checked-box': {
         backgroundColor: '#0060B9',
       },
     },

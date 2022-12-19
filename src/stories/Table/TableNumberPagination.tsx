@@ -105,12 +105,14 @@ const paginationTheme = createTheme({
           color: '#666666',
         },
         select: {
-          paddingLeft: '0px',
-          paddingTop: '4px',
-          paddingBottom: '4px',
+          paddingLeft: '4px',
+          paddingTop: '5px',
+          paddingBottom: '5px',
           paddingRight: '20px !important',
           fontWeight: 500,
-          minWidth: '20px !important',
+          minWidth: '45px !important',
+          textAlign: 'left',
+          textAlignLast: 'left',
         },
         selectIcon: {
           color: '#b3b4b8',

@@ -4,7 +4,7 @@ import { cx } from '@emotion/css';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
 import { PlayceThemeContext } from '../../providers';
-import { getInputStyleBySize, iconButtonCss, textFieldStyle } from '../Form/InputControl/TextField.style';
+import { getInputStyleBySize, iconButtonCss } from '../Form/InputControl/TextField.style';
 
 export type TSearchInputProps = TextFieldProps & {
   placeholder: string;
@@ -34,12 +34,11 @@ function SearchBar(props: TSearchInputProps): ReactElement {
   return (
     <ThemeProvider theme={theme as Theme}>
       <TextField
-        css={textFieldStyle}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
         onKeyDown={onKeyDown}
-        className={cx('search-input')}
+        className={cx('search-input', 'outlined-input')}
         inputProps={{
           sx: inputStyle,
         }}

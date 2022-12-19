@@ -28,5 +28,8 @@ export const iconButtonCss = css`
 `;
 
 export function getInputStyleBySize(inputSize: 'large' | 'medium' | 'small'): SxProps<Theme> {
-  return { padding: inputSize === Size.L ? '13px 15px' : inputSize === Size.M ? '9px 15px' : '5px 15px' };
+  return {
+    padding: inputSize === Size.L ? '13px 15px' : inputSize === Size.M ? '9px 15px' : '5px 15px',
+    minHeight: inputSize === Size.L ? '48px' : inputSize === Size.M ? '40px' : '32px',
+  };
 }

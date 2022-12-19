@@ -80,10 +80,6 @@ function DragDropZone({
           onChange={onSelectFile}
           css={disabledInput}
         />
-        <TextArea>
-          <div>{t('Drag and drop file here')}</div>
-          <div>{t('or')}</div>
-        </TextArea>
         {isExistFile ? (
           <SelectedFile>
             <FileInfo>
@@ -95,16 +91,22 @@ function DragDropZone({
             </IconButton>
           </SelectedFile>
         ) : (
-          <Button
-            css={addFileBtn}
-            variant={'text'}
-            color={'primary'}
-            size={'small'}
-            onClick={openFinder}
-            disabled={Boolean(isExistFile)}
-          >
-            {t('Add File')}
-          </Button>
+          <>
+            <TextArea>
+              <div>{t('Drag and drop file here')}</div>
+              <div>{t('or')}</div>
+            </TextArea>
+            <Button
+              css={addFileBtn}
+              variant={'text'}
+              color={'primary'}
+              size={'small'}
+              onClick={openFinder}
+              disabled={Boolean(isExistFile)}
+            >
+              {t('Add File')}
+            </Button>
+          </>
         )}
       </DropZone>
       <GuideText>{guideText}</GuideText>

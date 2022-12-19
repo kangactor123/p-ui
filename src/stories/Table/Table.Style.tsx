@@ -72,6 +72,10 @@ export const tableStyles = {
     '&:first-of-type': {
       paddingLeft: '16px',
     },
+
+    '& .MuiIconButton-root': {
+      padding: '5px',
+    },
   }),
   resizeHandle: css({
     position: 'absolute',
@@ -250,6 +254,10 @@ export const subTableStyles = {
     color: '#666666',
     '&:first-of-type': {
       paddingLeft: '16px',
+    },
+
+    '& .MuiIconButton-root': {
+      padding: '5px',
     },
   }),
   resizeHandle: css({
@@ -565,6 +573,16 @@ export const filterStyle = css`
 
     &:hover {
       background-color: #e6e9ef;
+    }
+
+    .MuiFormControlLabel-root {
+      position: absolute;
+      left: 22px;
+      width: 100%;
+    }
+
+    .MuiFormControlLabel-label {
+      max-width: calc(100% - 45px);
     }
   }
 

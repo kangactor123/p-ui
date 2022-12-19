@@ -22,12 +22,12 @@ export const migratorRadioStyle = {
         },
       },
 
-      '.checkedIcon': {
+      '.checked-icon': {
         backgroundColor: '#0073ea',
         boxShadow: 'inset 0 0 0 1px #0073ea, inset 0 -1px 0 #0073ea',
       },
 
-      '.disabledIcon': {
+      '.disabled-icon': {
         opacity: '0.4',
         backgroundColor: '#e6e9ef',
         boxShadow: 'inset 0 0 0 1px #e6e9ef, inset 0 -1px 0 #e6e9ef',
@@ -36,7 +36,7 @@ export const migratorRadioStyle = {
         },
       },
 
-      disabledCheckedIcon: {
+      '.disabled-checked-icon': {
         backgroundColor: '#e6e9ef',
         boxShadow: 'inset 0 0 0 1px #e6e9ef, inset 0 -1px 0 #e6e9ef',
         '&::before': {
@@ -50,7 +50,7 @@ export const migratorRadioStyle = {
         '& .icon': {
           boxShadow: 'inset 0 0 0 1px #323338, inset 0 -1px 0 #323338',
         },
-        '& .checkedIcon': {
+        '& .checked-icon': {
           backgroundColor: '#0060B9',
           boxShadow: 'inset 0 0 0 1px #0060B9, inset 0 -1px 0 #0060B9',
         },
