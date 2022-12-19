@@ -6,7 +6,7 @@ import { IBackButton } from './type';
 import { PlayceThemeContext } from '../../providers';
 
 const iconButtonCss = css`
-  margin-right: 8px;
+  margin-right: 3px;
 `;
 
 function BackButton({ to, options }: IBackButton): ReactElement {

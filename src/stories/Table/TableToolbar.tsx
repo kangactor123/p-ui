@@ -49,7 +49,7 @@ export const classes = {
   rightButtons: css({
     marginRight: '4px',
     display: 'flex',
-    gap: '32px',
+    gap: '22px',
   }),
   leftIcons: css({
     '&:first-of-type': {
