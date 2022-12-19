@@ -54,7 +54,9 @@ function Select<T extends FieldValues>({
     multiple,
     noDataLabel = '',
     size = Size.M,
+    MenuProps = {},
   } = props;
+  const { sx, anchorOrigin, transformOrigin, ...Menu } = MenuProps;
   const theme = useContext(PlayceThemeContext);
   const { t } = useTranslation();
   const {
@@ -75,6 +77,17 @@ function Select<T extends FieldValues>({
     [props, onChange],
   );
 
+  const MenuSx = {
+    '& .MuiPaper-root': {
+      boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.2)',
+      transform: 'translateY(7px) !important',
+    },
+    '& .MuiList-root': {
+      padding: '4px',
+    },
+    ...sx,
+  };
+
   return (
     <ThemeProvider theme={theme as Theme}>
       <SelectComponent
@@ -84,21 +97,15 @@ function Select<T extends FieldValues>({
           anchorOrigin: {
             vertical: 'bottom',
             horizontal: 'left',
+            ...anchorOrigin,
           },
           transformOrigin: {
             vertical: 'top',
             horizontal: 'left',
+            ...transformOrigin,
           },
-          sx: {
-            maxWidth: 640,
-            '& .MuiPaper-root': {
-              boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.2)',
-              transform: 'translateY(7px) !important',
-            },
-            '& .MuiList-root': {
-              padding: '4px',
-            },
-          },
+          sx: MenuSx,
+          ...Menu,
         }}
         displayEmpty={displayEmpty}
         variant={variant}
