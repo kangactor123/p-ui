@@ -4,12 +4,11 @@ import {
   Theme,
   ThemeProvider,
   Checkbox as MUICheckbox,
-  FormControlLabel,
   FormControlLabelProps,
 } from '@mui/material';
 import { PlayceThemeContext } from '../../../../providers';
 import { cx } from '@emotion/css';
-import { FormControl } from './Checkbox.style';
+import { FormControlLabel } from './Checkbox.style';
 
 export interface ICheckboxProps extends MUICheckboxProps {
   label?: ReactNode;
@@ -22,22 +21,20 @@ function Checkbox(props: ICheckboxProps): ReactElement {
 
   return (
     <ThemeProvider theme={theme as Theme}>
-      <FormControl>
-        <FormControlLabel
-          {...labelProps}
-          control={
-            <MUICheckbox
-              {...checkProps}
-              disabled={disabled}
-              icon={<span className={cx('checkbox', disabled ? 'disabledBox' : 'regularBox')} />}
-              checkedIcon={<span className={cx('checkbox', disabled ? 'disabledCheckedBox' : 'checkedBox')} />}
-              disableRipple
-            />
-          }
-          label={label}
-          className={'checkbox-group'}
-        />
-      </FormControl>
+      <FormControlLabel
+        {...labelProps}
+        control={
+          <MUICheckbox
+            {...checkProps}
+            disabled={disabled}
+            icon={<span className={cx('checkbox', disabled ? 'disabledBox' : 'regularBox')} />}
+            checkedIcon={<span className={cx('checkbox', disabled ? 'disabledCheckedBox' : 'checkedBox')} />}
+            disableRipple
+          />
+        }
+        label={label}
+        className={'checkbox-group'}
+      />
     </ThemeProvider>
   );
 }
