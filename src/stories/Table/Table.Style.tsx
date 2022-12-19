@@ -558,18 +558,20 @@ export const filterStyle = css`
 
   .filter-item,
   .filter-item-all {
-    height: 30px;
+    height: 30px !important;
     width: auto;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background-color: #e6e9ef;
+    }
   }
 
   .filter-label {
     width: 100%;
     padding: 0;
     margin: 0;
-
-    &:hover {
-      background-color: #eee;
-    }
 
     span:last-child {
       white-space: nowrap;
