@@ -22,17 +22,14 @@ const InputText: Story<TInputTextProps<TSample>> = (args) => {
     //   sample: 'this is sample',
     // },
   });
-  return (
-    <StoryInputText
-      {...args}
-      control={control}
-      rules={{ required: true }}
-      name={'sample'}
-      placeholder={'this is placeholder'}
-      // size={Size.}
-      // isError={true}
-    />
-  );
+  return <StoryInputText {...args} control={control} rules={{ required: true }} />;
 };
 
 export const Basic = InputText.bind({});
+
+Basic.args = {
+  name: 'sample',
+  placeholder: 'this is placeholder',
+  isError: true,
+  inputSize: Size.L,
+};

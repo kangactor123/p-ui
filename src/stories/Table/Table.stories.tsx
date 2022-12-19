@@ -62,18 +62,67 @@ const sampleColumns: Column<SampleData>[] = [
 
 const Template: Story<ITable<SampleData>> = (args) => {
   const data: SampleData[] = [
-    // {
-    //   id: 1,
-    //   name: 'Sample1',
-    //   count: 5,
-    //   age: 12,
-    //   address: '통일로 1030101010101010',
-    //   email: 'kangakngakng',
-    //   phone: '102020201010',
-    //   descrpition: 'Sample data',
-    // },
+    {
+      id: 1,
+      name: 'Sample1',
+      count: 5,
+      age: 12,
+      address: '통일로 1030101010101010',
+      email: 'kangakngakng',
+      phone: '102020201010',
+      descrpition: 'Sample data',
+    },
+    {
+      id: 1,
+      name: 'Sample1',
+      count: 5,
+      age: 12,
+      address: '통일로 1030101010101010',
+      email: 'kangakngakng',
+      phone: '102020201010',
+      descrpition: 'Sample data',
+    },
+    {
+      id: 1,
+      name: 'Sample1',
+      count: 5,
+      age: 12,
+      address: '통일로 1030101010101010',
+      email: 'kangakngakng',
+      phone: '102020201010',
+      descrpition: 'Sample data',
+    },
+    {
+      id: 1,
+      name: 'Sample1',
+      count: 5,
+      age: 12,
+      address: '통일로 1030101010101010',
+      email: 'kangakngakng',
+      phone: '102020201010',
+      descrpition: 'Sample data',
+    },
+    {
+      id: 1,
+      name: 'Sample1',
+      count: 5,
+      age: 12,
+      address: '통일로 1030101010101010',
+      email: 'kangakngakng',
+      phone: '102020201010',
+      descrpition: 'Sample data',
+    },
+    {
+      id: 1,
+      name: 'Sample1',
+      count: 5,
+      age: 12,
+      address: '통일로 1030101010101010',
+      email: 'kangakngakng',
+      phone: '102020201010',
+      descrpition: 'Sample data',
+    },
   ];
-  // story에서는 임시적으로 pagination과 toolbar사용을 막음
   return (
     <BrowserRouter>
       <Table
@@ -94,4 +143,21 @@ const Template: Story<ITable<SampleData>> = (args) => {
   );
 };
 
+const noDataHere: Story<ITable<SampleData>> = (args) => {
+  const data: SampleData[] = [];
+  return (
+    <BrowserRouter>
+      <Table
+        name="table-sample"
+        columns={sampleColumns}
+        data={data}
+        idColumn={null}
+        usePagination={true}
+        noDataComponent={'no Data'}
+      />
+    </BrowserRouter>
+  );
+};
+
 export const Basic = Template.bind({});
+export const NoData = noDataHere.bind({});

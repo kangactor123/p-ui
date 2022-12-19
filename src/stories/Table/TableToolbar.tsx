@@ -47,9 +47,9 @@ export const classes = {
     width: 400,
   }),
   rightButtons: css({
-    marginRight: '-15px',
+    marginRight: '4px',
     display: 'flex',
-    gap: '16px',
+    gap: '32px',
   }),
   leftIcons: css({
     '&:first-of-type': {

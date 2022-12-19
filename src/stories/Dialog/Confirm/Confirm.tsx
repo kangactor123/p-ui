@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { confirmTheme, iconClose, iconCloseButton, rightButtons } from './Confirm.style';
-import { IconClosePopup } from '../icons';
-import Button from '../Button';
+import Button from '../../Button';
+import { IconClosePopup } from '../../icons';
 
 export interface IConfirmProps<T = unknown> {
   title?: string | ReactNode;
@@ -87,7 +87,7 @@ function Confirm(props: IConfirmProps): ReactElement {
         <DialogTitle id="alert-dialog-title">
           {title}
           {isCloseIcon && (
-            <IconButton css={iconCloseButton} onClick={handleCancel}>
+            <IconButton css={iconClose} onClick={handleCancel}>
               <IconClosePopup css={iconClose} />
             </IconButton>
           )}

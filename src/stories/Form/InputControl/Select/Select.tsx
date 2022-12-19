@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import React, { ElementType, ReactElement, useCallback, useContext } from 'react';
+import React, { ElementType, ReactElement, ReactNode, useCallback, useContext } from 'react';
 import { SelectProps as MUISelectProps, SelectChangeEvent, Theme, ThemeProvider } from '@mui/material';
 import { cx } from '@emotion/css';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +16,7 @@ import { Size } from '../../../../common/enum';
 export interface ISelectOption {
   hidden?: boolean;
   value: any;
-  label: string;
+  label: ReactNode;
   selected?: boolean;
   disabled?: boolean;
   split?: boolean;
@@ -134,12 +134,12 @@ function Select<T extends FieldValues>({
                         labelProps={{ sx: { marginRight: 0 } }}
                         checked={isArray(value) && value.includes(optionsValue)}
                       />
-                      <span title={label} css={labelStyle}>
+                      <span title={typeof label === 'string' ? label : ''} css={labelStyle}>
                         {label}
                       </span>
                     </>
                   ) : (
-                    <span title={label} css={labelStyle}>
+                    <span title={typeof label === 'string' ? label : ''} css={labelStyle}>
                       {label}
                     </span>
                   )}

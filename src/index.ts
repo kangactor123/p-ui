@@ -17,6 +17,9 @@ export { default as DefinitionList } from './stories/DefinitionList';
 export { default as DragDropZone } from './stories/DragDropZone';
 export { default as Dropdown } from './stories/Dropdown';
 export { default as DiffViewer } from './stories/DiffViewer';
+export { default as SearchTooltip } from './stories/SearchTooltip';
+export { default as ViewMore } from './stories/ViewMore';
+export { default as ToggleButton } from './stories/ToggleButton';
 
 export { default as FormRow } from './stories/Form/FormRow';
 export { default as FormGroup } from './stories/Form/FormGroup';
@@ -28,8 +31,10 @@ export { default as CodeEditor } from './stories/Form/InputControl/CodeEditor';
 export { default as Radio } from './stories/Form/InputControl/Radio';
 export { default as Select } from './stories/Form/InputControl/Select';
 export { default as ValidationMessage } from './stories/ValidationMessage';
-export { default as Confirm } from './stories/Confirm';
 export { default as Table } from './stories/Table';
+
+export { default as Confirm } from './stories/Dialog/Confirm';
+export { default as DownloadFileProgress } from './stories/Dialog/DownloadFileProgress';
 
 export * from './stories/Accordion';
 export * from './stories/AccordionAction';
@@ -50,6 +55,9 @@ export * from './stories/DefinitionList';
 export * from './stories/DragDropZone';
 export * from './stories/Dropdown';
 export * from './stories/DiffViewer';
+export * from './stories/SearchTooltip';
+export * from './stories/ViewMore';
+export * from './stories/ToggleButton';
 
 export * from './stories/Form/FormRow';
 export * from './stories/Form/FormGroup';
@@ -62,7 +70,9 @@ export * from './stories/Form/InputControl/Radio';
 export * from './stories/Form/InputControl/Select';
 
 export * from './stories/ValidationMessage';
-export * from './stories/Confirm';
+
+export * from './stories/Dialog/Confirm';
+export * from './stories/Dialog/DownloadFileProgress';
 
 export * from './stories/Table';
 

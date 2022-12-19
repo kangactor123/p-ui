@@ -17,15 +17,15 @@ const wrapper = css`
 `;
 
 function Progressbar(props: IProgressbarProps): ReactElement {
-  const { className, value, isLabel = true, backgroundColor, progressColor } = props;
+  const { className, value, isLabel = false, backgroundColor, progressColor } = props;
 
   const muiBox = css`
     margin-right: 0px;
   `;
 
   const muiProgress = css`
-    border-radius: 4px;
-    height: 16px;
+    border-radius: 50px;
+    height: 8px;
     background-color: ${backgroundColor};
 
     & > span {
