@@ -101,7 +101,7 @@ export const tableStyles = {
   }),
   tableRow: css({
     color: '#202020',
-    fontWeight: 500,
+    fontWeight: 400,
     fontSize: '14px',
     outline: 0,
     verticalAlign: 'middle',
@@ -284,7 +284,7 @@ export const subTableStyles = {
   }),
   tableRow: css({
     color: '#202020',
-    fontWeight: 500,
+    fontWeight: 400,
     fontSize: '14px',
     outline: 0,
     verticalAlign: 'middle',
