@@ -64,6 +64,11 @@ export const styles = {
     cursor: pointer;
     float: right;
     clear: both;
+    text-decoration: none;
+    :hover {
+      text-decoration: underline;
+      text-decoration-color: #1976d2;
+    }
   `,
   body: css`
     height: auto;
