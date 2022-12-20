@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useState } from 'react';
 import { IconButton, InputAdornment, TextField, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
 import { useController, FieldValues } from 'react-hook-form';
 import { css } from '@emotion/react';
-import { getInputStyleBySize, iconButtonCss, textFieldStyle } from '../TextField.style';
+import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
 import { TControl } from '../../../../common/type';
 import { Size } from '../../../../common/enum';
 import { PlayceThemeContext } from '../../../../providers';
@@ -16,8 +16,8 @@ export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
     isError?: boolean;
   };
 
-const endAdornmentcss = css`
-  padding-right: 12px;
+const endAdornmentCss = css`
+  padding-right: 14px;
 `;
 
 /**
@@ -47,21 +47,9 @@ function InputPassword<T extends FieldValues>({
     control,
   });
 
-  const textfieldCss = css`
-    ${textFieldStyle}
-    & fieldset {
-      border-color: ${isError ? '#D83A52' : '#C5C7D0'};
-    }
-
-    & .MuiInputBase-root {
-      padding-right: 0px;
-    }
-  `;
-
   return (
     <ThemeProvider theme={theme as Theme}>
       <TextField
-        css={textfieldCss}
         value={value}
         variant={variant}
         onChange={onChange}
@@ -69,11 +57,11 @@ function InputPassword<T extends FieldValues>({
         className={cx('outlined-input', isError && 'outlined-input-error')}
         inputProps={{
           ...props.inputProps,
-          sx: inputStyle,
+          sx: { ...inputStyle, ...props?.inputProps?.sx },
         }}
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end" css={endAdornmentcss}>
+            <InputAdornment position="end" css={endAdornmentCss}>
               {value && useClearBtn && (
                 <IconButton onClick={() => onChange('')} disableRipple css={iconButtonCss}>
                   <ClearIcon />

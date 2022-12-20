@@ -47,7 +47,7 @@ function SearchBar(props: TSearchInputProps): ReactElement {
           sx: { paddingRight: '12px', ...InputProps.sx },
           placeholder,
           endAdornment: (
-            <InputAdornment position="start" sx={{ marginRight: 0 }}>
+            <InputAdornment position="start">
               {value ? (
                 <IconButton css={iconButtonCss} onClick={onDeleteSearchKeyword}>
                   <ClearIcon />
