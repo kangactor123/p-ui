@@ -141,6 +141,29 @@ const paginationTheme = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          minWidth: '49px !important',
+          maxWidth: '49px !important',
+
+          '& .MuiList-root': {
+            padding: '4px 2px',
+          },
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+          fontWeight: 400,
+          lineHeight: '22px',
+          padding: '5px 8px',
+          borderRadius: '4px',
+        },
+      },
+    },
   },
 });
 
