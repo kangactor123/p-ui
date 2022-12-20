@@ -21,6 +21,7 @@ import { css } from '@emotion/react';
 import { cx } from '@emotion/css';
 import Tooltip from '../Tooltip';
 import SearchBar from '../SearchBar';
+import { Size } from '../../common/enum';
 
 const tooltipClasses: Partial<TooltipClasses> = {
   arrow: `${css({
@@ -39,6 +40,7 @@ export const classes = {
     justifyContent: 'space-between',
     paddingLeft: '12px !important',
     marginBottom: '20px',
+    paddingRight: '23px',
   }),
   search: css({
     position: 'relative',
@@ -49,7 +51,7 @@ export const classes = {
   rightButtons: css({
     marginRight: '4px',
     display: 'flex',
-    gap: '32px',
+    gap: '22px',
   }),
   leftIcons: css({
     '&:first-of-type': {
@@ -258,6 +260,7 @@ export function TableToolbar<TModel extends object>({
           onKeyDownEvent={handleKeywordKeyDown}
           onBlurEvent={handleKeywordBlur}
           value={searchKeyword || ''}
+          inputSize={Size.S}
         />
       </div>
       <div css={classes.rightButtons}>

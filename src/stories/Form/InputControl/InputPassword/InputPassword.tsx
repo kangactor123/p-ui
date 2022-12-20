@@ -7,6 +7,7 @@ import { TControl } from '../../../../common/type';
 import { Size } from '../../../../common/enum';
 import { PlayceThemeContext } from '../../../../providers';
 import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
+import { cx } from '@emotion/css';
 
 export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
   TControl<T> & {
@@ -65,6 +66,7 @@ function InputPassword<T extends FieldValues>({
         variant={variant}
         onChange={onChange}
         type={isVisible ? 'text' : 'password'}
+        className={cx('outlined-input', isError && 'outlined-input-error')}
         inputProps={{
           ...props.inputProps,
           sx: inputStyle,

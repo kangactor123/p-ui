@@ -27,8 +27,8 @@ function Checkbox(props: ICheckboxProps): ReactElement {
           <MUICheckbox
             {...checkProps}
             disabled={disabled}
-            icon={<span className={cx('checkbox', disabled ? 'disabledBox' : 'regularBox')} />}
-            checkedIcon={<span className={cx('checkbox', disabled ? 'disabledCheckedBox' : 'checkedBox')} />}
+            icon={<span className={cx('checkbox', disabled ? 'disabled-box' : 'regular-box')} />}
+            checkedIcon={<span className={cx('checkbox', disabled ? 'disabled-checked-box' : 'checked-box')} />}
             disableRipple
           />
         }

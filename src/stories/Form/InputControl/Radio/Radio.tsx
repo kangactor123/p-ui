@@ -84,8 +84,8 @@ function Radio<T extends FieldValues>({
                     size={props.size}
                     color={color}
                     value={optionValue}
-                    icon={<span className={cx('icon', disabled && 'disabledIcon')} />}
-                    checkedIcon={<span className={cx('icon', disabled ? 'disabledCheckedIcon' : 'checkedIcon')} />}
+                    icon={<span className={cx('icon', disabled && 'disabled-icon')} />}
+                    checkedIcon={<span className={cx('icon', disabled ? 'disabled-checked-icon' : 'checked-icon')} />}
                     disabled={disabled}
                   />
                 }
