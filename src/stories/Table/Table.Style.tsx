@@ -576,13 +576,11 @@ export const filterStyle = css`
     }
 
     .MuiFormControlLabel-root {
-      position: absolute;
-      left: 22px;
-      width: 100%;
-    }
-
-    .MuiFormControlLabel-label {
-      max-width: calc(100% - 45px);
+      /* position: absolute; */
+      /* left: 22px; */
+      min-width: 100%;
+      margin-left: unset;
+      margin-right: unset;
     }
   }
 
