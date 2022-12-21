@@ -64,10 +64,12 @@ const rowPerPageStyle = css`
 
 const paginationStyle = css`
   width: 100%;
-  min-height: 40px;
-  height: 40px;
+  min-height: 45px;
+  height: 45px;
   border-top: 2px solid #dfe1e6;
   overflow: hidden;
+  display: flex;
+  align-items: center;
   &.subTable {
     border: none;
     padding-top: 0px;
@@ -89,7 +91,7 @@ const paginationTheme = createTheme({
           color: 'rgba(25, 31, 40, 0.6)',
           fontSize: '12px !important',
           overflow: 'hidden',
-          paddingTop: '3px',
+          paddingTop: '8px',
           boxSizing: 'border-box',
         },
         selectRoot: {
@@ -128,8 +130,8 @@ const paginationTheme = createTheme({
         },
         toolbar: {
           paddingRight: '12px',
-          minHeight: '40px !important',
-          height: '40px',
+          minHeight: '32px !important',
+          height: '32px',
           paddingLeft: '8px !important',
         },
         spacer: {
