@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useContext } from 'react';
 import { css } from '@emotion/react';
-import { DropdownDownIcon, IconArrow2DownBlack } from '../icons';
+import { DropdownDownIcon } from '../icons';
 import { IAccordionProps } from './type';
 import { AccordionDetails, AccordionPanel, AccordionSummary } from './style';
 import { PlayceThemeContext } from '../../providers';

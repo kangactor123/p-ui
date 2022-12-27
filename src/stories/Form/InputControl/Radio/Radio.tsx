@@ -20,8 +20,6 @@ import { PlayceThemeContext } from '../../../../providers';
 export type TRadioOptionProps = Omit<FormControlLabelProps, 'control'>;
 export type TRadioColor = 'primary' | 'secondary' | 'default' | undefined;
 
-type TRadioGroupProps = MUIRadioGroupProps;
-
 export type TRadioProps<T extends FieldValues> = {
   options: TRadioOptionProps[];
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -29,7 +27,7 @@ export type TRadioProps<T extends FieldValues> = {
   size?: 'small' | 'medium';
   flexDirection?: 'row' | 'column';
   radioStyle?: SxProps<Theme>;
-} & TRadioGroupProps &
+} & MUIRadioGroupProps &
   TControl<T>;
 
 const RadioGroup = styled(MUIRadioGroup)<{ flexDirection: string }>`

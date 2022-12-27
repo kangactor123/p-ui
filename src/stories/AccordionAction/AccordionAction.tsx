@@ -1,8 +1,15 @@
+import { ButtonProps } from '@mui/material';
 import React, { ReactElement, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button';
 import { AddSmallIcon, RemoveIcon } from '../icons';
-import { IAccordionAction } from './type';
+
+interface IAccordionAction<T> {
+  expanded: T;
+  setExpanded: React.Dispatch<React.SetStateAction<T>>;
+  buttonProps?: ButtonProps;
+  iconPosition?: 'start' | 'end';
+}
 
 function AccordionAction<T>({
   expanded,
@@ -34,8 +41,8 @@ function AccordionAction<T>({
   return (
     <Button
       onClick={handleClick}
-      {...(iconPosition === 'start' ? { ...{ startIcon: icon } } : { ...{ endIcon: icon } })}
       sx={{ color: '#999999' }}
+      {...(iconPosition === 'start' ? { ...{ startIcon: icon } } : { ...{ endIcon: icon } })}
       {...buttonProps}
     >
       {label}

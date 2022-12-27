@@ -14,9 +14,9 @@ import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 
 export interface ISelectOption {
-  hidden?: boolean;
   value: any;
   label: ReactNode;
+  hidden?: boolean;
   selected?: boolean;
   disabled?: boolean;
   split?: boolean;

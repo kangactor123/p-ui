@@ -2,26 +2,37 @@ import React, { ReactElement } from 'react';
 import { css } from '@emotion/react';
 import { Box, LinearProgress, Typography } from '@mui/material';
 
-export interface IProgressbarProps {
-  //Todo: define props
-  className?: string;
-  value: number;
-  isLabel?: boolean;
-  progressColor?: string;
-  backgroundColor?: string;
-}
-
 const wrapper = css`
   width: 100%;
   position: relative;
 `;
 
+const muiTypography = css`
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+`;
+
+const labelBox = css`
+  position: absolute;
+  left: 49%;
+  top: 1px;
+`;
+
+const muiBox = css`
+  margin-right: 0px;
+`;
+
+export interface IProgressbarProps {
+  value: number;
+  className?: string;
+  isLabel?: boolean;
+  progressColor?: string;
+  backgroundColor?: string;
+}
+
 function Progressbar(props: IProgressbarProps): ReactElement {
   const { className, value, isLabel = false, backgroundColor, progressColor } = props;
-
-  const muiBox = css`
-    margin-right: 0px;
-  `;
 
   const muiProgress = css`
     border-radius: 50px;
@@ -31,18 +42,6 @@ function Progressbar(props: IProgressbarProps): ReactElement {
     & > span {
       background-color: ${progressColor};
     }
-  `;
-
-  const muiTypography = css`
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: bold;
-  `;
-
-  const labelBox = css`
-    position: absolute;
-    left: 49%;
-    top: 1px;
   `;
 
   return (

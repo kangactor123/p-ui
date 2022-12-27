@@ -30,7 +30,7 @@ function CodeEditor<T extends FieldValues>({
   const textarea = useRef<HTMLTextAreaElement>(null);
   const wrapDiv = useRef<HTMLDivElement>(null);
   const {
-    field: { value, onChange: onControllChange },
+    field: { value, onChange: onControlChange },
   } = useController({
     name,
     rules,
@@ -39,7 +39,7 @@ function CodeEditor<T extends FieldValues>({
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      onControllChange(event);
+      onControlChange(event);
       if (onChange instanceof Function) {
         onChange(event);
       }
@@ -66,7 +66,7 @@ function CodeEditor<T extends FieldValues>({
         }
       });
     },
-    [onControllChange, onChange, lineHeight],
+    [onControlChange, onChange, lineHeight],
   );
 
   useEffect(() => {

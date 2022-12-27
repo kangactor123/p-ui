@@ -18,14 +18,13 @@ import Button from '../Button';
 import { DeleteIcon } from '../icons';
 
 export interface IDragDropZoneProps {
-  //Todo: define props
   isExistFile?: boolean;
   fileRef: any;
   handleSelectFile: (file: File) => void;
   dropHandler: (dropFile: File) => void;
+  handleFileRemove: () => void;
   fileName?: string | null;
   fileSize?: string | number | null;
-  handleFileRemove: () => void;
   guideText?: string;
 }
 

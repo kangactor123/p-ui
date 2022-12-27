@@ -2,9 +2,8 @@ import React, { DragEvent, ReactElement, ReactNode, useCallback } from 'react';
 import styled from '@emotion/styled';
 
 export interface IDragDropProps {
-  //Todo: define props
-  children?: ReactNode;
   onDrop: (file: File) => void;
+  children?: ReactNode;
 }
 
 const Wrapper = styled.div`

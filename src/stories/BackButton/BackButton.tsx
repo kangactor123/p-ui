@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { ReactElement, useCallback, useContext, useMemo } from 'react';
 import { css, IconButton, Theme, ThemeProvider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +12,6 @@ const iconButtonCss = css`
 
 function BackButton({ to, options }: IBackButton): ReactElement {
   const navigate = useNavigate();
-  // eslint-disable-next-line no-restricted-globals
   const isFirstPage = useMemo(() => history.length === 1, []);
   const theme = useContext(PlayceThemeContext);
 
