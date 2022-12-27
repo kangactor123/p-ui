@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-// import { useTranslation } from 'react-i18next';
 import { Dialog, iconCancel } from './DownloadFileProgress.style';
 import { DialogContent, DialogTitle, IconButton, Theme, ThemeProvider } from '@mui/material';
 import useConfirm from '../hooks/useConfirm';
@@ -25,7 +24,6 @@ export interface IDownloadProgressInfo {
 }
 
 export interface IDownloadFileProgressProps {
-  //Todo: define props
   progressInfo: IDownloadProgressInfo;
   fileName: string;
   isOpened: boolean;

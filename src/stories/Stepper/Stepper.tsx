@@ -8,7 +8,6 @@ import {
   Step,
   StepLabel as MUIStepLabel,
 } from '@mui/material';
-// import { IconStepperComplete } from "../../common/icons";
 import styled from '@emotion/styled';
 import { createTheme, ThemeProvider } from '@mui/system';
 

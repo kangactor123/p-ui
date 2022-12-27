@@ -9,17 +9,14 @@ import {
 } from '@mui/material';
 import { IOptionsType } from '../Dropdown';
 import { PlayceThemeContext } from '../../providers';
-// import { useTranslation } from 'react-i18next';
 
 export interface IToggleButtonProps {
-  //Todo: define props
   options: IOptionsType[];
   groupProps?: ToggleButtonGroupProps;
   buttonProps?: ToggleButtonProps;
 }
 
 function ToggleButton({ options, groupProps, buttonProps }: IToggleButtonProps): ReactElement {
-  // const { t } = useTranslation();
   const theme = useContext(PlayceThemeContext);
 
   return (

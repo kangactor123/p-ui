@@ -7,14 +7,13 @@ import { ExpandMsg, FileInfo, FileName } from './DiffViewer.style';
 import ReactDiffViewer from 'react-diff-viewer';
 
 export interface IDiffViewerProps {
-  //Todo: define props
   id: number | string;
   expanded: boolean;
-  onExpanded: (name: string | number, nextExpanded: boolean) => void;
-  splitView?: boolean;
   oldValue: string;
   newValue: string;
   filePath: string;
+  onExpanded: (name: string | number, nextExpanded: boolean) => void;
+  splitView?: boolean;
 }
 
 function DiffViewer({

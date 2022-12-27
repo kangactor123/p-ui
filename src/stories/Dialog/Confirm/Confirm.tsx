@@ -9,7 +9,7 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { confirmTheme, iconClose, iconCloseButton, rightButtons } from './Confirm.style';
+import { confirmTheme, iconClose, rightButtons } from './Confirm.style';
 import Button from '../../Button';
 import { IconClosePopup } from '../../icons';
 

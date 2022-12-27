@@ -4,7 +4,6 @@ import SyntaxHighlighter, { SyntaxHighlighterProps } from 'react-syntax-highligh
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 export interface ICodeViewerProps extends SyntaxHighlighterProps {
-  //Todo: define props
   children: ReactNode;
 }
 
