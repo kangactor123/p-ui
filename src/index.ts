@@ -35,6 +35,7 @@ export { default as Table } from './stories/Table';
 
 export { default as Confirm } from './stories/Dialog/Confirm';
 export { default as DownloadFileProgress } from './stories/Dialog/DownloadFileProgress';
+export { default as SearchBar } from './stories/SearchBar';
 
 export * from './stories/Accordion';
 export * from './stories/AccordionAction';
@@ -70,6 +71,7 @@ export * from './stories/Form/InputControl/Radio';
 export * from './stories/Form/InputControl/Select';
 
 export * from './stories/ValidationMessage';
+export * from './stories/SearchBar';
 
 export * from './stories/Dialog/Confirm';
 export * from './stories/Dialog/DownloadFileProgress';
