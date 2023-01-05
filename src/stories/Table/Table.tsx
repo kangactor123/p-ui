@@ -118,7 +118,7 @@ export interface ITable<TModel extends object> extends TableOptions<TModel> {
   useAll?: boolean;
   expanded?: unknown;
   siblingCount?: number;
-  useRowLine?: boolean; // row 간 라인이 필요할 경우
+  useRowLine?: boolean; // row 간 라인이 필요할 경우 (pagination 사용을 하지 않아야 사용가능)
 }
 
 const defaultColumn = {
