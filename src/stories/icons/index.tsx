@@ -15,8 +15,6 @@ export { ReactComponent as IconBackButton } from './svg/icon-ic-backward-black.s
 export { ReactComponent as IconZipFile } from './svg/icon-ic-zipfile.svg';
 export { ReactComponent as IconFileUpload } from './svg/ic-app-upload.svg';
 export { ReactComponent as IconDownload } from './svg/ic-download.svg';
-export { ReactComponent as IconArrowDownBlueGray } from './svg/icon-ic-arrow-down-blue-grey.svg';
-export { ReactComponent as IconArrowRightBlueGray } from './svg/icon-ic-arrow-right-blue-grey.svg';
 export { ReactComponent as IconInfo } from './svg/icon-ic-info.svg';
 export { ReactComponent as IconValidationError } from './svg/ic-validation.svg';
 export { ReactComponent as IconValidationSuccess } from './svg/icon-ic-svc-on.svg';
@@ -42,3 +40,6 @@ export { ReactComponent as CloseSmallIcon } from './svg/icon-close-small.svg';
 export { ReactComponent as FilesIcon } from './svg/icon-files.svg';
 export { ReactComponent as SuccessIcon } from './svg/icon-success.svg';
 export { ReactComponent as ErrorIcon } from './svg/icon-error.svg';
+
+export { ReactComponent as ArrowDownIcon } from './svg/icon-arrow-down.svg';
+export { ReactComponent as ArrowUpIcon } from './svg/icon-arrow-up.svg';
