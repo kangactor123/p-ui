@@ -118,6 +118,7 @@ export interface ITable<TModel extends object> extends TableOptions<TModel> {
   useAll?: boolean;
   expanded?: unknown;
   siblingCount?: number;
+  useRowLine?: boolean; // row 간 라인이 필요할 경우
 }
 
 const defaultColumn = {
@@ -296,7 +297,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     name,
     idColumn = 'id',
     columns,
-    // getRowId,
     onAdd,
     onDelete,
     onEdit,
@@ -338,6 +338,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     useAll = true,
     expanded = {},
     siblingCount = 1,
+    useRowLine = false,
   } = props;
 
   const pageSize = !usePagination ? 999999 : pageSizeProp || 10;
@@ -750,12 +751,17 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
               </div>
             ))}
           </div>
-          <div {...getTableBodyProps()} css={classes.tableBody} className={'table-body'} {...props.tableBodyDivProps}>
+          <div
+            {...getTableBodyProps()}
+            {...props.tableBodyDivProps}
+            className={cx({ row_line_body: useRowLine })}
+            css={classes.tableBody}
+          >
             {(totalCount ? rows : page).length ? (
               (totalCount ? rows : page).map((row, pageIdx) => {
                 prepareRow(row);
                 const disabledRow = selectDisabled(row);
-                const makeStyles = cx({ rowSelected: row.isSelected }, 'table-row');
+                const makeStyles = cx({ rowSelected: row.isSelected }, 'table-row', { rowLine: useRowLine });
                 return (
                   <Fragment key={pageIdx}>
                     <div {...row.getRowProps()} css={classes.tableRow} className={makeStyles}>

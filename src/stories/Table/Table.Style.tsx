@@ -57,10 +57,11 @@ export const tableStyles = {
     color: '#1b2635',
     fontWeight: 700,
     position: 'relative',
+    borderBottom: '2px solid #DFE1E6',
+    paddingBottom: '3px',
     '&:hover $resizeHandle': {
       opacity: 1,
     },
-    borderBottom: '2px solid #DFE1E6',
   }),
   tableHeadCell: css({
     paddingLeft: '10px',
@@ -111,6 +112,10 @@ export const tableStyles = {
     '&.rowSelected > div': {
       backgroundColor: 'rgba(204, 229, 255, 0.35)',
     },
+    '&.rowLine': {
+      borderBottom: '2px solid #DFE1E6',
+      padding: '5px 0',
+    },
   }),
   tableCell: css({
     paddingLeft: '10px',
@@ -118,6 +123,7 @@ export const tableStyles = {
     minHeight: '40px',
     textAlign: 'left',
     verticalAlign: 'inherit',
+    lineHeight: '22px',
     '&:first-of-type': {
       paddingLeft: '16px',
     },
@@ -295,6 +301,10 @@ export const subTableStyles = {
     '&.rowSelected > div': {
       backgroundColor: 'rgba(204, 229, 255, 0.35)',
     },
+    '&.rowLine': {
+      borderBottom: '2px solid #DFE1E6',
+      padding: '5px 0',
+    },
   }),
   tableCell: css({
     paddingLeft: '10px',
@@ -428,6 +438,10 @@ export const tableWrapStyles = css`
 
     :global(.MuiButton-label) {
       font-size: 12px;
+    }
+
+    & .row_line_body {
+      padding-top: 0;
     }
   }
 
