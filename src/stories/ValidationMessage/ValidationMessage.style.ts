@@ -2,27 +2,22 @@ import { css } from '@emotion/react';
 
 export const helperStyle = css`
   width: 100%;
-  font-size: 12px;
-  position: relative;
+  font-size: 14px;
   min-width: 250px;
-  margin-top: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
   & .msg {
     line-height: 1.67;
-    position: relative;
-    left: 17px;
-  }
-  & .icon {
-    margin-right: 5px;
-    position: absolute;
-    top: 2px;
   }
 
   & .err {
-    color: #ee5a4b;
+    color: #d83a52;
   }
 
   & .success {
-    color: green;
+    color: #007e2b;
   }
 `;

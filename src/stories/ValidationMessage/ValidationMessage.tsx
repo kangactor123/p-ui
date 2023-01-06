@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { cx } from '@emotion/css';
-import { IconValidationError, IconValidationSuccess } from '../icons';
+import { ErrorIcon, SuccessIcon } from '../icons';
 import { helperStyle } from './ValidationMessage.style';
 
 export interface IValidationMessageProps {
@@ -11,7 +11,7 @@ export interface IValidationMessageProps {
 function ValidationMessage({ text, isError }: IValidationMessageProps): ReactElement {
   return (
     <div css={helperStyle}>
-      {isError ? <IconValidationError className={cx('icon')} /> : <IconValidationSuccess className={cx('icon')} />}
+      {isError ? <ErrorIcon /> : <SuccessIcon />}
       <div className={cx(['msg', isError ? 'err' : 'success'])}>{text}</div>
     </div>
   );
