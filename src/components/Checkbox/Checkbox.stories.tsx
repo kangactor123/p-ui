@@ -32,4 +32,4 @@ const CheckboxTemplate: Story<ICheckboxProps> = (args) => (
   </div>
 );
 
-export const Basic = CheckboxTemplate.bind({});
+export const Checkbox = CheckboxTemplate.bind({});
