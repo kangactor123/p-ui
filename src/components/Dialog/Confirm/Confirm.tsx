@@ -1,8 +1,9 @@
-import React, { ReactElement, ReactNode, useCallback, useMemo } from 'react';
-import { ButtonProps, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider } from '@mui/material';
+import React, { ReactElement, ReactNode, useCallback, useContext, useMemo } from 'react';
+import { ButtonProps, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { confirmTheme, rightButtons } from './Confirm.style';
 import Button from '../../Button';
+import { PlayceThemeContext, ThemeProvider } from '../../../providers';
 
 export interface IConfirmProps<T = unknown> {
   title?: ReactNode;
@@ -40,6 +41,7 @@ function Confirm(props: IConfirmProps): ReactElement {
     backgroundColor = '#fff',
     okProps = {},
   } = props;
+  const theme = useContext(PlayceThemeContext);
 
   const handleOk = useCallback(() => {
     if (onOk instanceof Function) {
@@ -62,10 +64,13 @@ function Confirm(props: IConfirmProps): ReactElement {
   );
 
   const renderTitle = useMemo(() => (typeof title === 'string' ? t(title) : title), [t, title]);
-  const renderContent = useMemo(() => (typeof children === 'string' ? t(children) : children), [t, children]);
+  const renderContent = useMemo(
+    () => (typeof children === 'string' ? t(children) : children),
+    [t, children],
+  );
 
   return (
-    <ThemeProvider theme={confirmTheme(size, backgroundColor)}>
+    <ThemeProvider theme={theme}>
       <Dialog
         onClose={handleOnClose}
         aria-labelledby="alert-dialog-title"
@@ -86,7 +91,14 @@ function Confirm(props: IConfirmProps): ReactElement {
             )}
             {dialogActionRightButtons}
             {isOkButton && (
-              <Button onClick={handleOk} color="primary" autoFocus variant="contained" size="small" {...okProps}>
+              <Button
+                onClick={handleOk}
+                color="primary"
+                autoFocus
+                variant="contained"
+                size="small"
+                {...okProps}
+              >
                 {t(okLabel)}
               </Button>
             )}

@@ -1,13 +1,20 @@
 import React, { ReactElement, useCallback, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dialog, iconCancel } from './DownloadFileProgress.style';
-import { DialogContent, DialogTitle, IconButton, Theme, ThemeProvider } from '@mui/material';
+import { DialogContent, DialogTitle, IconButton } from '@mui/material';
 import useConfirm from '../hooks/useConfirm';
-import { DeleteIcon, CloseSmallIcon, FilesIcon, SuccessIcon, ErrorIcon, DeleteRedIcon } from '../../icons';
+import {
+  DeleteIcon,
+  CloseSmallIcon,
+  FilesIcon,
+  SuccessIcon,
+  ErrorIcon,
+  DeleteRedIcon,
+} from '../../icons';
 import Progressbar from '../../Progressbar';
 import { cx } from '@emotion/css';
 import SearchTooltip from '../../SearchTooltip';
-import { PlayceThemeContext } from '../../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../../providers';
 
 export enum DownloadStatus {
   PENDING = 'pending',
@@ -71,7 +78,9 @@ function DownloadFileProgress({
 
   const dialogTitle = useMemo(
     () =>
-      status === DownloadStatus.COMPLETED || status === DownloadStatus.FAILED || status === DownloadStatus.CANCEL
+      status === DownloadStatus.COMPLETED ||
+      status === DownloadStatus.FAILED ||
+      status === DownloadStatus.CANCEL
         ? t(`Download ${status}`)
         : status === DownloadStatus.PENDING
         ? t('Preparing Download')
@@ -104,7 +113,7 @@ function DownloadFileProgress({
   );
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <Dialog
         open={isOpened}
         disableEnforceFocus
@@ -123,7 +132,9 @@ function DownloadFileProgress({
             <div className="file-info">
               <div className="file-title-wrap">
                 <FilesIcon />
-                <div className="file-name-wrap">{extension === 'zip' ? t('Zipping files') : t('Preparing File')}</div>
+                <div className="file-name-wrap">
+                  {extension === 'zip' ? t('Zipping files') : t('Preparing File')}
+                </div>
               </div>
             </div>
           ) : (
@@ -139,11 +150,20 @@ function DownloadFileProgress({
                 <span className="file-size"> {byteToKB(loaded)}</span>
               </div>
               <div className="file-progress">
-                <div className={cx('percentage', failedCondition.includes(status) && 'percentage_failed')}>
+                <div
+                  className={cx(
+                    'percentage',
+                    failedCondition.includes(status) && 'percentage_failed',
+                  )}
+                >
                   {percentage}%
                 </div>
                 <div className="progress-bar-wrap">
-                  <Progressbar value={percentage} backgroundColor="#E6E9EF" progressColor={progressColor} />
+                  <Progressbar
+                    value={percentage}
+                    backgroundColor="#E6E9EF"
+                    progressColor={progressColor}
+                  />
                 </div>
                 {statusIcon}
               </div>

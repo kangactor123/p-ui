@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from 'react';
-import { TextFieldProps, ThemeProvider, Theme, IconButton } from '@mui/material';
+import { TextFieldProps, IconButton } from '@mui/material';
 import { TextField, getInputStyleBySize, iconClearBtn } from '../TextField.style';
-import { PlayceThemeContext } from '../../../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { ClearIcon } from '../../../icons';
 import { css } from '@emotion/react';
@@ -35,7 +35,7 @@ function InputText({
   const theme = useContext(PlayceThemeContext);
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <div css={inputWrap}>
         <TextField
           variant={variant}

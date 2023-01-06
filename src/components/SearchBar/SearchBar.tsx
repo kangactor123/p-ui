@@ -1,9 +1,9 @@
 import React, { ReactElement, useContext } from 'react';
-import { IconButton, TextFieldProps, Theme, InputAdornment, ThemeProvider } from '@mui/material';
+import { IconButton, TextFieldProps, InputAdornment } from '@mui/material';
 import { cx } from '@emotion/css';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
-import { PlayceThemeContext } from '../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 import {
   TextField,
   getInputStyleBySize,
@@ -38,7 +38,7 @@ function SearchBar(props: TSearchInputProps): ReactElement {
   const inputStyle = getInputStyleBySize(inputSize);
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <TextField
         value={value}
         onChange={onChange}

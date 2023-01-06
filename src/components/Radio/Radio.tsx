@@ -1,8 +1,8 @@
 import React, { ReactElement, ReactNode, useContext } from 'react';
 // import { useTranslation } from 'react-i18next';
-import { Radio as MUIRadio, RadioProps, ThemeProvider, Theme } from '@mui/material';
+import { Radio as MUIRadio, RadioProps } from '@mui/material';
 import { cx } from '@emotion/css';
-import { PlayceThemeContext } from '../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 import styled from '@emotion/styled';
 
 export interface IRadioOptions {
@@ -26,12 +26,20 @@ const Label = styled.div<{ disabled: boolean }>`
   color: ${(props) => (props.disabled ? 'rgba(50, 51, 56, 0.38)' : '#323338')};
 `;
 
-function Radio({ value, disabled = false, label, checked, color, size, ...props }: IRadioProps): ReactElement {
+function Radio({
+  value,
+  disabled = false,
+  label,
+  checked,
+  color,
+  size,
+  ...props
+}: IRadioProps): ReactElement {
   // const { t } = useTranslation();
   const theme = useContext(PlayceThemeContext);
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <RadioWrap>
         <MUIRadio
           {...props}
@@ -39,7 +47,9 @@ function Radio({ value, disabled = false, label, checked, color, size, ...props 
           color={color}
           value={value}
           icon={<span className={cx('icon', disabled && 'disabled-icon')} />}
-          checkedIcon={<span className={cx('icon', disabled ? 'disabled-checked-icon' : 'checked-icon')} />}
+          checkedIcon={
+            <span className={cx('icon', disabled ? 'disabled-checked-icon' : 'checked-icon')} />
+          }
           disabled={disabled}
           checked={checked}
         />

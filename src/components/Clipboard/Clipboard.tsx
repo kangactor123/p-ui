@@ -1,10 +1,11 @@
-import React, { ReactElement, ReactNode, useCallback, useState } from 'react';
+import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react';
 import { IconButton as MuiIconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import copy from 'copy-to-clipboard';
 import styled from '@emotion/styled';
 import { DuplicateCopyIcon } from '../icons';
 import { useTranslation } from 'react-i18next';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 export interface IClipboardProps {
   value: string;
@@ -21,6 +22,7 @@ function Clipboard({ value, title }: IClipboardProps): ReactElement {
   const [showTooltip, setShowTooltip] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [tooltipTitle, setTooltipTitle] = useState<NonNullable<ReactNode>>(t('Clipboard copy'));
+  const theme = useContext(PlayceThemeContext);
 
   const handleOnCopy = useCallback(() => {
     setTooltipTitle(`${title} ${t('Copied')}`);
@@ -46,19 +48,21 @@ function Clipboard({ value, title }: IClipboardProps): ReactElement {
   }, [isCopied]);
 
   return (
-    <Tooltip
-      arrow
-      disableFocusListener
-      disableHoverListener
-      title={tooltipTitle}
-      open={showTooltip}
-      onMouseEnter={handleOnMouseEnter}
-      onMouseLeave={handleOnMouseLeave}
-    >
-      <IconButton size="small" onClick={handleOnCopy}>
-        <DuplicateCopyIcon />
-      </IconButton>
-    </Tooltip>
+    <ThemeProvider theme={theme}>
+      <Tooltip
+        arrow
+        disableFocusListener
+        disableHoverListener
+        title={tooltipTitle}
+        open={showTooltip}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={handleOnMouseLeave}
+      >
+        <IconButton size="small" onClick={handleOnCopy}>
+          <DuplicateCopyIcon />
+        </IconButton>
+      </Tooltip>
+    </ThemeProvider>
   );
 }
 

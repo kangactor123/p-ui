@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { ElementType, ReactElement, ReactNode, useContext } from 'react';
-import { ListItemText, SelectProps as MUISelectProps, Theme, ThemeProvider } from '@mui/material';
+import { ListItemText, SelectProps as MUISelectProps } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { TSize } from '../../../../common/type';
 import {
@@ -15,7 +15,7 @@ import {
 import { isArray } from 'lodash';
 import Spinner, { SpinnerSize, SpinnerType } from '../../../Spinner';
 import { DropdownDownIcon, DropdownDownGrayIcon } from '../../../icons';
-import { PlayceThemeContext } from '../../../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import Checkbox from '../../../Checkbox';
 
@@ -52,7 +52,7 @@ function Select<T extends ISelectOption>({
   const { t } = useTranslation();
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       {multiple ? (
         <SelectComponent
           {...props}

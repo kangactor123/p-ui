@@ -4,11 +4,9 @@ import {
   ToggleButton as MUIToggleButton,
   ToggleButtonGroupProps,
   ToggleButtonProps,
-  ThemeProvider,
-  Theme,
 } from '@mui/material';
 import { IOptionsType } from '../Dropdown';
-import { PlayceThemeContext } from '../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 export interface IToggleButtonProps {
   options: IOptionsType[];
@@ -20,7 +18,7 @@ function ToggleButton({ options, groupProps, buttonProps }: IToggleButtonProps):
   const theme = useContext(PlayceThemeContext);
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <ToggleButtonGroup {...groupProps}>
         {options.map((option: IOptionsType) => (
           <MUIToggleButton key={option.key} value={option.key} {...buttonProps}>

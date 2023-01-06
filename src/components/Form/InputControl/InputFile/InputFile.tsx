@@ -1,10 +1,10 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
-import { InputAdornment, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
+import { InputAdornment, TextFieldProps } from '@mui/material';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { CloseSmallIcon, IconFileUpload } from '../../../icons';
-import { PlayceThemeContext } from '../../../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { TextField, getInputStyleBySize } from '../TextField.style';
 
@@ -151,8 +151,8 @@ function InputFile({
   }, [onChange, name]);
 
   return (
-    <ThemeProvider theme={theme as Theme}>
-      <FileInputWrap fullWidth={fullWidth}>
+    <ThemeProvider theme={theme}>
+      <FileInputWrap>
         <FileInput
           id={id}
           name={name}

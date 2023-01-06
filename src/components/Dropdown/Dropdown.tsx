@@ -7,7 +7,6 @@ import {
   SxProps,
   Theme,
   PopoverOrigin,
-  ThemeProvider,
   Popper,
   ClickAwayListener,
   Grow,
@@ -16,12 +15,12 @@ import {
   PopperProps,
 } from '@mui/material';
 import Tooltip from '../Tooltip';
-import { PlayceThemeContext } from '../../providers';
 import { SerializedStyles } from '@emotion/react';
 import { TSize, TTooltipPlacement } from '../../common/type';
 import { Size } from '../../common/enum';
 import { Menu, MenuList, SplitLine, Header, MenuContainer, paper } from './Dropdown.style';
 import Button from '../Button';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 export interface IOptionsType {
   key: string;
@@ -113,7 +112,7 @@ function Dropdown({
   );
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       {isIconButton ? (
         <Tooltip arrow title={tooltip} aria-label={tooltip} placement={tooltipPlacement}>
           <IconButton onClick={handleClick} {...iconButtonProps}>
@@ -133,7 +132,13 @@ function Dropdown({
         </Button>
       )}
       {useScroll ? (
-        <Popper {...popperProps} open={open} anchorEl={anchorEl} transition placement={placement || 'bottom'}>
+        <Popper
+          {...popperProps}
+          open={open}
+          anchorEl={anchorEl}
+          transition
+          placement={placement || 'bottom'}
+        >
           {({ placement, TransitionProps }) => (
             <ClickAwayListener onClickAway={handleClose}>
               <Grow
@@ -146,7 +151,14 @@ function Dropdown({
           )}
         </Popper>
       ) : (
-        <Menu sx={{ ...menuSx }} anchorEl={anchorEl} open={open} onClose={handleClose} size={size} {...positionProps}>
+        <Menu
+          sx={{ ...menuSx }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          size={size}
+          {...positionProps}
+        >
           {Compo}
         </Menu>
       )}

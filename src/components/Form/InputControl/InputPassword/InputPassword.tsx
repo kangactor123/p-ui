@@ -1,9 +1,9 @@
 import React, { ReactElement, useContext, useState } from 'react';
-import { IconButton, InputAdornment, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
+import { IconButton, InputAdornment, TextFieldProps } from '@mui/material';
 import { css } from '@emotion/react';
 import { TextField, getInputStyleBySize, iconButtonCss } from '../TextField.style';
 import { Size } from '../../../../common/enum';
-import { PlayceThemeContext } from '../../../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
 
 export type TInputPasswordProps = TextFieldProps & {
@@ -43,7 +43,7 @@ function InputPassword({
   const visibleChange = () => setIsVisible((prev) => !prev);
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <TextField
         variant={variant}
         value={value}
