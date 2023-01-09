@@ -1,27 +1,33 @@
 import React from 'react';
-
 import { ComponentMeta, Story } from '@storybook/react';
 import StoryConfirm, { IConfirmProps } from './Confirm';
 
 export default {
-  title: 'Component/Confirm',
+  title: 'Component/Confirm1',
   component: StoryConfirm,
 } as ComponentMeta<typeof StoryConfirm>;
 
 const Confirm: Story<IConfirmProps> = (args) => {
+  const handleOk = () => {};
+  const handleClose = () => {};
   return (
-    <Confirm
-      open
-      title={'title'}
-      onOk={() => {}}
-      onCancel={() => {}}
-      size="large"
-      isOkButton
-      isCloseIcon
-      okLabel={'Ok'}
-      cancelLabel={'Cancel'}
-    >
-      <div>this is sample Confirm component</div>
-    </Confirm>
+    <div>
+      <StoryConfirm
+        open
+        title={'Create Project'}
+        onOk={handleOk}
+        onCancel={handleClose}
+        size="small"
+        isOkButton
+        isCloseIcon
+        okLabel={'Ok'}
+        cancelLabel={'Cancel'}
+      >
+        Are you sure you want to create this project?
+        <li>PlayceMigrator_Project Name_01_spring-boot-samplespring-boot-samplespring_202212201919.jar (15.12 MB)</li>
+      </StoryConfirm>
+    </div>
   );
 };
+
+export const confirm = Confirm.bind({});
