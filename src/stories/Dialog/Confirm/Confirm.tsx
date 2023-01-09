@@ -1,17 +1,8 @@
 import React, { ReactElement, ReactNode, useCallback } from 'react';
-import {
-  ButtonProps,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  ThemeProvider,
-} from '@mui/material';
+import { ButtonProps, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { confirmTheme, iconClose, rightButtons } from './Confirm.style';
+import { confirmTheme, rightButtons } from './Confirm.style';
 import Button from '../../Button';
-import { IconClosePopup } from '../../icons';
 
 export interface IConfirmProps<T = unknown> {
   title?: string | ReactNode;
@@ -33,12 +24,10 @@ export interface IConfirmProps<T = unknown> {
 
 function Confirm(props: IConfirmProps): ReactElement {
   const { t } = useTranslation();
-
   const {
     title = '',
     children,
     open,
-    isCloseIcon,
     isCancelButton = true,
     cancelLabel = t('Cancel'),
     isOkButton = true,

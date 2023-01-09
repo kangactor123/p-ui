@@ -31,13 +31,11 @@ const MEDIUM_SIZE = {
     fontSize: '20px',
     fontWeight: 500,
     lineHeight: '24px',
-    // marginBottom: '30px',
   },
   content: {
     fontWeight: 500,
     fontSize: '14px',
     lineHeight: '22px',
-    // paddingTop: '28px',
   },
 };
 
@@ -51,7 +49,6 @@ const LARGE_SIZE = {
     fontSize: '20px',
     fontWeight: 500,
     lineHeight: '24px',
-    marginBottom: '30px',
   },
   content: {
     fontWeight: 500,
@@ -103,6 +100,7 @@ export const confirmTheme = (size: string, backgroundColor?: string) =>
             backgroundColor: backgroundColor,
             color: '#666666',
             padding: '0 30px',
+            overflowY: 'hidden',
             ...(size === Size.S
               ? { ...SMALL_SIZE.content }
               : size === Size.M
@@ -118,7 +116,7 @@ export const confirmTheme = (size: string, backgroundColor?: string) =>
           root: {
             justifyContent: 'space-between',
             padding: '30px',
-            ...(size === Size.S ? { paddingTop: 0 } : null),
+            ...(size === Size.S ? { paddingTop: 0 } : size === Size.L ? { paddingTop: '28px' } : null),
           },
         },
       },

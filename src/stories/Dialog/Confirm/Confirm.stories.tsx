@@ -23,7 +23,7 @@ const Confirm: Story<IConfirmProps> = (args) => {
         okLabel={'Ok'}
         cancelLabel={'Cancel'}
       >
-        <li>PlayceMigrator_Project Name_01_spring-boot-samplespring-boot-samplespring_202212201919.jar (15.12 MB)</li>
+        Are you sure you want to create this project?
         <li>PlayceMigrator_Project Name_01_spring-boot-samplespring-boot-samplespring_202212201919.jar (15.12 MB)</li>
       </StoryConfirm>
     </div>
