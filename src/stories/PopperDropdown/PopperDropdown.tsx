@@ -16,9 +16,9 @@ import {
 import Tooltip from '../Tooltip';
 import { PlayceThemeContext } from '../../providers';
 import { TTooltipPlacement } from '../../common/type';
-import { MenuList, SplitLine, Header, MenuContainer } from './Dropdown.style';
 import Button from '../Button';
 import { IOptionsType } from '../Dropdown';
+import { Header, MenuContainer, MenuList, SplitLine } from '../Dropdown/Dropdown.style';
 
 export interface IPopperDropdownProps {
   options: IOptionsType[];
