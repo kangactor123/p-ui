@@ -1,53 +1,48 @@
-import React, { MouseEvent, ReactElement, useCallback, useContext, useRef, useState } from 'react';
+import React, { MouseEvent, ReactElement, useCallback, useContext, useState } from 'react';
 import {
   ButtonProps,
   IconButton,
   IconButtonProps,
   MenuItem,
-  SxProps,
   Theme,
-  PopoverOrigin,
   ThemeProvider,
   Popper,
   Grow,
   ClickAwayListener,
   Paper,
+  PopperPlacementType,
+  PopperProps,
 } from '@mui/material';
 import Tooltip from '../Tooltip';
 import { PlayceThemeContext } from '../../providers';
-import { SerializedStyles } from '@emotion/react';
-import { TSize, TTooltipPlacement } from '../../common/type';
-import { Size } from '../../common/enum';
-import { Menu, MenuList, SplitLine, Header, MenuContainer } from './Dropdown.style';
+import { TTooltipPlacement } from '../../common/type';
+import { MenuList, SplitLine, Header, MenuContainer } from './Dropdown.style';
 import Button from '../Button';
+import { IOptionsType } from '../Dropdown';
 
-export interface IOptionsType {
-  key: string;
-  label: ReactElement | string;
-  disabled?: boolean;
-  split?: boolean;
-  liCss?: SerializedStyles;
-}
-
-export interface IDropdownProps {
+export interface IPopperDropdownProps {
   options: IOptionsType[];
+  tooltip?: string;
   title?: string | ReactElement;
+  header?: string;
+  buttonProps?: ButtonProps;
   isIconButton?: boolean;
   iconButtonProps?: IconButtonProps;
-  buttonProps?: ButtonProps;
-  onClickOption?: (key: string, id?: number) => void;
-  menuSx?: SxProps<Theme>;
-  size?: TSize | 'mini';
-  positionProps?: {
-    anchorOrigin?: PopoverOrigin;
-    transformOrigin?: PopoverOrigin;
-  };
-  tooltip?: string;
+  popperProps?: Omit<PopperProps, 'open' | 'children'>;
   tooltipPlacement?: TTooltipPlacement;
-  header?: string;
+  placement?: PopperPlacementType;
+  onClickOption?: (key: string, id?: number) => void;
 }
 
-function Dropdown({
+const paper = {
+  boxShadow: 'none',
+  filter: 'drop-shadow(0px 6px 20px rgba(0, 0, 0, 0.2))',
+  borderRadius: '8px',
+  transform: 'translateY(10px) !important',
+  maxHeight: 'fit-content',
+};
+
+function PopperDropdown({
   options,
   title = '',
   tooltip = '',
@@ -56,20 +51,16 @@ function Dropdown({
   iconButtonProps,
   buttonProps,
   onClickOption,
-  menuSx,
-  size = Size.M,
-  positionProps,
+  placement, //popper 위치 수정
+  popperProps,
   header,
-}: IDropdownProps): ReactElement {
+}: IPopperDropdownProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
-  // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const anchorRef = useRef<HTMLButtonElement>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);
-  // const isOpen = Boolean(anchorEl);
 
   const handleClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
-    // setAnchorEl(event.currentTarget);
-    // event.currentTarget.blur();
+    setAnchorEl(event.currentTarget);
     setOpen((prev) => !prev);
   }, []);
 
@@ -88,41 +79,35 @@ function Dropdown({
     [onClickOption, handleClose],
   );
 
-  console.log(anchorRef);
-
-  // const poperPlacement: PopperPlacementType = props.placement !== undefined ? props.placement : 'bottom'; // default value로 설정
-
   return (
     <ThemeProvider theme={theme as Theme}>
       {isIconButton ? (
         <Tooltip arrow title={tooltip} aria-label={tooltip} placement={tooltipPlacement}>
-          <IconButton onClick={handleClick} ref={anchorRef} {...iconButtonProps}>
+          <IconButton onClick={handleClick} {...iconButtonProps}>
             {title}
           </IconButton>
         </Tooltip>
       ) : (
         <Button
-          ref={anchorRef}
-          aria-haspopup="true"
-          // aria-expanded={isOpen && 'true'}
+          {...buttonProps}
+          buttonRef={anchorEl}
           onClick={handleClick}
           startIcon={buttonProps?.startIcon}
           variant={buttonProps?.variant}
           color={buttonProps?.color}
-          {...buttonProps}
         >
           {title}
         </Button>
       )}
-      <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition placement="bottom">
+      <Popper {...popperProps} open={open} anchorEl={anchorEl} transition placement={placement || 'bottom'}>
         {({ placement, TransitionProps }) => (
-          <Grow {...TransitionProps} style={{ transformOrigin: placement === 'bottom' ? 'left top' : 'left bottom' }}>
-            <ClickAwayListener onClickAway={handleClose}>
-              <Paper>
+          <ClickAwayListener onClickAway={handleClose}>
+            <Grow {...TransitionProps} style={{ transformOrigin: placement === 'bottom' ? 'left top' : 'left bottom' }}>
+              <Paper sx={paper}>
                 {header && <Header>{header}</Header>}
                 <MenuContainer>
                   {options?.map(({ key, label, disabled, split, liCss }) => [
-                    <MenuList key={key} css={liCss}>
+                    <MenuList key={key} css={liCss} id="menu-list-grow">
                       <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
                         {label}
                       </MenuItem>
@@ -131,12 +116,12 @@ function Dropdown({
                   ])}
                 </MenuContainer>
               </Paper>
-            </ClickAwayListener>
-          </Grow>
+            </Grow>
+          </ClickAwayListener>
         )}
       </Popper>
     </ThemeProvider>
   );
 }
 
-export default Dropdown;
+export default PopperDropdown;

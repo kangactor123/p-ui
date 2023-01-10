@@ -1,14 +1,19 @@
 import React, { ReactElement, useContext } from 'react';
-import { Button as MUIButton, ButtonProps as IButtonProps, Theme, ThemeProvider } from '@mui/material';
+import { Button as MUIButton, ButtonProps, Theme, ThemeProvider } from '@mui/material';
 import { css } from '@emotion/react';
 import { PlayceThemeContext } from '../../providers';
 
-function Button(props: IButtonProps): ReactElement {
+type TButtonProps = {
+  buttonRef?: any;
+} & ButtonProps;
+
+function Button({ buttonRef, ...props }: TButtonProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
   return (
     <ThemeProvider theme={theme as Theme}>
       <MUIButton
         {...props}
+        ref={buttonRef}
         css={css`
           text-transform: none;
         `}

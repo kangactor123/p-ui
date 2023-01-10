@@ -36,6 +36,7 @@ export { default as Table } from './stories/Table';
 export { default as Confirm } from './stories/Dialog/Confirm';
 export { default as DownloadFileProgress } from './stories/Dialog/DownloadFileProgress';
 export { default as SearchBar } from './stories/SearchBar';
+export { default as PopperDropdown } from './stories/PopperDropdown';
 
 export * from './stories/Accordion';
 export * from './stories/AccordionAction';
@@ -77,6 +78,7 @@ export * from './stories/Dialog/Confirm';
 export * from './stories/Dialog/DownloadFileProgress';
 
 export * from './stories/Table';
+export * from './stories/PopperDropdown';
 
 // Icons
 export * from './stories/icons';

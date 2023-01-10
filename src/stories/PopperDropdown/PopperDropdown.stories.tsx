@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
-import StoryDropdown, { IDropdownProps, IOptionsType } from './PopperDropdown';
+import StoryDropdown, { IPopperDropdownProps } from './PopperDropdown';
 import { IconMoreBlueGray } from '../icons';
-import { css } from '@emotion/react';
+import { IOptionsType } from '../Dropdown';
 
 export default {
   title: 'Component/PopperDropdown',
@@ -29,7 +29,7 @@ const handleUserDropDownClick = (key: string) => {
   }
 };
 
-const IconButtonDropdown: Story<IDropdownProps> = (args) => (
+const IconButtonDropdown: Story<IPopperDropdownProps> = (args) => (
   <StoryDropdown
     {...args}
     options={options}
@@ -39,12 +39,13 @@ const IconButtonDropdown: Story<IDropdownProps> = (args) => (
     isIconButton={true}
     title={<IconMoreBlueGray />}
     tooltip={'tooltip'}
+    placement="bottom-start"
     onClickOption={handleUserDropDownClick}
   />
 );
 
-const StandardDropdown: Story<IDropdownProps> = (args) => (
-  <div style={{ height: '200vh' }}>
+const StandardDropdown: Story<IPopperDropdownProps> = (args) => (
+  <div>
     <StoryDropdown
       {...args}
       title={'Action'}
@@ -52,6 +53,7 @@ const StandardDropdown: Story<IDropdownProps> = (args) => (
       buttonProps={{
         startIcon: <IconMoreBlueGray />,
       }}
+      placement="bottom-start"
       onClickOption={handleUserDropDownClick}
       header={'Title'}
     />
