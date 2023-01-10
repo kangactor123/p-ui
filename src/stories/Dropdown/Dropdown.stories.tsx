@@ -43,16 +43,19 @@ const IconButtonDropdown: Story<IDropdownProps> = (args) => (
 );
 
 const StandardDropdown: Story<IDropdownProps> = (args) => (
-  <StoryDropdown
-    {...args}
-    title={'Action'}
-    options={options}
-    buttonProps={{
-      startIcon: <IconMoreBlueGray />,
-    }}
-    onClickOption={handleUserDropDownClick}
-    header={'Title'}
-  />
+  <div style={{ height: '200vh' }}>
+    <StoryDropdown
+      {...args}
+      title={'Action'}
+      options={options}
+      buttonProps={{
+        startIcon: <IconMoreBlueGray />,
+      }}
+      onClickOption={handleUserDropDownClick}
+      header={'Title'}
+      useScroll
+    />
+  </div>
 );
 
 export const StandardDropdownStory = StandardDropdown.bind({});
