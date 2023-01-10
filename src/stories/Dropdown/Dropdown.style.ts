@@ -25,7 +25,9 @@ export const Menu: any = MUIStyled(MuiMenu)<{ size: TSize | 'mini' }>(({ size })
   },
 }));
 
-export const MenuList = styled.li``;
+export const MenuList = styled.li`
+  list-style: none;
+`;
 
 export const SplitLine = styled.hr`
   border: 0.5px solid #e6e9ef;
@@ -48,3 +50,11 @@ export const MenuContainer = styled.div`
   gap: 8px;
   padding: 8px;
 `;
+
+export const paper = {
+  boxShadow: 'none',
+  filter: 'drop-shadow(0px 6px 20px rgba(0, 0, 0, 0.2))',
+  borderRadius: '8px',
+  transform: 'translateY(10px) !important',
+  maxHeight: 'fit-content',
+};

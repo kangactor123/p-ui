@@ -6,7 +6,6 @@ export { default as BlankLink } from './stories/BlankLink';
 export { default as Button } from './stories/Button';
 export { default as CodeViewer } from './stories/CodeViewer';
 export { default as GuideTooltip } from './stories/GuideTooltip';
-export { default as Paper } from './stories/Paper';
 export { default as Progressbar } from './stories/Progressbar';
 export { default as Spinner } from './stories/Spinner';
 export { default as Stepper } from './stories/Stepper';
@@ -36,7 +35,6 @@ export { default as Table } from './stories/Table';
 export { default as Confirm } from './stories/Dialog/Confirm';
 export { default as DownloadFileProgress } from './stories/Dialog/DownloadFileProgress';
 export { default as SearchBar } from './stories/SearchBar';
-export { default as PopperDropdown } from './stories/PopperDropdown';
 
 export * from './stories/Accordion';
 export * from './stories/AccordionAction';
@@ -46,7 +44,6 @@ export * from './stories/BlankLink';
 export * from './stories/Button';
 export * from './stories/CodeViewer';
 export * from './stories/GuideTooltip';
-export * from './stories/Paper';
 export * from './stories/Progressbar';
 export * from './stories/Spinner';
 export * from './stories/Stepper';
@@ -78,7 +75,6 @@ export * from './stories/Dialog/Confirm';
 export * from './stories/Dialog/DownloadFileProgress';
 
 export * from './stories/Table';
-export * from './stories/PopperDropdown';
 
 // Icons
 export * from './stories/icons';
