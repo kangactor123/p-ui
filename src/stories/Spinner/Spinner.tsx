@@ -65,16 +65,14 @@ const Loading = styled(ReactLoading)`
 function Spinner(props: ISpinnerProps): ReactElement {
   const {
     loading = true,
-
     width = 0,
     height = 0,
     size = SpinnerSize.large,
-
     className = '',
+    color = 'black',
+    type = SpinnerType.bars,
+    ...otherProps
   } = props;
-
-  const { color = 'black', type = SpinnerType.bars, ...otherProps } = props;
-
   const widthHeight =
     width && height
       ? {
