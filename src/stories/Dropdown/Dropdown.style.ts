@@ -25,7 +25,7 @@ export const Menu: any = MUIStyled(MuiMenu)<{ size: TSize | 'mini' }>(({ size })
   },
 }));
 
-export const MenuList = styled.li`
+export const MenuList = styled.div`
   list-style: none;
 `;
 

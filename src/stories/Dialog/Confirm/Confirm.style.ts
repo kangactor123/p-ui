@@ -2,59 +2,42 @@ import { css } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import { Size } from '../../../common/enum';
 
-const SMALL_SIZE = {
-  paper: {
-    minWidth: '400px',
-    maxWidth: '400px !important',
-    minHeight: '126px',
-  },
-  title: {
-    paddingBottom: '0',
-    fontWeight: 500,
-    marginBottom: '30px',
-  },
-  content: {
-    marginBottom: '28px',
-    fontWeight: 400,
-    fontSize: '14px',
-    lineHeight: '22px',
-  },
+type SizeType = {
+  [key: string]: {
+    paper?: any;
+    title?: any;
+    content?: any;
+  };
 };
 
-const MEDIUM_SIZE = {
-  paper: {
-    minWidth: '550px',
-    maxWidth: '550px !important',
-    minHeight: '250px',
+const SIZE: SizeType = {
+  small: {
+    paper: {
+      minWidth: '400px',
+      maxWidth: '400px !important',
+      minHeight: '126px',
+    },
+    title: {
+      paddingBottom: '0',
+      marginBottom: '30px',
+    },
+    content: {
+      marginBottom: '28px',
+    },
   },
-  title: {
-    fontSize: '20px',
-    fontWeight: 500,
-    lineHeight: '24px',
+  medium: {
+    paper: {
+      minWidth: '550px',
+      maxWidth: '550px !important',
+      minHeight: '250px',
+    },
   },
-  content: {
-    fontWeight: 500,
-    fontSize: '14px',
-    lineHeight: '22px',
-  },
-};
-
-const LARGE_SIZE = {
-  paper: {
-    minWidth: '700px',
-    maxWidth: '700px !important',
-    minHeight: '400px',
-  },
-  title: {
-    fontSize: '20px',
-    fontWeight: 500,
-    lineHeight: '24px',
-  },
-  content: {
-    fontWeight: 500,
-    fontSize: '14px',
-    lineHeight: '22px',
-    marginBottom: '28px',
+  large: {
+    paper: {
+      minWidth: '700px',
+      maxWidth: '700px !important',
+      minHeight: '400px',
+    },
   },
 };
 
@@ -65,13 +48,7 @@ export const confirmTheme = (size: string, backgroundColor?: string) =>
         styleOverrides: {
           root: {
             boxShadow: '0px 15px 50px rgba(0, 0, 0, 0.3)',
-            ...(size === Size.S
-              ? { ...SMALL_SIZE.paper }
-              : size === Size.M
-              ? { ...MEDIUM_SIZE.paper }
-              : size === Size.L
-              ? { ...LARGE_SIZE.paper }
-              : null),
+            ...SIZE[size]?.paper,
           },
         },
       },
@@ -81,16 +58,11 @@ export const confirmTheme = (size: string, backgroundColor?: string) =>
             display: 'flex',
             justifyContent: 'space-between',
             color: '#202020',
-            fontSize: 20,
-            lineHeight: '24px',
             padding: '30px',
-            ...(size === Size.S
-              ? { ...SMALL_SIZE.title }
-              : size === Size.M
-              ? { ...MEDIUM_SIZE.title }
-              : size === Size.L
-              ? { ...LARGE_SIZE.title }
-              : null),
+            fontWeight: 500,
+            fontSize: '20px',
+            lineHeight: '24px',
+            ...SIZE[size]?.title,
           },
         },
       },
@@ -101,13 +73,10 @@ export const confirmTheme = (size: string, backgroundColor?: string) =>
             color: '#666666',
             padding: '0 30px',
             overflowY: 'hidden',
-            ...(size === Size.S
-              ? { ...SMALL_SIZE.content }
-              : size === Size.M
-              ? { ...MEDIUM_SIZE.content }
-              : size === Size.L
-              ? { ...LARGE_SIZE.content }
-              : null),
+            fontWeight: 500,
+            fontSize: '14px',
+            lineHeight: '22px',
+            ...SIZE[size]?.content,
           },
         },
       },

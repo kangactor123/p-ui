@@ -98,13 +98,13 @@ function Dropdown({
       <div>
         {header && <Header>{header}</Header>}
         <MenuContainer>
-          {options?.map(({ key, label, disabled, split, liCss }) => [
+          {options?.map(({ key, label, disabled, split, liCss }, index) => [
             <MenuList key={key} css={liCss}>
               <MenuItem onClick={handleOptionClick(key)} disabled={disabled}>
                 {label}
               </MenuItem>
             </MenuList>,
-            split && <SplitLine />,
+            split && <SplitLine key={index} />,
           ])}
         </MenuContainer>
       </div>
