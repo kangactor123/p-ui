@@ -41,6 +41,7 @@ function FormRadio<T extends FieldValues>({
   rules,
   control,
   defaultValue,
+  size,
   sx,
   ...props
 }: TFormRadioProps<T>): ReactElement {
@@ -77,7 +78,7 @@ function FormRadio<T extends FieldValues>({
           {props.options.map(({ value, label, disabled }, index) => {
             return (
               <FormControlLabel
-                control={<Radio value={value} disabled={disabled} size={props.size} color={color} />}
+                control={<Radio value={value} disabled={disabled} size={size} color={color} />}
                 value={value}
                 label={label}
                 key={index}

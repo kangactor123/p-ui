@@ -197,8 +197,8 @@ function TableRadioSelectCell(instance: any) {
   return (
     <RowRadio
       name="select-radio"
-      color="primary"
       checked={instance.row.isSelected}
+      color="primary"
       disabled={instance.selectDisabled(instance.row)}
       onClick={toggleSelect(instance)}
       // checkedIcon={

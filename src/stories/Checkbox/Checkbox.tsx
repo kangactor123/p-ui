@@ -22,6 +22,7 @@ const Label = styled.div<{ disabled: boolean }>`
   overflow: hidden;
   max-width: calc(100% - 23px);
   text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 function Checkbox({ disabled = false, label, ...props }: ICheckboxProps): ReactElement {
