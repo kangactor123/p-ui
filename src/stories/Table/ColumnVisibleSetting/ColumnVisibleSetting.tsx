@@ -19,8 +19,8 @@ import { ClickAwayListener, Grow, IconButton, Link, Paper, Popper } from '@mui/m
 import { IconTableClosePopup, SettingIcon } from '../icons';
 import { css } from '@emotion/react';
 import { styles } from './ColumnSetting.style';
-import { Checkbox } from '../../Form/InputControl';
 import Button from '../../Button';
+import Checkbox from '../../Checkbox';
 
 export interface IColumn {
   id: string;

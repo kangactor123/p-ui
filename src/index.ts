@@ -19,16 +19,19 @@ export { default as DiffViewer } from './stories/DiffViewer';
 export { default as SearchTooltip } from './stories/SearchTooltip';
 export { default as ViewMore } from './stories/ViewMore';
 export { default as ToggleButton } from './stories/ToggleButton';
+export { default as Checkbox } from './stories/Checkbox';
+export { default as Radio } from './stories/Radio';
 
 export { default as FormRow } from './stories/Form/FormRow';
 export { default as FormGroup } from './stories/Form/FormGroup';
-export { default as Checkbox } from './stories/Form/InputControl/Checkbox';
 export { default as InputText } from './stories/Form/InputControl/InputText';
 export { default as InputPassword } from './stories/Form/InputControl/InputPassword';
 export { default as InpInputFileutPassword } from './stories/Form/InputControl/InputFile';
 export { default as CodeEditor } from './stories/Form/InputControl/CodeEditor';
-export { default as Radio } from './stories/Form/InputControl/Radio';
+export { default as FormRadio } from './stories/Form/InputControl/FormRadio';
+export { default as FormCheckbox } from './stories/Form/InputControl/FormCheckbox';
 export { default as Select } from './stories/Form/InputControl/Select';
+
 export { default as ValidationMessage } from './stories/ValidationMessage';
 export { default as Table } from './stories/Table';
 
@@ -57,15 +60,17 @@ export * from './stories/DiffViewer';
 export * from './stories/SearchTooltip';
 export * from './stories/ViewMore';
 export * from './stories/ToggleButton';
+export * from './stories/Checkbox';
+export * from './stories/Radio';
 
 export * from './stories/Form/FormRow';
 export * from './stories/Form/FormGroup';
-export * from './stories/Form/InputControl/Checkbox';
 export * from './stories/Form/InputControl/InputText';
 export * from './stories/Form/InputControl/InputPassword';
 export * from './stories/Form/InputControl/InputFile';
 export * from './stories/Form/InputControl/CodeEditor';
-export * from './stories/Form/InputControl/Radio';
+export * from './stories/Form/InputControl/FormRadio';
+export * from './stories/Form/InputControl/FormCheckbox';
 export * from './stories/Form/InputControl/Select';
 
 export * from './stories/ValidationMessage';

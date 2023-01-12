@@ -3,7 +3,6 @@ import React, { ChangeEvent, ReactElement, useContext } from 'react';
 import {
   RadioGroup as MUIRadioGroup,
   FormControlLabelProps,
-  Radio as MUIRadio,
   RadioGroupProps as MUIRadioGroupProps,
   FormControl,
   ThemeProvider,
@@ -16,11 +15,12 @@ import { FieldValues, useController } from 'react-hook-form';
 import styled from '@emotion/styled';
 import { TControl } from '../../../../common/type';
 import { PlayceThemeContext } from '../../../../providers';
+import Radio from '../../../Radio';
 
 export type TRadioOptionProps = Omit<FormControlLabelProps, 'control'>;
 export type TRadioColor = 'primary' | 'secondary' | 'default' | undefined;
 
-export type TRadioProps<T extends FieldValues> = {
+export type TFormRadioProps<T extends FieldValues> = {
   options: TRadioOptionProps[];
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   radioColor?: TRadioColor;
@@ -34,16 +34,16 @@ const RadioGroup = styled(MUIRadioGroup)<{ flexDirection: string }>`
   flex-direction: ${({ flexDirection }) => (flexDirection === 'row' ? 'row' : 'column')};
 `;
 
-function Radio<T extends FieldValues>({
+function FormRadio<T extends FieldValues>({
   flexDirection = 'row',
   onChange,
   name,
   rules,
   control,
   defaultValue,
-  radioStyle,
+  sx,
   ...props
-}: TRadioProps<T>): ReactElement {
+}: TFormRadioProps<T>): ReactElement {
   const theme = useContext(PlayceThemeContext);
   const color = props.radioColor || 'primary';
   const {
@@ -72,22 +72,13 @@ function Radio<T extends FieldValues>({
           onChange={onRadioChange}
           name={name}
           value={value || ''}
-          sx={radioStyle}
+          sx={sx}
         >
-          {props.options.map(({ value: optionValue, disabled, label }, index) => {
+          {props.options.map(({ value, label, disabled }, index) => {
             return (
               <FormControlLabel
-                control={
-                  <MUIRadio
-                    size={props.size}
-                    color={color}
-                    value={optionValue}
-                    icon={<span className={cx('icon', disabled && 'disabled-icon')} />}
-                    checkedIcon={<span className={cx('icon', disabled ? 'disabled-checked-icon' : 'checked-icon')} />}
-                    disabled={disabled}
-                  />
-                }
-                value={optionValue}
+                control={<Radio value={value} disabled={disabled} size={props.size} color={color} />}
+                value={value}
                 label={label}
                 key={index}
               />
@@ -99,4 +90,4 @@ function Radio<T extends FieldValues>({
   );
 }
 
-export default Radio;
+export default FormRadio;
