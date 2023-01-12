@@ -201,15 +201,6 @@ function TableRadioSelectCell(instance: any) {
       color="primary"
       disabled={instance.selectDisabled(instance.row)}
       onClick={toggleSelect(instance)}
-      // checkedIcon={
-      //   <span
-      //     css={css`
-      //       ${tableStyles.radioIcon}
-      //       ${tableStyles.radioCheckedIcon}
-      //     `}
-      //   />
-      // }
-      // icon={<span css={tableStyles.radioIcon} />}
     />
   );
 }
