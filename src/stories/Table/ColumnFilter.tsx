@@ -11,9 +11,9 @@ import { exceptFilterColumnIds as exceptColumnIds } from './Table';
 import { cx } from '@emotion/css';
 import { css } from '@emotion/react';
 import { filterStyle } from './Table.Style';
-import { Checkbox } from '../Form/InputControl';
 import { regExp } from '../../common/helper';
 import InputText from './InputText';
+import Checkbox from '../Checkbox';
 
 const classes = css({
   position: 'absolute',
@@ -316,17 +316,7 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
       return (
         <CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
           <li key={index} className={'filter-item'} style={style}>
-            <Checkbox
-              labelProps={{
-                className: 'filter-label',
-                title: label,
-              }}
-              checked={checked}
-              label={label}
-              value={value}
-              className={'filter-checkbox'}
-              onChange={handleChangeCheckbox(index)}
-            />
+            <Checkbox checked={checked} label={label} value={value} onChange={handleChangeCheckbox(index)} />
           </li>
         </CellMeasurer>
       );
@@ -381,12 +371,8 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
             <Checkbox
               checked={checkedAll}
               label={t('Select All')}
-              labelProps={{
-                className: cx('filter-all', 'filter-label'),
-              }}
               value={''}
               onChange={handleChangeCheckboxAll}
-              className={'filter-checkbox'}
               indeterminate={checkedAll}
               indeterminateIcon={<IndeterminateIcon />}
             />

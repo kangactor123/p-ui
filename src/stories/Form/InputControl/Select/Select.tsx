@@ -6,12 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { FieldValues, useController } from 'react-hook-form';
 import { TControl, TSize } from '../../../../common/type';
 import { labelStyle, SelectComponent, splitStyle, MenuItem } from './Select.style';
-import Checkbox from '../Checkbox';
 import { isArray } from 'lodash';
 import Spinner, { SpinnerSize, SpinnerType } from '../../../Spinner';
 import { DropdownDownIcon, DropdownDownGrayIcon } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
+import Checkbox from '../../../Checkbox';
 
 export interface ISelectOption {
   value: any;
@@ -136,11 +136,7 @@ function Select<T extends FieldValues>({
                 <MenuItem key={optionsValue} value={optionsValue} disabled={disabled}>
                   {multiple ? (
                     <>
-                      <Checkbox
-                        value={value}
-                        labelProps={{ sx: { marginRight: 0 } }}
-                        checked={isArray(value) && value.includes(optionsValue)}
-                      />
+                      <Checkbox value={value} checked={isArray(value) && value.includes(optionsValue)} />
                       <span title={typeof label === 'string' ? label : ''} css={labelStyle}>
                         {label}
                       </span>

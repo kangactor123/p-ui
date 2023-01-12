@@ -1,7 +1,9 @@
 import { css } from '@emotion/react';
 import { StyledComponent } from '@emotion/styled';
-import { Checkbox, CheckboxProps, Radio, RadioProps, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import searchIcon from '../../stories/icons/svg/icon-search.svg';
+import Checkbox, { ICheckboxProps } from '../Checkbox';
+import Radio, { IRadioProps } from '../Radio';
 
 export const tableMixin = {
   '@table-border': css`
@@ -633,49 +635,12 @@ export const filterStyle = css`
   }
 `;
 
-export const HeaderCheckbox: StyledComponent<CheckboxProps, {}, {}> = styled(Checkbox)({
-  fontSize: '1rem',
-  margin: '-8px 0 -8px -15px',
-  width: '36px',
-  height: '36px',
-  padding: '8px 9px',
-  '& svg': {
-    width: '16px',
-    height: '16px',
-  },
-  '&:hover': {
-    backgroundColor: 'transparent',
-  },
-  color: '#c4cad6',
+export const HeaderCheckbox: StyledComponent<ICheckboxProps, {}, {}> = styled(Checkbox)({});
+
+export const RowCheckbox: StyledComponent<ICheckboxProps, {}, {}> = styled(Checkbox)({
+  paddingTop: '6px',
 });
 
-export const RowCheckbox: StyledComponent<CheckboxProps, {}, {}> = styled(Checkbox)({
-  fontSize: '14px',
-  margin: '-9px 0 -8px -15px',
-  padding: '8px 9px 9px 9px',
-  width: '36px',
-  height: '36px',
-  '&:hover': {
-    backgroundColor: 'transparent',
-  },
-  '& svg': {
-    width: '16px',
-    height: '16px',
-  },
-  color: '#c4cad6',
-});
-
-export const RowRadio: StyledComponent<RadioProps, {}, {}> = styled(Radio)({
-  fontSize: '14px',
-  margin: '-9px 0 -8px -15px',
-  padding: '8px 9px 9px 9px',
-  width: '36px',
-  height: '36px',
-  '&:hover': {
-    backgroundColor: 'transparent',
-  },
-  '& svg ': {
-    width: 16,
-    height: 16,
-  },
+export const RowRadio: StyledComponent<IRadioProps, {}, {}> = styled(Radio)({
+  paddingTop: '3px',
 });

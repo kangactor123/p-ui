@@ -1,26 +1,16 @@
+import React from 'react';
 import checkedIcon from '../../../icons/svg/icon-checkbox-checked.svg';
 import disabledCheckedIcon from '../../../icons/svg/icon-checkbox-disabled-checked.svg';
-import {
-  styled as MUIStyled,
-  FormControlLabel as MUIFormControlLabel,
-  Theme,
-  FormControlLabelProps,
-} from '@mui/material';
-import { StyledComponent } from '@emotion/styled';
-import { MUIStyledCommonProps } from '@mui/system';
 
-export const FormControlLabel: StyledComponent<FormControlLabelProps & MUIStyledCommonProps<Theme>> = MUIStyled(
-  MUIFormControlLabel,
-)({
-  '& .MuiFormControlLabel-label': {
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    maxWidth: 'calc(100% - 23px)',
-    textOverflow: 'ellipsis',
-  },
-});
+import { ComponentMeta, Story } from '@storybook/react';
+import StoryFormCheckbox, { IFormCheckboxProps } from './FormCheckbox';
 
-export const migratorCheckboxStyle = {
+export default {
+  title: 'Component/FormCheckbox',
+  component: StoryFormCheckbox,
+} as ComponentMeta<typeof StoryFormCheckbox>;
+
+const checkboxStyle = {
   '& .MuiCheckbox-root': {
     padding: 0,
     maxWidth: '16px',
@@ -83,5 +73,18 @@ export const migratorCheckboxStyle = {
     '&.Mui-disabled': {
       color: 'rgba(103, 104, 121, 0.4)',
     },
+  },
+};
+
+const FormCheckbox: Story<IFormCheckboxProps> = (args) => <StoryFormCheckbox {...args} />;
+
+export const Basic = FormCheckbox.bind({});
+
+Basic.args = {
+  label: 'test',
+  disabled: false,
+  checked: false,
+  labelProps: {
+    sx: checkboxStyle,
   },
 };

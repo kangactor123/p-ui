@@ -54,7 +54,7 @@ import { cx } from '@emotion/css';
 import { css } from '@emotion/react';
 import { debounce } from 'lodash';
 import { regExp } from '../../common/helper';
-import { KeyboardUpIcon } from './icons';
+import { IndeterminateIcon, KeyboardUpIcon } from './icons';
 
 export const exceptFilterColumnIds = [
   '_selector',
@@ -173,7 +173,9 @@ function TableCheckboxSelectHeader({
     [onChange, page, selectDisabled],
   );
 
-  return <HeaderCheckbox color="primary" onChange={handleChange} {...props} />;
+  return (
+    <HeaderCheckbox color="primary" onChange={handleChange} indeterminateIcon={<IndeterminateIcon />} {...props} />
+  );
 }
 
 function TableCheckboxSelectCell({ row }: CellProps<any>) {
@@ -199,15 +201,6 @@ function TableRadioSelectCell(instance: any) {
       color="primary"
       disabled={instance.selectDisabled(instance.row)}
       onClick={toggleSelect(instance)}
-      checkedIcon={
-        <span
-          css={css`
-            ${tableStyles.radioIcon}
-            ${tableStyles.radioCheckedIcon}
-          `}
-        />
-      }
-      icon={<span css={tableStyles.radioIcon} />}
     />
   );
 }

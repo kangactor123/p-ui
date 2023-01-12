@@ -1,4 +1,17 @@
-export const migratorRadioStyle = {
+import React from 'react';
+
+import { ComponentMeta, Story } from '@storybook/react';
+import StoryFormRadio, { TFormRadioProps } from './FormRadio';
+import { TSample } from '../CodeEditor/CodeEditor.stories';
+import { useForm } from 'react-hook-form';
+import { TSampleFormControl } from '../InputText/InputText.stories';
+
+export default {
+  title: 'Component/FormRadio',
+  component: StoryFormRadio,
+} as ComponentMeta<typeof StoryFormRadio>;
+
+const radioStyle = {
   '& .MuiFormControlLabel-root': {
     marginLeft: '-9px',
     marginRight: '30px',
@@ -64,4 +77,26 @@ export const migratorRadioStyle = {
       color: '#323338',
     },
   },
+};
+
+const options = [
+  { value: '1', label: '1', disabled: false },
+  { value: '2', label: '2', disabled: true },
+];
+
+const FormRadio: Story<TFormRadioProps<TSample>> = (args) => {
+  const { control } = useForm<TSampleFormControl>({
+    mode: 'all',
+    defaultValues: {
+      sample: '1',
+    },
+  });
+
+  return <StoryFormRadio {...args} control={control} rules={{ required: true }} name={'sample'} sx={radioStyle} />;
+};
+
+export const Basic = FormRadio.bind({});
+
+Basic.args = {
+  options: options,
 };
