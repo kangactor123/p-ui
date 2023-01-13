@@ -334,19 +334,17 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     useRowLine = false,
   } = props;
 
+  const { t } = useTranslation();
+  const headerContainer = useRef(null);
+  const [initialState, setInitialState] = useLocalStorage(`tableState:${name}`, {});
+  const [useColumnFilter, setUseColumnFilter] = useState(!!initialState.useColumnFilter);
+  const [currentRow, setCurrentRow] = useState({});
+
   const pageSize = !usePagination ? 999999 : pageSizeProp || 10;
 
-  const { t }: { t: (key: string, options?: any) => string } = useTranslation();
-  const [initialState, setInitialState] = useLocalStorage(`tableState:${name}`, {});
+  const classes = isSubRowStyle ? subTableStyles : tableStyles;
 
-  const classes = isSubRowStyle === true ? subTableStyles : tableStyles;
-
-  const [currentRow, setCurrentRow] = useState({});
-  const [useColumnFilter, setUseColumnFilter] = useState(!!initialState.useColumnFilter);
-
-  const headerContainer = useRef(null);
-
-  const tireggerSelectionChange = useCallback(
+  const triggerSelectionChange = useCallback(
     (ids: any[]) => {
       if (onSelectionChange instanceof Function) {
         onSelectionChange(ids, instance);
@@ -368,10 +366,10 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
   );
 
   const dispatchEvent = debounce((selectedRowIdArray: any[]) => {
-    tireggerSelectionChange(selectedRowIdArray);
+    triggerSelectionChange(selectedRowIdArray);
   }, 200);
 
-  const onChangePageInoHanlder = useCallback(
+  const onChangePageInoHandler = useCallback(
     (pageInfo: any) => {
       if (onChangePageInfo instanceof Function) {
         onChangePageInfo(pageInfo);
@@ -460,7 +458,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
           : pageIndex;
       if (newPageIndex !== pageIndex) {
         setTimeout(() => {
-          onChangePageInoHanlder({
+          onChangePageInoHandler({
             pageSize: tablePageSize as number,
             pageIndex: newPageIndex,
           });
@@ -478,7 +476,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
       dispatchEvent,
       idColumn,
       onChangePage,
-      onChangePageInoHanlder,
+      onChangePageInoHandler,
       onSelectionChange,
       selectionType,
       setInitialState,
@@ -551,7 +549,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     // 컬럼 필터 체크
     if (isSelectionClearByFilterChange && toggleAllRowsSelected) {
       toggleAllRowsSelected(false);
-      tireggerSelectionChange([]);
+      triggerSelectionChange([]);
     }
   }, [filters]);
 
@@ -559,9 +557,16 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     // 검색 필터 체크
     if (isSelectionClearByFilterChange && toggleAllRowsSelected) {
       toggleAllRowsSelected(false);
-      tireggerSelectionChange([]);
+      triggerSelectionChange([]);
     }
   }, [globalFilter]);
+
+  const searchNoDataComponent = useMemo(
+    () => <div style={{ color: '#8995ae' }}>{t('No results found. Please alter your search')}</div>,
+    [t],
+  );
+
+  const noDataComponent = useMemo(() => <div>{t('You do not have any data.')}</div>, [t]);
 
   const renderNoDataComponent = () => {
     if (globalFilter) {
@@ -613,7 +618,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     }
   };
 
-  const onChangePageHanlder = useCallback(
+  const onChangePageHandler = useCallback(
     (page: number) => {
       if (onChangePage instanceof Function) {
         onChangePage(page);
@@ -621,13 +626,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     },
     [onChangePage],
   );
-
-  const searchNoDataComponent = useMemo(
-    () => <div style={{ color: '#8995ae' }}>{t('No results found. Please alter your search')}</div>,
-    [t],
-  );
-
-  const noDataComponent = useMemo(() => <div>{t('You do not have any data.')}</div>, [t]);
 
   return (
     <div css={tableWrapStyles} className={cx(useWrap ? 'wrap' : 'noWrapBox')}>
@@ -640,19 +638,15 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
           instance={instance}
           isSearchStyle={isSearchStyle}
           useServerPaging={useServerPaging}
-          {...{ onAdd, onDelete, onEdit, onRefresh, onSearchKeyword }}
           columnVisibleSettingExclude={columnVisibleSettingExclude}
+          {...{ onAdd, onDelete, onEdit, onRefresh, onSearchKeyword }}
         />
       ) : null}
       <div
-        className={cx(
-          'table-wrap',
-          {
-            'use-toolbar': useToolbar,
-            'use-pagination': usePagination,
-          },
-          'table-wrap-global',
-        )}
+        className={cx('table-wrap', {
+          'use-toolbar': useToolbar,
+          'use-pagination': usePagination,
+        })}
       >
         <div css={classes.tableTable} {...getTableProps()} {...props.tableDivProps}>
           <div ref={headerContainer} css={classes.tableHead}>
@@ -688,7 +682,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                     },
                     {},
                   );
-                  let headerStyle = tempHeaderGroup.style;
+                  let headerStyle = { ...tempHeaderGroup.style, lineHeight: '22px' };
                   let isFixColumnBorder = false;
                   if (groupColumnStartIndex.length > -1 && groupColumnStartIndex.indexOf(column.id) > -1) {
                     if (columnIdx > 0) {
@@ -764,8 +758,8 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                           disabledRow && !excludeDisabledColumns.includes((cell.render('id') as string) || '');
                         const cellStyle: any = cellPropObj.style;
                         cellStyle.alignItems = 'baseline';
-                        cellStyle.paddingTop = '10px';
-                        cellStyle.paddingBottom = '10px';
+                        cellStyle.paddingTop = '5px';
+                        cellStyle.paddingBottom = '5px';
 
                         return (
                           <div
@@ -834,8 +828,8 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
           isSubRowStyle={isSubRowStyle}
           usePerPage={usePerPage}
           totalCount={totalCount}
-          onChangePageInfo={onChangePageInoHanlder}
-          onChangePage={onChangePageHanlder}
+          onChangePageInfo={onChangePageHandler}
+          onChangePage={onChangePageHandler}
           useAll={useAll}
           siblingCount={siblingCount}
         />

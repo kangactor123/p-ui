@@ -19,7 +19,7 @@ const wrapperCss = css`
 
 const numberStyles = css({
   fontSize: '12px',
-  paddingTop: 10,
+  paddingTop: 3,
   minHeight: '40px',
   minWidth: '7px',
   width: 'auto',
