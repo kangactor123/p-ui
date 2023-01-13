@@ -60,7 +60,6 @@ export const tableStyles = {
     fontWeight: 700,
     position: 'relative',
     borderBottom: '2px solid #DFE1E6',
-    paddingBottom: '3px',
     '&:hover $resizeHandle': {
       opacity: 1,
     },
@@ -68,7 +67,7 @@ export const tableStyles = {
   tableHeadCell: css({
     paddingLeft: '10px',
     textAlign: 'left',
-    height: '40px',
+    paddingBottom: '15px',
     verticalAlign: 'inherit',
     color: '#666666',
     overflow: 'hidden',
@@ -116,12 +115,14 @@ export const tableStyles = {
     },
     '&.rowLine': {
       borderBottom: '2px solid #DFE1E6',
-      padding: '5px 0',
+    },
+    '&.rowLine:last-of-type': {
+      borderBottom: '0',
     },
   }),
   tableCell: css({
-    paddingLeft: '10px',
-    paddingRight: '10px',
+    paddingLeft: '5px',
+    paddingRight: '5px',
     minHeight: '40px',
     textAlign: 'left',
     verticalAlign: 'inherit',
@@ -305,12 +306,14 @@ export const subTableStyles = {
     },
     '&.rowLine': {
       borderBottom: '2px solid #DFE1E6',
-      padding: '5px 0',
+    },
+    '&.rowLine:last-of-type': {
+      borderBottom: '0',
     },
   }),
   tableCell: css({
-    paddingLeft: '10px',
-    paddingRight: '10px',
+    paddingLeft: '5px',
+    paddingRight: '5px',
     minHeight: '36px',
     textAlign: 'left',
     verticalAlign: 'inherit',
@@ -437,10 +440,6 @@ export const tableWrapStyles = css`
     height: 100%;
     position: relative;
     overflow-x: auto;
-
-    :global(.MuiButton-label) {
-      font-size: 12px;
-    }
 
     & .row_line_body {
       padding-top: 0;

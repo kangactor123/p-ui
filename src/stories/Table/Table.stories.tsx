@@ -181,7 +181,12 @@ const subRowColumns: Column<SubRowType>[] = [
 ];
 
 const subRow: Story<ITable<SubRowType>> = (args) => {
-  const data: SubRowType[] = [{ name: '1', age: 2 }];
+  const data: SubRowType[] = [
+    { name: '1', age: 2 },
+    { name: '1', age: 2 },
+    { name: '1', age: 2 },
+    { name: '1', age: 2 },
+  ];
   const renderSubRow = (row: Row<SubRowType>) => {
     return <pre>{row.original.name}</pre>;
   };
