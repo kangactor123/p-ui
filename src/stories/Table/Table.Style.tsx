@@ -198,6 +198,10 @@ export const tableStyles = {
     overflowY: 'auto',
     minWidth: 'fit-content',
   }),
+  noDataTableBody: css({
+    minHeight: '144px',
+    height: '80%',
+  }),
   tableLabel: css({
     width: '100%',
   }),
@@ -371,7 +375,6 @@ export const subTableStyles = {
     width: 'calc(100% - 2px)',
     minWidth: 'fit-content',
   }),
-
   tableBody: css({
     width: '100%',
     height: '100%',
@@ -387,6 +390,10 @@ export const subTableStyles = {
     minWidth: 'fit-content',
     backgroundColor: '#fff',
     fontSize: '14px',
+  }),
+  noDataTableBody: css({
+    minHeight: '144px',
+    height: '80%',
   }),
   cellIcon: css({
     '& svg': {
@@ -504,26 +511,19 @@ export const tableWrapStyles = css`
     float: right;
   }
 
-  .small-table-no-data {
-    margin-top: 20px;
-    width: 100%;
-    text-align: center;
-    color: #8995ae;
-    min-height: 30px;
-    font-size: 13px;
-  }
-
   .no-data {
     color: #8995ae;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    width: 100%;
+    height: 100%;
+    min-height: 144px;
     font-size: 14px;
+    font-weight: 400;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 14px;
+    line-height: 22px;
   }
 `;
 
