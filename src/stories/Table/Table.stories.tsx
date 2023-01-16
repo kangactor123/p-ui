@@ -155,7 +155,7 @@ const noDataHere: Story<ITable<SampleData>> = (args) => {
         data={data}
         idColumn={null}
         usePagination={true}
-        noDataComponent={'no Data'}
+        // noDataComponent={'no Data'}
       />
     </BrowserRouter>
   );
@@ -202,7 +202,7 @@ const subRow: Story<ITable<SubRowType>> = (args) => {
         usePagination={false}
         useSelection={false}
         useRowLine={true}
-        noDataComponent={<TableNoDataComponent message={'You do not have any data.'} buttonDisplay={false} />}
+        // noDataComponent={<TableNoDataComponent message={'You do not have any data.'} buttonDisplay={false} />}
         isSmallTable
         renderRowSubComponent={renderSubRow}
       />

@@ -566,7 +566,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     [t],
   );
 
-  const noDataComponent = useMemo(() => <div>{t('You do not have any data.')}</div>, [t]);
+  const noDataComponent = useMemo(() => <>{t('You do not have any data.')}</>, [t]);
 
   const renderNoDataComponent = () => {
     if (globalFilter) {
@@ -742,7 +742,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
             {...getTableBodyProps()}
             {...props.tableBodyDivProps}
             className={cx({ row_line_body: useRowLine })}
-            css={classes.tableBody}
+            css={!!(totalCount ? rows : page).length ? classes.tableBody : classes.noDataTableBody}
           >
             {(totalCount ? rows : page).length ? (
               (totalCount ? rows : page).map((row, pageIdx) => {
@@ -813,9 +813,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                 );
               })
             ) : (
-              <div className={cx(!isSmallTable ? 'no-data' : 'small-table-no-data', 'global-no-data')}>
-                {renderNoDataComponent()}
-              </div>
+              <div className={cx('no-data', 'global-no-data')}>{renderNoDataComponent()}</div>
             )}
           </div>
         </div>
