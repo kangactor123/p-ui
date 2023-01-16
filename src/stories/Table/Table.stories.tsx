@@ -140,6 +140,7 @@ const Template: Story<ITable<SampleData>> = (args) => {
             buttonOnClick={() => {}}
           />
         }
+        rowHeight={80}
       />
     </BrowserRouter>
   );

@@ -65,7 +65,7 @@ export const tableStyles = {
     },
   }),
   tableHeadCell: css({
-    paddingLeft: '10px',
+    paddingLeft: '5px',
     textAlign: 'left',
     paddingBottom: '15px',
     verticalAlign: 'inherit',
@@ -259,7 +259,7 @@ export const subTableStyles = {
     },
   }),
   tableHeadCell: css({
-    paddingLeft: '10px',
+    paddingLeft: '5px',
     fontSize: '14px',
     textAlign: 'left',
     height: '36px',

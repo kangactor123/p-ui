@@ -119,6 +119,7 @@ export interface ITable<TModel extends object> extends TableOptions<TModel> {
   expanded?: unknown;
   siblingCount?: number;
   useRowLine?: boolean; // row 간 라인이 필요할 경우 (pagination 사용을 하지 않아야 사용가능)
+  rowHeight?: number | 'unset';
 }
 
 const defaultColumn = {
@@ -332,6 +333,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     expanded = {},
     siblingCount = 1,
     useRowLine = false,
+    rowHeight = 'unset',
   } = props;
 
   const { t } = useTranslation();
@@ -770,7 +772,12 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                               }
                               cellClickHandler(cell, e);
                             }}
-                            css={classes.tableCell}
+                            css={css`
+                              ${classes.tableCell}
+                              ${rowHeight === 'unset'
+                                ? 'unset'
+                                : { minHeight: `${rowHeight}px`, maxHeight: `${rowHeight}px` }}
+                            `}
                             className={cx(
                               {
                                 disabledCell,
