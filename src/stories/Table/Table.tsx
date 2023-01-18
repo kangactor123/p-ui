@@ -120,6 +120,11 @@ export interface ITable<TModel extends object> extends TableOptions<TModel> {
   siblingCount?: number;
   useRowLine?: boolean; // row 간 라인이 필요할 경우 (pagination 사용을 하지 않아야 사용가능)
   rowHeight?: number | 'unset';
+  cellPadding?: {
+    top: number;
+    bottom: number;
+  };
+  useGap?: boolean;
 }
 
 const defaultColumn = {
@@ -322,7 +327,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     allExpanded = false,
     selectionType = 'checkbox',
     isSubRowStyle = false,
-    isSmallTable = false,
     isSelectionClearByFilterChange = true,
     isSearchStyle = true,
     useServerPaging = false,
@@ -334,6 +338,8 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     siblingCount = 1,
     useRowLine = false,
     rowHeight = 'unset',
+    cellPadding,
+    useGap = true,
   } = props;
 
   const { t } = useTranslation();
@@ -541,8 +547,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     state: { filters, globalFilter = searchKeyword },
   } = instance;
 
-  // const dataCount = useMemo(() => instance?.page?.length, [instance?.page]);
-
   const getPages = () => {
     return page;
   };
@@ -563,19 +567,18 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     }
   }, [globalFilter]);
 
-  const searchNoDataComponent = useMemo(
-    () => <div style={{ color: '#8995ae' }}>{t('No results found. Please alter your search')}</div>,
-    [t],
-  );
-
-  const noDataComponent = useMemo(() => <>{t('You do not have any data.')}</>, [t]);
-
   const renderNoDataComponent = () => {
+    let component;
     if (globalFilter) {
-      return props.searchNoDataComponent ? props.searchNoDataComponent : searchNoDataComponent;
+      component = props.searchNoDataComponent ? (
+        props.searchNoDataComponent
+      ) : (
+        <div style={{ color: '#8995ae' }}>{t('No results found. Please alter your search')}</div>
+      );
     } else {
-      return props.noDataComponent ? props.noDataComponent : noDataComponent;
+      component = props.noDataComponent ? props.noDataComponent : <>{t('You do not have any data.')}</>;
     }
+    return component;
   };
 
   const cellClickHandler = (cell: Cell<TModel>, event: any) => {
@@ -619,6 +622,8 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
       }
     }
   };
+
+  const hasData = !!(totalCount ? rows : page).length;
 
   const onChangePageHandler = useCallback(
     (page: number) => {
@@ -744,7 +749,10 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
             {...getTableBodyProps()}
             {...props.tableBodyDivProps}
             className={cx({ row_line_body: useRowLine })}
-            css={!!(totalCount ? rows : page).length ? classes.tableBody : classes.noDataTableBody}
+            css={css`
+              ${!!(totalCount ? rows : page).length ? classes.tableBody : classes.noDataTableBody}
+              ${!useGap && { gap: 'unset' }}
+            `}
           >
             {(totalCount ? rows : page).length ? (
               (totalCount ? rows : page).map((row, pageIdx) => {
@@ -760,8 +768,8 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                           disabledRow && !excludeDisabledColumns.includes((cell.render('id') as string) || '');
                         const cellStyle: any = cellPropObj.style;
                         cellStyle.alignItems = 'baseline';
-                        cellStyle.paddingTop = '5px';
-                        cellStyle.paddingBottom = '5px';
+                        cellStyle.paddingTop = cellPadding ? `${cellPadding.top}px` : '5px';
+                        cellStyle.paddingBottom = cellPadding ? `${cellPadding.bottom}px` : '5px';
 
                         return (
                           <div

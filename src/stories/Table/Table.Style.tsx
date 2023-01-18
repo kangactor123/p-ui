@@ -123,7 +123,6 @@ export const tableStyles = {
   tableCell: css({
     paddingLeft: '5px',
     paddingRight: '5px',
-    minHeight: '40px',
     textAlign: 'left',
     verticalAlign: 'inherit',
     lineHeight: '22px',
@@ -191,9 +190,9 @@ export const tableStyles = {
     paddingTop: '8px',
     display: 'flex',
     flex: '1 1 auto',
+    gap: '5px',
     width: '100%',
     flexDirection: 'column',
-    minHeight: '70px',
     maxHeight: 'calc(100% - 40px)',
     overflowY: 'auto',
     minWidth: 'fit-content',
@@ -381,6 +380,7 @@ export const subTableStyles = {
     position: 'relative',
     display: 'flex',
     flex: '1 1 auto',
+    gap: '5px',
     borderBottom: '1px solid #dbdbdb',
     flexDirection: 'column',
     maxHeight: 'calc(100% - 40px)',
@@ -450,6 +450,7 @@ export const tableWrapStyles = css`
 
     & .row_line_body {
       padding-top: 0;
+      padding-bottom: 0;
     }
   }
 
