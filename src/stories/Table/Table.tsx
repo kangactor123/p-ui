@@ -71,7 +71,7 @@ export interface ITable<TModel extends object> extends TableOptions<TModel> {
   name: string;
   idColumn?: string | null;
   selectedRows?: (number | string)[];
-  renderRowSubComponent?: (row: Row<TModel>) => ReactNode;
+  renderRowSubComponent?: (row: Row<TModel>, isLastRow?: boolean) => ReactNode;
   selectDisabled?: (row: Row<TModel>) => boolean; //row disabled
   excludeDisabledColumns?: string[]; //row disabled
   searchNoDataComponent?: React.ReactNode;
@@ -508,7 +508,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
         () => true,
       )
     : [];
-
   const instance = useTable<TModel>(
     {
       selectDisabled,
@@ -622,8 +621,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
       }
     }
   };
-
-  const hasData = !!(totalCount ? rows : page).length;
 
   const onChangePageHandler = useCallback(
     (page: number) => {
@@ -757,8 +754,14 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
             {(totalCount ? rows : page).length ? (
               (totalCount ? rows : page).map((row, pageIdx) => {
                 prepareRow(row);
+                const isLastRow = (totalCount ? rows : page).length - 1 === pageIdx;
                 const disabledRow = selectDisabled(row);
-                const makeStyles = cx({ rowSelected: row.isSelected }, 'table-row', { rowLine: useRowLine });
+                const makeStyles = cx(
+                  { rowSelected: row.isSelected },
+                  'table-row',
+                  { rowLine: useRowLine },
+                  { rowLine_isExpand: row.isExpanded },
+                );
                 return (
                   <Fragment key={pageIdx}>
                     <div {...row.getRowProps()} css={classes.tableRow} className={makeStyles}>
@@ -822,7 +825,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                       })}
                     </div>
                     {(row.isExpanded || allExpanded) && renderRowSubComponent instanceof Function && (
-                      <div className={'sub-component'}>{renderRowSubComponent(row)}</div>
+                      <div className={'sub-component'}>{renderRowSubComponent(row, isLastRow)}</div>
                     )}
                   </Fragment>
                 );

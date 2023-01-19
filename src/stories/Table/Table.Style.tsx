@@ -119,6 +119,9 @@ export const tableStyles = {
     '&.rowLine:last-of-type': {
       borderBottom: '0',
     },
+    '&.rowLine_isExpand': {
+      borderBottom: '0',
+    },
   }),
   tableCell: css({
     paddingLeft: '5px',
@@ -311,6 +314,9 @@ export const subTableStyles = {
       borderBottom: '2px solid #DFE1E6',
     },
     '&.rowLine:last-of-type': {
+      borderBottom: '0',
+    },
+    '&.rowLine_isExpand': {
       borderBottom: '0',
     },
   }),
