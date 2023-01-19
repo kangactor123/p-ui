@@ -116,9 +116,6 @@ export const tableStyles = {
     '&.rowLine': {
       borderBottom: '2px solid #DFE1E6',
     },
-    '&.rowLine:last-of-type': {
-      borderBottom: '0',
-    },
     '&.rowLine_isExpand': {
       borderBottom: '0',
     },
@@ -312,9 +309,6 @@ export const subTableStyles = {
     },
     '&.rowLine': {
       borderBottom: '2px solid #DFE1E6',
-    },
-    '&.rowLine:last-of-type': {
-      borderBottom: '0',
     },
     '&.rowLine_isExpand': {
       borderBottom: '0',

@@ -71,7 +71,7 @@ export interface ITable<TModel extends object> extends TableOptions<TModel> {
   name: string;
   idColumn?: string | null;
   selectedRows?: (number | string)[];
-  renderRowSubComponent?: (row: Row<TModel>, isLastRow?: boolean) => ReactNode;
+  renderRowSubComponent?: (row: Row<TModel>) => ReactNode;
   selectDisabled?: (row: Row<TModel>) => boolean; //row disabled
   excludeDisabledColumns?: string[]; //row disabled
   searchNoDataComponent?: React.ReactNode;
@@ -754,7 +754,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
             {(totalCount ? rows : page).length ? (
               (totalCount ? rows : page).map((row, pageIdx) => {
                 prepareRow(row);
-                const isLastRow = (totalCount ? rows : page).length - 1 === pageIdx;
                 const disabledRow = selectDisabled(row);
                 const makeStyles = cx(
                   { rowSelected: row.isSelected },
@@ -825,7 +824,7 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                       })}
                     </div>
                     {(row.isExpanded || allExpanded) && renderRowSubComponent instanceof Function && (
-                      <div className={'sub-component'}>{renderRowSubComponent(row, isLastRow)}</div>
+                      <div className={'sub-component'}>{renderRowSubComponent(row)}</div>
                     )}
                   </Fragment>
                 );
