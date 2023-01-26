@@ -25,71 +25,70 @@ export const styles = {
   `,
   dialog: css`
     width: 300px;
+    line-height: 22px;
   `,
   title: css`
     display: flex;
+    justify-content: space-between;
     position: relative;
     align-items: center;
-    padding: 10px 20px 8px;
-    box-shadow: 0 1px 0 0 #d8d8d8;
+    padding: 15px;
+    padding-bottom: 8px;
 
     h2 {
-      font-size: 18px;
+      margin: 0;
+      font-size: 20px;
       font-weight: 500;
-      color: #1b2635;
-      margin-top: 0;
-      margin-bottom: 10px;
+      line-height: 24px;
+      letter-spacing: -0.2px;
+      color: #323338;
     }
   `,
-  'icon-close': css`
-    position: absolute;
-    right: 0;
-    top: 0;
+  close_icon: css`
+    padding: 0;
   `,
   content: css`
+    width: 100%;
     height: auto;
-    padding: 10px 0;
-    box-shadow: 0 1px 0 0 #d8d8d8;
   `,
   restore: css`
     width: 100%;
     height: 36px;
-    padding: 7px 20px 11px;
     box-sizing: border-box;
   `,
-  'restore-btn': css`
-    display: block;
+  restore_Link: css`
+    display: inline-flex;
+    width: calc(100% - 20px);
     height: 18px;
-    font-size: 13px;
+    justify-content: flex-end;
+    font-weight: 400;
+    font-size: 14px;
     cursor: pointer;
-    float: right;
-    clear: both;
     text-decoration: none;
-    :hover {
-      text-decoration: underline;
-      text-decoration-color: #1976d2;
-    }
   `,
   body: css`
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
     height: auto;
     max-height: 400px;
     overflow-y: auto;
     overflow-x: hidden;
     list-style: none;
-    padding: 10px 20px;
+    padding: 10px 15px 20px 15px;
     margin: 0;
   `,
-  item: css`
-    height: 30px;
+  label: css`
+    margin-left: 3px;
   `,
   buttons: css`
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    height: 66px;
-    padding: 0 20px;
+    padding: 15px;
+    padding-top: 0;
   `,
-  'cancel-btn': css`
+  cancel_btn: css`
     margin: 0 8px;
   `,
 };

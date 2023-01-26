@@ -42,22 +42,22 @@ const sampleColumns: Column<SampleData>[] = [
   {
     id: 'address',
     Header: 'addressaddress',
-    accessor: (val: SampleData) => val.count,
+    accessor: (val: SampleData) => val.address,
   },
   {
     id: 'email',
     Header: 'email',
-    accessor: (val: SampleData) => val.count,
+    accessor: (val: SampleData) => val.email,
   },
   {
     id: 'phone',
     Header: 'phone',
-    accessor: (val: SampleData) => val.count,
+    accessor: (val: SampleData) => val.phone,
   },
   {
     id: 'description',
     Header: 'description',
-    accessor: (val: SampleData) => val.count,
+    accessor: (val: SampleData) => val.descrpition,
   },
 ];
 

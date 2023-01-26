@@ -3,9 +3,11 @@ import { CheckboxProps as MUICheckboxProps, Theme, ThemeProvider, Checkbox as MU
 import { cx } from '@emotion/css';
 import { PlayceThemeContext } from '../../providers';
 import styled from '@emotion/styled';
+import { SerializedStyles } from '@emotion/react';
 
 export interface ICheckboxProps extends MUICheckboxProps {
   label?: ReactNode;
+  labelCss?: SerializedStyles;
 }
 
 const CheckboxWrap = styled.div`
@@ -25,7 +27,7 @@ const Label = styled.div<{ disabled: boolean }>`
   white-space: nowrap;
 `;
 
-function Checkbox({ disabled = false, label, ...props }: ICheckboxProps): ReactElement {
+function Checkbox({ disabled = false, label, labelCss, ...props }: ICheckboxProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
 
   return (
@@ -39,7 +41,7 @@ function Checkbox({ disabled = false, label, ...props }: ICheckboxProps): ReactE
           disableRipple
         />
         {!!label && (
-          <Label disabled={disabled} className={'checkbox-label'}>
+          <Label disabled={disabled} className={'checkbox-label'} css={labelCss}>
             {label}
           </Label>
         )}

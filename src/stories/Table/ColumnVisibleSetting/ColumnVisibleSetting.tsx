@@ -162,23 +162,22 @@ export function ColumnVisibleSetting(
                 <div css={styles.dialog}>
                   <div css={styles.title}>
                     <h2>{t('Show / Hide Columns')}</h2>
-                    <IconButton css={styles['icon-close']} onClick={close}>
+                    <IconButton css={styles.close_icon} onClick={close}>
                       <IconTableClosePopup />
                     </IconButton>
                   </div>
                   <div css={styles.content}>
-                    <div css={styles.restore}>
-                      <Link css={styles['restore-btn']} onClick={restore}>
-                        {t('Restore Defaults')}
-                      </Link>
-                    </div>
+                    <Link css={styles.restore_Link} onClick={restore}>
+                      {t('Restore Defaults')}
+                    </Link>
                     <ul css={styles.body}>
                       {columns.map(({ id, dt }, idx) => (
-                        <li css={styles.item} key={idx}>
+                        <li key={idx}>
                           <Checkbox
                             onChange={handleChange}
                             value={id}
                             label={dt}
+                            labelCss={styles.label}
                             checked={visibles.includes(id)}
                             color="primary"
                           />
@@ -190,13 +189,13 @@ export function ColumnVisibleSetting(
                     <Button
                       onClick={handleSave}
                       color={'primary'}
-                      disabled={visibles.length === 0}
+                      disabled={!visibles.length}
                       autoFocus
                       variant="contained"
                     >
                       {t('Save')}
                     </Button>
-                    <Button onClick={close} css={styles['cancel-btn']} color="primary" variant="text">
+                    <Button onClick={close} css={styles.cancel_btn} color="primary" variant="text">
                       {t('Cancel')}
                     </Button>
                   </div>
