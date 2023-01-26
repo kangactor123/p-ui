@@ -1,36 +1,11 @@
 import React, { ReactElement, ReactNode } from 'react';
-import { css } from '@emotion/react';
 import SyntaxHighlighter, { SyntaxHighlighterProps } from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { wrapperStyle } from './CodeViewer.style';
 
 export interface ICodeViewerProps extends SyntaxHighlighterProps {
   children: ReactNode;
 }
-
-const wrapperStyle = css`
-  width: 100%;
-  position: relative;
-  border: solid 1px #d8d8d8;
-  max-height: 404px;
-  overflow-y: auto;
-
-  pre {
-    background-color: #fff !important;
-    padding: 0 0 0 0 !important;
-  }
-
-  span {
-    line-height: 20px;
-  }
-
-  .linenumber {
-    background-color: rgba(216, 216, 216, 0.34);
-    min-height: 16px;
-    min-width: 51px !important;
-    padding-right: 7px !important;
-    margin-right: 16px;
-  }
-`;
 
 function CodeViewer({
   children,
