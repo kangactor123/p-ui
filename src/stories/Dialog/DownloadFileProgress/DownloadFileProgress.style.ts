@@ -14,7 +14,7 @@ export const Dialog: any = MuiStyled(MuiDialog)({
 });
 
 export const iconCancel = css`
-  padding: 0;
+  padding: 0 !important;
   width: 20px;
   height: 20px;
 `;
