@@ -4,16 +4,13 @@ import Accordion from '../Accordion';
 import Tooltip from '../Tooltip';
 import { AccordionTitle } from '../Accordion/style';
 import { ExpandMsg, FileInfo, FileName } from './DiffViewer.style';
-import ReactDiffViewer from 'react-diff-viewer';
+import ReactDiffViewer, { ReactDiffViewerProps, ReactDiffViewerStylesOverride } from 'react-diff-viewer';
 
-export interface IDiffViewerProps {
+export interface IDiffViewerProps extends ReactDiffViewerProps {
   id: number | string;
   expanded: boolean;
-  oldValue: string;
-  newValue: string;
   filePath: string;
   onExpanded: (name: string | number, nextExpanded: boolean) => void;
-  splitView?: boolean;
 }
 
 function DiffViewer({
@@ -24,6 +21,7 @@ function DiffViewer({
   oldValue = '',
   newValue = '',
   filePath = '',
+  ...props
 }: IDiffViewerProps): ReactElement {
   const { t } = useTranslation();
 
@@ -49,6 +47,44 @@ function DiffViewer({
     [t],
   );
 
+  const customStyles = useMemo((): ReactDiffViewerStylesOverride => {
+    return {
+      variables: {
+        light: {
+          removedBackground: ' rgba(255, 148, 180, 0.2)',
+          removedGutterBackground: 'rgba(255, 148, 180, 0.2) !important',
+          removedGutterColor: '#323338',
+          addedBackground: 'rgba(0, 200, 117, 0.2)',
+          addedGutterBackground: 'rgba(0, 200, 117, 0.2) !important',
+          addedGutterColor: '#323338',
+        },
+      },
+      gutter: {
+        minWidth: '40px',
+        background: '#E6E9EF',
+        textAlign: 'center',
+        borderRight: '1px solid #C5C7D0',
+
+        ':hover': {
+          cursor: 'unset',
+          background: '#E6E9EF',
+        },
+      },
+      line: {
+        pre: {
+          lineHeight: '22px',
+          fontSize: '14px',
+          fontWeight: 400,
+          color: '#323338',
+          opacity: '1',
+        },
+      },
+      diffContainer: {
+        border: '1px solid #E6E9EF',
+      },
+    };
+  }, []);
+
   return (
     <Accordion
       key={id}
@@ -69,6 +105,8 @@ function DiffViewer({
         splitView={splitView}
         disableWordDiff={true}
         codeFoldMessageRenderer={expandCode}
+        styles={customStyles}
+        {...props}
       />
     </Accordion>
   );
