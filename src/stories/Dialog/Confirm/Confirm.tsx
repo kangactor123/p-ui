@@ -1,18 +1,18 @@
-import React, { ReactElement, ReactNode, useCallback } from 'react';
+import React, { ReactElement, ReactNode, useCallback, useMemo } from 'react';
 import { ButtonProps, Dialog, DialogActions, DialogContent, DialogTitle, ThemeProvider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { confirmTheme, rightButtons } from './Confirm.style';
 import Button from '../../Button';
 
 export interface IConfirmProps<T = unknown> {
-  title?: string | ReactNode;
+  title?: ReactNode;
   open: boolean;
   isCloseIcon?: boolean;
   children?: ReactNode;
   isCancelButton?: boolean;
-  cancelLabel?: ReactNode;
+  cancelLabel?: string;
   isOkButton?: boolean;
-  okLabel?: ReactNode;
+  okLabel?: string;
   okProps?: ButtonProps;
   dialogActionLeftButtons?: ReactNode;
   dialogActionRightButtons?: ReactNode;
@@ -61,6 +61,9 @@ function Confirm(props: IConfirmProps): ReactElement {
     [onCancel],
   );
 
+  const renderTitle = useMemo(() => (typeof title === 'string' ? t(title) : title), [t, title]);
+  const renderContent = useMemo(() => (typeof children === 'string' ? t(children) : children), [t, children]);
+
   return (
     <ThemeProvider theme={confirmTheme(size, backgroundColor)}>
       <Dialog
@@ -69,22 +72,22 @@ function Confirm(props: IConfirmProps): ReactElement {
         aria-describedby="alert-dialog-description"
         open={open}
       >
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{renderTitle}</DialogTitle>
         <DialogContent>
-          <div id="alert-dialog-description">{children}</div>
+          <div id="alert-dialog-description">{renderContent}</div>
         </DialogContent>
         <DialogActions>
           <div>{dialogActionLeftButtons}</div>
           <div css={rightButtons}>
             {isCancelButton && (
               <Button onClick={handleCancel} color="primary" variant="text" size="small">
-                {cancelLabel}
+                {t(cancelLabel as string)}
               </Button>
             )}
             {dialogActionRightButtons}
             {isOkButton && (
               <Button onClick={handleOk} color="primary" autoFocus variant="contained" size="small" {...okProps}>
-                {okLabel}
+                {t(okLabel as string)}
               </Button>
             )}
           </div>

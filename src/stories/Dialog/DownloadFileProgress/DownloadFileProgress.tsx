@@ -54,16 +54,16 @@ function DownloadFileProgress({
   const newFileName = splitFileName.slice(0, -1).join();
 
   const cancelConfirmDialog = useConfirm({
-    title: t('Cancel Download'),
-    children: t('Are you sure you want to cancel the download?'),
-    okLabel: t('Yes'),
-    cancelLabel: t('No'),
+    title: 'Cancel Download',
+    okLabel: 'Yes',
+    cancelLabel: 'No',
+    children: 'Are you sure you want to cancel the download?',
     onOk: onCancel,
   });
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
-      e.stopPropagation();
+      e.preventDefault();
       cancelConfirmDialog.open();
     },
     [cancelConfirmDialog],
