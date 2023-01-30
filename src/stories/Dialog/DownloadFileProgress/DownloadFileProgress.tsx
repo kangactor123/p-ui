@@ -56,8 +56,8 @@ function DownloadFileProgress({
   const cancelConfirmDialog = useConfirm({
     title: t('Cancel Download'),
     children: t('Are you sure you want to cancel the download?'),
-    okLabel: t('Cancel'),
-    cancelLabel: t('Continue'),
+    okLabel: t('Yes'),
+    cancelLabel: t('No'),
     onOk: onCancel,
   });
 
