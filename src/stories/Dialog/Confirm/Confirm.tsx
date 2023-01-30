@@ -29,9 +29,9 @@ function Confirm(props: IConfirmProps): ReactElement {
     children,
     open,
     isCancelButton = true,
-    cancelLabel = t('Cancel'),
+    cancelLabel = 'Cancel',
     isOkButton = true,
-    okLabel = t('OK'),
+    okLabel = 'OK',
     dialogActionLeftButtons,
     dialogActionRightButtons,
     onOk,
@@ -81,13 +81,13 @@ function Confirm(props: IConfirmProps): ReactElement {
           <div css={rightButtons}>
             {isCancelButton && (
               <Button onClick={handleCancel} color="primary" variant="text" size="small">
-                {t(cancelLabel as string)}
+                {t(cancelLabel)}
               </Button>
             )}
             {dialogActionRightButtons}
             {isOkButton && (
               <Button onClick={handleOk} color="primary" autoFocus variant="contained" size="small" {...okProps}>
-                {t(okLabel as string)}
+                {t(okLabel)}
               </Button>
             )}
           </div>
