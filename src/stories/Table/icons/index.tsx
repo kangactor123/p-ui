@@ -14,4 +14,6 @@ export { ReactComponent as RefreshIcon } from './icon-table-refresh.svg';
 export { ReactComponent as SettingIcon } from './icon-table-setting.svg';
 export { ReactComponent as TableSearchIcon } from './icon-table-search.svg';
 export { ReactComponent as KeyboardUpIcon } from './icon-keyboard-up.svg';
+export { ReactComponent as KeyboardDownIcon } from './icon-keyboard-down.svg';
+
 export { ReactComponent as IndeterminateIcon } from './icon-checkbox-indeterminate.svg';

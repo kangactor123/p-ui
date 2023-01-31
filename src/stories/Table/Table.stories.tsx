@@ -74,7 +74,7 @@ const Template: Story<ITable<SampleData>> = (args) => {
       descrpition: 'Sample data',
     },
     {
-      id: 1,
+      id: 2,
       name: 'Sample1',
       count: 5,
       age: 12,
@@ -84,7 +84,7 @@ const Template: Story<ITable<SampleData>> = (args) => {
       descrpition: 'Sample data',
     },
     {
-      id: 1,
+      id: 3,
       name: 'Sample1',
       count: 5,
       age: 12,
@@ -94,7 +94,7 @@ const Template: Story<ITable<SampleData>> = (args) => {
       descrpition: 'Sample data',
     },
     {
-      id: 1,
+      id: 4,
       name: 'Sample1',
       count: 5,
       age: 12,
@@ -104,17 +104,7 @@ const Template: Story<ITable<SampleData>> = (args) => {
       descrpition: 'Sample data',
     },
     {
-      id: 1,
-      name: 'Sample1',
-      count: 5,
-      age: 12,
-      address: '통일로 1030101010101010',
-      email: 'kangakngakng',
-      phone: '102020201010',
-      descrpition: 'Sample data',
-    },
-    {
-      id: 1,
+      id: 5,
       name: 'Sample1',
       count: 5,
       age: 12,

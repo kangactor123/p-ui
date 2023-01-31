@@ -54,7 +54,7 @@ import { cx } from '@emotion/css';
 import { css } from '@emotion/react';
 import { debounce } from 'lodash';
 import { regExp } from '../../common/helper';
-import { IndeterminateIcon, KeyboardUpIcon } from './icons';
+import { IndeterminateIcon, KeyboardDownIcon, KeyboardUpIcon } from './icons';
 
 export const exceptFilterColumnIds = [
   '_selector',
@@ -705,6 +705,11 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                       backgroundColor: '#f6f7f9',
                     };
                   }
+                  const sortIconCss = css`
+                    transform: ${column.isSortedDesc ? 'rotate(180deg)' : 'rotate(0deg)'};
+                    visibility: ${!column.isSorted ? 'hidden' : 'visible'};
+                  `;
+                  console.log(sortIconCss);
 
                   return (
                     <div
@@ -717,24 +722,25 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                       {column.canSort ? (
                         <div style={tableSortDivStyle} css={classes.tableSortLabelWrap} className={'sort-labe-wrap'}>
                           <TableSortLabel
+                            {...column.getSortByToggleProps()}
                             active={column.isSorted}
                             direction={column.isSortedDesc ? 'desc' : 'asc'}
-                            {...column.getSortByToggleProps()}
+                            IconComponent={() => <KeyboardUpIcon css={sortIconCss} />}
                             css={classes.tableSortLabel}
-                            className={cx('table-sort-label')}
                             style={style}
                           >
                             {column.render('Header')}
                           </TableSortLabel>
+                          {useColumnFilter &&
+                            !exceptFilterColumnIds.includes(column.id) &&
+                            !/_isAction$/i.test(column.id) &&
+                            column.canFilter &&
+                            column.render('Filter')}
                         </div>
                       ) : (
                         <div style={style}>{column.render('Header')}</div>
                       )}
-                      {useColumnFilter &&
-                        !exceptFilterColumnIds.includes(column.id) &&
-                        !/_isAction$/i.test(column.id) &&
-                        column.canFilter &&
-                        column.render('Filter')}
+
                       {column.canResize && <ResizeHandle column={column} />}
                     </div>
                   );
@@ -809,7 +815,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                                   }}
                                   active
                                   direction={row.isExpanded ? 'desc' : 'asc'}
-                                  IconComponent={KeyboardUpIcon}
                                   {...row.getToggleRowExpandedProps()}
                                 />
                                 {cell.render('Cell')} ({row.subRows.length})
