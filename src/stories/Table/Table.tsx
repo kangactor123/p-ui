@@ -640,8 +640,6 @@ export function Table<TModel extends object>(
     [onChangePage],
   );
 
-  const [isHover, setIsHover] = useState(false);
-
   return (
     <div css={tableWrapStyles} className={cx(useWrap ? 'wrap' : 'noWrapBox')}>
       {useToolbar ? (
