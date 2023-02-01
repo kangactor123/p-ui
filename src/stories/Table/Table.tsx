@@ -60,7 +60,8 @@ import { cx } from '@emotion/css';
 import { css } from '@emotion/react';
 import { debounce } from 'lodash';
 import { regExp } from '../../common/helper';
-import { IndeterminateIcon, KeyboardUpIcon } from './icons';
+import { IndeterminateIcon } from './icons';
+import { HeaderSortLabel } from './HeaderSortLabel';
 
 export const exceptFilterColumnIds = [
   '_selector',
@@ -639,6 +640,8 @@ export function Table<TModel extends object>(
     [onChangePage],
   );
 
+  const [isHover, setIsHover] = useState(false);
+
   return (
     <div css={tableWrapStyles} className={cx(useWrap ? 'wrap' : 'noWrapBox')}>
       {useToolbar ? (
@@ -681,7 +684,6 @@ export function Table<TModel extends object>(
                   );
                   const sortIconCss = css`
                     transform: ${column.isSortedDesc ? 'rotate(180deg)' : 'rotate(0deg)'};
-                    visibility: ${column.isSorted ? 'visible' : 'hidden'};
                   `;
 
                   const headerCellCss = css`
@@ -703,15 +705,15 @@ export function Table<TModel extends object>(
                     <div key={columnIdx} css={headerCellCss} {...parseProps}>
                       {column.canSort ? (
                         <div css={tableSortLabelCss}>
-                          <TableSortLabel
-                            IconComponent={() => <KeyboardUpIcon css={sortIconCss} />}
+                          <HeaderSortLabel
                             active={column.isSorted}
                             direction={column.isSortedDesc ? 'desc' : 'asc'}
                             className="tableSortLabel"
-                            {...column.getSortByToggleProps()}
+                            iconCss={sortIconCss}
+                            tableSortByToggleProps={column.getSortByToggleProps()}
                           >
                             {column.render('Header')}
-                          </TableSortLabel>
+                          </HeaderSortLabel>
                           {useColumnFilter &&
                             !exceptFilterColumnIds.includes(column.id) &&
                             !/_isAction$/i.test(column.id) &&
