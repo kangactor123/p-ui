@@ -11,7 +11,6 @@ import React, {
   useRef,
   FunctionComponent,
   ChangeEvent,
-  useMemo,
 } from 'react';
 import {
   ActionType,
@@ -42,7 +41,14 @@ import {
 
 import { useLocalStorage } from './utils';
 import { ResizeHandle } from './ResizeHandle';
-import { HeaderCheckbox, RowCheckbox, RowRadio, tableStyles, subTableStyles, tableWrapStyles } from './Table.Style';
+import {
+  HeaderCheckbox,
+  RowCheckbox,
+  RowRadio,
+  tableStyles,
+  subTableStyles,
+  tableWrapStyles,
+} from './Table.Style';
 import { TableToolbar } from './TableToolbar';
 import { TooltipCell } from './TooltipCell';
 import { keyBy, mapValues } from 'lodash';
@@ -104,9 +110,6 @@ export interface ITable<TModel extends object> extends TableOptions<TModel> {
   tableBodyDivProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   isRowStatus?: boolean;
   paginationComponent?: ReactNode;
-  groupColumnStartIndex?: string[];
-  centerGroupColumn?: string[];
-  cellBackgroundColorColumn?: string[];
   isSubRowStyle?: boolean;
   isSelectionClearByFilterChange?: boolean;
   isSearchStyle?: boolean;
@@ -131,11 +134,8 @@ const defaultColumn = {
   Filter: ColumnFilter,
   filter: multiSelectFilter,
   Cell: TooltipCell,
-  // Header: DefaultHeader,
-  // When using the useFlexLayout:
-  minWidth: 30, // minWidth is only used as a limit for resizing
-  width: 100, // width is used for both the flex-basis and flex-grow
-  // maxWidth: 200, // maxWidth is only used as a limit for resizing
+  minWidth: 30,
+  width: 100,
 };
 
 const getStyles = (props: any, align = 'left', useBorder = false) => [
@@ -180,7 +180,12 @@ function TableCheckboxSelectHeader({
   );
 
   return (
-    <HeaderCheckbox color="primary" onChange={handleChange} indeterminateIcon={<IndeterminateIcon />} {...props} />
+    <HeaderCheckbox
+      color="primary"
+      onChange={handleChange}
+      indeterminateIcon={<IndeterminateIcon />}
+      {...props}
+    />
   );
 }
 
@@ -213,7 +218,6 @@ function TableRadioSelectCell(instance: any) {
 
 const selectionHooks = (type: 'checkbox' | 'radio', hooks: Hooks<any>) => {
   hooks.allColumns.push((columns) => [
-    // Let's make a column for selection
     {
       id: type === 'checkbox' ? '_selector' : 'selector_',
       disableResizing: true,
@@ -221,8 +225,6 @@ const selectionHooks = (type: 'checkbox' | 'radio', hooks: Hooks<any>) => {
       minWidth: 35,
       width: 35,
       maxWidth: 35,
-      // The header can use the table's getToggleAllRowsSelectedProps method
-      // to render a checkbox
       Header:
         type === 'checkbox' ? (
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -230,8 +232,6 @@ const selectionHooks = (type: 'checkbox' | 'radio', hooks: Hooks<any>) => {
         ) : (
           <></>
         ),
-      // The cell can use the individual row's getToggleRowSelectedProps method
-      // to the render a checkbox
       Cell: type === 'checkbox' ? TableCheckboxSelectCell : TableRadioSelectCell,
     },
     ...columns,
@@ -244,11 +244,16 @@ const selectionHooks = (type: 'checkbox' | 'radio', hooks: Hooks<any>) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const headerProps = <TModel extends object>(props: any, { column }: Meta<TModel, { column: HeaderGroup<TModel> }>) =>
-  getStyles(props, column && column.align);
+const headerProps = <TModel extends object>(
+  props: any,
+  { column }: Meta<TModel, { column: HeaderGroup<TModel> }>,
+) => getStyles(props, column && column.align);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const cellProps = <TModel extends object>(props: any, { cell }: Meta<TModel, { cell: Cell<TModel> }>) => {
+const cellProps = <TModel extends object>(
+  props: any,
+  { cell }: Meta<TModel, { cell: Cell<TModel> }>,
+) => {
   const column = cell.column as HeaderGroup<TModel> & { useColumnBorder?: boolean };
   return getStyles(props, column && column.align, column && column.useColumnBorder);
 };
@@ -288,10 +293,9 @@ function globalFilterFunc<TModel extends object>(
   });
 }
 
-/**
- * Table
- */
-export function Table<TModel extends object>(props: PropsWithChildren<ITable<TModel>>): ReactElement {
+export function Table<TModel extends object>(
+  props: PropsWithChildren<ITable<TModel>>,
+): ReactElement {
   const {
     name,
     idColumn = 'id',
@@ -307,9 +311,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
     onChangePageInfo,
     onChangeExpanded,
     selectDisabled = () => false,
-    groupColumnStartIndex = [],
-    centerGroupColumn = [],
-    cellBackgroundColorColumn = [],
     totalCount = undefined,
     excludeDisabledColumns = [],
   } = props;
@@ -496,7 +497,9 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
   const getRowId = idColumn ? (row: any = {}) => row[idColumn] : undefined;
 
   const filteredSelectedRows: any[] = selectedRows?.filter((id) =>
-    props.data.some((item: any) => (getRowId instanceof Function ? id === getRowId(item) : id === item.id)),
+    props.data.some((item: any) =>
+      getRowId instanceof Function ? id === getRowId(item) : id === item.id,
+    ),
   );
 
   const selectedRowIds = selectedRows
@@ -575,7 +578,11 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
         <div style={{ color: '#8995ae' }}>{t('No results found. Please alter your search')}</div>
       );
     } else {
-      component = props.noDataComponent ? props.noDataComponent : <>{t('You do not have any data.')}</>;
+      component = props.noDataComponent ? (
+        props.noDataComponent
+      ) : (
+        <>{t('You do not have any data.')}</>
+      );
     }
     return component;
   };
@@ -615,7 +622,8 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
           if (cell?.row?.isSelected) {
             getPages()[i].cells[0].row.toggleRowSelected(false);
           } else {
-            if (!getPages()[i].cells[0].row.isSelected) getPages()[i].cells[0].row.toggleRowSelected(true);
+            if (!getPages()[i].cells[0].row.isSelected)
+              getPages()[i].cells[0].row.toggleRowSelected(true);
           }
         }
       }
@@ -658,83 +666,61 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
               <div
                 {...headerGroup.getHeaderGroupProps()}
                 css={classes.tableHeadRow}
-                className={cx('table-head-row', headerGroups.length > 1 ? 'db-table-head-row' : '')}
                 key={headerGroupIdx}
               >
                 {headerGroup.headers.map((column, columnIdx) => {
-                  const newColumn = column as HeaderGroup<TModel> & { useColumnBorder?: boolean };
-                  const style: any = {
-                    textAlign: column.align ? column.align : 'left ',
-                  };
-                  const tableSortDivStyle = {
-                    borderRight: newColumn.useColumnBorder ? '1px solid #dbdbdb' : 'none',
-                  };
-                  if (centerGroupColumn.length > -1) {
-                    const columnId = column.id.substring(0, column.id.lastIndexOf('_'));
-                    if (centerGroupColumn.indexOf(columnId) > -1) {
-                      style.width = '100%';
-                      style.textAlign = 'center';
-                    }
-                  }
-                  const tempHeaderGroup: any = { ...column.getHeaderProps(headerProps) };
+                  const headerGroup: any = { ...column.getHeaderProps(headerProps) };
                   const parseProps = Object.keys(column.getHeaderProps(headerProps)).reduce(
                     (acc: any, propKey: string) => {
                       if (propKey !== 'style') {
-                        acc[propKey] = tempHeaderGroup[propKey];
+                        acc[propKey] = headerGroup[propKey];
                       }
                       return acc;
                     },
                     {},
                   );
-                  let headerStyle = { ...tempHeaderGroup.style, lineHeight: '22px' };
-                  let isFixColumnBorder = false;
-                  if (groupColumnStartIndex.length > -1 && groupColumnStartIndex.indexOf(column.id) > -1) {
-                    if (columnIdx > 0) {
-                      isFixColumnBorder = true;
-                    }
-                    headerStyle = {
-                      ...headerStyle,
-                      height: '60px',
-                      marginTop: '-30px',
-                    };
-                  }
+                  const sortIconCss = css`
+                    transform: ${column.isSortedDesc ? 'rotate(180deg)' : 'rotate(0deg)'};
+                    visibility: ${column.isSorted ? 'visible' : 'hidden'};
+                  `;
 
-                  if (cellBackgroundColorColumn.length > -1 && cellBackgroundColorColumn.indexOf(column.id) > -1) {
-                    headerStyle = {
-                      ...headerStyle,
-                      backgroundColor: '#f6f7f9',
-                    };
-                  }
+                  const headerCellCss = css`
+                    line-height: 22px;
+                    ${classes.tableHeadCell}
+                    ${headerGroup.style}
+                  `;
+
+                  const tableSortLabelCss = css`
+                    ${classes.tableSortLabelWrap}
+
+                    & .tableSortLabel {
+                      ${classes.tableSortLabel}
+                      text-align: ${column.align || 'left'};
+                    }
+                  `;
 
                   return (
-                    <div
-                      css={classes.tableHeadCell}
-                      {...parseProps}
-                      style={headerStyle}
-                      className={cx(isFixColumnBorder ? 'fix-column-border' : '', 'table__head--cell')}
-                      key={columnIdx}
-                    >
+                    <div key={columnIdx} css={headerCellCss} {...parseProps}>
                       {column.canSort ? (
-                        <div style={tableSortDivStyle} css={classes.tableSortLabelWrap} className={'sort-labe-wrap'}>
+                        <div css={tableSortLabelCss}>
                           <TableSortLabel
+                            IconComponent={() => <KeyboardUpIcon css={sortIconCss} />}
                             active={column.isSorted}
                             direction={column.isSortedDesc ? 'desc' : 'asc'}
+                            className="tableSortLabel"
                             {...column.getSortByToggleProps()}
-                            css={classes.tableSortLabel}
-                            className={cx('table-sort-label')}
-                            style={style}
                           >
                             {column.render('Header')}
                           </TableSortLabel>
+                          {useColumnFilter &&
+                            !exceptFilterColumnIds.includes(column.id) &&
+                            !/_isAction$/i.test(column.id) &&
+                            column.canFilter &&
+                            column.render('Filter')}
                         </div>
                       ) : (
-                        <div style={style}>{column.render('Header')}</div>
+                        <div>{column.render('Header')}</div>
                       )}
-                      {useColumnFilter &&
-                        !exceptFilterColumnIds.includes(column.id) &&
-                        !/_isAction$/i.test(column.id) &&
-                        column.canFilter &&
-                        column.render('Filter')}
                       {column.canResize && <ResizeHandle column={column} />}
                     </div>
                   );
@@ -765,35 +751,34 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                   <Fragment key={pageIdx}>
                     <div {...row.getRowProps()} css={classes.tableRow} className={makeStyles}>
                       {row.cells.map((cell, cellIdx) => {
-                        const cellPropObj: any = cell.getCellProps(cellProps);
+                        const cellPropObj: any = { ...cell.getCellProps(cellProps), style: {} };
                         const disabledCell =
-                          disabledRow && !excludeDisabledColumns.includes((cell.render('id') as string) || '');
-                        const cellStyle: any = cellPropObj.style;
-                        cellStyle.alignItems = 'baseline';
-                        cellStyle.paddingTop = cellPadding ? `${cellPadding.top}px` : '5px';
-                        cellStyle.paddingBottom = cellPadding ? `${cellPadding.bottom}px` : '5px';
+                          disabledRow &&
+                          !excludeDisabledColumns.includes((cell.render('id') as string) || '');
 
+                        const cellStyleCss = css`
+                          ${cell.getCellProps(cellProps).style as any};
+                          ${classes.tableCell}
+                          align-items: baseline;
+                          padding-top: ${cellPadding ? `${cellPadding.top}px` : '5px'};
+                          padding-bottom: ${cellPadding ? `${cellPadding.bottom}px` : '5px'};
+                          ${rowHeight === 'unset'
+                            ? 'unset'
+                            : { minHeight: `${rowHeight}px`, maxHeight: `${rowHeight}px` }}
+                        `;
+
+                        const handleCellClick = (event: React.MouseEvent<HTMLDivElement>) => {
+                          if (disabledRow) return;
+                          cellClickHandler(cell, event);
+                        };
                         return (
                           <div
                             {...cellPropObj}
-                            onClick={(e) => {
-                              if (disabledRow) {
-                                return;
-                              }
-                              cellClickHandler(cell, e);
-                            }}
-                            css={css`
-                              ${classes.tableCell}
-                              ${rowHeight === 'unset'
-                                ? 'unset'
-                                : { minHeight: `${rowHeight}px`, maxHeight: `${rowHeight}px` }}
-                            `}
-                            className={cx(
-                              {
-                                disabledCell,
-                              },
-                              'table-cell',
-                            )}
+                            css={cellStyleCss}
+                            onClick={handleCellClick}
+                            className={cx({
+                              disabledCell,
+                            })}
                             key={cellIdx}
                           >
                             {cell.isGrouped ? (
@@ -809,7 +794,6 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                                   }}
                                   active
                                   direction={row.isExpanded ? 'desc' : 'asc'}
-                                  IconComponent={KeyboardUpIcon}
                                   {...row.getToggleRowExpandedProps()}
                                 />
                                 {cell.render('Cell')} ({row.subRows.length})
@@ -823,14 +807,15 @@ export function Table<TModel extends object>(props: PropsWithChildren<ITable<TMo
                         );
                       })}
                     </div>
-                    {(row.isExpanded || allExpanded) && renderRowSubComponent instanceof Function && (
-                      <div className={'sub-component'}>{renderRowSubComponent(row)}</div>
-                    )}
+                    {(row.isExpanded || allExpanded) &&
+                      renderRowSubComponent instanceof Function && (
+                        <div>{renderRowSubComponent(row)}</div>
+                      )}
                   </Fragment>
                 );
               })
             ) : (
-              <div className={cx('no-data', 'global-no-data')}>{renderNoDataComponent()}</div>
+              <div className={cx('no-data')}>{renderNoDataComponent()}</div>
             )}
           </div>
         </div>

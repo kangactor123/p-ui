@@ -142,23 +142,14 @@ export const tableStyles = {
     height: '100%',
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   }),
 
   tableSortLabel: css({
     whiteSpace: 'nowrap',
-    display: 'block !important',
-    width: '100%',
+    height: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    '& svg': {
-      position: 'absolute',
-      width: 18,
-      height: 18,
-      bottom: 0,
-      marginLeft: 2,
-    },
+    gap: '6px',
   }),
   headerIcon: css({
     '& svg': {
@@ -268,9 +259,9 @@ export const subTableStyles = {
       paddingLeft: '16px',
     },
 
-    '& .MuiIconButton-root': {
-      padding: '5px',
-    },
+    // '& .MuiIconButton-root': {
+    //   padding: '0px',
+    // },
   }),
   resizeHandle: css({
     position: 'absolute',
