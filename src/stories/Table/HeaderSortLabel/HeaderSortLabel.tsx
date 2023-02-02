@@ -27,7 +27,9 @@ export function HeaderSortLabel(props: THeaderSortLabelProps): ReactElement {
 
   const icon = css`
     ${iconCss};
-    opacity: ${isHover && !active ? '0.4' : active ? '1' : '0'};
+    min-width: 20px;
+    min-height: 20px;
+    opacity: ${isHover && !active ? '0.5' : active ? '1' : '0'};
   `;
 
   return (

@@ -89,6 +89,6 @@ export const styles = {
     padding-top: 0;
   `,
   cancel_btn: css`
-    margin: 0 8px;
+    margin: 0 8px !important;
   `,
 };
