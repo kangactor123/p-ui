@@ -1,4 +1,11 @@
-import React, { ReactElement, startTransition, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  ReactElement,
+  startTransition,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { FieldValues, useController } from 'react-hook-form';
 import { TControl } from '../../../../common/type';
 import {
@@ -13,6 +20,7 @@ export type TCodeEditorProps<T extends FieldValues> = TControl<T> & {
   defaultValue?: string;
   lineHeight?: number;
   maxHeight?: number;
+  placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
@@ -24,6 +32,7 @@ function CodeEditor<T extends FieldValues>({
   onChange,
   lineHeight = 20,
   maxHeight = 230,
+  placeholder,
 }: TCodeEditorProps<T>): ReactElement {
   const [line, setLine] = useState(1);
   const [numbers, setNumbers] = useState<number[]>([]);
@@ -96,7 +105,14 @@ function CodeEditor<T extends FieldValues>({
         ))}
       </div>
       <label css={cssCodeEditorTextareaWrap}>
-        <textarea ref={textarea} maxLength={32672} css={cssCodeEditorTextarea} value={value} onChange={handleChange} />
+        <textarea
+          ref={textarea}
+          maxLength={32672}
+          css={cssCodeEditorTextarea}
+          value={value}
+          onChange={handleChange}
+          placeholder={placeholder}
+        />
       </label>
     </Wrapper>
   );
