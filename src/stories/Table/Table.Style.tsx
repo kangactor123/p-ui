@@ -142,6 +142,7 @@ export const tableStyles = {
     height: '100%',
     width: '100%',
     display: 'flex',
+    alignItems: 'center',
   }),
 
   tableSortLabel: css({

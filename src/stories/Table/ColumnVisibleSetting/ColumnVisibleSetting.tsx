@@ -38,7 +38,7 @@ export interface IColumnVisibleSettingProps {
   defaultColumns: string[];
   visibleColumns: string[];
   isTableStyle?: boolean;
-  onSave: (visibles: string[]) => void;
+  onSave: (visible: string[]) => void;
   children?: ReactNode;
   className?: string;
   triggerClassName?: string;
@@ -63,7 +63,7 @@ export function ColumnVisibleSetting(
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-  const [visibles, setVisibles] = useState([...visibleColumns]);
+  const [visible, setVisible] = useState([...visibleColumns]);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -71,17 +71,20 @@ export function ColumnVisibleSetting(
 
   const handleSave = useCallback(() => {
     if (name) {
-      ls.set(`topology-node-detail-${name}-columns`, visibles);
+      ls.set(`topology-node-detail-${name}-columns`, visible);
     }
     if (onSave instanceof Function) {
-      onSave(visibles);
+      onSave(visible);
     }
     close();
-  }, [close, name, onSave, visibles]);
+  }, [close, name, onSave, visible]);
 
-  const handleChange = useCallback(({ target: { checked, value } }: ChangeEvent<HTMLInputElement>) => {
-    setVisibles((prev) => (checked ? prev.concat(value) : prev.filter((id) => id !== value)));
-  }, []);
+  const handleChange = useCallback(
+    ({ target: { checked, value } }: ChangeEvent<HTMLInputElement>) => {
+      setVisible((prev) => (checked ? prev.concat(value) : prev.filter((id) => id !== value)));
+    },
+    [],
+  );
 
   const handleToggle = useCallback((e: MouseEvent) => {
     e.preventDefault();
@@ -105,11 +108,11 @@ export function ColumnVisibleSetting(
   );
 
   const restore = useCallback(() => {
-    setVisibles(defaultColumns);
+    setVisible(defaultColumns);
   }, [defaultColumns]);
 
   useEffect(() => {
-    setVisibles(visibleColumns);
+    setVisible(visibleColumns);
   }, [open, visibleColumns]);
 
   useImperativeHandle(ref, () => ({
@@ -178,7 +181,7 @@ export function ColumnVisibleSetting(
                             value={id}
                             label={dt}
                             labelCss={styles.label}
-                            checked={visibles.includes(id)}
+                            checked={visible.includes(id)}
                             color="primary"
                           />
                         </li>
@@ -189,13 +192,20 @@ export function ColumnVisibleSetting(
                     <Button
                       onClick={handleSave}
                       color={'primary'}
-                      disabled={!visibles.length}
+                      disabled={!visible.length}
                       autoFocus
                       variant="contained"
+                      size="small"
                     >
                       {t('Save')}
                     </Button>
-                    <Button onClick={close} css={styles.cancel_btn} color="primary" variant="text">
+                    <Button
+                      onClick={close}
+                      css={styles.cancel_btn}
+                      color="primary"
+                      variant="text"
+                      size="small"
+                    >
                       {t('Cancel')}
                     </Button>
                   </div>

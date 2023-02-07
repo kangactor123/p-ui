@@ -86,8 +86,6 @@ export function getGlobalFilteredRows<T extends object>(
 function ColumnFilter<T extends object>(props: any): ReactNode {
   const { t } = useTranslation();
 
-  type Key = keyof T;
-
   const {
     allColumns = [],
     column: { id, setFilter, filterValue = [], translation = false, filterSorting = true },
@@ -117,11 +115,14 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
     (filters: any[]) => {
       const values = filters.map((value: any): TCheckboxOption => {
         return {
-          label: typeof value !== 'number' && !value ? t('(empty)') : translation ? t(value) : value,
+          label:
+            typeof value !== 'number' && !value ? t('(empty)') : translation ? t(value) : value,
           // value에 번역이 안되서 추가.
           value: translation ? t(value) : value,
           checked:
-            !initialFilter || initialFilter.length === 0 || initialFilter.some((option: any) => option === value),
+            !initialFilter ||
+            initialFilter.length === 0 ||
+            initialFilter.some((option: any) => option === value),
         };
       });
       return filterSorting
@@ -146,7 +147,9 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
 
   const [options, setOptions] = useState<TCheckboxOption[]>(initialOptions);
 
-  const [filteredOptions, setFilteredOptions] = useState<TCheckboxOption[]>([...initialFilteredOptions]);
+  const [filteredOptions, setFilteredOptions] = useState<TCheckboxOption[]>([
+    ...initialFilteredOptions,
+  ]);
 
   const getPreFilteredRows = useCallback(() => {
     let complete = false;
@@ -162,7 +165,9 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
         const column = allColumns.find((column: Column) => column.id === initialFilter.id);
         if (column) {
           const { id: currentId, canFilter, filter, filterValue } = column;
-          return !canFilter || currentId === id ? newRows : filter(newRows, [currentId], filterValue);
+          return !canFilter || currentId === id
+            ? newRows
+            : filter(newRows, [currentId], filterValue);
         } else {
           return newRows;
         }
@@ -286,13 +291,17 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
     if (isOpen) {
       setSearch('');
 
-      const currentFilter = initialFilters.find((initialFilter: TFilter) => initialFilter.id === id);
+      const currentFilter = initialFilters.find(
+        (initialFilter: TFilter) => initialFilter.id === id,
+      );
       const preFilteredRows = getPreFilteredRows();
 
       if (currentFilter) {
         setFilteredOptions(
           options
-            .filter((option) => preFilteredRows.some((row: Row<T>) => row.values[id] === option.value))
+            .filter((option) =>
+              preFilteredRows.some((row: Row<T>) => row.values[id] === option.value),
+            )
             .map((option) => {
               option.checked = currentFilter.value.includes(option.value);
               return option;
@@ -300,7 +309,9 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
         );
       } else {
         const temp = options
-          .filter((option) => globalFilteredRows.some((row: Row<T>) => row.values[id] === option.value))
+          .filter((option) =>
+            globalFilteredRows.some((row: Row<T>) => row.values[id] === option.value),
+          )
           .map((option) => {
             option.checked = true;
             return option;
@@ -316,7 +327,12 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
       return (
         <CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
           <li key={index} className={'filter-item'} style={style}>
-            <Checkbox checked={checked} label={label} value={value} onChange={handleChangeCheckbox(index)} />
+            <Checkbox
+              checked={checked}
+              label={label}
+              value={value}
+              onChange={handleChangeCheckbox(index)}
+            />
           </li>
         </CellMeasurer>
       );
@@ -362,7 +378,11 @@ function ColumnFilter<T extends object>(props: any): ReactNode {
               placeholder={t('Search')}
             />
             {search && (
-              <IconButton css={classes} className={cx('filter-search-clear')} onClick={handleDeleteSearch}>
+              <IconButton
+                css={classes}
+                className={cx('filter-search-clear')}
+                onClick={handleDeleteSearch}
+              >
                 <IconTableUploadClose />
               </IconButton>
             )}
