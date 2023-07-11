@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { ElementType, ReactElement, ReactNode, useCallback, useContext } from 'react';
-import { SelectProps as MUISelectProps, SelectChangeEvent, Theme, ThemeProvider } from '@mui/material';
+import {
+  SelectProps as MUISelectProps,
+  SelectChangeEvent,
+  Theme,
+  ThemeProvider,
+} from '@mui/material';
 import { cx } from '@emotion/css';
 import { useTranslation } from 'react-i18next';
 import { FieldValues, useController } from 'react-hook-form';
 import { TControl, TSize } from '../../../../common/type';
-import { labelStyle, SelectComponent, splitStyle, MenuItem } from './Select.style';
+import { labelStyle, SelectComponent, splitStyle, MenuItem, optionWrapper } from './Select.style';
 import { isArray } from 'lodash';
 import Spinner, { SpinnerSize, SpinnerType } from '../../../Spinner';
 import { DropdownDownIcon, DropdownDownGrayIcon } from '../../../icons';
@@ -20,6 +25,7 @@ export interface ISelectOption {
   selected?: boolean;
   disabled?: boolean;
   split?: boolean;
+  description?: string;
 }
 
 export type ISelectProps<T extends FieldValues> = {
@@ -88,6 +94,12 @@ function Select<T extends FieldValues>({
     ...sx,
   };
 
+  const renderLabel = (label: React.ReactNode) => (
+    <span title={typeof label === 'string' ? label : ''} css={labelStyle}>
+      {label}
+    </span>
+  );
+
   return (
     <ThemeProvider theme={theme as Theme}>
       <SelectComponent
@@ -114,7 +126,9 @@ function Select<T extends FieldValues>({
         onChange={handleChange}
         onBlur={onBlur}
         value={value || []}
-        renderValue={() => (value ? options.find((option) => option.value === value)?.label : placeholder)}
+        renderValue={() =>
+          value ? options.find((option) => option.value === value)?.label : placeholder
+        }
         size={size}
         selected={!!value}
         {...(defaultValue && { defaultValue: { defaultValue } })}
@@ -126,7 +140,7 @@ function Select<T extends FieldValues>({
             <Spinner loading={loading} type={SpinnerType.spin} size={SpinnerSize.small} />
           </MenuItem>
         ) : options && options.length > 0 ? (
-          options.map(({ label, split, value: optionsValue, hidden, disabled }) =>
+          options.map(({ label, split, value: optionsValue, hidden, disabled, description }) =>
             split ? (
               <div key={optionsValue} css={splitStyle}>
                 {optionsValue}
@@ -136,15 +150,19 @@ function Select<T extends FieldValues>({
                 <MenuItem key={optionsValue} value={optionsValue} disabled={disabled}>
                   {multiple ? (
                     <>
-                      <Checkbox value={value} checked={isArray(value) && value.includes(optionsValue)} />
-                      <span title={typeof label === 'string' ? label : ''} css={labelStyle}>
-                        {label}
-                      </span>
+                      <Checkbox
+                        value={value}
+                        checked={isArray(value) && value.includes(optionsValue)}
+                      />
+                      {renderLabel(label)}
                     </>
+                  ) : description ? (
+                    <div css={optionWrapper}>
+                      {renderLabel(label)}
+                      <div className="desc">{description}</div>
+                    </div>
                   ) : (
-                    <span title={typeof label === 'string' ? label : ''} css={labelStyle}>
-                      {label}
-                    </span>
+                    renderLabel(label)
                   )}
                 </MenuItem>
               )
