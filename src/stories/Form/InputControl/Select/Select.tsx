@@ -6,11 +6,11 @@ import {
   Theme,
   ThemeProvider,
 } from '@mui/material';
-import { css, cx } from '@emotion/css';
+import { cx } from '@emotion/css';
 import { useTranslation } from 'react-i18next';
 import { FieldValues, useController } from 'react-hook-form';
 import { TControl, TSize } from '../../../../common/type';
-import { labelStyle, SelectComponent, splitStyle, MenuItem } from './Select.style';
+import { labelStyle, SelectComponent, splitStyle, MenuItem, optionWrapper } from './Select.style';
 import { isArray } from 'lodash';
 import Spinner, { SpinnerSize, SpinnerType } from '../../../Spinner';
 import { DropdownDownIcon, DropdownDownGrayIcon } from '../../../icons';
@@ -157,9 +157,9 @@ function Select<T extends FieldValues>({
                       {renderLabel(label)}
                     </>
                   ) : description ? (
-                    <div>
+                    <div css={optionWrapper}>
                       {renderLabel(label)}
-                      <div>{description}</div>
+                      <div className="desc">{description}</div>
                     </div>
                   ) : (
                     renderLabel(label)
