@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { StyledComponent } from '@emotion/styled';
 import { styled } from '@mui/material';
-import searchIcon from '../../stories/icons/svg/icon-search.svg';
+import searchIcon from '../icons/svg/icon-search.svg';
 import Checkbox, { ICheckboxProps } from '../Checkbox';
 import Radio, { IRadioProps } from '../Radio';
 

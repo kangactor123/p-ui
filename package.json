@@ -43,7 +43,7 @@
     "eject": "craco eject",
     "build": "yarn prepare",
     "prepare": "rm -rf dist && mkdir dist && tsc && yarn copy",
-    "copy": "copyfiles -f src/stories/icons/svg/*.svg dist/stories/icons/svg/ && copyfiles -f src/locales/** dist/locales/ && copyfiles -f src/stories/Table/icons/** dist/stories/Table/icons/",
+    "copy": "copyfiles -f src/components/icons/svg/*.svg dist/components/icons/svg/ && copyfiles -f src/locales/** dist/locales/ && copyfiles -f src/components/Table/icons/** dist/components/Table/icons/",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },

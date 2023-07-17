@@ -20,12 +20,12 @@
     "jsxImportSource": "@emotion/react"
   },
   "include": [
-    "./src/stories/**/*.tsx",
-    "./src/stories/**/*.ts",
+    "src/components/**/*.tsx",
+    "src/components/**/*.ts",
     "src/index.ts",
-    "src/stories/index.js",
+    "src/components/index.js",
     "./src/providers/**/*.tsx",
     "./src/providers/**/*.ts"
   ],
-  "exclude": ["./src/stories/**/*.stories.tsx", "./src/stories/Template/**"]
+  "exclude": ["src/components/**/*.stories.tsx", "src/components/Template/**"]
 }
