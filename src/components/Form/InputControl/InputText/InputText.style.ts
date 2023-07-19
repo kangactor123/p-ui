@@ -1,11 +1,20 @@
 import { StyledComponent } from '@emotion/styled';
-import { styled as MUIStyled, TextField as MUITextField, TextFieldProps, Theme } from '@mui/material';
+import {
+  styled as MUIStyled,
+  TextField as MUITextField,
+  TextFieldProps,
+  Theme,
+} from '@mui/material';
 import { MUIStyledCommonProps } from '@mui/system';
 
-export const TextField: StyledComponent<TextFieldProps & MUIStyledCommonProps<Theme>, {}, {}> = MUIStyled(MUITextField)(
-  {
-    minWidth: 'unset',
-
+export const TextField: StyledComponent<TextFieldProps & MUIStyledCommonProps<Theme>, {}, {}> =
+  MUIStyled(MUITextField)({
+    borderRadius: '4px',
+    color: '#808591',
+    backgroundColor: 'transparent',
+    border: 'unset',
+    maxWidth: '640px',
+    minWidth: '300px',
     '& .MuiInputBase-multiline': {
       padding: 0,
 
@@ -13,5 +22,9 @@ export const TextField: StyledComponent<TextFieldProps & MUIStyledCommonProps<Th
         height: '90px !important',
       },
     },
-  },
-);
+    '& .MuiOutlinedInput-root': {
+      fontSize: '13px',
+      fontWeight: 400,
+      lineHeight: '20px',
+    },
+  });

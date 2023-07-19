@@ -2,8 +2,6 @@ import React from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import StoryInputText, { TInputTextProps } from './InputText';
-import { TSample } from '../CodeEditor/CodeEditor.stories';
-import { useForm } from 'react-hook-form';
 import { Size } from '../../../../common/enum';
 
 export default {
@@ -15,14 +13,8 @@ export type TSampleFormControl = {
   sample: string;
 };
 
-const InputText: Story<TInputTextProps<TSample>> = (args) => {
-  const { control } = useForm<TSampleFormControl>({
-    mode: 'all',
-    // defaultValues: {
-    //   sample: 'this is sample',
-    // },
-  });
-  return <StoryInputText {...args} control={control} rules={{ required: true }} />;
+const InputText: Story<TInputTextProps> = (args) => {
+  return <StoryInputText {...args} />;
 };
 
 export const Basic = InputText.bind({});
@@ -30,6 +22,5 @@ export const Basic = InputText.bind({});
 Basic.args = {
   name: 'sample',
   placeholder: 'this is placeholder',
-  isError: true,
-  inputSize: Size.L,
+  inputSize: Size.S,
 };

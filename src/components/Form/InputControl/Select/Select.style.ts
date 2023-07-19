@@ -8,29 +8,30 @@ export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected
     color: selected ? '#323338' : '#9195A1',
     backgroundColor: selected ? '#fff' : 'transparent',
     height:
-      size === 'small' ? '32px' : size === 'medium' ? '40px' : size === 'large' ? '48px' : '40px',
-    border: '1px solid #C5C7D0',
+      size === 'small' ? '32px' : size === 'medium' ? '40px' : size === 'large' ? '48px' : '32px',
+    border: '1px solid #D6D9DE',
     maxWidth: '640px',
+    minWidth: '300px',
 
     '&:hover': {
       color: '#323338',
       border: '1px solid #323338',
     },
     '&.Mui-disabled': {
-      backgroundColor: 'rgba(230, 233, 239, 0.4)',
-      color: 'rgba(103, 104, 121, 0.4)',
-      border: 'none',
+      backgroundColor: '#E8EAED',
+      color: '#B5B8BF',
+      border: '1px solid #D6D9DE',
     },
     '&.Mui-focused': {
-      border: '1px solid #0073EA',
+      border: '1px solid #1C74DF',
     },
     '& .MuiSelect-select': {
-      fontSize: '14px',
+      fontSize: '13px',
       fontWeight: 400,
-      lineHeight: '22px',
+      lineHeight: '20px',
       padding:
         size === 'small'
-          ? '5px 38px 5px 16px !important'
+          ? '6px 32px 6px 12px !important'
           : size === 'medium'
           ? '9px 40px 9px 16px !important'
           : size === 'large'
@@ -42,6 +43,7 @@ export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected
     },
     '& .MuiSelect-icon': {
       top: 'auto',
+      border: 'unset',
     },
     '& .multi-checkbox': {
       marginLeft: '10px',
@@ -59,33 +61,53 @@ export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected
   }),
 );
 
+export const wrap = css`
+  max-width: 100%;
+`;
+
+export const labelStyle = css`
+  max-width: 100%;
+
+  span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &.Mui-selected {
+    background-color: #e2f3ff;
+    &:hover {
+      background-color: #f0f2f4;
+    }
+  }
+  &.Mui-focusVisible {
+    background-color: unset;
+    &:hover {
+      background-color: #f0f2f4;
+    }
+  }
+`;
+
 export const splitStyle = css`
   border-top: 1px solid #d8d8d8;
   width: 100%;
   margin: 6px 0;
 `;
 
-export const labelStyle = css`
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
 export const MenuItem: any = MUIStyled(MUIMenuItem)({
-  color: '#323338',
-  fontSize: '14px',
+  color: '#50545B',
+  fontSize: '13px',
   fontWeight: 400,
-  lineHeight: '22px',
-  padding: '5px 8px',
+  lineHeight: '20px',
+  padding: '4px 6px',
   ':hover': {
-    backgroundColor: '#F5F6F8',
+    backgroundColor: '#F0F2F4',
   },
   ':disabled': {
     opacity: '0.4',
-    color: '#323338',
+    color: '#B5B8BF',
   },
   ':active': {
-    background: 'rgba(204, 229, 255, 0.35)',
+    background: '#e2f3ff',
   },
 });
 
@@ -98,5 +120,17 @@ export const optionWrapper = css`
   .desc {
     font-size: 10px;
     color: #919294;
+  }
+`;
+
+export const menu = css`
+  max-width: 640px;
+`;
+
+export const loadingStyle = css`
+  background-color: transparent !important;
+  svg {
+    min-width: 12px;
+    min-height: 12px;
   }
 `;
