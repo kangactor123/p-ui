@@ -23,4 +23,5 @@ Basic.args = {
   name: 'sample',
   placeholder: 'this is placeholder',
   inputSize: Size.S,
+  disabled: false,
 };

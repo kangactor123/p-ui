@@ -1,15 +1,13 @@
-import React, { ChangeEvent, ReactElement, useCallback, useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { TextFieldProps, ThemeProvider, Theme } from '@mui/material';
 import { getInputStyleBySize } from '../TextField.style';
-import { TControl } from '../../../../common/type';
 import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
-import { cx } from '@emotion/css';
 import { TextField } from './InputText.style';
 
 export type TInputTextProps = TextFieldProps & {
   inputSize?: 'large' | 'medium' | 'small';
-  isError?: boolean;
+  disabled?: boolean;
 };
 
 /**

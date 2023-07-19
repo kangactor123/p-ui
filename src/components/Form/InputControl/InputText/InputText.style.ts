@@ -17,7 +17,6 @@ export const TextField: StyledComponent<TextFieldProps & MUIStyledCommonProps<Th
     minWidth: '300px',
     '& .MuiInputBase-multiline': {
       padding: 0,
-
       '& .MuiOutlinedInput-input': {
         height: '90px !important',
       },
@@ -26,5 +25,12 @@ export const TextField: StyledComponent<TextFieldProps & MUIStyledCommonProps<Th
       fontSize: '13px',
       fontWeight: 400,
       lineHeight: '20px',
+    },
+    '& .Mui-disabled': {
+      backgroundColor: '#E8EAED',
+      color: '#B5B8BF',
+    },
+    '& .Mui-disabled .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#D6D9DE !important',
     },
   });
