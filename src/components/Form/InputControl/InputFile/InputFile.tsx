@@ -1,22 +1,35 @@
-import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
-import { FieldValues, useController } from 'react-hook-form';
-import { InputAdornment, TextField, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
-import { TControl } from '../../../../common/type';
-import { isValidFileFormat } from '../../../../common/helper';
+import { InputAdornment, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { CloseSmallIcon, IconFileUpload } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
-import useAlert from '../../../Dialog/hooks/useAlert';
+import { Size } from '../../../../common/enum';
+import { getInputStyleBySize } from '../TextField.style';
+import { TextField } from './InputFile.style';
 
-export type TInputFileProps<T extends FieldValues> = TextFieldProps &
-  TControl<T> & {
-    placeholder?: string;
-  };
+export type UploadFile =
+  | {
+      value: string;
+      file: File;
+    }
+  | undefined;
 
-const FileInputWrap = styled.div`
+export type TInputFileProps = TextFieldProps & {
+  inputSize?: 'large' | 'medium' | 'small';
+  onError?: (errorMsg: string | undefined) => void;
+  onDeleteOld?: () => void;
+  value?: UploadFile | string;
+  oldFileName?: string;
+  accept?: string;
+  onChange: (event: { name: string; value?: string; files?: [] }) => void;
+};
+
+const FileInputWrap = styled.div<{ fullWidth?: boolean }>`
   position: relative;
+  display: inline-block;
+  width: ${({ fullWidth }) => fullWidth && '100%'};
 `;
 
 const FileInput = styled(TextField)`
@@ -25,6 +38,10 @@ const FileInput = styled(TextField)`
   top: 0;
   left: 0;
   opacity: 0;
+
+  input {
+    cursor: pointer;
+  }
 `;
 
 const IconContainer = styled.span`
@@ -38,82 +55,140 @@ const iconFileDelete = css`
   position: relative;
 `;
 
-function InputFile<T extends FieldValues>({
+function InputFile({
+  id,
+  name,
+  value,
+  oldFileName,
   inputProps = {},
   variant = 'outlined',
-  placeholder,
-  name,
-  control,
-  rules,
+  onFocus,
+  onBlur,
+  onError,
+  onChange,
+  onDeleteOld,
+  inputSize = Size.L,
   ...props
-}: TInputFileProps<T>): ReactElement {
+}: TInputFileProps): ReactElement {
   const { t } = useTranslation();
-  const accept = inputProps.accept;
   const theme = useContext(PlayceThemeContext);
-  const [fileInputKey, setFileInputKey] = useState<number>(0);
-  const reader = useMemo(() => new FileReader(), []);
-  const {
-    field: { onChange, ref, value },
-  } = useController({ control, name, rules });
+  const inputStyle = getInputStyleBySize(inputSize);
 
-  reader.addEventListener('load', (event) => {
-    if (event.target?.result) onChange(event.target.result);
-  });
+  const inputRef = useRef<HTMLInputElement>();
+  const fileRef = useRef<HTMLInputElement>();
 
-  const fileErrorDialog = useAlert({
-    title: t('Error'),
-    children: t('Unsupported file format.'),
-  });
+  const fakeValue = typeof value === 'string' ? value : value?.value?.toString() || '';
+  const fileValue =
+    fakeValue && fileRef && fileRef?.current && fileRef.current.files ? fakeValue : '';
 
-  const deleteFile = useCallback((handleChange: any) => {
-    handleChange('');
-    setFileInputKey((val) => val + 1);
-  }, []);
+  const { fullWidth = false, accept } = props;
 
-  const onSelectFile = useCallback(
-    (e: any) => {
-      const file = e.target.files[0];
+  const fileProps = {
+    ...props,
+    inputProps,
+    value: fileValue,
+  };
+  const fakeProps = {
+    ...props,
+    // inputProps: otherInputProps,
+    value: fakeValue,
+  };
 
-      if (isValidFileFormat(file.name, ['pem', 'ppk'])) {
-        reader.readAsText(file);
-      } else {
-        fileErrorDialog.open();
+  const placeholder = t(props.placeholder || 'Upload key file');
+  const handleFocus = useCallback(
+    (event: any) => {
+      setTimeout(() => {
+        const event = new Event('focus');
+        inputRef.current?.dispatchEvent(event);
+      });
+      if (onFocus instanceof Function) {
+        onFocus(event);
       }
     },
-    [fileErrorDialog, reader],
+    [onFocus],
   );
+  useEffect(() => {
+    if (onError instanceof Function) {
+      if (
+        onError instanceof Function &&
+        accept &&
+        fakeValue &&
+        !new RegExp(`(${accept.replace(/,/g, '|')})$`, 'i').test(fakeValue)
+      ) {
+        onError(t('Only {{accept}} files are available.', { accept }));
+      } else {
+        onError(undefined);
+      }
+    }
+  }, [accept, fakeValue, onError, t]);
+
+  const handleBlur = useCallback(
+    (event: any) => {
+      const setTimeId = setTimeout(() => {
+        const event = new Event('blur');
+        inputRef.current?.dispatchEvent(event);
+        clearTimeout(setTimeId);
+      });
+      if (onBlur instanceof Function) {
+        onBlur(event);
+      }
+    },
+    [onBlur],
+  );
+
+  const handleChange = useCallback(
+    (event: any) => {
+      const { target } = event;
+      if (onChange instanceof Function) {
+        onChange(target);
+      }
+    },
+    [onChange],
+  );
+
+  const deleteFile = useCallback(() => {
+    onChange({ name: name || '' });
+  }, [onChange, name]);
 
   return (
     <ThemeProvider theme={theme as Theme}>
-      <FileInputWrap>
+      <FileInputWrap fullWidth={fullWidth}>
         <FileInput
-          key={fileInputKey}
-          type="file"
+          id={id}
+          name={name}
           variant={variant}
-          onChange={onSelectFile}
-          inputProps={{ maxLength: 255, ...inputProps, accept }}
-          ref={ref}
-          disabled={Boolean(value)}
-          {...props}
+          inputRef={fileRef}
+          type="file"
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          onChange={handleChange}
+          {...fileProps}
         />
         <TextField
-          variant={variant}
-          value={value}
+          inputRef={inputRef}
+          {...fakeProps}
           placeholder={placeholder}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <IconContainer>
                   {value ? (
-                    <CloseSmallIcon onClick={() => deleteFile(onChange)} css={iconFileDelete} />
+                    <CloseSmallIcon onClick={deleteFile} css={iconFileDelete} />
                   ) : (
-                    <IconFileUpload />
+                    <IconFileUpload width={20} height={20} />
                   )}
                 </IconContainer>
               </InputAdornment>
             ),
+            inputProps: { sx: inputStyle },
           }}
         />
+        {/* {oldFileName &&
+          (onDeleteOld ? (
+            <Chip label={oldFileName} onDelete={onDeleteOld} deleteIcon={<IconClose />} />
+          ) : (
+            <Chip label={oldFileName} />
+          ))} */}
       </FileInputWrap>
     </ThemeProvider>
   );

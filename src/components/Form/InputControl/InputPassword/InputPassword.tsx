@@ -1,69 +1,77 @@
-import React, { ReactElement, useContext, useState } from 'react';
-import { IconButton, InputAdornment, TextField, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
-import { useController, FieldValues } from 'react-hook-form';
+import React, { ReactElement, useCallback, useContext, useState } from 'react';
+import { IconButton, InputAdornment, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
 import { css } from '@emotion/react';
 import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
-import { TControl } from '../../../../common/type';
 import { Size } from '../../../../common/enum';
 import { PlayceThemeContext } from '../../../../providers';
 import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
-import { cx } from '@emotion/css';
+import { TextField } from './inputPassword.style';
 
-export type TInputPasswordProps<T extends FieldValues> = TextFieldProps &
-  TControl<T> & {
-    useClearBtn?: boolean;
-    inputSize?: 'large' | 'medium' | 'small';
-    isError?: boolean;
-  };
+export type TInputPasswordProps = TextFieldProps & {
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  useClearBtn?: boolean;
+  inputSize?: 'large' | 'medium' | 'small';
+  forwardedRef?: React.Ref<HTMLInputElement>;
+  onChange?: () => void;
+  onDelete?: () => void;
+};
 
-const endAdornmentCss = css`
-  padding-right: 14px;
+const endAdornmentStyle = css`
+  padding-right: 12px;
 `;
 
 /**
  * @param inputSize: default 는 'medium', 'large', 'small
  * @returns control 로 다룰수 있는 Password Field
  */
-function InputPassword<T extends FieldValues>({
+function InputPassword({
   InputProps = {},
   variant = 'outlined',
   useClearBtn = true,
-  control,
-  name,
-  rules,
-  isError,
   inputSize = Size.M,
+  setPassword,
+  onChange,
+  onDelete,
   ...props
-}: TInputPasswordProps<T>): ReactElement {
+}: TInputPasswordProps): ReactElement {
+  const { forwardedRef } = props;
   const inputStyle = getInputStyleBySize(inputSize);
   const [isVisible, setIsVisible] = useState(false);
   const theme = useContext(PlayceThemeContext);
+
   const visibleChange = () => setIsVisible((prev) => !prev);
-  const {
-    field: { value, onChange },
-  } = useController({
-    name,
-    rules,
-    control,
-  });
+
+  const handleChangePassword = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(event.currentTarget.value);
+
+      if (onChange instanceof Function) {
+        onChange();
+      }
+    },
+    [onChange, setPassword],
+  );
+
+  const handleDeletePassword = useCallback(() => {
+    setPassword('');
+
+    if (onDelete instanceof Function) {
+      onDelete();
+    }
+  }, [onDelete, setPassword]);
 
   return (
     <ThemeProvider theme={theme as Theme}>
       <TextField
-        value={value}
         variant={variant}
-        onChange={onChange}
         type={isVisible ? 'text' : 'password'}
-        className={cx('outlined-input', isError && 'outlined-input-error')}
-        inputProps={{
-          ...props.inputProps,
-          sx: { ...inputStyle, ...props?.inputProps?.sx },
-        }}
+        onChange={handleChangePassword}
+        inputProps={{ sx: inputStyle }}
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end" css={endAdornmentCss}>
-              {value && useClearBtn && (
-                <IconButton onClick={() => onChange('')} disableRipple css={iconButtonCss}>
+            <InputAdornment position="end" css={endAdornmentStyle}>
+              {useClearBtn && (
+                <IconButton onClick={handleDeletePassword} disableRipple css={iconButtonCss}>
                   <ClearIcon />
                 </IconButton>
               )}
@@ -74,6 +82,7 @@ function InputPassword<T extends FieldValues>({
           ),
           ...InputProps,
         }}
+        inputRef={forwardedRef}
         {...props}
       />
     </ThemeProvider>

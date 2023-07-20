@@ -20,8 +20,8 @@ const InputText: Story<TInputTextProps> = (args) => {
 export const Basic = InputText.bind({});
 
 Basic.args = {
-  name: 'sample',
   placeholder: 'this is placeholder',
   inputSize: Size.S,
   disabled: false,
+  useClearBtn: false,
 };

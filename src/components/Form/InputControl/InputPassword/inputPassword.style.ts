@@ -1,5 +1,4 @@
 import { StyledComponent } from '@emotion/styled';
-import { css } from '@emotion/react';
 import {
   styled as MUIStyled,
   TextField as MUITextField,
@@ -12,7 +11,7 @@ export const TextField: StyledComponent<TextFieldProps & MUIStyledCommonProps<Th
   MUIStyled(MUITextField)({
     borderRadius: '4px',
     color: '#808591',
-    backgroundColor: 'transparent',
+    backgroundColor: '#FFFFFF',
     border: 'unset',
     maxWidth: '640px',
     minWidth: '300px',
@@ -26,7 +25,8 @@ export const TextField: StyledComponent<TextFieldProps & MUIStyledCommonProps<Th
       fontSize: '13px',
       fontWeight: 400,
       lineHeight: '20px',
-      paddingRight: '12px',
+      paddingRight: 'unset',
+      backgroundColor: 'transparent',
     },
     '& .Mui-disabled': {
       backgroundColor: '#E8EAED',
@@ -36,8 +36,3 @@ export const TextField: StyledComponent<TextFieldProps & MUIStyledCommonProps<Th
       borderColor: '#D6D9DE !important',
     },
   });
-
-export const inputWrap = css`
-  width: 100%;
-  position: relative;
-`;
