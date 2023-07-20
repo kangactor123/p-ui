@@ -5,7 +5,7 @@ import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
 import { Size } from '../../../../common/enum';
 import { PlayceThemeContext } from '../../../../providers';
 import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
-import { TextField } from './inputPassword.style';
+import { TextField } from './InputPassword.style';
 
 export type TInputPasswordProps = TextFieldProps & {
   setPassword: React.Dispatch<React.SetStateAction<string>>;
