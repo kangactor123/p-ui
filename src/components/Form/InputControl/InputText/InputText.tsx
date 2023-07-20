@@ -1,15 +1,21 @@
 import React, { ReactElement, useContext } from 'react';
 import { TextFieldProps, ThemeProvider, Theme, IconButton } from '@mui/material';
-import { getInputStyleBySize, iconClearBtn } from '../TextField.style';
+import { TextField, getInputStyleBySize, iconClearBtn } from '../TextField.style';
 import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
-import { TextField, inputWrap } from './InputText.style';
 import { ClearIcon } from '../../../icons';
+import { css } from '@emotion/react';
+
+export const inputWrap = css`
+  width: 100%;
+  position: relative;
+`;
 
 export type TInputTextProps = TextFieldProps & {
   inputSize?: 'large' | 'medium' | 'small';
   disabled?: boolean;
   useClearBtn?: boolean;
+  handleClear: () => void;
 };
 
 /**
@@ -20,20 +26,13 @@ function InputText({
   variant = 'outlined',
   inputSize = Size.L,
   useClearBtn = false,
+  onBlur,
+  handleClear,
   ...props
 }: TInputTextProps): ReactElement {
   const { sx: inputSx, ...input } = inputProps;
   const inputStyle = getInputStyleBySize(inputSize);
   const theme = useContext(PlayceThemeContext);
-
-  const handleClearValue = () => {
-    const event = { target: { value: '' } } as React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement
-    >;
-    if (props.onChange instanceof Function) {
-      props.onChange(event);
-    }
-  };
 
   return (
     <ThemeProvider theme={theme as Theme}>
@@ -42,7 +41,7 @@ function InputText({
           variant={variant}
           InputProps={{
             endAdornment: useClearBtn ? (
-              <IconButton onClick={handleClearValue} disableRipple css={iconClearBtn}>
+              <IconButton onClick={handleClear} disableRipple css={iconClearBtn}>
                 <ClearIcon />
               </IconButton>
             ) : undefined,

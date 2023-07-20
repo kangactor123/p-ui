@@ -1,18 +1,24 @@
 import React, { ReactElement, useContext } from 'react';
-import { IconButton, TextFieldProps, TextField, Theme, InputAdornment, ThemeProvider } from '@mui/material';
+import { IconButton, TextFieldProps, Theme, InputAdornment, ThemeProvider } from '@mui/material';
 import { cx } from '@emotion/css';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
 import { PlayceThemeContext } from '../../providers';
-import { getInputStyleBySize, iconButtonCss } from '../Form/InputControl/TextField.style';
+import {
+  TextField,
+  getInputStyleBySize,
+  iconButtonCss,
+} from '../Form/InputControl/TextField.style';
 
 export type TSearchInputProps = TextFieldProps & {
-  placeholder: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlurEvent: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onKeyDownEvent: (event: React.KeyboardEvent<HTMLDivElement>) => void;
-  onDeleteSearchKeyword: () => void;
+  placeholder?: string;
+  value?: string;
+  useClearBtn?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearch?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlurEvent?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDownEvent?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  onDeleteSearchKeyword?: () => void;
   inputSize?: 'large' | 'medium' | 'small';
 };
 
@@ -20,12 +26,12 @@ function SearchBar(props: TSearchInputProps): ReactElement {
   const {
     placeholder,
     value,
-    inputSize = Size.M,
     onChange,
     onBlurEvent: onBlur,
     onKeyDownEvent: onKeyDown,
     onDeleteSearchKeyword,
     InputProps = {},
+    inputSize = Size.M,
     ...defaultProps
   } = props;
   const theme = useContext(PlayceThemeContext);
@@ -48,13 +54,14 @@ function SearchBar(props: TSearchInputProps): ReactElement {
           placeholder,
           endAdornment: (
             <InputAdornment position="start">
-              {value ? (
+              {value && (
                 <IconButton css={iconButtonCss} onClick={onDeleteSearchKeyword}>
                   <ClearIcon />
                 </IconButton>
-              ) : (
-                <SearchIcon />
               )}
+              <IconButton css={iconButtonCss}>
+                <SearchIcon />
+              </IconButton>
             </InputAdornment>
           ),
         }}

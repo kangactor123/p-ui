@@ -1,18 +1,18 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import { IconButton, InputAdornment, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
 import { css } from '@emotion/react';
-import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
+import { TextField, getInputStyleBySize, iconButtonCss } from '../TextField.style';
 import { Size } from '../../../../common/enum';
 import { PlayceThemeContext } from '../../../../providers';
 import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';
-import { TextField } from './InputPassword.style';
 
 export type TInputPasswordProps = TextFieldProps & {
+  value: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   useClearBtn?: boolean;
   inputSize?: 'large' | 'medium' | 'small';
   forwardedRef?: React.Ref<HTMLInputElement>;
-  onChange?: () => void;
+  onChange?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onDelete?: () => void;
 };
 
@@ -25,6 +25,7 @@ const endAdornmentStyle = css`
  * @returns control 로 다룰수 있는 Password Field
  */
 function InputPassword({
+  value,
   InputProps = {},
   variant = 'outlined',
   useClearBtn = true,
@@ -41,37 +42,19 @@ function InputPassword({
 
   const visibleChange = () => setIsVisible((prev) => !prev);
 
-  const handleChangePassword = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(event.currentTarget.value);
-
-      if (onChange instanceof Function) {
-        onChange();
-      }
-    },
-    [onChange, setPassword],
-  );
-
-  const handleDeletePassword = useCallback(() => {
-    setPassword('');
-
-    if (onDelete instanceof Function) {
-      onDelete();
-    }
-  }, [onDelete, setPassword]);
-
   return (
     <ThemeProvider theme={theme as Theme}>
       <TextField
         variant={variant}
+        value={value}
         type={isVisible ? 'text' : 'password'}
-        onChange={handleChangePassword}
+        onChange={onChange}
         inputProps={{ sx: inputStyle }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end" css={endAdornmentStyle}>
-              {useClearBtn && (
-                <IconButton onClick={handleDeletePassword} disableRipple css={iconButtonCss}>
+              {value && useClearBtn && (
+                <IconButton onClick={onDelete} disableRipple css={iconButtonCss}>
                   <ClearIcon />
                 </IconButton>
               )}

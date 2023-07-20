@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { CloseSmallIcon, IconFileUpload } from '../../../icons';
 import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
-import { getInputStyleBySize } from '../TextField.style';
-import { TextField } from './InputFile.style';
+import { TextField, getInputStyleBySize } from '../TextField.style';
 
 export type UploadFile =
   | {
@@ -47,6 +46,7 @@ const FileInput = styled(TextField)`
 const IconContainer = styled.span`
   position: relative;
   display: flex;
+  padding-right: 12px;
 `;
 
 const iconFileDelete = css`
