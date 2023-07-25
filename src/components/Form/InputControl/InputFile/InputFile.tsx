@@ -1,12 +1,12 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
-import { InputAdornment, TextFieldProps } from '@mui/material';
+import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { CloseSmallIcon, IconFileUpload } from '../../../icons';
 import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
-import { TextField, getInputStyleBySize } from '../TextField.style';
+import { getInputStyleBySize } from '../TextField.style';
 
 export type UploadFile =
   | {

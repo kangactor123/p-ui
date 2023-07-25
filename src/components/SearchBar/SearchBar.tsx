@@ -1,14 +1,10 @@
 import React, { ReactElement, useContext } from 'react';
-import { IconButton, TextFieldProps, InputAdornment } from '@mui/material';
+import { IconButton, TextFieldProps, InputAdornment, TextField } from '@mui/material';
 import { cx } from '@emotion/css';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
 import { PlayceThemeContext, ThemeProvider } from '../../providers';
-import {
-  TextField,
-  getInputStyleBySize,
-  iconButtonCss,
-} from '../Form/InputControl/TextField.style';
+import { getInputStyleBySize, iconButtonCss } from '../Form/InputControl/TextField.style';
 
 export type TSearchInputProps = TextFieldProps & {
   placeholder?: string;

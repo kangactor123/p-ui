@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react';
-import { TextFieldProps, IconButton } from '@mui/material';
-import { TextField, getInputStyleBySize, iconClearBtn } from '../TextField.style';
+import { TextFieldProps, IconButton, TextField } from '@mui/material';
+import { getInputStyleBySize, iconClearBtn } from '../TextField.style';
 import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { ClearIcon } from '../../../icons';

@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext, useState } from 'react';
-import { IconButton, InputAdornment, TextFieldProps } from '@mui/material';
+import { IconButton, InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import { css } from '@emotion/react';
-import { TextField, getInputStyleBySize, iconButtonCss } from '../TextField.style';
+import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
 import { Size } from '../../../../common/enum';
 import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { ClearIcon, InvisibleIcon, VisibleIcon } from '../../../icons';

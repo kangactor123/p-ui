@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { Select as MUISelect, styled as MUIStyled, MenuItem as MUIMenuItem } from '@mui/material';
 import { TSize } from '../../../../common/type';
 
@@ -65,20 +65,25 @@ export const wrap = css`
   max-width: 100%;
 `;
 
-export const labelStyle = css`
+export const labelStyle = (theme: Theme) => css`
   max-width: 100%;
 
-  span {
+  span: {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: ${theme.typo.p4.fontSize};
+    font-weight: ${theme.typo.p4.fontWeight};
+    line-height: ${theme.typo.p4.lineHeight};
   }
+
   &.Mui-selected {
     background-color: #e2f3ff;
     &:hover {
       background-color: #f0f2f4;
     }
   }
+
   &.Mui-focusVisible {
     background-color: unset;
     &:hover {
@@ -133,4 +138,21 @@ export const loadingStyle = css`
     min-width: 12px;
     min-height: 12px;
   }
+`;
+
+export const multiLabel = css`
+  padding-left: 8px;
+  & > label {
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+  & > div > span {
+    font-size: 14px;
+  }
+`;
+export const multiCheckbox = css`
+  margin-left: 10px;
+  padding: 0;
 `;

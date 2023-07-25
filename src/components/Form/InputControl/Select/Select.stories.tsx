@@ -27,4 +27,30 @@ const Select: Story<ISelectProps<TSample>> = (args) => (
   />
 );
 
+const descSelectOptions = [
+  {
+    label: 'Administrator',
+    value: 'first',
+    description: 'Grants access to all resources and features.',
+  },
+  { label: 'Read-Only', value: 'second', description: 'Grants read-only to all resources.' },
+];
+
+const DescSelect: Story<ISelectProps<TSample>> = (args) => {
+  return (
+    <StorySelect
+      {...args}
+      options={descSelectOptions}
+      placeholder={'Select a role'}
+      renderValue={(value) => {
+        const renderValue = descSelectOptions.find(
+          (option) => option.value === (value as string),
+        )?.label;
+        return value ? renderValue : 'Select a Role';
+      }}
+    />
+  );
+};
+
 export const Basic = Select.bind({});
+export const DescriptionSelect = DescSelect.bind({});

@@ -1,28 +1,29 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { ElementType, ReactElement, ReactNode, useContext } from 'react';
 import { ListItemText, SelectProps as MUISelectProps } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { cx } from '@emotion/css';
 import { TSize } from '../../../../common/type';
 import {
+  labelStyle,
   SelectComponent,
   splitStyle,
   MenuItem,
-  menu,
+  optionWrapper,
   wrap,
-  labelStyle,
-  loadingStyle,
+  menu,
+  multiLabel,
+  multiCheckbox,
 } from './Select.style';
 import { isArray } from 'lodash';
-import Spinner, { SpinnerSize, SpinnerType } from '../../../Spinner';
-import { DropdownDownIcon, DropdownDownGrayIcon } from '../../../icons';
 import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import Checkbox from '../../../Checkbox';
+import { useTheme } from '@emotion/react';
 
 export interface ISelectOption {
+  hidden?: boolean;
   value: any;
   label: ReactNode;
-  hidden?: boolean;
   selected?: boolean;
   disabled?: boolean;
   split?: boolean;
@@ -30,13 +31,12 @@ export interface ISelectOption {
 }
 
 export type ISelectProps<T> = {
-  options: T[];
+  options: ISelectOption[];
   icon?: ElementType;
   loading?: boolean;
   isWidgetFilter?: boolean;
   menuClassName?: string;
   size?: TSize;
-  disabled?: boolean;
 } & MUISelectProps;
 
 function Select<T extends ISelectOption>({
@@ -47,104 +47,79 @@ function Select<T extends ISelectOption>({
   menuClassName,
   ...props
 }: ISelectProps<T>): ReactElement {
-  const { children, options, multiple, value: values = '', icon, disabled, size = Size.S } = props;
+  // const { t } = useTranslation();
+  const { children, options, multiple, value: values = '', icon, disabled, size = Size.M } = props;
   const theme = useContext(PlayceThemeContext);
-  const { t } = useTranslation();
-
+  const emotionTheme = useTheme();
   return (
     <ThemeProvider theme={theme}>
-      {multiple ? (
-        <SelectComponent
-          {...props}
-          className={className}
-          css={wrap}
-          MenuProps={{
-            getContentAnchorEl: null,
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'left',
-            },
-            className: menuClassName,
-            css: menu,
-          }}
-          displayEmpty={displayEmpty}
-          variant={variant}
-          IconComponent={icon || disabled ? DropdownDownGrayIcon : DropdownDownIcon}
-          disabled={disabled || loading}
-          size={size}
-        >
-          {children}
-          {loading ? (
-            <MenuItem key={1} value={props?.value as T['value']}>
-              {t('Loading...')}
-              <Spinner loading={loading} type={SpinnerType.spin} size={SpinnerSize.small} />
-            </MenuItem>
-          ) : (
-            options &&
-            options.length > 0 &&
-            options.map(({ label, split, value: optionsValue, disabled, ...props }) =>
-              split ? (
-                <div key={optionsValue} css={splitStyle}>
-                  {optionsValue}
-                </div>
-              ) : (
-                <MenuItem key={optionsValue} value={optionsValue} disabled={disabled} {...props}>
-                  <Checkbox
-                    value={optionsValue}
-                    checked={isArray(values) && values.includes(optionsValue)}
-                  />
-                  <ListItemText css={labelStyle} title={label?.toString()} primary={label} />
+      <SelectComponent
+        className={className}
+        css={wrap}
+        {...props}
+        variant={variant}
+        displayEmpty={displayEmpty}
+        MenuProps={{
+          getContentAnchorEl: null,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          className: menuClassName,
+          css: menu,
+        }}
+        disabled={disabled || loading}
+        size={size}
+      >
+        {children}
+        {options &&
+          options?.length > 0 &&
+          options.map(({ label, split, value, hidden, disabled, description, ...props }, index) =>
+            split ? (
+              <div key={index} css={splitStyle}></div>
+            ) : (
+              (!values || !hidden) && (
+                <MenuItem
+                  key={index}
+                  value={value}
+                  className={multiLabel}
+                  disabled={disabled}
+                  {...props}
+                >
+                  {multiple ? (
+                    <>
+                      <Checkbox
+                        css={multiCheckbox}
+                        value={values}
+                        checked={isArray(values) && values.includes(value)}
+                      />
+                      <ListItemText
+                        css={labelStyle(emotionTheme)}
+                        title={label?.toString()}
+                        primary={label}
+                      />
+                    </>
+                  ) : description ? (
+                    <div css={optionWrapper}>
+                      <ListItemText
+                        css={labelStyle(emotionTheme)}
+                        title={label?.toString()}
+                        primary={label}
+                      />
+                      <div className="desc">{description}</div>
+                    </div>
+                  ) : (
+                    <ListItemText
+                      css={labelStyle(emotionTheme)}
+                      title={label?.toString()}
+                      primary={label}
+                    />
+                  )}
                 </MenuItem>
-              ),
-            )
+              )
+            ),
           )}
-        </SelectComponent>
-      ) : (
-        <SelectComponent
-          {...props}
-          className={className}
-          css={wrap}
-          MenuProps={{
-            getContentAnchorEl: null,
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'left',
-            },
-            className: menuClassName,
-          }}
-          displayEmpty={displayEmpty}
-          variant={variant}
-          IconComponent={icon || disabled ? DropdownDownGrayIcon : DropdownDownIcon}
-          disabled={disabled || loading}
-        >
-          {children}
-          {loading ? (
-            <MenuItem key={1} value={props?.value as T['value']}>
-              {t('Loading...')}
-              <Spinner
-                css={loadingStyle}
-                loading={loading}
-                type={SpinnerType.spin}
-                size={SpinnerSize.small}
-              />
-            </MenuItem>
-          ) : (
-            options &&
-            options?.length > 0 &&
-            options.map(({ hidden, value, label, split, disabled, ...props }: T, index) =>
-              split ? (
-                <div key={index} css={splitStyle}></div>
-              ) : (
-                (!values || !hidden) && (
-                  <MenuItem css={labelStyle} key={index} value={value} disabled={disabled}>
-                    <span title={label?.toString()}>{label}</span>
-                  </MenuItem>
-                )
-              ),
-            )
-          )}
-        </SelectComponent>
-      )}
+      </SelectComponent>
     </ThemeProvider>
   );
 }
