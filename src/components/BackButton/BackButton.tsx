@@ -1,10 +1,10 @@
 /* eslint-disable no-restricted-globals */
 import React, { ReactElement, useCallback, useContext, useMemo } from 'react';
-import { css, IconButton, Theme, ThemeProvider } from '@mui/material';
+import { css, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { IconBackButton } from '../icons';
 import { IBackButton } from './type';
-import { PlayceThemeContext } from '../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 const iconButtonCss = css`
   margin-right: 3px;
@@ -20,7 +20,7 @@ function BackButton({ to, options }: IBackButton): ReactElement {
   }, [navigate, to, options]);
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <IconButton onClick={handleBack} disableRipple={isFirstPage} css={iconButtonCss}>
         <IconBackButton />
       </IconButton>

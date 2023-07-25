@@ -1,9 +1,9 @@
 import React, { ReactElement, ReactNode, useContext } from 'react';
-import { CheckboxProps as MUICheckboxProps, Theme, ThemeProvider, Checkbox as MUICheckbox } from '@mui/material';
+import { CheckboxProps as MUICheckboxProps, Checkbox as MUICheckbox } from '@mui/material';
 import { cx } from '@emotion/css';
-import { PlayceThemeContext } from '../../providers';
 import styled from '@emotion/styled';
 import { SerializedStyles } from '@emotion/react';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 export interface ICheckboxProps extends MUICheckboxProps {
   label?: ReactNode;
@@ -31,13 +31,15 @@ function Checkbox({ disabled = false, label, labelCss, ...props }: ICheckboxProp
   const theme = useContext(PlayceThemeContext);
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <CheckboxWrap>
         <MUICheckbox
           {...props}
           disabled={disabled}
           icon={<span className={cx('checkbox', disabled ? 'disabled-box' : 'regular-box')} />}
-          checkedIcon={<span className={cx('checkbox', disabled ? 'disabled-checked-box' : 'checked-box')} />}
+          checkedIcon={
+            <span className={cx('checkbox', disabled ? 'disabled-checked-box' : 'checked-box')} />
+          }
           disableRipple
         />
         {!!label && (

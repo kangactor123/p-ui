@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { Switch, SwitchProps, styled as MUIStyled } from '@mui/material';
 import styled from '@emotion/styled';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 const AntSwitchComponent = MUIStyled(Switch)<SwitchProps>({
   color: '#fff',
@@ -59,11 +60,15 @@ export interface IAntSwitchProps extends SwitchProps {
 }
 
 function AntSwitch(props: IAntSwitchProps): ReactElement {
+  const theme = useContext(PlayceThemeContext);
+
   return (
-    <Wrapper>
-      <AntSwitchComponent className="switch" {...props} />
-      <span className="label">{props.label}</span>
-    </Wrapper>
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <AntSwitchComponent className="switch" {...props} />
+        <span className="label">{props.label}</span>
+      </Wrapper>
+    </ThemeProvider>
   );
 }
 

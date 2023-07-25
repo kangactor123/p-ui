@@ -1,2 +1,2 @@
-export * from './PlayceTheme';
+export * from './PlayceThemeContext';
 export * from './PlayceThemeProvider';

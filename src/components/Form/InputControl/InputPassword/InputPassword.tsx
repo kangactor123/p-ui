@@ -1,5 +1,11 @@
 import React, { ReactElement, useContext, useState } from 'react';
-import { IconButton, InputAdornment, TextField, TextFieldProps, Theme, ThemeProvider } from '@mui/material';
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  TextFieldProps,
+  ThemeProvider,
+} from '@mui/material';
 import { useController, FieldValues } from 'react-hook-form';
 import { css } from '@emotion/react';
 import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
@@ -48,7 +54,7 @@ function InputPassword<T extends FieldValues>({
   });
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <TextField
         value={value}
         variant={variant}

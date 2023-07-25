@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ReactElement, useCallback, useContext } from 'react';
-import { TextFieldProps, ThemeProvider, Theme } from '@mui/material';
+import { TextFieldProps, ThemeProvider } from '@mui/material';
 import { FieldValues, useController } from 'react-hook-form';
 import { getInputStyleBySize } from '../TextField.style';
 import { TControl } from '../../../../common/type';
@@ -48,7 +48,7 @@ function InputText<T extends FieldValues>({
   );
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <TextField
         value={value}
         variant={variant}

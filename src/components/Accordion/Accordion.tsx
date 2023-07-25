@@ -3,11 +3,15 @@ import { css } from '@emotion/react';
 import { DropdownDownIcon } from '../icons';
 import { IAccordionProps } from './type';
 import { AccordionDetails, AccordionPanel, AccordionSummary } from './style';
-import { PlayceThemeContext } from '../../providers';
-import { Theme, ThemeProvider } from '@mui/material';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 function Accordion({
-  summaryProps: { iconPosition = 'right', useEdgeEndIcon = true, children: summaryChildren, ...summaryProps },
+  summaryProps: {
+    iconPosition = 'right',
+    useEdgeEndIcon = true,
+    children: summaryChildren,
+    ...summaryProps
+  },
   detailsProps,
   children,
   name,
@@ -26,13 +30,15 @@ function Accordion({
   );
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <AccordionPanel defaultExpanded={defaultExpanded} onChange={handleChange} {...props}>
         <AccordionSummary
           css={css({
             '& .MuiAccordionSummary-content,& .MuiAccordionSummary-content.Mui-expanded': {
               marginLeft: iconPosition === 'start' ? '6px' : '0px',
-              ...(iconPosition === 'right' ? { ...{ flexGrow: '0', marginRight: '8px' } } : { undefined }),
+              ...(iconPosition === 'right'
+                ? { ...{ flexGrow: '0', marginRight: '8px' } }
+                : { undefined }),
             },
             flexDirection: iconPosition === 'start' ? 'row-reverse' : undefined,
             justifyContent: iconPosition === 'right' ? 'start !important' : 'center',

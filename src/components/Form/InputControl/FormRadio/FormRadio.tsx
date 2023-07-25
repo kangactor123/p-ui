@@ -65,7 +65,7 @@ function FormRadio<T extends FieldValues>({
   };
 
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <FormControl>
         <RadioGroup
           flexDirection={flexDirection}

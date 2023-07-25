@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from 'react';
-import { Theme, ThemeProvider, Tooltip as MUITooltip, TooltipProps } from '@mui/material';
-import { PlayceThemeContext } from '../../providers';
+import { Tooltip as MUITooltip, TooltipProps } from '@mui/material';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 interface ITooltipProps extends TooltipProps {
   title: string | false;
@@ -13,7 +13,7 @@ function Tooltip({ arrow = true, title, ...props }: ITooltipProps): ReactElement
   const theme = useContext(PlayceThemeContext);
   const tooltipTitle = title || '';
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <MUITooltip {...props} arrow={arrow} title={tooltipTitle} />
     </ThemeProvider>
   );
