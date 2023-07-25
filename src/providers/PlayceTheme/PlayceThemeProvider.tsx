@@ -1,10 +1,10 @@
 import React, { PropsWithChildren } from 'react';
-import { PlayceTheme, PlayceThemeContext } from './PlayceTheme';
+import { PlayceThemeContenxtProps, PlayceThemeContext } from './PlayceThemeContext';
 
 export interface IPlayceThemeProps extends PropsWithChildren {
-  theme: PlayceTheme;
+  theme: PlayceThemeContenxtProps;
 }
 
-export function PlayceThemeProvider({ children, theme }: IPlayceThemeProps) {
-  return <PlayceThemeContext.Provider value={theme}>{children}</PlayceThemeContext.Provider>;
+export function PlayceThemeProvider({ children, theme: emotionTheme }: IPlayceThemeProps) {
+  return <PlayceThemeContext.Provider value={emotionTheme}>{children}</PlayceThemeContext.Provider>;
 }

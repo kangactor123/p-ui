@@ -25,7 +25,8 @@
     "src/index.ts",
     "src/components/index.js",
     "./src/providers/**/*.tsx",
-    "./src/providers/**/*.ts"
+    "./src/providers/**/*.ts",
+    "./src/common/theme/theme.d.ts"
   ],
   "exclude": ["src/components/**/*.stories.tsx", "src/components/Template/**"]
 }

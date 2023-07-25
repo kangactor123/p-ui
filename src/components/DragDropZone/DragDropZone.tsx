@@ -1,4 +1,11 @@
-import React, { ChangeEvent, forwardRef, ReactElement, useCallback, useState } from 'react';
+import React, {
+  ChangeEvent,
+  forwardRef,
+  ReactElement,
+  useCallback,
+  useContext,
+  useState,
+} from 'react';
 import DragDrop from '../DragDrop';
 import filesize from 'filesize';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +23,7 @@ import {
 } from './DragDropZone.style';
 import Button from '../Button';
 import { DeleteIcon } from '../icons';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 export interface IDragDropZoneProps {
   isExistFile?: boolean;
@@ -40,6 +48,7 @@ function DragDropZone({
 }: IDragDropZoneProps): ReactElement {
   const [fileInputKey, setFileInputKey] = useState<number>(0);
   const { t } = useTranslation();
+  const theme = useContext(PlayceThemeContext);
 
   const onDropHandler = useCallback(
     (dropFile: File) => {
@@ -69,47 +78,49 @@ function DragDropZone({
   }, [setFileInputKey, handleFileRemove]);
 
   return (
-    <DragDrop onDrop={onDropHandler}>
-      <DropZone>
-        <input
-          key={fileInputKey}
-          type="file"
-          id="input-file-upload"
-          ref={fileRef}
-          onChange={onSelectFile}
-          css={disabledInput}
-        />
-        {isExistFile ? (
-          <SelectedFile>
-            <FileInfo>
-              <FileTitle>{fileName}</FileTitle>
-              <span>({filesize(Number(fileSize))})</span>
-            </FileInfo>
-            <IconButton onClick={onFileRemove} css={iconButtonContainer}>
-              <DeleteIcon fontSize="small" />
-            </IconButton>
-          </SelectedFile>
-        ) : (
-          <>
-            <TextArea>
-              <div>{t('Drag and drop file here')}</div>
-              <div>{t('or')}</div>
-            </TextArea>
-            <Button
-              css={addFileBtn}
-              variant={'text'}
-              color={'primary'}
-              size={'small'}
-              onClick={openFinder}
-              disabled={Boolean(isExistFile)}
-            >
-              {t('Add File')}
-            </Button>
-          </>
-        )}
-      </DropZone>
-      <GuideText>{guideText}</GuideText>
-    </DragDrop>
+    <ThemeProvider theme={theme}>
+      <DragDrop onDrop={onDropHandler}>
+        <DropZone>
+          <input
+            key={fileInputKey}
+            type="file"
+            id="input-file-upload"
+            ref={fileRef}
+            onChange={onSelectFile}
+            css={disabledInput}
+          />
+          {isExistFile ? (
+            <SelectedFile>
+              <FileInfo>
+                <FileTitle>{fileName}</FileTitle>
+                <span>({filesize(Number(fileSize))})</span>
+              </FileInfo>
+              <IconButton onClick={onFileRemove} css={iconButtonContainer}>
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+            </SelectedFile>
+          ) : (
+            <>
+              <TextArea>
+                <div>{t('Drag and drop file here')}</div>
+                <div>{t('or')}</div>
+              </TextArea>
+              <Button
+                css={addFileBtn}
+                variant={'text'}
+                color={'primary'}
+                size={'small'}
+                onClick={openFinder}
+                disabled={Boolean(isExistFile)}
+              >
+                {t('Add File')}
+              </Button>
+            </>
+          )}
+        </DropZone>
+        <GuideText>{guideText}</GuideText>
+      </DragDrop>
+    </ThemeProvider>
   );
 }
 

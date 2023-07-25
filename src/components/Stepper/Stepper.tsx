@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode, useContext } from 'react';
 import {
   Orientation,
   StepConnector,
@@ -9,7 +9,8 @@ import {
   StepLabel as MUIStepLabel,
 } from '@mui/material';
 import styled from '@emotion/styled';
-import { createTheme, ThemeProvider } from '@mui/system';
+import { createTheme } from '@mui/system';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 /**
  * 작업 필요
@@ -101,8 +102,10 @@ export function Stepper({
   orientation = 'vertical',
   ...props
 }: IStepperProps): ReactElement {
+  const theme = useContext(PlayceThemeContext);
+
   return (
-    <ThemeProvider theme={stepperTheme}>
+    <ThemeProvider theme={theme}>
       <MUIStepper connector={<QontoConnector />} activeStep={activeStep} orientation={orientation}>
         {steps.map(({ title, value }, index) => (
           <Step key={index}>

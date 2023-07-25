@@ -1,8 +1,9 @@
 import { ButtonProps } from '@mui/material';
-import React, { ReactElement, useCallback, useMemo } from 'react';
+import React, { ReactElement, useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button';
 import { AddSmallIcon, RemoveIcon } from '../icons';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 interface IAccordionAction<T> {
   expanded: T;
@@ -18,6 +19,7 @@ function AccordionAction<T>({
   iconPosition = 'start',
 }: IAccordionAction<T>): ReactElement {
   const { t } = useTranslation();
+  const theme = useContext(PlayceThemeContext);
   const isAllCollapsed = useCallback(() => {
     return expanded && !Object.keys(expanded).some((key) => expanded[key as keyof T]);
   }, [expanded]);
@@ -34,19 +36,27 @@ function AccordionAction<T>({
     }
   }, [expanded, isAllCollapsed, setExpanded]);
 
-  const label = useMemo(() => (isAllCollapsed() ? t('Expand All') : t('Collapse All')), [isAllCollapsed, t]);
+  const label = useMemo(
+    () => (isAllCollapsed() ? t('Expand All') : t('Collapse All')),
+    [isAllCollapsed, t],
+  );
 
-  const icon = useMemo(() => (isAllCollapsed() ? <AddSmallIcon /> : <RemoveIcon />), [isAllCollapsed]);
+  const icon = useMemo(
+    () => (isAllCollapsed() ? <AddSmallIcon /> : <RemoveIcon />),
+    [isAllCollapsed],
+  );
 
   return (
-    <Button
-      onClick={handleClick}
-      sx={{ color: '#999999' }}
-      {...(iconPosition === 'start' ? { ...{ startIcon: icon } } : { ...{ endIcon: icon } })}
-      {...buttonProps}
-    >
-      {label}
-    </Button>
+    <ThemeProvider theme={theme}>
+      <Button
+        onClick={handleClick}
+        sx={{ color: '#999999' }}
+        {...(iconPosition === 'start' ? { ...{ startIcon: icon } } : { ...{ endIcon: icon } })}
+        {...buttonProps}
+      >
+        {label}
+      </Button>
+    </ThemeProvider>
   );
 }
 

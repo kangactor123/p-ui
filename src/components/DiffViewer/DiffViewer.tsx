@@ -1,10 +1,14 @@
-import React, { ReactElement, useMemo, useCallback } from 'react';
+import React, { ReactElement, useMemo, useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import Accordion from '../Accordion';
 import Tooltip from '../Tooltip';
 import { AccordionTitle } from '../Accordion/style';
 import { ExpandMsg, FileInfo, FileName } from './DiffViewer.style';
-import ReactDiffViewer, { ReactDiffViewerProps, ReactDiffViewerStylesOverride } from 'react-diff-viewer';
+import ReactDiffViewer, {
+  ReactDiffViewerProps,
+  ReactDiffViewerStylesOverride,
+} from 'react-diff-viewer';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 export interface IDiffViewerProps extends ReactDiffViewerProps {
   id: number | string;
@@ -24,6 +28,7 @@ function DiffViewer({
   ...props
 }: IDiffViewerProps): ReactElement {
   const { t } = useTranslation();
+  const theme = useContext(PlayceThemeContext);
 
   const getFileName = useMemo(() => {
     const names = filePath.split('/');
@@ -86,29 +91,31 @@ function DiffViewer({
   }, []);
 
   return (
-    <Accordion
-      key={id}
-      name={id}
-      expanded={expanded}
-      summaryProps={{
-        children: (
-          <Tooltip title={filePath} arrow placement="top">
-            <AccordionTitle>{getFileName}</AccordionTitle>
-          </Tooltip>
-        ),
-      }}
-      onChange={onExpanded}
-    >
-      <ReactDiffViewer
-        oldValue={oldValue}
-        newValue={newValue}
-        splitView={splitView}
-        disableWordDiff={true}
-        codeFoldMessageRenderer={expandCode}
-        styles={customStyles}
-        {...props}
-      />
-    </Accordion>
+    <ThemeProvider theme={theme}>
+      <Accordion
+        key={id}
+        name={id}
+        expanded={expanded}
+        summaryProps={{
+          children: (
+            <Tooltip title={filePath} arrow placement="top">
+              <AccordionTitle>{getFileName}</AccordionTitle>
+            </Tooltip>
+          ),
+        }}
+        onChange={onExpanded}
+      >
+        <ReactDiffViewer
+          oldValue={oldValue}
+          newValue={newValue}
+          splitView={splitView}
+          disableWordDiff={true}
+          codeFoldMessageRenderer={expandCode}
+          styles={customStyles}
+          {...props}
+        />
+      </Accordion>
+    </ThemeProvider>
   );
 }
 

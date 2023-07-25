@@ -86,3 +86,6 @@ export * from './components/icons';
 
 // Providers
 export * from './providers';
+
+// Theme
+export * from './common/theme';

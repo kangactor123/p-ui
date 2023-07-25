@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from 'react';
-import { Button as MUIButton, ButtonProps, Theme, ThemeProvider } from '@mui/material';
+import { Button as MUIButton, ButtonProps } from '@mui/material';
 import { css } from '@emotion/react';
-import { PlayceThemeContext } from '../../providers';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 type TButtonProps = {
   buttonRef?: any;
@@ -10,7 +10,7 @@ type TButtonProps = {
 function Button({ buttonRef, ...props }: TButtonProps): ReactElement {
   const theme = useContext(PlayceThemeContext);
   return (
-    <ThemeProvider theme={theme as Theme}>
+    <ThemeProvider theme={theme}>
       <MUIButton
         {...props}
         ref={buttonRef}
@@ -25,7 +25,9 @@ function Button({ buttonRef, ...props }: TButtonProps): ReactElement {
 }
 
 Button.defaultProps = {
-  variant: 'outlined',
+  variant: 'd',
+  children: 'Button',
+  color: 'grey',
 };
 
 export default Button;

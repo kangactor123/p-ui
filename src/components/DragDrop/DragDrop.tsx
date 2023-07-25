@@ -1,5 +1,6 @@
-import React, { DragEvent, ReactElement, ReactNode, useCallback } from 'react';
+import React, { DragEvent, ReactElement, ReactNode, useCallback, useContext } from 'react';
 import styled from '@emotion/styled';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 export interface IDragDropProps {
   onDrop: (file: File) => void;
@@ -12,6 +13,8 @@ const Wrapper = styled.div`
 `;
 
 function DragDrop({ children, onDrop }: IDragDropProps): ReactElement {
+  const theme = useContext(PlayceThemeContext);
+
   const handleDrop = useCallback(
     (e: DragEvent): void => {
       e.preventDefault();
@@ -41,9 +44,11 @@ function DragDrop({ children, onDrop }: IDragDropProps): ReactElement {
   }, []);
 
   return (
-    <Wrapper onDrop={handleDrop} onDragOver={dragOverHandler}>
-      {children}
-    </Wrapper>
+    <ThemeProvider theme={theme}>
+      <Wrapper onDrop={handleDrop} onDragOver={dragOverHandler}>
+        {children}
+      </Wrapper>
+    </ThemeProvider>
   );
 }
 

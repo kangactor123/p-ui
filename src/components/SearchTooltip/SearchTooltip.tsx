@@ -1,8 +1,9 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import { ClickAwayListener } from '@mui/material';
 import Tooltip from '../Tooltip';
 import { SearchIcon } from './SearchTooltip.style';
 import { TTooltipPlacement } from '../../common/type';
+import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
 export interface ISearchTooltipProps {
   tooltip: string;
@@ -11,6 +12,7 @@ export interface ISearchTooltipProps {
 
 function SearchTooltip({ tooltip, placement = 'bottom' }: ISearchTooltipProps): ReactElement {
   const [open, setOpen] = useState(false);
+  const theme = useContext(PlayceThemeContext);
   const handleTooltipClose = () => {
     setOpen(false);
   };
@@ -22,22 +24,24 @@ function SearchTooltip({ tooltip, placement = 'bottom' }: ISearchTooltipProps): 
   };
 
   return (
-    <ClickAwayListener onClickAway={handleTooltipClose}>
-      <Tooltip
-        PopperProps={{
-          disablePortal: true,
-        }}
-        onClose={handleTooltipClose}
-        title={tooltip}
-        open={open}
-        disableFocusListener
-        disableHoverListener
-        disableTouchListener
-        placement={placement}
-      >
-        <SearchIcon onClick={handleTooltipOpen} />
-      </Tooltip>
-    </ClickAwayListener>
+    <ThemeProvider theme={theme}>
+      <ClickAwayListener onClickAway={handleTooltipClose}>
+        <Tooltip
+          PopperProps={{
+            disablePortal: true,
+          }}
+          onClose={handleTooltipClose}
+          title={tooltip}
+          open={open}
+          disableFocusListener
+          disableHoverListener
+          disableTouchListener
+          placement={placement}
+        >
+          <SearchIcon onClick={handleTooltipOpen} />
+        </Tooltip>
+      </ClickAwayListener>
+    </ThemeProvider>
   );
 }
 
