@@ -1,15 +1,15 @@
 import React, { PropsWithChildren } from 'react';
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 import { ThemeProvider as MUIThemeProvider } from '@mui/material';
-import { PlayceTheme, getEmotionTheme, getMUITheme } from '../../common/theme';
+import { PlayceTheme, useEmotionTheme, getMUITheme } from '../../common/theme';
 import GlobalStyle from '../../common/global-style';
 
 export interface ThemeProviderProps extends PropsWithChildren {
-  theme: PlayceTheme['palette'];
+  theme?: PlayceTheme['palette'];
 }
 
 export function ThemeProvider({ theme: projectPalette, children }: ThemeProviderProps) {
-  const emotionTheme = getEmotionTheme(projectPalette);
+  const emotionTheme = useEmotionTheme();
 
   return (
     <EmotionThemeProvider theme={emotionTheme}>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
-import StoryAccordionAction from './AccordionAction';
-import { IAccordionAction } from './type';
+import StoryAccordionAction, { IAccordionAction } from './AccordionAction';
 
 interface AccordionType {
   test: boolean;

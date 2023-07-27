@@ -7,6 +7,7 @@ export interface PlayceTheme {
       primaryHover: string;
       primarySelected: string;
       secondary: string;
+      secondaryHover: string;
       third: string;
     };
     sub: {
@@ -97,10 +98,12 @@ export interface PlayceTheme {
       grey5: string;
     };
     text: {
+      primary: string;
       dark: string;
       grey100: string;
       grey70: string;
       disabled: string;
+      white: string;
     };
     line: {
       primary: string;
@@ -136,6 +139,7 @@ export const defaultTheme: PlayceTheme = {
       primaryHover: '#0051B4',
       primarySelected: '#E2F3FF',
       secondary: '#CADFFE',
+      secondaryHover: '#A5C7F9',
       third: '#F2EBFF',
     },
     sub: {
@@ -193,7 +197,7 @@ export const defaultTheme: PlayceTheme = {
       },
       negative: {
         negative: '#DA3D3D',
-        negative50: '#FF7878',
+        negative50: '#BA3535',
         negative10: '#FFEAE7',
       },
       warning: {
@@ -226,10 +230,12 @@ export const defaultTheme: PlayceTheme = {
       grey5: '#F8F9FB',
     },
     text: {
+      primary: '#1C74DF',
       dark: '#323232',
       grey100: '#50545B',
       grey70: '#808591',
       disabled: '#B5B8BF',
+      white: '#fff',
     },
     line: {
       primary: '#1C74DF',
@@ -266,8 +272,8 @@ export const defaultTheme: PlayceTheme = {
       lineHeight: '30px',
     },
     h4: {
-      fontSize: '18px',
-      fontWeight: 500,
+      fontSize: '16px',
+      fontWeight: 700,
       lineHeight: '28px',
     },
     h5: {

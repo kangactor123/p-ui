@@ -12,7 +12,7 @@ export default {
 
 const BackButton: Story<IBackButton> = (args) => (
   <BrowserRouter>
-    <StoryBackButton to={'/'} {...args} />
+    <StoryBackButton {...args} />
   </BrowserRouter>
 );
 

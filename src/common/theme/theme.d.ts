@@ -6,7 +6,7 @@ declare module '@emotion/react' {
 }
 
 declare module '@mui/material' {
-  // interface ButtonPropsColorOverrides {
-  //   grey: true;
-  // }
+  interface ButtonPropsColorOverrides {
+    grey: true;
+  }
 }
