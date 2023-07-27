@@ -1,43 +1,118 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import Button from './Button';
+import React from 'react';
+import Button, { TButtonProps } from './Button';
 import { ComponentMeta, Story } from '@storybook/react';
-import { ButtonProps as IButtonProps, Input } from '@mui/material';
-import { isEmpty } from 'lodash';
+import { css } from '@emotion/react';
+import { DropdownDownIcon, DuplicateCopyIcon } from '../icons';
 
 export default {
   title: 'Component/Button',
   component: Button,
 } as ComponentMeta<typeof Button>;
 
-const FirstTemplete: Story<IButtonProps> = (args) => {
-  return <Button {...args} />;
-};
-
-const SecondTemplete: Story<IButtonProps> = (args) => {
-  const [value, setValue] = useState('');
-  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = event;
-    setValue(value);
-  }, []);
-
-  const validation = useMemo(() => {
-    return isEmpty(value) && true;
-  }, [value]);
-
+const ButtonTemplate: Story<TButtonProps> = (args) => {
   return (
-    <div>
-      <div>
-        <Input type="text" value={value} onChange={handleChange} />
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      `}
+    >
+      <div
+        css={css`
+          display: flex;
+          gap: 10px;
+          align-items: center;
+        `}
+      >
+        <Button {...args} size={'medium'}>
+          Medium
+        </Button>
+        <Button {...args} size={'medium'} disabled>
+          Disabled
+        </Button>
+        <Button {...args} size={'medium'} endIcon={<DropdownDownIcon />}>
+          Icon
+        </Button>
+        <Button {...args} size={'medium'} startIcon={<DropdownDownIcon />}>
+          Icon
+        </Button>
+        <Button {...args} size={'medium'} onlyIcon>
+          <DropdownDownIcon />
+        </Button>
       </div>
-      <br />
-      <Button {...args} disabled={validation} color="primary" variant="contained" onClick={() => alert('띠용')}>
-        {'Template'}
-      </Button>
+      <div
+        css={css`
+          display: flex;
+          gap: 10px;
+          align-items: center;
+        `}
+      >
+        <Button {...args} size={'small'}>
+          Small
+        </Button>
+        <Button {...args} size={'small'} disabled>
+          Disabled
+        </Button>
+        <Button {...args} size={'small'} endIcon={<DuplicateCopyIcon />}>
+          Icon
+        </Button>
+        <Button {...args} size={'small'} startIcon={<DuplicateCopyIcon />}>
+          Icon
+        </Button>
+        <Button {...args} size={'small'} onlyIcon>
+          <DuplicateCopyIcon />
+        </Button>
+      </div>
     </div>
   );
 };
 
-export const First = FirstTemplete.bind({});
-export const DisableButton = SecondTemplete.bind({});
+// contained primary
+export const ContainedPrimary = ButtonTemplate.bind({});
+ContainedPrimary.args = {
+  variant: 'contained',
+  color: 'primary',
+};
+
+// contained secondary
+export const ContainedSecondary = ButtonTemplate.bind({});
+ContainedSecondary.args = {
+  variant: 'contained',
+  color: 'secondary',
+};
+
+// contained grey
+export const ContainedGrey = ButtonTemplate.bind({});
+ContainedGrey.args = {
+  variant: 'contained',
+  color: 'grey',
+};
+
+// contained warning
+export const ContainedWarning = ButtonTemplate.bind({});
+ContainedWarning.args = {
+  variant: 'contained',
+  color: 'warning',
+};
+
+// outlined primary
+export const OutlinedPrimary = ButtonTemplate.bind({});
+OutlinedPrimary.args = {
+  variant: 'outlined',
+  color: 'primary',
+};
+
+// text primary
+export const TextPrimary = ButtonTemplate.bind({});
+TextPrimary.args = {
+  variant: 'text',
+  color: 'primary',
+};
+
+// text primary
+export const TextSecondary = ButtonTemplate.bind({});
+TextSecondary.args = {
+  variant: 'text',
+  color: 'secondary',
+};
