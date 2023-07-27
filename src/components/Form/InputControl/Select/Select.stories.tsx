@@ -26,7 +26,6 @@ const Select: Story<ISelectProps<TSample>> = (args) => (
       max-width: 300px;
     `}
   >
-    {' '}
     <StorySelect
       {...args}
       options={tempOptions}

@@ -26,7 +26,6 @@ const InputPassword: Story<TInputPasswordProps> = (args) => {
         max-width: 300px;
       `}
     >
-      {' '}
       <StoryInputPassword
         {...args}
         name={'sample'}
