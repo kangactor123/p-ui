@@ -5,7 +5,7 @@ import Button from '../Button';
 import { AddSmallIcon, RemoveIcon } from '../icons';
 import { PlayceThemeContext, ThemeProvider } from '../../providers';
 
-interface IAccordionAction<T> {
+export interface IAccordionAction<T> {
   expanded: T;
   setExpanded: React.Dispatch<React.SetStateAction<T>>;
   buttonProps?: ButtonProps;

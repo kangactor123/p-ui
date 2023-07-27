@@ -1,7 +1,7 @@
-export { getEmotionTheme } from './getEmotionTheme';
+export { useEmotionTheme } from './useEmotionTheme';
 export { getMUITheme } from './getMUITheme';
 export { defaultTheme } from './defaultTheme';
 
-export * from './getEmotionTheme';
+export * from './useEmotionTheme';
 export * from './getMUITheme';
 export * from './defaultTheme';

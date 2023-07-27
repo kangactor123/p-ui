@@ -1,33 +1,30 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement } from 'react';
 import { Button as MUIButton, ButtonProps } from '@mui/material';
-import { css } from '@emotion/react';
-import { PlayceThemeContext, ThemeProvider } from '../../providers';
+import { ThemeProvider } from '../../providers';
+import { cx } from '@emotion/css';
 
-type TButtonProps = {
+export type TButtonProps = {
   buttonRef?: any;
+  onlyIcon?: boolean;
 } & ButtonProps;
 
-function Button({ buttonRef, ...props }: TButtonProps): ReactElement {
-  const theme = useContext(PlayceThemeContext);
+function Button({ buttonRef, className, onlyIcon, ...props }: TButtonProps): ReactElement {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <MUIButton
         {...props}
         ref={buttonRef}
-        css={css`
-          text-transform: none;
-        `}
-      >
-        {props.children}
-      </MUIButton>
+        disableRipple
+        className={cx(onlyIcon && 'onlyIcon', className)}
+      />
     </ThemeProvider>
   );
 }
 
 Button.defaultProps = {
-  variant: 'd',
-  children: 'Button',
-  color: 'grey',
+  variant: 'contained',
+  color: 'primary',
+  size: 'medium',
 };
 
 export default Button;
