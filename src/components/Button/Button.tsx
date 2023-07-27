@@ -11,12 +11,7 @@ export type TButtonProps = {
 function Button({ buttonRef, className, onlyIcon, ...props }: TButtonProps): ReactElement {
   return (
     <ThemeProvider>
-      <MUIButton
-        {...props}
-        ref={buttonRef}
-        disableRipple
-        className={cx(onlyIcon && 'onlyIcon', className)}
-      />
+      <MUIButton ref={buttonRef} className={cx(onlyIcon && 'onlyIcon', className)} {...props} />
     </ThemeProvider>
   );
 }
@@ -25,6 +20,7 @@ Button.defaultProps = {
   variant: 'contained',
   color: 'primary',
   size: 'medium',
+  disableRipple: 'true',
 };
 
 export default Button;
