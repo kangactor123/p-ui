@@ -145,6 +145,7 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
           root: {
             borderRadius: '3px',
             backgroundColor: '#FFFFFF',
+            border: `1px solid ${theme.palette.greyScale.grey30}`,
             '& .MuiOutlinedInput-root': {
               paddingRight: 'unset',
               color: theme.palette.greyScale.grey100,
