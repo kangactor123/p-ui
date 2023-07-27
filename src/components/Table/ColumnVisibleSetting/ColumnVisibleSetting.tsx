@@ -180,7 +180,7 @@ export function ColumnVisibleSetting(
                             onChange={handleChange}
                             value={id}
                             label={dt}
-                            labelCss={styles.label}
+                            // labelCss={styles.label}
                             checked={visible.includes(id)}
                             color="primary"
                           />
