@@ -16,7 +16,6 @@ export type UploadFile =
   | undefined;
 
 export type TInputFileProps = TextFieldProps & {
-  inputSize?: 'large' | 'medium' | 'small';
   onError?: (errorMsg: string | undefined) => void;
   onDeleteOld?: () => void;
   value?: UploadFile | string;
@@ -81,12 +80,11 @@ function InputFile({
   onError,
   onChange,
   onDeleteOld,
-  inputSize = Size.L,
+  size = Size.S,
   ...props
 }: TInputFileProps): ReactElement {
   const { t } = useTranslation();
-  const theme = useContext(PlayceThemeContext);
-  const inputStyle = getInputStyleBySize(inputSize);
+  const inputStyle = getInputStyleBySize(size);
 
   const inputRef = useRef<HTMLInputElement>();
   const fileRef = useRef<HTMLInputElement>();
@@ -164,7 +162,7 @@ function InputFile({
   }, [onChange, name]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <FileInputWrap fullWidth={fullWidth}>
         <FileInput
           id={id}
@@ -180,7 +178,6 @@ function InputFile({
         <div css={inputWrap}>
           <TextField
             inputRef={inputRef}
-            {...fakeProps}
             placeholder={placeholder}
             InputProps={{
               endAdornment: (
@@ -196,6 +193,7 @@ function InputFile({
               ),
               inputProps: { sx: inputStyle },
             }}
+            {...fakeProps}
           />
           {oldFileName &&
             (onDeleteOld ? (

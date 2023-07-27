@@ -147,8 +147,8 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             backgroundColor: '#FFFFFF',
             '& .MuiOutlinedInput-root': {
               paddingRight: 'unset',
-              ...theme.typo.p4,
               color: theme.palette.greyScale.grey100,
+              ...theme.typo.p4,
             },
             '& .Mui-disabled': {
               backgroundColor: theme.palette.content.disabled.disabled,
@@ -162,18 +162,32 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       },
       MuiPaper: {
         styleOverrides: {
-          root: {
-            top: '62px !important',
-          },
+          root: {},
         },
       },
       MuiSelect: {
         styleOverrides: {
-          select: {
-            ...theme.typo.p4,
+          select: (ownerState) => ({
             color: theme.palette.text.grey100,
+            height:
+              ownerState.size === 'small'
+                ? '32px'
+                : ownerState.size === 'medium'
+                ? '40px'
+                : ownerState.size === 'large'
+                ? '48px'
+                : '32px',
+            width: '300px',
+            padding:
+              ownerState.size === 'small'
+                ? '6px 32px 6px 12px !important'
+                : ownerState.size === 'medium'
+                ? '14px 32px 14px 12px !important'
+                : '6px 32px 6px 12px !important',
+            border: `1px solid ${theme.palette.greyScale.grey30}`,
             borderRadius: '3px',
             backgroundColor: '#FFFFFF',
+            ...theme.typo.p4,
             '&:hover': {
               color: theme.palette.text.grey100,
               border: `1px solid ${theme.palette.text.grey100}`,
@@ -184,7 +198,7 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
               color: theme.palette.text.disabled,
               border: `1px solid ${theme.palette.greyScale.grey30}`,
             },
-          },
+          }),
           icon: {
             top: 'auto',
             border: 'unset',
@@ -205,6 +219,13 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
           root: {
             minHeight: 'unset',
             padding: '2px 6px',
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          notchedOutline: {
+            border: 'none !important',
           },
         },
       },

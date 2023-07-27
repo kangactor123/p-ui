@@ -12,20 +12,16 @@ export type TInputTextProps = TextFieldProps & {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
-  inputSize?: 'large' | 'medium' | 'small';
   disabled?: boolean;
   useClearBtn?: boolean;
   handleClear: () => void;
 };
 
-/**
- * @param inputSize: default 는 'medium', 'large', 'small
- */
 function InputText({
   value = '',
   inputProps = {},
   variant = 'outlined',
-  inputSize = Size.L,
+  size = Size.S,
   useClearBtn = false,
   onChange,
   onBlur,
@@ -34,8 +30,7 @@ function InputText({
   ...props
 }: TInputTextProps): ReactElement {
   const { sx: inputSx, ...input } = inputProps;
-  const inputStyle = getInputStyleBySize(inputSize);
-  const theme = useContext(PlayceThemeContext);
+  const inputStyle = getInputStyleBySize(size);
   const placeholder = t(props.placeholder || 'this is placeholder');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -57,7 +52,7 @@ function InputText({
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <TextField
         value={value}
         variant={variant}

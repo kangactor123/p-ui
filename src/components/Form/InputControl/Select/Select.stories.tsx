@@ -4,6 +4,7 @@ import { ComponentMeta, Story } from '@storybook/react';
 import StorySelect, { ISelectProps } from './Select';
 import { TSample } from '../CodeEditor/CodeEditor.stories';
 import { css } from '@emotion/react';
+import { Size } from '../../../../common/enum';
 
 export default {
   title: 'Component/Select',
@@ -29,15 +30,25 @@ const Select: Story<ISelectProps<TSample>> = (args) => (
     <StorySelect
       {...args}
       options={tempOptions}
+      size={Size.M}
+      widthSize={Size.M}
       renderValue={(value) => {
         const renderValue = tempOptions.find((option) => option.label === (value as string))?.label;
         return value ? renderValue : 'Select a JDK Version';
       }}
     />
-    <StorySelect options={tempOptions} disabled={true} renderValue={(value) => 'Disabled'} />
+    <StorySelect
+      options={tempOptions}
+      size={Size.M}
+      widthSize={Size.M}
+      disabled={true}
+      renderValue={(value) => 'Disabled'}
+    />
     <StorySelect
       {...args}
       options={tempOptions}
+      size={Size.M}
+      widthSize={Size.M}
       loading={true}
       renderValue={(value) => '...loading'}
     />
@@ -58,6 +69,8 @@ const DescSelect: Story<ISelectProps<TSample>> = (args) => {
     <StorySelect
       {...args}
       options={descSelectOptions}
+      size={Size.M}
+      widthSize={Size.M}
       placeholder={'Select a role'}
       renderValue={(value) => {
         const renderValue = descSelectOptions.find(

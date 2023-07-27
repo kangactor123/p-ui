@@ -45,7 +45,7 @@ const InputText: Story<TInputTextProps> = (args) => {
       <StoryInputText
         {...args}
         value={value}
-        inputSize={Size.S}
+        size={Size.S}
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
@@ -55,7 +55,7 @@ const InputText: Story<TInputTextProps> = (args) => {
       <StoryInputText
         {...args}
         value={value}
-        inputSize={Size.M}
+        size={Size.M}
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
@@ -71,7 +71,7 @@ export const Basic = InputText.bind({});
 
 Basic.args = {
   placeholder: 'this is placeholder',
-  inputSize: Size.S,
+  size: Size.S,
   disabled: false,
   useClearBtn: false,
 };

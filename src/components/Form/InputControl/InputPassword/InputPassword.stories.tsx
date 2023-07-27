@@ -30,7 +30,7 @@ const InputPassword: Story<TInputPasswordProps> = (args) => {
         {...args}
         name={'sample'}
         value={password || ''}
-        inputSize={Size.M}
+        size={Size.M}
         placeholder={'this is medium size'}
         onChange={handleChangePassword}
       />
@@ -38,7 +38,7 @@ const InputPassword: Story<TInputPasswordProps> = (args) => {
         {...args}
         name={'sample'}
         value={password || ''}
-        inputSize={Size.S}
+        size={Size.S}
         placeholder={'this is small size'}
         onChange={handleChangePassword}
       />
@@ -49,6 +49,6 @@ export const Basic = InputPassword.bind({});
 
 Basic.args = {
   placeholder: 'this is placeholder',
-  inputSize: Size.S,
+  size: Size.S,
   onChange: () => {},
 };

@@ -1,41 +1,5 @@
 import { css, Theme } from '@emotion/react';
-import { Select as MUISelect, styled as MUIStyled, MenuItem as MUIMenuItem } from '@mui/material';
-import { TSize } from '../../../../common/type';
-import { Theme as EmotionTheme } from '@emotion/react';
-
-export const SelectComponent: any = MUIStyled(MUISelect)<{
-  size: TSize;
-  selected: boolean;
-  widthSize: TSize;
-  theme: EmotionTheme;
-}>(({ size, selected, widthSize, theme }) => ({
-  backgroundColor: selected ? '#fff' : 'transparent',
-  height:
-    size === 'small' ? '32px' : size === 'medium' ? '40px' : size === 'large' ? '48px' : '32px',
-  maxWidth: '640px',
-  border: `1px solid ${theme.palette.greyScale.grey30}`,
-  width:
-    widthSize === 'small'
-      ? '180px'
-      : widthSize === 'medium'
-      ? '240px'
-      : widthSize === 'large'
-      ? '280px'
-      : '180px',
-  '& .MuiSelect-select': {
-    padding:
-      size === 'small'
-        ? '6px 32px 6px 12px !important'
-        : size === 'medium'
-        ? '9px 40px 9px 16px !important'
-        : size === 'large'
-        ? '12px 40px 12px 18px !important'
-        : null,
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    border: 'none !important',
-  },
-}));
+import { styled as MUIStyled, MenuItem as MUIMenuItem } from '@mui/material';
 
 export const wrap = css`
   max-width: 100%;

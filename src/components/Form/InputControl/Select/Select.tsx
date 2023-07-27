@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import React, { ElementType, ReactElement, ReactNode, useContext } from 'react';
-import { ListItemText, SelectProps as MUISelectProps } from '@mui/material';
+import React, { ElementType, ReactElement, ReactNode } from 'react';
+import { ListItemText, SelectProps as MUISelectProps, Select as MuiSelect } from '@mui/material';
 import { cx } from '@emotion/css';
 import { TSize } from '../../../../common/type';
 import {
   labelStyle,
-  SelectComponent,
   splitStyle,
   MenuItem,
   optionWrapper,
@@ -14,8 +13,7 @@ import {
   multiCheckbox,
 } from './Select.style';
 import { isArray } from 'lodash';
-import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
-import { Size } from '../../../../common/enum';
+import { ThemeProvider } from '../../../../providers';
 import Checkbox from '../../../Checkbox';
 import { DropdownDownGrayIcon, DropdownDownIcon } from '../../../icons';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +23,6 @@ export interface ISelectOption {
   hidden?: boolean;
   value: any;
   label: ReactNode;
-  selected?: boolean;
   disabled?: boolean;
   split?: boolean;
   description?: string;
@@ -39,7 +36,6 @@ export type ISelectProps<T> = {
   menuClassName?: string;
   size?: TSize;
   widthSize?: TSize;
-  selected?: boolean;
 } & MUISelectProps;
 
 function Select<T extends ISelectOption>({
@@ -51,20 +47,8 @@ function Select<T extends ISelectOption>({
   ...props
 }: ISelectProps<T>): ReactElement {
   const { t } = useTranslation();
-  const {
-    children,
-    options,
-    multiple,
-    value: values = '',
-    icon,
-    disabled,
-    size = Size.M,
-    widthSize = Size.L,
-    selected,
-  } = props;
-  const theme = useContext(PlayceThemeContext);
-  const emotionTheme = useEmotionTheme(theme);
-
+  const { children, options, multiple, value: values = '', icon, disabled } = props;
+  const emotionTheme = useEmotionTheme();
   const renderLabel = (label: React.ReactNode) => (
     <span title={typeof label === 'string' ? label : ''} css={labelStyle(emotionTheme)}>
       {label}
@@ -72,16 +56,15 @@ function Select<T extends ISelectOption>({
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <SelectComponent
+    <ThemeProvider>
+      <MuiSelect
+        {...props}
         className={className}
         css={wrap}
-        {...props}
         variant={variant}
         displayEmpty={displayEmpty}
         IconComponent={icon || disabled ? DropdownDownGrayIcon : DropdownDownIcon}
         MenuProps={{
-          getContentAnchorEl: null,
           anchorOrigin: {
             vertical: 'bottom',
             horizontal: 'left',
@@ -89,10 +72,6 @@ function Select<T extends ISelectOption>({
           className: menuClassName,
         }}
         disabled={disabled || loading}
-        size={size}
-        widthSize={widthSize}
-        selected={selected}
-        theme={emotionTheme}
       >
         {children}
         {options &&
@@ -136,7 +115,7 @@ function Select<T extends ISelectOption>({
               )
             ),
           )}
-      </SelectComponent>
+      </MuiSelect>
     </ThemeProvider>
   );
 }

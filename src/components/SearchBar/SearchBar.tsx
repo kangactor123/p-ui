@@ -17,7 +17,6 @@ export type TSearchInputProps = TextFieldProps & {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
   onDelete?: () => void;
-  inputSize?: 'large' | 'medium' | 'small';
   isShortWidth?: boolean;
 };
 
@@ -29,14 +28,13 @@ function SearchBar(props: TSearchInputProps): ReactElement {
     onKeyDown,
     onDelete,
     InputProps = {},
-    inputSize = Size.S,
+    size = Size.S,
     isShortWidth = true,
     ...defaultProps
   } = props;
 
-  const theme = useContext(PlayceThemeContext);
-  const emotionTheme = useEmotionTheme(theme);
-  const inputStyle = getInputStyleBySize(inputSize, isShortWidth);
+  const emotionTheme = useEmotionTheme();
+  const inputStyle = getInputStyleBySize(size, isShortWidth);
   const placeholder = t(props.placeholder || 'Search');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -64,7 +62,7 @@ function SearchBar(props: TSearchInputProps): ReactElement {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <TextField
         value={value}
         onChange={handleChange}

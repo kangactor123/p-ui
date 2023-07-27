@@ -279,7 +279,7 @@ export function TableToolbar<TModel extends object>({
           onKeyDown={handleKeywordKeyDown}
           onBlur={handleKeywordBlur}
           value={searchKeyword || ''}
-          inputSize={Size.S}
+          size={Size.S}
         />
       </div>
       <div css={classes.rightButtons}>
