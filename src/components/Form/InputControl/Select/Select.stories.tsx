@@ -3,6 +3,7 @@ import React from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
 import StorySelect, { ISelectProps } from './Select';
 import { TSample } from '../CodeEditor/CodeEditor.stories';
+import { css } from '@emotion/react';
 
 export default {
   title: 'Component/Select',
@@ -17,14 +18,31 @@ const tempOptions = [
 ];
 
 const Select: Story<ISelectProps<TSample>> = (args) => (
-  <StorySelect
-    {...args}
-    options={tempOptions}
-    renderValue={(value) => {
-      const renderValue = tempOptions.find((option) => option.label === (value as string))?.label;
-      return value ? renderValue : 'Select a JDK Version';
-    }}
-  />
+  <div
+    css={css`
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 300px;
+    `}
+  >
+    {' '}
+    <StorySelect
+      {...args}
+      options={tempOptions}
+      renderValue={(value) => {
+        const renderValue = tempOptions.find((option) => option.label === (value as string))?.label;
+        return value ? renderValue : 'Select a JDK Version';
+      }}
+    />
+    <StorySelect options={tempOptions} disabled={true} renderValue={(value) => 'Disabled'} />
+    <StorySelect
+      {...args}
+      options={tempOptions}
+      loading={true}
+      renderValue={(value) => '...loading'}
+    />
+  </div>
 );
 
 const descSelectOptions = [

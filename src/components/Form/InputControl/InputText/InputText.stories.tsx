@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
 import StoryInputText, { TInputTextProps } from './InputText';
 import { Size } from '../../../../common/enum';
+import { css } from '@emotion/react';
 
 export default {
   title: 'Component/InputText',
@@ -33,14 +34,36 @@ const InputText: Story<TInputTextProps> = (args) => {
   };
 
   return (
-    <StoryInputText
-      {...args}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      onKeyDown={handleKeyDown}
-      handleClear={handleClearValue}
-    />
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 300px;
+      `}
+    >
+      <StoryInputText
+        {...args}
+        value={value}
+        inputSize={Size.S}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        handleClear={handleClearValue}
+        placeholder="small size Input"
+      />
+      <StoryInputText
+        {...args}
+        value={value}
+        inputSize={Size.M}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        handleClear={handleClearValue}
+        placeholder="medium size Input"
+        disabled={true}
+      />
+    </div>
   );
 };
 

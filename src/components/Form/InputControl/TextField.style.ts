@@ -19,14 +19,14 @@ export const iconClearBtn = css`
   padding: 0 12px 0 0;
 `;
 
-export function getInputStyleBySize(inputSize: 'large' | 'medium' | 'small'): SxProps<Theme> {
+export function getInputStyleBySize(
+  inputSize: 'large' | 'medium' | 'small',
+  isShortWidth?: boolean,
+): SxProps<Theme> {
   return {
+    width: isShortWidth ? '200px' : '300px',
     padding:
-      inputSize === Size.L
-        ? '20px 0 20px 12px'
-        : inputSize === Size.M
-        ? '14px 0 14px 12px'
-        : '6px 0 6px 12px',
-    minHeight: inputSize === Size.L ? '20px' : inputSize === Size.M ? '20px' : '20px',
+      inputSize === Size.L ? '' : inputSize === Size.M ? '14px 0 14px 12px' : '6px 0 6px 12px',
+    minHeight: inputSize === Size.L ? '' : inputSize === Size.M ? '48px' : '32px',
   };
 }

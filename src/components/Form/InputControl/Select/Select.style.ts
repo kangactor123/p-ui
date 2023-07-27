@@ -1,65 +1,41 @@
 import { css, Theme } from '@emotion/react';
 import { Select as MUISelect, styled as MUIStyled, MenuItem as MUIMenuItem } from '@mui/material';
 import { TSize } from '../../../../common/type';
+import { Theme as EmotionTheme } from '@emotion/react';
 
-export const SelectComponent: any = MUIStyled(MUISelect)<{ size: TSize; selected: boolean }>(
-  ({ size, selected }) => ({
-    borderRadius: '4px',
-    color: selected ? '#323338' : '#9195A1',
-    backgroundColor: selected ? '#fff' : 'transparent',
-    height:
-      size === 'small' ? '32px' : size === 'medium' ? '40px' : size === 'large' ? '48px' : '32px',
-    border: '1px solid #D6D9DE',
-    maxWidth: '640px',
-    minWidth: '300px',
-
-    '&:hover': {
-      color: '#323338',
-      border: '1px solid #323338',
-    },
-    '&.Mui-disabled': {
-      backgroundColor: '#E8EAED',
-      color: '#B5B8BF',
-      border: '1px solid #D6D9DE',
-    },
-    '&.Mui-focused': {
-      border: '1px solid #1C74DF',
-    },
-    '& .MuiSelect-select': {
-      fontSize: '13px',
-      fontWeight: 400,
-      lineHeight: '20px',
-      padding:
-        size === 'small'
-          ? '6px 32px 6px 12px !important'
-          : size === 'medium'
-          ? '9px 40px 9px 16px !important'
-          : size === 'large'
-          ? '12px 40px 12px 18px !important'
-          : null,
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      border: 'none !important',
-    },
-    '& .MuiSelect-icon': {
-      top: 'auto',
-      border: 'unset',
-    },
-    '& .multi-checkbox': {
-      marginLeft: '10px',
-      padding: 0,
-    },
-    '& .multi-label': {
-      paddingLeft: 8,
-      '& > .label': {
-        minWidth: 32,
-        width: 32,
-        height: 32,
-        marginRight: 8,
-      },
-    },
-  }),
-);
+export const SelectComponent: any = MUIStyled(MUISelect)<{
+  size: TSize;
+  selected: boolean;
+  widthSize: TSize;
+  theme: EmotionTheme;
+}>(({ size, selected, widthSize, theme }) => ({
+  backgroundColor: selected ? '#fff' : 'transparent',
+  height:
+    size === 'small' ? '32px' : size === 'medium' ? '40px' : size === 'large' ? '48px' : '32px',
+  maxWidth: '640px',
+  border: `1px solid ${theme.palette.greyScale.grey30}`,
+  width:
+    widthSize === 'small'
+      ? '180px'
+      : widthSize === 'medium'
+      ? '240px'
+      : widthSize === 'large'
+      ? '280px'
+      : '180px',
+  '& .MuiSelect-select': {
+    padding:
+      size === 'small'
+        ? '6px 32px 6px 12px !important'
+        : size === 'medium'
+        ? '9px 40px 9px 16px !important'
+        : size === 'large'
+        ? '12px 40px 12px 18px !important'
+        : null,
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: 'none !important',
+  },
+}));
 
 export const wrap = css`
   max-width: 100%;
@@ -72,23 +48,13 @@ export const labelStyle = (theme: Theme) => css`
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: ${theme.typo.p4.fontSize};
-    font-weight: ${theme.typo.p4.fontWeight};
-    line-height: ${theme.typo.p4.lineHeight};
   }
 
-  &.Mui-selected {
-    background-color: #e2f3ff;
-    &:hover {
-      background-color: #f0f2f4;
-    }
-  }
-
-  &.Mui-focusVisible {
-    background-color: unset;
-    &:hover {
-      background-color: #f0f2f4;
-    }
+  & .MuiTypography-root {
+    /* font-size: ${theme.typo.p4.fontSize}; */
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
   }
 `;
 
@@ -114,6 +80,17 @@ export const MenuItem: any = MUIStyled(MUIMenuItem)({
   ':active': {
     background: '#e2f3ff',
   },
+  '&.Mui-focusVisible': {
+    backgroundColor: 'unset',
+    ':hover': {
+      backgroundColor: '#F0F2F4',
+    },
+  },
+  '&.Mui-selected': {
+    ':hover': {
+      backgroundColor: '#F0F2F4',
+    },
+  },
 });
 
 export const optionWrapper = css`
@@ -126,10 +103,6 @@ export const optionWrapper = css`
     font-size: 10px;
     color: #919294;
   }
-`;
-
-export const menu = css`
-  max-width: 640px;
 `;
 
 export const loadingStyle = css`
@@ -150,6 +123,9 @@ export const multiLabel = css`
   }
   & > div > span {
     font-size: 14px;
+  }
+  & .MuiPaper-root {
+    top: 2px !important;
   }
 `;
 export const multiCheckbox = css`

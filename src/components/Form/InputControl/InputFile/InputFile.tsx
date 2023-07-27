@@ -1,9 +1,9 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
-import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { Chip, InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { CloseSmallIcon, IconFileUpload } from '../../../icons';
+import { CloseSmallIcon, IconClose, IconFileUpload } from '../../../icons';
 import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { getInputStyleBySize } from '../TextField.style';
@@ -55,6 +55,20 @@ const iconFileDelete = css`
   position: relative;
 `;
 
+const inputWrap = css`
+  display: flex;
+
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const chipStyle = css`
+  width: fit-content;
+  height: fit-content;
+  border-radius: 4px;
+  padding: 3px;
+`;
+
 function InputFile({
   id,
   name,
@@ -90,7 +104,6 @@ function InputFile({
   };
   const fakeProps = {
     ...props,
-    // inputProps: otherInputProps,
     value: fakeValue,
   };
 
@@ -152,7 +165,7 @@ function InputFile({
 
   return (
     <ThemeProvider theme={theme}>
-      <FileInputWrap>
+      <FileInputWrap fullWidth={fullWidth}>
         <FileInput
           id={id}
           name={name}
@@ -164,31 +177,38 @@ function InputFile({
           onChange={handleChange}
           {...fileProps}
         />
-        <TextField
-          inputRef={inputRef}
-          {...fakeProps}
-          placeholder={placeholder}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconContainer>
-                  {value ? (
-                    <CloseSmallIcon onClick={deleteFile} css={iconFileDelete} />
-                  ) : (
-                    <IconFileUpload width={20} height={20} />
-                  )}
-                </IconContainer>
-              </InputAdornment>
-            ),
-            inputProps: { sx: inputStyle },
-          }}
-        />
-        {/* {oldFileName &&
-          (onDeleteOld ? (
-            <Chip label={oldFileName} onDelete={onDeleteOld} deleteIcon={<IconClose />} />
-          ) : (
-            <Chip label={oldFileName} />
-          ))} */}
+        <div css={inputWrap}>
+          <TextField
+            inputRef={inputRef}
+            {...fakeProps}
+            placeholder={placeholder}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconContainer>
+                    {value ? (
+                      <CloseSmallIcon onClick={deleteFile} css={iconFileDelete} />
+                    ) : (
+                      <IconFileUpload width={20} height={20} />
+                    )}
+                  </IconContainer>
+                </InputAdornment>
+              ),
+              inputProps: { sx: inputStyle },
+            }}
+          />
+          {oldFileName &&
+            (onDeleteOld ? (
+              <Chip
+                css={chipStyle}
+                label={oldFileName}
+                onDelete={onDeleteOld}
+                deleteIcon={<IconClose />}
+              />
+            ) : (
+              <Chip label={oldFileName} />
+            ))}
+        </div>
       </FileInputWrap>
     </ThemeProvider>
   );

@@ -10,7 +10,6 @@ import {
   MenuItem,
   optionWrapper,
   wrap,
-  menu,
   multiLabel,
   multiCheckbox,
 } from './Select.style';
@@ -18,7 +17,9 @@ import { isArray } from 'lodash';
 import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import Checkbox from '../../../Checkbox';
-import { useTheme } from '@emotion/react';
+import { DropdownDownGrayIcon, DropdownDownIcon } from '../../../icons';
+import { useTranslation } from 'react-i18next';
+import { useEmotionTheme } from '../../../../common/theme';
 
 export interface ISelectOption {
   hidden?: boolean;
@@ -37,6 +38,8 @@ export type ISelectProps<T> = {
   isWidgetFilter?: boolean;
   menuClassName?: string;
   size?: TSize;
+  widthSize?: TSize;
+  selected?: boolean;
 } & MUISelectProps;
 
 function Select<T extends ISelectOption>({
@@ -47,10 +50,27 @@ function Select<T extends ISelectOption>({
   menuClassName,
   ...props
 }: ISelectProps<T>): ReactElement {
-  // const { t } = useTranslation();
-  const { children, options, multiple, value: values = '', icon, disabled, size = Size.M } = props;
+  const { t } = useTranslation();
+  const {
+    children,
+    options,
+    multiple,
+    value: values = '',
+    icon,
+    disabled,
+    size = Size.M,
+    widthSize = Size.L,
+    selected,
+  } = props;
   const theme = useContext(PlayceThemeContext);
-  const emotionTheme = useTheme();
+  const emotionTheme = useEmotionTheme(theme);
+
+  const renderLabel = (label: React.ReactNode) => (
+    <span title={typeof label === 'string' ? label : ''} css={labelStyle(emotionTheme)}>
+      {label}
+    </span>
+  );
+
   return (
     <ThemeProvider theme={theme}>
       <SelectComponent
@@ -59,6 +79,7 @@ function Select<T extends ISelectOption>({
         {...props}
         variant={variant}
         displayEmpty={displayEmpty}
+        IconComponent={icon || disabled ? DropdownDownGrayIcon : DropdownDownIcon}
         MenuProps={{
           getContentAnchorEl: null,
           anchorOrigin: {
@@ -66,17 +87,21 @@ function Select<T extends ISelectOption>({
             horizontal: 'left',
           },
           className: menuClassName,
-          css: menu,
         }}
         disabled={disabled || loading}
         size={size}
+        widthSize={widthSize}
+        selected={selected}
+        theme={emotionTheme}
       >
         {children}
         {options &&
           options?.length > 0 &&
           options.map(({ label, split, value, hidden, disabled, description, ...props }, index) =>
             split ? (
-              <div key={index} css={splitStyle}></div>
+              <div key={index} css={splitStyle}>
+                {value}
+              </div>
             ) : (
               (!values || !hidden) && (
                 <MenuItem
@@ -92,20 +117,12 @@ function Select<T extends ISelectOption>({
                         css={multiCheckbox}
                         value={values}
                         checked={isArray(values) && values.includes(value)}
-                      />
-                      <ListItemText
-                        css={labelStyle(emotionTheme)}
-                        title={label?.toString()}
-                        primary={label}
+                        label={renderLabel(label)}
                       />
                     </>
                   ) : description ? (
                     <div css={optionWrapper}>
-                      <ListItemText
-                        css={labelStyle(emotionTheme)}
-                        title={label?.toString()}
-                        primary={label}
-                      />
+                      {renderLabel(label)}
                       <div className="desc">{description}</div>
                     </div>
                   ) : (

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import StorySearchBar, { TSearchInputProps } from './SearchBar';
-import { Size } from '../../common/enum';
 
 export default {
   title: 'Component/SearchBar',
@@ -31,13 +30,14 @@ const SearchBar: Story<TSearchInputProps> = (args) => {
   return (
     <StorySearchBar
       {...args}
-      placeholder={'search bar placeholder here'}
+      placeholder={'Search'}
       value={value}
       onChange={handleChange}
-      onBlurEvent={handleBlur}
+      onBlur={handleBlur}
       onKeyDown={handleKeyDown}
-      InputProps={{ sx: { width: '300px' } }}
-      onDeleteSearchKeyword={handleDeleteSearchKeyword}
+      InputProps={{ sx: { width: '200px' } }}
+      onDelete={handleDeleteSearchKeyword}
+      isShortWidth={true}
     />
   );
 };
@@ -46,6 +46,5 @@ export const Basic = SearchBar.bind({});
 
 Basic.args = {
   placeholder: 'this is placeholder',
-  inputSize: Size.S,
   onDelete: () => {},
 };

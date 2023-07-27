@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ComponentMeta, Story } from '@storybook/react';
 import StoryInputPassword, { TInputPasswordProps } from './InputPassword';
 import { Size } from '../../../../common/enum';
+import { css } from '@emotion/react';
 
 export default {
   title: 'Component/InputPassword',
@@ -16,19 +17,33 @@ const InputPassword: Story<TInputPasswordProps> = (args) => {
     setPassword(event.currentTarget.value);
   };
 
-  const handleDeletePassword = () => {
-    setPassword('');
-  };
-
   return (
-    <StoryInputPassword
-      {...args}
-      name={'sample'}
-      value={password || ''}
-      placeholder={'this is placeholder'}
-      onChange={handleChangePassword}
-      onDelete={handleDeletePassword}
-    />
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 300px;
+      `}
+    >
+      {' '}
+      <StoryInputPassword
+        {...args}
+        name={'sample'}
+        value={password || ''}
+        inputSize={Size.M}
+        placeholder={'this is medium size'}
+        onChange={handleChangePassword}
+      />
+      <StoryInputPassword
+        {...args}
+        name={'sample'}
+        value={password || ''}
+        inputSize={Size.S}
+        placeholder={'this is small size'}
+        onChange={handleChangePassword}
+      />
+    </div>
   );
 };
 export const Basic = InputPassword.bind({});
@@ -36,7 +51,5 @@ export const Basic = InputPassword.bind({});
 Basic.args = {
   placeholder: 'this is placeholder',
   inputSize: Size.S,
-  useClearBtn: false,
   onChange: () => {},
-  onDelete: () => {},
 };

@@ -143,30 +143,68 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       MuiTextField: {
         styleOverrides: {
           root: {
-            borderRadius: '4px',
-            color: '#808591',
-            // backgroundColor: '#FFFFFF',
-            border: 'unset',
-            maxWidth: '640px',
-            minWidth: '300px',
-            '& .MuiInputBase-multiline': {
-              padding: 0,
-              '& .MuiOutlinedInput-input': {
-                height: '90px !important',
-              },
-            },
+            borderRadius: '3px',
+            backgroundColor: '#FFFFFF',
             '& .MuiOutlinedInput-root': {
               paddingRight: 'unset',
-              backgroundColor: 'transparent',
               ...theme.typo.p4,
+              color: theme.palette.greyScale.grey100,
             },
             '& .Mui-disabled': {
-              backgroundColor: '#E8EAED',
-              color: '#B5B8BF',
+              backgroundColor: theme.palette.content.disabled.disabled,
+              color: theme.palette.text.disabled,
             },
             '& .Mui-disabled .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#D6D9DE !important',
+              borderColor: `${theme.palette.line.grey30} !important`,
             },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            top: '62px !important',
+          },
+        },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          select: {
+            ...theme.typo.p4,
+            color: theme.palette.text.grey100,
+            borderRadius: '3px',
+            backgroundColor: '#FFFFFF',
+            '&:hover': {
+              color: theme.palette.text.grey100,
+              border: `1px solid ${theme.palette.text.grey100}`,
+            },
+            '&:focus': { border: `1px solid ${theme.palette.line.primary} !important` },
+            '&.Mui-disabled': {
+              backgroundColor: theme.palette.content.disabled.disabled,
+              color: theme.palette.text.disabled,
+              border: `1px solid ${theme.palette.greyScale.grey30}`,
+            },
+          },
+          icon: {
+            top: 'auto',
+            border: 'unset',
+          },
+        },
+      },
+      MuiMenu: {
+        styleOverrides: {
+          list: {
+            paddingTop: 'unset',
+            paddingBottom: 'unset',
+            padding: '6px',
+          },
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            minHeight: 'unset',
+            padding: '2px 6px',
           },
         },
       },

@@ -5,42 +5,72 @@ import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
 import { PlayceThemeContext, ThemeProvider } from '../../providers';
 import { getInputStyleBySize, iconButtonCss } from '../Form/InputControl/TextField.style';
+import { iconStyle, searchBarStyle } from './SearchBar.style';
+import { useEmotionTheme } from '../../common/theme';
+import { t } from 'i18next';
 
 export type TSearchInputProps = TextFieldProps & {
   placeholder?: string;
   value?: string;
   useClearBtn?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSearch?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlurEvent?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onKeyDownEvent?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
-  onDeleteSearchKeyword?: () => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  onDelete?: () => void;
   inputSize?: 'large' | 'medium' | 'small';
+  isShortWidth?: boolean;
 };
 
 function SearchBar(props: TSearchInputProps): ReactElement {
   const {
-    placeholder,
     value,
     onChange,
-    onBlurEvent: onBlur,
-    onKeyDownEvent: onKeyDown,
-    onDeleteSearchKeyword,
+    onBlur,
+    onKeyDown,
+    onDelete,
     InputProps = {},
-    inputSize = Size.M,
+    inputSize = Size.S,
+    isShortWidth = true,
     ...defaultProps
   } = props;
+
   const theme = useContext(PlayceThemeContext);
-  const inputStyle = getInputStyleBySize(inputSize);
+  const emotionTheme = useEmotionTheme(theme);
+  const inputStyle = getInputStyleBySize(inputSize, isShortWidth);
+  const placeholder = t(props.placeholder || 'Search');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (onChange instanceof Function) {
+      onChange(event);
+    }
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
+    if (onBlur instanceof Function) {
+      onBlur(event);
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (onKeyDown instanceof Function) {
+      onKeyDown(event);
+    }
+  };
+
+  const handleDelete = () => {
+    if (onDelete instanceof Function) {
+      onDelete();
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <TextField
         value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        onKeyDown={onKeyDown}
-        className={cx('search-input', 'outlined-input')}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        css={searchBarStyle(emotionTheme)}
         inputProps={{
           sx: inputStyle,
         }}
@@ -49,15 +79,16 @@ function SearchBar(props: TSearchInputProps): ReactElement {
           sx: { paddingRight: '12px', ...InputProps.sx },
           placeholder,
           endAdornment: (
-            <InputAdornment position="start">
-              {value && (
-                <IconButton css={iconButtonCss} onClick={onDeleteSearchKeyword}>
+            <InputAdornment position="start" css={iconStyle}>
+              {value ? (
+                <IconButton css={iconButtonCss} onClick={handleDelete}>
                   <ClearIcon />
                 </IconButton>
+              ) : (
+                <IconButton css={iconButtonCss}>
+                  <SearchIcon />
+                </IconButton>
               )}
-              <IconButton css={iconButtonCss}>
-                <SearchIcon />
-              </IconButton>
             </InputAdornment>
           ),
         }}
