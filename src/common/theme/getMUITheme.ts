@@ -1,6 +1,8 @@
 import { createTheme } from '@mui/material/styles';
 import { Theme as MUITheme } from '@mui/material';
 import { Theme as EmotionTheme } from '@emotion/react';
+import checkedIcon from '../../components/icons/svg/icon-checkbox-checked.svg';
+import checkedDisabledIcon from '../../components/icons/svg/icon-checkbox-checked-disabled.svg';
 import { Size } from '../enum';
 import { TSize } from '../type';
 
@@ -32,15 +34,15 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             },
           },
           sizeSmall: {
-            padding: '2px 6px',
             ...theme.typo.p6,
+            padding: '2px 6px',
             '&.onlyIcon': {
               padding: '4px',
             },
           },
           sizeMedium: {
-            padding: '6px 10px',
             ...theme.typo.p4,
+            padding: '6px 10px',
             '&.onlyIcon': {
               padding: '6px',
             },
@@ -137,6 +139,84 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             ':disabled': {
               backgroundColor: 'transparent',
               color: theme.palette.text.disabled,
+            },
+          },
+        },
+      },
+      MuiFormControlLabel: {
+        styleOverrides: {
+          root: {
+            maxWidth: '100%',
+            margin: 0,
+            padding: '4px 0',
+            gap: '8px',
+            alignItems: 'flex-start',
+          },
+          label: {
+            ...theme.typo.p4,
+            color: theme.palette.text.grey100,
+          },
+        },
+      },
+      MuiCheckbox: {
+        styleOverrides: {
+          root: {
+            width: '14px',
+            height: '14px',
+            minWidth: '14px',
+            minHeight: '14px',
+            marginTop: '3px',
+            padding: 0,
+
+            '.playce-checkbox-icon': {
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'transparent',
+              border: `1px solid ${theme.palette.line.grey30}`,
+              borderRadius: '2px',
+            },
+
+            '.playce-checkbox-checked': {
+              width: '100%',
+              height: '100%',
+              backgroundColor: theme.palette.main.primary,
+              borderRadius: '2px',
+
+              '&::before': {
+                display: 'block',
+                width: '14px',
+                height: '14px',
+                content: '""',
+                backgroundImage: `url(${checkedIcon})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+              },
+            },
+
+            ':hover': {
+              '.playce-checkbox-icon': {
+                border: `1px solid ${theme.palette.line.grey100}`,
+              },
+              '.playce-checkbox-checked': {
+                backgroundColor: theme.palette.main.primaryHover,
+              },
+            },
+
+            '&.Mui-disabled': {
+              '.playce-checkbox-icon': {
+                backgroundColor: theme.palette.content.disabled.disabled,
+              },
+              '.playce-checkbox-checked': {
+                backgroundColor: theme.palette.content.disabled.disabled,
+                '&::before': {
+                  backgroundImage: `url(${checkedDisabledIcon})`,
+                },
+              },
+            },
+
+            '.playce-checkbox-label': {
+              ...theme.typo.p4,
+              color: theme.palette.text.grey100,
             },
           },
         },
