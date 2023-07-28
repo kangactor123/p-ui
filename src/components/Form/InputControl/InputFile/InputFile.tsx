@@ -1,12 +1,12 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
-import { Chip, InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { Chip, IconButton, InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { CloseSmallIcon, IconClose, IconFileUpload } from '../../../icons';
-import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
+import { ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
-import { getInputStyleBySize } from '../TextField.style';
+import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
 
 export type UploadFile =
   | {
@@ -42,12 +42,6 @@ const FileInput = styled(TextField)`
   }
 `;
 
-const IconContainer = styled.span`
-  position: relative;
-  display: flex;
-  padding-right: 12px;
-`;
-
 const iconFileDelete = css`
   z-index: 11;
   cursor: pointer;
@@ -56,9 +50,12 @@ const iconFileDelete = css`
 
 const inputWrap = css`
   display: flex;
-
   flex-direction: column;
   gap: 5px;
+  input {
+    padding-top: unset;
+    padding: unset;
+  }
 `;
 
 const chipStyle = css`
@@ -66,6 +63,12 @@ const chipStyle = css`
   height: fit-content;
   border-radius: 4px;
   padding: 3px;
+`;
+
+const textFieldStyle = css`
+  & .MuiOutlinedInput-root {
+    padding-right: 12px;
+  }
 `;
 
 function InputFile({
@@ -106,6 +109,7 @@ function InputFile({
   };
 
   const placeholder = t(props.placeholder || 'Upload key file');
+
   const handleFocus = useCallback(
     (event: any) => {
       setTimeout(() => {
@@ -118,6 +122,7 @@ function InputFile({
     },
     [onFocus],
   );
+
   useEffect(() => {
     if (onError instanceof Function) {
       if (
@@ -164,34 +169,37 @@ function InputFile({
   return (
     <ThemeProvider>
       <FileInputWrap fullWidth={fullWidth}>
-        <FileInput
-          id={id}
-          name={name}
-          variant={variant}
-          inputRef={fileRef}
-          type="file"
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          onChange={handleChange}
-          {...fileProps}
-        />
         <div css={inputWrap}>
+          <FileInput
+            size={size}
+            id={id}
+            name={name}
+            variant={variant}
+            inputRef={fileRef}
+            type="file"
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            onChange={handleChange}
+            {...fileProps}
+          />
           <TextField
+            size={size}
             inputRef={inputRef}
             placeholder={placeholder}
+            css={textFieldStyle}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconContainer>
+                  <IconButton disableRipple css={iconButtonCss}>
                     {value ? (
                       <CloseSmallIcon onClick={deleteFile} css={iconFileDelete} />
                     ) : (
                       <IconFileUpload width={20} height={20} />
                     )}
-                  </IconContainer>
+                  </IconButton>
                 </InputAdornment>
               ),
-              inputProps: { sx: inputStyle },
+              // inputProps: { sx: inputStyle },
             }}
             {...fakeProps}
           />

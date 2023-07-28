@@ -30,27 +30,24 @@ const Select: Story<ISelectProps<TSample>> = (args) => (
     <StorySelect
       {...args}
       options={tempOptions}
-      size={Size.M}
-      widthSize={Size.M}
+      size={Size.S}
       renderValue={(value) => {
         const renderValue = tempOptions.find((option) => option.label === (value as string))?.label;
-        return value ? renderValue : 'Select a JDK Version';
+        return value ? renderValue : 'Small select';
       }}
     />
     <StorySelect
       options={tempOptions}
       size={Size.M}
-      widthSize={Size.M}
       disabled={true}
-      renderValue={(value) => 'Disabled'}
+      renderValue={(value) => 'Medium select disabled'}
     />
     <StorySelect
       {...args}
       options={tempOptions}
-      size={Size.M}
-      widthSize={Size.M}
+      size={Size.S}
       loading={true}
-      renderValue={(value) => '...loading'}
+      renderValue={(value) => 'Small select loading...'}
     />
   </div>
 );
@@ -69,8 +66,7 @@ const DescSelect: Story<ISelectProps<TSample>> = (args) => {
     <StorySelect
       {...args}
       options={descSelectOptions}
-      size={Size.M}
-      widthSize={Size.M}
+      size={Size.S}
       placeholder={'Select a role'}
       renderValue={(value) => {
         const renderValue = descSelectOptions.find(
@@ -84,3 +80,7 @@ const DescSelect: Story<ISelectProps<TSample>> = (args) => {
 
 export const Basic = Select.bind({});
 export const DescriptionSelect = DescSelect.bind({});
+
+Basic.args = {
+  size: Size.S,
+};

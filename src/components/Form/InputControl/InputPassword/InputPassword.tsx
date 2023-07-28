@@ -13,8 +13,13 @@ export type TInputPasswordProps = TextFieldProps & {
   onChange?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-const endAdornmentStyle = css`
-  padding-right: 12px;
+const textFieldStyle = css`
+  & .MuiOutlinedInput-root {
+    padding-right: 12px;
+  }
+  input {
+    padding: unset;
+  }
 `;
 
 function InputPassword({
@@ -40,14 +45,16 @@ function InputPassword({
   return (
     <ThemeProvider>
       <TextField
+        size={size}
         variant={variant}
         value={value}
         type={isVisible ? 'text' : 'password'}
         onChange={handleChange}
-        inputProps={{ sx: inputStyle }}
+        css={textFieldStyle}
+        // inputProps={{ sx: inputStyle }}
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end" css={endAdornmentStyle}>
+            <InputAdornment position="end">
               <IconButton onClick={visibleChange} disableRipple css={iconButtonCss}>
                 {isVisible ? <VisibleIcon /> : <InvisibleIcon />}
               </IconButton>

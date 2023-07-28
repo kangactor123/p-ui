@@ -1,13 +1,15 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement } from 'react';
 import { TextFieldProps, IconButton, TextField, InputAdornment } from '@mui/material';
 import { getInputStyleBySize, iconClearBtn } from '../TextField.style';
-import { PlayceThemeContext, ThemeProvider } from '../../../../providers';
+import { ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { ClearIcon } from '../../../icons';
 import { css } from '@emotion/react';
 import { t } from 'i18next';
+import { TSize } from '../../../../common/type';
 
 export type TInputTextProps = TextFieldProps & {
+  size: TSize;
   value: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -16,6 +18,15 @@ export type TInputTextProps = TextFieldProps & {
   useClearBtn?: boolean;
   handleClear: () => void;
 };
+
+const textFieldStyle = css`
+  & .MuiOutlinedInput-root {
+    padding-right: unset;
+  }
+  input {
+    padding: unset;
+  }
+`;
 
 function InputText({
   value = '',
@@ -54,7 +65,9 @@ function InputText({
   return (
     <ThemeProvider>
       <TextField
+        size={size}
         value={value}
+        css={textFieldStyle}
         variant={variant}
         onChange={handleChange}
         onBlur={handleBlur}
@@ -62,8 +75,8 @@ function InputText({
         placeholder={placeholder}
         inputProps={{
           maxLength: 255,
-          sx: inputStyle,
           ...input,
+          // sx: inputStyle,
         }}
         InputProps={{
           endAdornment: (

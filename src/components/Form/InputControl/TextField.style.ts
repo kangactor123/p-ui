@@ -24,6 +24,6 @@ export function getInputStyleBySize(size: TSize, isShortWidth?: boolean): SxProp
   return {
     width: isShortWidth ? '200px' : '300px',
     padding: size === Size.L ? '' : size === Size.M ? '14px 0 14px 12px' : '6px 0 6px 12px',
-    minHeight: size === Size.L ? '' : size === Size.M ? '48px' : '32px',
+    height: size === Size.L ? '' : size === Size.M ? '48px' : '32px',
   };
 }

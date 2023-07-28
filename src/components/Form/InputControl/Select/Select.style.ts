@@ -1,5 +1,6 @@
 import { css, Theme } from '@emotion/react';
 import { styled as MUIStyled, MenuItem as MUIMenuItem } from '@mui/material';
+import { TSize } from '../../../../common/type';
 
 export const wrap = css`
   max-width: 100%;
@@ -15,10 +16,9 @@ export const labelStyle = (theme: Theme) => css`
   }
 
   & .MuiTypography-root {
-    /* font-size: ${theme.typo.p4.fontSize}; */
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 20px;
+    font-size: ${theme.typo.p4.fontSize};
+    font-weight: ${theme.typo.p4.fontWeight};
+    line-height: ${theme.typo.p4.lineHeight};
   }
 `;
 

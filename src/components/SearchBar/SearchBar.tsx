@@ -29,12 +29,11 @@ function SearchBar(props: TSearchInputProps): ReactElement {
     onDelete,
     InputProps = {},
     size = Size.S,
-    isShortWidth = true,
     ...defaultProps
   } = props;
 
   const emotionTheme = useEmotionTheme();
-  const inputStyle = getInputStyleBySize(size, isShortWidth);
+  const inputStyle = getInputStyleBySize(size, defaultProps.isShortWidth);
   const placeholder = t(props.placeholder || 'Search');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -64,14 +63,17 @@ function SearchBar(props: TSearchInputProps): ReactElement {
   return (
     <ThemeProvider>
       <TextField
+        size={size}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         css={searchBarStyle(emotionTheme)}
-        inputProps={{
-          sx: inputStyle,
-        }}
+        inputProps={
+          {
+            // sx: inputStyle,
+          }
+        }
         InputProps={{
           ...InputProps,
           sx: { paddingRight: '12px', ...InputProps.sx },

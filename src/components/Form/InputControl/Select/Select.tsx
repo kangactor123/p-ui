@@ -2,7 +2,6 @@
 import React, { ElementType, ReactElement, ReactNode } from 'react';
 import { ListItemText, SelectProps as MUISelectProps, Select as MuiSelect } from '@mui/material';
 import { cx } from '@emotion/css';
-import { TSize } from '../../../../common/type';
 import {
   labelStyle,
   splitStyle,
@@ -18,6 +17,8 @@ import Checkbox from '../../../Checkbox';
 import { DropdownDownGrayIcon, DropdownDownIcon } from '../../../icons';
 import { useTranslation } from 'react-i18next';
 import { useEmotionTheme } from '../../../../common/theme';
+import { TSize } from '../../../../common/type';
+import { Size } from '../../../../common/enum';
 
 export interface ISelectOption {
   hidden?: boolean;
@@ -30,12 +31,11 @@ export interface ISelectOption {
 
 export type ISelectProps<T> = {
   options: ISelectOption[];
+  size: TSize;
   icon?: ElementType;
   loading?: boolean;
   isWidgetFilter?: boolean;
   menuClassName?: string;
-  size?: TSize;
-  widthSize?: TSize;
 } & MUISelectProps;
 
 function Select<T extends ISelectOption>({
@@ -43,6 +43,7 @@ function Select<T extends ISelectOption>({
   variant = 'outlined',
   loading = false,
   className,
+  size = Size.S,
   menuClassName,
   ...props
 }: ISelectProps<T>): ReactElement {
@@ -54,11 +55,12 @@ function Select<T extends ISelectOption>({
       {label}
     </span>
   );
-
+  // console.log(size);
   return (
     <ThemeProvider>
       <MuiSelect
         {...props}
+        size={size}
         className={className}
         css={wrap}
         variant={variant}
