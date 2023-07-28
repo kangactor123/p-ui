@@ -1,9 +1,9 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement } from 'react';
 import { IconButton, TextFieldProps, InputAdornment, TextField } from '@mui/material';
 import { cx } from '@emotion/css';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
-import { PlayceThemeContext, ThemeProvider } from '../../providers';
+import { ThemeProvider } from '../../providers';
 import { getInputStyleBySize, iconButtonCss } from '../Form/InputControl/TextField.style';
 import { iconStyle, searchBarStyle } from './SearchBar.style';
 import { useEmotionTheme } from '../../common/theme';

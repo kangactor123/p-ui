@@ -4,7 +4,6 @@ import { Theme as EmotionTheme } from '@emotion/react';
 import checkedIcon from '../../components/icons/svg/icon-checkbox-checked.svg';
 import checkedDisabledIcon from '../../components/icons/svg/icon-checkbox-checked-disabled.svg';
 import { Size } from '../enum';
-import { TSize } from '../type';
 
 export const getMUITheme = (theme: EmotionTheme): MUITheme =>
   createTheme({
@@ -223,35 +222,32 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       },
       MuiTextField: {
         styleOverrides: {
-          root: (ownerState) => {
-            console.log(ownerState.size);
-            return {
-              ...(ownerState.size === Size.M && {
-                padding: '14px 0 14px 12px !important',
-                height: '48px',
-              }),
-              ...(ownerState.size === Size.S && {
-                padding: '6px 0 6px 12px !important',
-                height: '32px',
-              }),
-              borderRadius: '3px',
-              backgroundColor: '#FFFFFF',
-              width: ownerState.isShortWidth ? '200px' : '300px',
-              border: `1px solid ${theme.palette.greyScale.grey30}`,
-              '& .MuiOutlinedInput-root': {
-                height: '100%',
-                color: theme.palette.greyScale.grey100,
-                ...theme.typo.p4,
-              },
-              '& .Mui-disabled': {
-                backgroundColor: theme.palette.content.disabled.disabled,
-                color: theme.palette.text.disabled,
-              },
-              '& .Mui-disabled .MuiOutlinedInput-notchedOutline': {
-                borderColor: `${theme.palette.line.grey30} !important`,
-              },
-            };
-          },
+          root: (ownerState) => ({
+            ...(ownerState.size === Size.M && {
+              padding: '14px 0 14px 12px !important',
+              height: '48px',
+            }),
+            ...(ownerState.size === Size.S && {
+              padding: '6px 0 6px 12px !important',
+              height: '32px',
+            }),
+            borderRadius: '3px',
+            backgroundColor: '#FFFFFF',
+            width: ownerState.isShortWidth ? '200px' : '300px',
+            border: `1px solid ${theme.palette.greyScale.grey30}`,
+            '& .MuiOutlinedInput-root': {
+              height: '100%',
+              color: theme.palette.greyScale.grey100,
+              ...theme.typo.p4,
+            },
+            '& .Mui-disabled': {
+              backgroundColor: theme.palette.content.disabled.disabled,
+              color: theme.palette.text.disabled,
+            },
+            '& .Mui-disabled .MuiOutlinedInput-notchedOutline': {
+              borderColor: `${theme.palette.line.grey30} !important`,
+            },
+          }),
         },
       },
       MuiPaper: {
@@ -259,42 +255,56 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
           root: {},
         },
       },
-      MuiSelect: {
+      MuiFormControl: {
         styleOverrides: {
-          select: (ownerState) => {
-            console.log(ownerState.size);
+          root: ({ ownerState }) => {
             return {
               ...(ownerState.size === Size.S && {
-                height: '32px !important',
+                height: '32px',
                 padding: '6px 32px 6px 12px !important',
               }),
               ...(ownerState.size === Size.M && {
                 height: '48px',
                 padding: '14px 32px 14px 12px !important',
               }),
-              color: theme.palette.text.grey100,
-              width: '300px',
-              border: `1px solid ${theme.palette.greyScale.grey30}`,
-              borderRadius: '3px',
-              backgroundColor: '#FFFFFF',
-              ...theme.typo.p4,
-              '&:hover': {
-                color: theme.palette.text.grey100,
-                border: `1px solid ${theme.palette.text.grey100}`,
-              },
-              '&:focus': { border: `1px solid ${theme.palette.line.primary} !important` },
-              '&.Mui-disabled': {
-                backgroundColor: theme.palette.content.disabled.disabled,
-                color: theme.palette.text.disabled,
-                border: `1px solid ${theme.palette.greyScale.grey30}`,
-              },
-              '&.MuiInputBase-input': {
-                '&.MuiOutlinedInput-input': {
-                  padding: 'unset',
-                },
-              },
             };
           },
+        },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          select: (ownerState) => ({
+            // ...(ownerState.size === Size.S && {
+            //   height: '32px',
+            //   padding: '6px 32px 6px 12px !important',
+            // }),
+            // ...(ownerState.size === Size.M && {
+            //   height: '48px',
+            //   padding: '14px 32px 14px 12px !important',
+            // }),
+            color: theme.palette.text.grey100,
+            width: '300px',
+            border: `1px solid ${theme.palette.greyScale.grey30}`,
+            borderRadius: '3px',
+            backgroundColor: '#FFFFFF',
+            ...theme.typo.p4,
+            '&:hover': {
+              color: theme.palette.text.grey100,
+              border: `1px solid ${theme.palette.text.grey100}`,
+            },
+            '&:focus': { border: `1px solid ${theme.palette.line.primary} !important` },
+            '&.Mui-disabled': {
+              backgroundColor: theme.palette.content.disabled.disabled,
+              color: theme.palette.text.disabled,
+              border: `1px solid ${theme.palette.greyScale.grey30}`,
+            },
+            '&.MuiInputBase-input': {
+              '&.MuiOutlinedInput-input': {
+                paddingTop: 'unset',
+                padding: 'unset',
+              },
+            },
+          }),
           icon: {
             top: 'auto',
             border: 'unset',
