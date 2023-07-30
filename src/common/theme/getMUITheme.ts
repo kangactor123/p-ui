@@ -222,7 +222,7 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       },
       MuiTextField: {
         styleOverrides: {
-          root: (ownerState) => ({
+          root: ({ ownerState }) => ({
             ...(ownerState.size === Size.M && {
               padding: '14px 0 14px 12px !important',
               height: '48px',
@@ -234,7 +234,7 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             borderRadius: '3px',
             backgroundColor: '#FFFFFF',
             width: ownerState.isShortWidth ? '200px' : '300px',
-            border: `1px solid ${theme.palette.greyScale.grey30}`,
+            // border: `1px solid ${theme.palette.greyScale.grey30}`,
             '& .MuiOutlinedInput-root': {
               height: '100%',
               color: theme.palette.greyScale.grey100,
@@ -255,33 +255,9 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
           root: {},
         },
       },
-      MuiFormControl: {
-        styleOverrides: {
-          root: ({ ownerState }) => {
-            return {
-              ...(ownerState.size === Size.S && {
-                height: '32px',
-                padding: '6px 32px 6px 12px !important',
-              }),
-              ...(ownerState.size === Size.M && {
-                height: '48px',
-                padding: '14px 32px 14px 12px !important',
-              }),
-            };
-          },
-        },
-      },
       MuiSelect: {
         styleOverrides: {
-          select: (ownerState) => ({
-            // ...(ownerState.size === Size.S && {
-            //   height: '32px',
-            //   padding: '6px 32px 6px 12px !important',
-            // }),
-            // ...(ownerState.size === Size.M && {
-            //   height: '48px',
-            //   padding: '14px 32px 14px 12px !important',
-            // }),
+          select: {
             color: theme.palette.text.grey100,
             width: '300px',
             border: `1px solid ${theme.palette.greyScale.grey30}`,
@@ -304,7 +280,11 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
                 padding: 'unset',
               },
             },
-          }),
+            '& .custom-select.small': {
+              height: '32px',
+              padding: '6px 32px 6px 12px !important',
+            },
+          },
           icon: {
             top: 'auto',
             border: 'unset',

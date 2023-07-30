@@ -1,7 +1,7 @@
 import { css, Theme } from '@emotion/react';
 import { styled as MUIStyled, MenuItem as MUIMenuItem } from '@mui/material';
 
-export const wrap = css`
+export const wrap = (theme: Theme) => css`
   max-width: 100%;
 `;
 
