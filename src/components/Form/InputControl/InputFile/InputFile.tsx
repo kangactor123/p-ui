@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react';
+import React, { ReactElement, useCallback, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
 import { Chip, IconButton, InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import styled from '@emotion/styled';
@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { CloseSmallIcon, IconClose, IconFileUpload } from '../../../icons';
 import { ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
-import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
 
 export type UploadFile =
   | {
@@ -52,10 +51,6 @@ const inputWrap = css`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  input {
-    padding-top: unset;
-    padding: unset;
-  }
 `;
 
 const chipStyle = css`
@@ -63,12 +58,6 @@ const chipStyle = css`
   height: fit-content;
   border-radius: 4px;
   padding: 3px;
-`;
-
-const textFieldStyle = css`
-  & .MuiOutlinedInput-root {
-    padding-right: 12px;
-  }
 `;
 
 function InputFile({
@@ -87,7 +76,6 @@ function InputFile({
   ...props
 }: TInputFileProps): ReactElement {
   const { t } = useTranslation();
-  const inputStyle = getInputStyleBySize(size);
 
   const inputRef = useRef<HTMLInputElement>();
   const fileRef = useRef<HTMLInputElement>();
@@ -186,11 +174,10 @@ function InputFile({
             size={size}
             inputRef={inputRef}
             placeholder={placeholder}
-            css={textFieldStyle}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton disableRipple css={iconButtonCss}>
+                  <IconButton disableRipple>
                     {value ? (
                       <CloseSmallIcon onClick={deleteFile} css={iconFileDelete} />
                     ) : (
@@ -199,7 +186,6 @@ function InputFile({
                   </IconButton>
                 </InputAdornment>
               ),
-              // inputProps: { sx: inputStyle },
             }}
             {...fakeProps}
           />

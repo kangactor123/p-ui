@@ -1,10 +1,8 @@
 import React, { ReactElement } from 'react';
 import { TextFieldProps, IconButton, TextField, InputAdornment } from '@mui/material';
-import { getInputStyleBySize, iconClearBtn } from '../TextField.style';
 import { ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
 import { ClearIcon } from '../../../icons';
-import { css } from '@emotion/react';
 import { t } from 'i18next';
 import { TSize } from '../../../../common/type';
 
@@ -19,15 +17,6 @@ export type TInputTextProps = TextFieldProps & {
   handleClear: () => void;
 };
 
-const textFieldStyle = css`
-  & .MuiOutlinedInput-root {
-    padding-right: unset;
-  }
-  input {
-    padding: unset;
-  }
-`;
-
 function InputText({
   value = '',
   inputProps = {},
@@ -41,7 +30,6 @@ function InputText({
   ...props
 }: TInputTextProps): ReactElement {
   const { sx: inputSx, ...input } = inputProps;
-  const inputStyle = getInputStyleBySize(size);
   const placeholder = t(props.placeholder || 'this is placeholder');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -67,7 +55,6 @@ function InputText({
       <TextField
         size={size}
         value={value}
-        css={textFieldStyle}
         variant={variant}
         onChange={handleChange}
         onBlur={handleBlur}
@@ -76,13 +63,12 @@ function InputText({
         inputProps={{
           maxLength: 255,
           ...input,
-          // sx: inputStyle,
         }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               {useClearBtn && value && (
-                <IconButton onClick={handleClear} disableRipple css={iconClearBtn}>
+                <IconButton onClick={handleClear} disableRipple>
                   <ClearIcon />
                 </IconButton>
               )}

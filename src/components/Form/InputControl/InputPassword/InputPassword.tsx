@@ -1,7 +1,5 @@
 import React, { ReactElement, useState } from 'react';
 import { IconButton, InputAdornment, TextField, TextFieldProps } from '@mui/material';
-import { css } from '@emotion/react';
-import { getInputStyleBySize, iconButtonCss } from '../TextField.style';
 import { Size } from '../../../../common/enum';
 import { ThemeProvider } from '../../../../providers';
 import { InvisibleIcon, VisibleIcon } from '../../../icons';
@@ -13,15 +11,6 @@ export type TInputPasswordProps = TextFieldProps & {
   onChange?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-const textFieldStyle = css`
-  & .MuiOutlinedInput-root {
-    padding-right: 12px;
-  }
-  input {
-    padding: unset;
-  }
-`;
-
 function InputPassword({
   value,
   InputProps = {},
@@ -32,7 +21,6 @@ function InputPassword({
   ...props
 }: TInputPasswordProps): ReactElement {
   const { forwardedRef } = props;
-  const inputStyle = getInputStyleBySize(size);
   const [isVisible, setIsVisible] = useState(false);
   const visibleChange = () => setIsVisible((prev) => !prev);
 
@@ -50,12 +38,10 @@ function InputPassword({
         value={value}
         type={isVisible ? 'text' : 'password'}
         onChange={handleChange}
-        css={textFieldStyle}
-        // inputProps={{ sx: inputStyle }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={visibleChange} disableRipple css={iconButtonCss}>
+              <IconButton onClick={visibleChange} disableRipple>
                 {isVisible ? <VisibleIcon /> : <InvisibleIcon />}
               </IconButton>
             </InputAdornment>

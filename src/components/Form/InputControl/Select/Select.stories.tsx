@@ -46,7 +46,7 @@ const Select: Story<ISelectProps> = (args) => (
       options={tempOptions}
       size={Size.S}
       loading={true}
-      renderValue={(value) => value as string}
+      renderValue={(value) => 'Small select loading...'}
     />
   </div>
 );

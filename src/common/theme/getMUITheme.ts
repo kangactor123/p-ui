@@ -142,24 +142,20 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
           },
         },
       },
-      MuiPaper: {
-        styleOverrides: {
-          root: {},
-        },
-      },
       MuiFormControl: {
         styleOverrides: {
           root: ({ ownerState }) => ({
             '.playce-select': {
               '.MuiSelect-select': {
-                ...(ownerState.size === Size.S && {
-                  height: '32px',
-                  padding: '6px 42px 6px 12px!important',
-                }),
                 ...(ownerState.size === Size.M && {
+                  padding: '14px 0 14px 12px !important',
                   height: '48px',
-                  padding: '14px 42px 14px 12px !important',
                 }),
+                ...(ownerState.size === Size.S && {
+                  padding: '6px 0 6px 12px !important',
+                  height: '32px',
+                }),
+                width: '300px',
               },
               '&.Mui-focused': {
                 '.MuiSelect-select': {
@@ -251,19 +247,9 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       },
       MuiTextField: {
         styleOverrides: {
-          root: ({ ownerState }) => ({
-            ...(ownerState.size === Size.M && {
-              padding: '14px 0 14px 12px !important',
-              height: '48px',
-            }),
-            ...(ownerState.size === Size.S && {
-              padding: '6px 0 6px 12px !important',
-              height: '32px',
-            }),
+          root: {
             borderRadius: '3px',
             backgroundColor: '#FFFFFF',
-            width: ownerState.isShortWidth ? '200px' : '300px',
-            // border: `1px solid ${theme.palette.greyScale.grey30}`,
             '& .MuiOutlinedInput-root': {
               ...theme.typo.p4,
               height: '100%',
@@ -276,7 +262,7 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             '& .Mui-disabled .MuiOutlinedInput-notchedOutline': {
               borderColor: `${theme.palette.line.grey30} !important`,
             },
-          }),
+          },
         },
       },
       MuiSelect: {
@@ -303,10 +289,6 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
                 paddingTop: 'unset',
                 padding: 'unset',
               },
-            },
-            '& .custom-select.small': {
-              height: '32px',
-              padding: '6px 32px 6px 12px !important',
             },
           }),
           icon: {
@@ -337,8 +319,44 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       },
       MuiOutlinedInput: {
         styleOverrides: {
+          root: ({ ownerState }) => ({
+            ':not(.playce-select)': {
+              ...(ownerState.size === Size.M && {
+                padding: '14px 0 14px 12px !important',
+                height: '48px',
+              }),
+              ...(ownerState.size === Size.S && {
+                padding: '6px 0 6px 12px !important',
+                height: '32px',
+              }),
+              border: `1px solid ${theme.palette.greyScale.grey30}`,
+            },
+          }),
           notchedOutline: {
             border: 'none !important',
+          },
+        },
+      },
+      MuiInputAdornment: {
+        styleOverrides: {
+          root: {
+            paddingRight: '12px',
+          },
+        },
+      },
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            '&.MuiOutlinedInput-input': {
+              padding: 'unset',
+            },
+          },
+        },
+      },
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            padding: 'unset',
           },
         },
       },

@@ -1,11 +1,8 @@
 import React, { ReactElement } from 'react';
 import { IconButton, TextFieldProps, InputAdornment, TextField } from '@mui/material';
-import { cx } from '@emotion/css';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
 import { ThemeProvider } from '../../providers';
-import { getInputStyleBySize, iconButtonCss } from '../Form/InputControl/TextField.style';
-import { iconStyle, searchBarStyle } from './SearchBar.style';
 import { useEmotionTheme } from '../../common/theme';
 import { t } from 'i18next';
 
@@ -33,7 +30,6 @@ function SearchBar(props: TSearchInputProps): ReactElement {
   } = props;
 
   const emotionTheme = useEmotionTheme();
-  const inputStyle = getInputStyleBySize(size, defaultProps.isShortWidth);
   const placeholder = t(props.placeholder || 'Search');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -68,24 +64,23 @@ function SearchBar(props: TSearchInputProps): ReactElement {
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        css={searchBarStyle(emotionTheme)}
-        inputProps={
-          {
-            // sx: inputStyle,
-          }
-        }
         InputProps={{
           ...InputProps,
-          sx: { paddingRight: '12px', ...InputProps.sx },
+          sx: {
+            paddingRight: '12px',
+            width: '200px',
+            backgroundColor: emotionTheme.palette.greyScale.grey5,
+            ...InputProps.sx,
+          },
           placeholder,
           endAdornment: (
-            <InputAdornment position="start" css={iconStyle}>
+            <InputAdornment position="end">
               {value ? (
-                <IconButton css={iconButtonCss} onClick={handleDelete}>
+                <IconButton onClick={handleDelete}>
                   <ClearIcon />
                 </IconButton>
               ) : (
-                <IconButton css={iconButtonCss}>
+                <IconButton>
                   <SearchIcon />
                 </IconButton>
               )}

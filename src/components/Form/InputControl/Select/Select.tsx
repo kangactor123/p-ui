@@ -29,7 +29,7 @@ export type ISelectProps = {
 } & MUISelectProps &
   Pick<FormControlProps, 'size' | 'disabled'>;
 
-function Select<T extends ISelectOption>(props: ISelectProps): ReactElement {
+function Select(props: ISelectProps): ReactElement {
   const { t } = useTranslation();
   const {
     displayEmpty = true,
