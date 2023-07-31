@@ -331,6 +331,9 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
               }),
               border: `1px solid ${theme.palette.greyScale.grey30}`,
             },
+            '&.playce-search': {
+              backgroundColor: theme.palette.greyScale.grey5,
+            },
           }),
           notchedOutline: {
             border: 'none !important',

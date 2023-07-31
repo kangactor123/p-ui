@@ -3,8 +3,8 @@ import { IconButton, TextFieldProps, InputAdornment, TextField } from '@mui/mate
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
 import { ThemeProvider } from '../../providers';
-import { useEmotionTheme } from '../../common/theme';
 import { t } from 'i18next';
+import { cx } from '@emotion/css';
 
 export type TSearchInputProps = TextFieldProps & {
   placeholder?: string;
@@ -25,12 +25,10 @@ function SearchBar(props: TSearchInputProps): ReactElement {
     onKeyDown,
     onDelete,
     InputProps = {},
+    placeholder = 'Search',
     size = Size.S,
     ...defaultProps
   } = props;
-
-  const emotionTheme = useEmotionTheme();
-  const placeholder = t(props.placeholder || 'Search');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (onChange instanceof Function) {
@@ -66,12 +64,7 @@ function SearchBar(props: TSearchInputProps): ReactElement {
         onKeyDown={handleKeyDown}
         InputProps={{
           ...InputProps,
-          sx: {
-            paddingRight: '12px',
-            width: '200px',
-            backgroundColor: emotionTheme.palette.greyScale.grey5,
-            ...InputProps.sx,
-          },
+          className: cx('playce-search', InputProps?.className),
           placeholder,
           endAdornment: (
             <InputAdornment position="end">
