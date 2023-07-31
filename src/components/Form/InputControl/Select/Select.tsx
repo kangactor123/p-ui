@@ -1,125 +1,110 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import React, { ElementType, ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import {
   FormControlProps,
-  ListItemText,
   SelectProps as MUISelectProps,
   Select as MuiSelect,
+  MenuItem,
+  FormControl,
 } from '@mui/material';
 import { cx } from '@emotion/css';
-import {
-  labelStyle,
-  splitStyle,
-  MenuItem,
-  optionWrapper,
-  wrap,
-  multiLabel,
-  multiCheckbox,
-} from './Select.style';
-import { isArray } from 'lodash';
+import { wrap } from './Select.style';
 import { ThemeProvider } from '../../../../providers';
-import Checkbox from '../../../Checkbox';
 import { DropdownDownGrayIcon, DropdownDownIcon } from '../../../icons';
 import { useTranslation } from 'react-i18next';
-import { useEmotionTheme } from '../../../../common/theme';
 import { Size } from '../../../../common/enum';
 
 export interface ISelectOption {
-  hidden?: boolean;
   value: any;
   label: ReactNode;
   disabled?: boolean;
+  hidden?: boolean;
   split?: boolean;
   description?: string;
 }
 
-export type ISelectProps<T> = {
+export type ISelectProps = {
   options: ISelectOption[];
-  icon?: ElementType;
   loading?: boolean;
-  isWidgetFilter?: boolean;
-  menuClassName?: string;
 } & MUISelectProps &
-  FormControlProps;
+  Pick<FormControlProps, 'size' | 'disabled'>;
 
-function Select<T extends ISelectOption>({
-  displayEmpty = true,
-  variant = 'outlined',
-  loading = false,
-  className,
-  size = Size.S,
-  menuClassName,
-  ...props
-}: ISelectProps<T>): ReactElement {
+function Select<T extends ISelectOption>(props: ISelectProps): ReactElement {
   const { t } = useTranslation();
-  const { children, options, multiple, value: values = '', icon, disabled } = props;
-  const emotionTheme = useEmotionTheme();
-  const renderLabel = (label: React.ReactNode) => (
-    <span title={typeof label === 'string' ? label : ''} css={labelStyle(emotionTheme)}>
-      {label}
-    </span>
-  );
+  const {
+    displayEmpty = true,
+    variant = 'outlined',
+    loading = false,
+    className,
+    size = Size.M,
+    options,
+    multiple,
+    disabled,
+  } = props;
+
+  // const renderLabel = (label: React.ReactNode) => (
+  //   <span title={typeof label === 'string' ? label : ''} css={labelStyle(emotionTheme)}>
+  //     {label}
+  //   </span>
+  // );
   return (
     <ThemeProvider>
-      <MuiSelect
-        {...props}
-        className={cx(className, `custom-select ${size}`)}
-        css={wrap(emotionTheme)}
-        variant={variant}
-        displayEmpty={displayEmpty}
-        IconComponent={icon || disabled ? DropdownDownGrayIcon : DropdownDownIcon}
-        MenuProps={{
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-          },
-          className: menuClassName,
-        }}
-        disabled={disabled || loading}
-      >
-        {children}
-        {options &&
-          options?.length > 0 &&
-          options.map(({ label, split, value, hidden, disabled, description, ...props }, index) =>
-            split ? (
-              <div key={index} css={splitStyle}>
-                {value}
-              </div>
-            ) : (
-              (!values || !hidden) && (
-                <MenuItem
-                  key={index}
-                  value={value}
-                  className={multiLabel}
-                  disabled={disabled}
-                  {...props}
-                >
-                  {multiple ? (
-                    <>
-                      <Checkbox
-                        css={multiCheckbox}
-                        value={values}
-                        checked={isArray(values) && values.includes(value)}
-                        label={renderLabel(label)}
+      <FormControl size={size} disabled={disabled}>
+        <MuiSelect
+          className={cx('playce-select', className)}
+          css={wrap}
+          variant={variant}
+          displayEmpty={displayEmpty}
+          IconComponent={disabled ? DropdownDownGrayIcon : DropdownDownIcon}
+          {...props}
+        >
+          {/* 추후 menu 컴포넌트에서 진행하여 사용 */}
+          {options.map(({ value, label }) => (
+            <MenuItem value={value}>{label}</MenuItem>
+          ))}
+          {/* {options &&
+            options?.length > 0 &&
+            options.map(({ label, split, value, hidden, disabled, description, ...props }, index) =>
+              split ? (
+                <div key={index} css={splitStyle}>
+                  {value}
+                </div>
+              ) : (
+                (!values || !hidden) && (
+                  <MenuItem
+                    key={index}
+                    value={value}
+                    className={multiLabel}
+                    disabled={disabled}
+                    {...props}
+                  >
+                    {multiple ? (
+                      <>
+                        <Checkbox
+                          css={multiCheckbox}
+                          value={values}
+                          checked={isArray(values) && values.includes(value)}
+                          label={renderLabel(label)}
+                        />
+                      </>
+                    ) : description ? (
+                      <div css={optionWrapper}>
+                        {renderLabel(label)}
+                        <div className="desc">{description}</div>
+                      </div>
+                    ) : (
+                      <ListItemText
+                        css={labelStyle(emotionTheme)}
+                        title={label?.toString()}
+                        primary={label}
                       />
-                    </>
-                  ) : description ? (
-                    <div css={optionWrapper}>
-                      {renderLabel(label)}
-                      <div className="desc">{description}</div>
-                    </div>
-                  ) : (
-                    <ListItemText
-                      css={labelStyle(emotionTheme)}
-                      title={label?.toString()}
-                      primary={label}
-                    />
-                  )}
-                </MenuItem>
-              )
-            ),
-          )}
-      </MuiSelect>
+                    )}
+                  </MenuItem>
+                )
+              ),
+            )} */}
+        </MuiSelect>
+      </FormControl>
     </ThemeProvider>
   );
 }

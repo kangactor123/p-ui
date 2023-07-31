@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import StorySelect, { ISelectProps } from './Select';
-import { TSample } from '../CodeEditor/CodeEditor.stories';
 import { css } from '@emotion/react';
 import { Size } from '../../../../common/enum';
 
@@ -18,7 +17,7 @@ const tempOptions = [
   { label: 'fourth', value: 'fourth' },
 ];
 
-const Select: Story<ISelectProps<TSample>> = (args) => (
+const Select: Story<ISelectProps> = (args) => (
   <div
     css={css`
       display: flex;
@@ -47,7 +46,7 @@ const Select: Story<ISelectProps<TSample>> = (args) => (
       options={tempOptions}
       size={Size.S}
       loading={true}
-      renderValue={(value) => 'Small select loading...'}
+      renderValue={(value) => value as string}
     />
   </div>
 );
@@ -61,7 +60,7 @@ const descSelectOptions = [
   { label: 'Read-Only', value: 'second', description: 'Grants read-only to all resources.' },
 ];
 
-const DescSelect: Story<ISelectProps<TSample>> = (args) => {
+const DescSelect: Story<ISelectProps> = (args) => {
   return (
     <StorySelect
       {...args}

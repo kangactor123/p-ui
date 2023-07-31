@@ -142,6 +142,35 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
           },
         },
       },
+      MuiPaper: {
+        styleOverrides: {
+          root: {},
+        },
+      },
+      MuiFormControl: {
+        styleOverrides: {
+          root: ({ ownerState }) => ({
+            '.playce-select': {
+              '.MuiSelect-select': {
+                ...(ownerState.size === Size.S && {
+                  height: '32px',
+                  padding: '6px 42px 6px 12px!important',
+                }),
+                ...(ownerState.size === Size.M && {
+                  height: '48px',
+                  padding: '14px 42px 14px 12px !important',
+                }),
+              },
+              '&.Mui-focused': {
+                '.MuiSelect-select': {
+                  backgroundColor: 'transparent',
+                  border: `1px solid ${theme.palette.line.primary}`,
+                },
+              },
+            },
+          }),
+        },
+      },
       MuiFormControlLabel: {
         styleOverrides: {
           root: {
@@ -236,9 +265,9 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             width: ownerState.isShortWidth ? '200px' : '300px',
             // border: `1px solid ${theme.palette.greyScale.grey30}`,
             '& .MuiOutlinedInput-root': {
+              ...theme.typo.p4,
               height: '100%',
               color: theme.palette.greyScale.grey100,
-              ...theme.typo.p4,
             },
             '& .Mui-disabled': {
               backgroundColor: theme.palette.content.disabled.disabled,
@@ -250,25 +279,20 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
           }),
         },
       },
-      MuiPaper: {
-        styleOverrides: {
-          root: {},
-        },
-      },
       MuiSelect: {
         styleOverrides: {
-          select: {
-            color: theme.palette.text.grey100,
+          select: ({ ownerState }) => ({
+            ...theme.typo.p4,
+            color: ownerState?.value ? theme.palette.text.grey100 : theme.palette.text.grey70,
             width: '300px',
             border: `1px solid ${theme.palette.greyScale.grey30}`,
             borderRadius: '3px',
             backgroundColor: '#FFFFFF',
-            ...theme.typo.p4,
             '&:hover': {
               color: theme.palette.text.grey100,
+              backgroundColor: 'transparent',
               border: `1px solid ${theme.palette.text.grey100}`,
             },
-            '&:focus': { border: `1px solid ${theme.palette.line.primary} !important` },
             '&.Mui-disabled': {
               backgroundColor: theme.palette.content.disabled.disabled,
               color: theme.palette.text.disabled,
@@ -284,15 +308,18 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
               height: '32px',
               padding: '6px 32px 6px 12px !important',
             },
-          },
+          }),
           icon: {
             top: 'auto',
-            border: 'unset',
+            right: '12px',
           },
         },
       },
       MuiMenu: {
         styleOverrides: {
+          paper: {
+            transform: 'translateY(6px) !important',
+          },
           list: {
             paddingTop: 'unset',
             paddingBottom: 'unset',
