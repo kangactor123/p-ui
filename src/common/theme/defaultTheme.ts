@@ -93,6 +93,7 @@ export interface PlayceTheme {
       grey50: string;
       grey40: string;
       grey30: string;
+      grey25: string;
       grey20: string;
       grey10: string;
       grey5: string;
@@ -225,6 +226,7 @@ export const defaultTheme: PlayceTheme = {
       grey50: '#9BA1AB',
       grey40: '#ACB2BD',
       grey30: '#D3D6DB',
+      grey25: '#DEE1E5',
       grey20: '#E6E8EC',
       grey10: '#F0F2F4',
       grey5: '#F8F9FB',

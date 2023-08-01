@@ -21,7 +21,7 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             },
 
             '&.MuiButton-containedGrey': {
-              backgroundColor: theme.palette.greyScale.grey20,
+              backgroundColor: theme.palette.greyScale.grey25,
               color: theme.palette.greyScale.grey100,
               ':hover, :active': {
                 backgroundColor: theme.palette.greyScale.grey30,
