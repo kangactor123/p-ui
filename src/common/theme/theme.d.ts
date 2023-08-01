@@ -9,4 +9,8 @@ declare module '@mui/material' {
   interface ButtonPropsColorOverrides {
     grey: true;
   }
+
+  interface FormControlPropsSizeOverrides {
+    large: true;
+  }
 }

@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import StoryInputText, { TInputTextProps } from './InputText';
-import { TSample } from '../CodeEditor/CodeEditor.stories';
-import { useForm } from 'react-hook-form';
 import { Size } from '../../../../common/enum';
+import { css } from '@emotion/react';
 
 export default {
   title: 'Component/InputText',
@@ -15,21 +14,46 @@ export type TSampleFormControl = {
   sample: string;
 };
 
-const InputText: Story<TInputTextProps<TSample>> = (args) => {
-  const { control } = useForm<TSampleFormControl>({
-    mode: 'all',
-    // defaultValues: {
-    //   sample: 'this is sample',
-    // },
-  });
-  return <StoryInputText {...args} control={control} rules={{ required: true }} />;
+const InputText: Story<TInputTextProps> = (args) => {
+  const [value, setValue] = useState('');
+
+  const handleChange = (value: string) => {
+    setValue(value);
+  };
+
+  return (
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 300px;
+      `}
+    >
+      <StoryInputText
+        {...args}
+        value={value}
+        size={Size.S}
+        onChange={handleChange}
+        placeholder="small size Input"
+      />
+      <StoryInputText
+        {...args}
+        value={value}
+        size={Size.M}
+        onChange={handleChange}
+        placeholder="medium size Input"
+        disabled={true}
+      />
+    </div>
+  );
 };
 
 export const Basic = InputText.bind({});
 
 Basic.args = {
-  name: 'sample',
   placeholder: 'this is placeholder',
-  isError: true,
-  inputSize: Size.L,
+  size: Size.S,
+  disabled: false,
+  useClearBtn: false,
 };

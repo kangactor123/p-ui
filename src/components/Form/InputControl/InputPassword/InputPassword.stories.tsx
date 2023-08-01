@@ -1,66 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import StoryInputPassword, { TInputPasswordProps } from './InputPassword';
-import { TSample } from '../CodeEditor/CodeEditor.stories';
-import { TSampleFormControl } from '../InputText/InputText.stories';
-import { useForm } from 'react-hook-form';
 import { Size } from '../../../../common/enum';
+import { css } from '@emotion/react';
 
 export default {
   title: 'Component/InputPassword',
   component: StoryInputPassword,
 } as ComponentMeta<typeof StoryInputPassword>;
 
-const InputPassword: Story<TInputPasswordProps<TSample>> = (args) => {
-  const { control } = useForm<TSampleFormControl>({
-    mode: 'all',
-  });
+const InputPassword: Story<TInputPasswordProps> = (args) => {
+  const [password, setPassword] = useState<string>();
+
+  const handleChangePassword = (value: string) => {
+    setPassword(value);
+  };
+
   return (
-    <StoryInputPassword
-      {...args}
-      control={control}
-      rules={{ required: true }}
-      name={'sample'}
-      placeholder={'this is placeholder'}
-    />
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 300px;
+      `}
+    >
+      <StoryInputPassword
+        {...args}
+        name={'sample'}
+        value={password}
+        size={Size.M}
+        placeholder={'this is medium size'}
+        onChange={handleChangePassword}
+      />
+      <StoryInputPassword
+        {...args}
+        name={'sample'}
+        value={password}
+        size={Size.S}
+        placeholder={'this is small size'}
+        onChange={handleChangePassword}
+      />
+    </div>
   );
 };
-
-const ErrorPassword: Story<TInputPasswordProps<TSample>> = (args) => {
-  const { control } = useForm<TSampleFormControl>({
-    mode: 'all',
-  });
-  return (
-    <StoryInputPassword
-      {...args}
-      control={control}
-      rules={{ required: true }}
-      name={'sample'}
-      placeholder={'this is placeholder'}
-      isError={true}
-      inputSize={Size.L}
-    />
-  );
-};
-
-const NoClearButtonPassword: Story<TInputPasswordProps<TSample>> = (args) => {
-  const { control } = useForm<TSampleFormControl>({
-    mode: 'all',
-  });
-  return (
-    <StoryInputPassword
-      {...args}
-      control={control}
-      name={'sample'}
-      rules={{ required: true }}
-      placeholder={'this is placeholder'}
-      inputSize={Size.S}
-      useClearBtn={false}
-    />
-  );
-};
-
 export const Basic = InputPassword.bind({});
-export const Error = ErrorPassword.bind({});
-export const NoClear = NoClearButtonPassword.bind({});
+
+Basic.args = {
+  placeholder: 'this is placeholder',
+  size: Size.S,
+  onChange: () => {},
+};

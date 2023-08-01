@@ -2,9 +2,8 @@ import React from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import StorySelect, { ISelectProps } from './Select';
-import { TSample } from '../CodeEditor/CodeEditor.stories';
-import { useForm } from 'react-hook-form';
-import { TSampleFormControl } from '../InputText/InputText.stories';
+import { css } from '@emotion/react';
+import { Size } from '../../../../common/enum';
 
 export default {
   title: 'Component/Select',
@@ -18,21 +17,39 @@ const tempOptions = [
   { label: 'fourth', value: 'fourth' },
 ];
 
-const Select: Story<ISelectProps<TSample>> = (args) => {
-  const { control } = useForm<TSampleFormControl>({
-    mode: 'all',
-  });
-  return (
+const Select: Story<ISelectProps> = (args) => (
+  <div
+    css={css`
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 300px;
+    `}
+  >
     <StorySelect
       {...args}
-      control={control}
-      rules={{ required: true }}
-      name={'sample'}
       options={tempOptions}
-      placeholder={'Select a JDK Version'}
+      size={Size.S}
+      renderValue={(value) => {
+        const renderValue = tempOptions.find((option) => option.label === (value as string))?.label;
+        return value ? renderValue : 'Small select';
+      }}
     />
-  );
-};
+    <StorySelect
+      options={tempOptions}
+      size={Size.M}
+      disabled={true}
+      renderValue={(value) => 'Medium select disabled'}
+    />
+    <StorySelect
+      {...args}
+      options={tempOptions}
+      size={Size.S}
+      loading={true}
+      renderValue={(value) => 'Small select loading...'}
+    />
+  </div>
+);
 
 const descSelectOptions = [
   {
@@ -43,21 +60,26 @@ const descSelectOptions = [
   { label: 'Read-Only', value: 'second', description: 'Grants read-only to all resources.' },
 ];
 
-const DescSelect: Story<ISelectProps<TSample>> = (args) => {
-  const { control } = useForm<TSampleFormControl>({
-    mode: 'all',
-  });
+const DescSelect: Story<ISelectProps> = (args) => {
   return (
     <StorySelect
       {...args}
-      control={control}
-      name="sample"
-      rules={{ required: true }}
       options={descSelectOptions}
+      size={Size.S}
       placeholder={'Select a role'}
+      renderValue={(value) => {
+        const renderValue = descSelectOptions.find(
+          (option) => option.value === (value as string),
+        )?.label;
+        return value ? renderValue : 'Select a Role';
+      }}
     />
   );
 };
 
 export const Basic = Select.bind({});
 export const DescriptionSelect = DescSelect.bind({});
+
+Basic.args = {
+  size: Size.S,
+};

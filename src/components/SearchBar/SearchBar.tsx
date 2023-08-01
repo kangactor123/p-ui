@@ -1,64 +1,61 @@
-import React, { ReactElement, useContext } from 'react';
-import { IconButton, TextFieldProps, TextField, InputAdornment } from '@mui/material';
-import { cx } from '@emotion/css';
+import React, { ReactElement } from 'react';
+import { IconButton, TextFieldProps, InputAdornment, TextField } from '@mui/material';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
-import { getInputStyleBySize, iconButtonCss } from '../Form/InputControl/TextField.style';
-import { PlayceThemeContext, ThemeProvider } from '../../providers';
+import { ThemeProvider } from '../../providers';
+import { t } from 'i18next';
+import { cx } from '@emotion/css';
 
-export type TSearchInputProps = TextFieldProps & {
-  placeholder: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlurEvent: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onKeyDownEvent: (event: React.KeyboardEvent<HTMLDivElement>) => void;
-  onDeleteSearchKeyword: () => void;
-  inputSize?: 'large' | 'medium' | 'small';
+export type TSearchInputProps = Omit<TextFieldProps, 'onChange'> & {
+  onChange: (value: string) => void;
+  useClearBtn?: boolean;
 };
 
-function SearchBar(props: TSearchInputProps): ReactElement {
-  const {
-    placeholder,
-    value,
-    inputSize = Size.M,
-    onChange,
-    onBlurEvent: onBlur,
-    onKeyDownEvent: onKeyDown,
-    onDeleteSearchKeyword,
-    InputProps = {},
-    ...defaultProps
-  } = props;
-  const theme = useContext(PlayceThemeContext);
-  const inputStyle = getInputStyleBySize(inputSize);
+function SearchBar({
+  value,
+  onChange,
+  InputProps = {},
+  placeholder = 'Search',
+  size = Size.S,
+  ...props
+}: TSearchInputProps): ReactElement {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (onChange instanceof Function) {
+      onChange(event.target.value);
+    }
+  };
+
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (onChange instanceof Function) {
+      onChange('');
+    }
+  };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <TextField
+        size={size}
         value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        onKeyDown={onKeyDown}
-        className={cx('search-input', 'outlined-input')}
-        inputProps={{
-          sx: inputStyle,
-        }}
+        onChange={handleChange}
         InputProps={{
           ...InputProps,
-          sx: { paddingRight: '12px', ...InputProps.sx },
+          className: cx('playce-search', InputProps?.className),
           placeholder,
           endAdornment: (
-            <InputAdornment position="start">
+            <InputAdornment position="end">
               {value ? (
-                <IconButton css={iconButtonCss} onClick={onDeleteSearchKeyword}>
+                <IconButton onClick={handleDelete}>
                   <ClearIcon />
                 </IconButton>
               ) : (
-                <SearchIcon />
+                <IconButton>
+                  <SearchIcon />
+                </IconButton>
               )}
             </InputAdornment>
           ),
         }}
-        {...defaultProps}
+        {...props}
       />
     </ThemeProvider>
   );

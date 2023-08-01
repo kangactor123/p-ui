@@ -1,60 +1,53 @@
-import React, { ChangeEvent, ReactElement, useCallback, useContext } from 'react';
-import { TextFieldProps, ThemeProvider } from '@mui/material';
-import { FieldValues, useController } from 'react-hook-form';
-import { getInputStyleBySize } from '../TextField.style';
-import { TControl } from '../../../../common/type';
-import { PlayceThemeContext } from '../../../../providers';
+import React, { ReactElement } from 'react';
+import { TextFieldProps, IconButton, TextField, InputAdornment } from '@mui/material';
+import { ThemeProvider } from '../../../../providers';
 import { Size } from '../../../../common/enum';
-import { cx } from '@emotion/css';
-import { TextField } from './InputText.style';
+import { ClearIcon } from '../../../icons';
+import { t } from 'i18next';
 
-export type TInputTextProps<T extends FieldValues> = TextFieldProps &
-  TControl<T> & { inputSize?: 'large' | 'medium' | 'small'; isError?: boolean };
+export type TInputTextProps = Omit<TextFieldProps, 'onChange'> & {
+  onChange: (value: string) => void;
+  useClearBtn?: boolean;
+};
 
-/**
- * @param inputSize: default 는 'medium', 'large', 'small
- * @returns control 로 다룰수 있는 InputText
- */
-function InputText<T extends FieldValues>({
-  inputProps = {},
-  variant = 'outlined',
-  name,
-  rules,
-  control,
+function InputText({
+  value = '',
   onChange,
-  inputSize = Size.M,
-  isError,
+  placeholder = 'this is placeholder',
+  size = Size.S,
+  useClearBtn = false,
   ...props
-}: TInputTextProps<T>): ReactElement {
-  const { sx: inputSx, ...input } = inputProps;
-  const inputStyle = getInputStyleBySize(inputSize);
-  const theme = useContext(PlayceThemeContext);
-  const {
-    field: { value, onChange: controlChange },
-  } = useController({
-    name,
-    rules,
-    control,
-  });
+}: TInputTextProps): ReactElement {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (onChange instanceof Function) {
+      onChange(event.target.value);
+    }
+  };
 
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      controlChange(event);
-      if (onChange instanceof Function) {
-        onChange(event);
-      }
-    },
-    [controlChange, onChange],
-  );
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (onChange instanceof Function) {
+      onChange('');
+    }
+  };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <TextField
+        size={size}
         value={value}
-        variant={variant}
         onChange={handleChange}
-        inputProps={{ maxLength: 255, sx: inputStyle, ...input }}
-        className={cx('outlined-input', isError && 'outlined-input-error')}
+        placeholder={placeholder}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              {useClearBtn && !!value && (
+                <IconButton onClick={handleDelete} disableRipple>
+                  <ClearIcon />
+                </IconButton>
+              )}
+            </InputAdornment>
+          ),
+        }}
         {...props}
       />
     </ThemeProvider>

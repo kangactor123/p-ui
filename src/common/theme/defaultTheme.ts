@@ -187,7 +187,7 @@ export const defaultTheme: PlayceTheme = {
         success10: '#EBF6FF',
       },
       disabled: {
-        disabled: '#DFE2E8',
+        disabled: '#E8EAED',
         disabled50: '#C7D1E5',
       },
       positive: {

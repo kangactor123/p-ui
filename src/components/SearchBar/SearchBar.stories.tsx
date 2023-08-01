@@ -11,35 +11,27 @@ export default {
 const SearchBar: Story<TSearchInputProps> = (args) => {
   const [value, setValue] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.currentTarget.value);
+  const handleChange = (value: string) => {
+    setValue(value);
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setValue(event.currentTarget.value);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === '13') setValue(value);
-  };
-
-  const handleDeleteSearchKeyword = () => {
-    setValue('');
-  };
-
   return (
     <StorySearchBar
       {...args}
-      placeholder={'search bar placeholder here'}
+      placeholder={'Search'}
       value={value}
       onChange={handleChange}
-      onBlurEvent={handleBlur}
-      onKeyDown={handleKeyDown}
-      inputSize={'medium'}
-      InputProps={{ sx: { width: '300px' } }}
-      onDeleteSearchKeyword={handleDeleteSearchKeyword}
+      onBlur={handleBlur}
     />
   );
 };
 
 export const Basic = SearchBar.bind({});
+
+Basic.args = {
+  placeholder: 'this is placeholder',
+};

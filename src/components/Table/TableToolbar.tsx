@@ -98,14 +98,24 @@ export const InstanceLabeledActionButton = <TModel extends object>({
   enabled = () => true,
 }: TInstanceActionButton<TModel>): ReactElement => {
   return (
-    <Button variant="contained" color="primary" onClick={onClick(instance)} disabled={!enabled(instance)}>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={onClick(instance)}
+      disabled={!enabled(instance)}
+    >
       {icon}
       {label}
     </Button>
   );
 };
 
-export const LabeledActionButton = ({ icon, onClick, label, enabled = true }: TActionButton): ReactElement => {
+export const LabeledActionButton = ({
+  icon,
+  onClick,
+  label,
+  enabled = true,
+}: TActionButton): ReactElement => {
   return (
     <Button variant="contained" color="primary" onClick={onClick} disabled={!enabled}>
       {icon}
@@ -140,7 +150,13 @@ export const InstanceSmallIconActionButton = <TModel extends object>({
   );
 };
 
-export const SmallIconActionButton = ({ icon, onClick, label, enabled = true, variant }: TActionButton) => {
+export const SmallIconActionButton = ({
+  icon,
+  onClick,
+  label,
+  enabled = true,
+  variant,
+}: TActionButton) => {
   return (
     <Tooltip arrow title={label} aria-label={label} classes={tooltipClasses}>
       <span style={{ display: 'inline-block' }}>
@@ -209,7 +225,7 @@ export function TableToolbar<TModel extends object>({
     }
   }, [searchKeyword, setGlobalFilter, onSearchKeyword]);
 
-  const handleKeywordChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+  const handleKeywordChange = useCallback((value: string) => {
     setSearchKeyword(value);
   }, []);
 
@@ -255,12 +271,12 @@ export function TableToolbar<TModel extends object>({
         <SearchBar
           placeholder={t('Search')}
           variant="outlined"
-          onDeleteSearchKeyword={handleDeleteSearchKeyword}
+          // onDelete={handleDeleteSearchKeyword}
           onChange={handleKeywordChange}
-          onKeyDownEvent={handleKeywordKeyDown}
-          onBlurEvent={handleKeywordBlur}
+          onKeyDown={handleKeywordKeyDown}
+          onBlur={handleKeywordBlur}
           value={searchKeyword || ''}
-          inputSize={Size.S}
+          size={Size.S}
         />
       </div>
       <div css={classes.rightButtons}>

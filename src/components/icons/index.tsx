@@ -13,7 +13,7 @@ export { ReactComponent as IconTogCollapseGray } from './svg/icon-ic-tog-collaps
 export { ReactComponent as IconTogExpandGray } from './svg/icon-ic-tog-expand-gray.svg';
 export { ReactComponent as IconBackButton } from './svg/icon-ic-backward-black.svg';
 export { ReactComponent as IconZipFile } from './svg/icon-ic-zipfile.svg';
-export { ReactComponent as IconFileUpload } from './svg/ic-app-upload.svg';
+export { ReactComponent as IconFileUpload } from './svg/icon-upload.svg';
 export { ReactComponent as IconDownload } from './svg/ic-download.svg';
 export { ReactComponent as IconInfo } from './svg/icon-ic-info.svg';
 export { ReactComponent as IconValidationError } from './svg/ic-validation.svg';

@@ -1,174 +1,106 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import React, { ElementType, ReactElement, ReactNode, useCallback, useContext } from 'react';
-import { SelectProps as MUISelectProps, SelectChangeEvent, ThemeProvider } from '@mui/material';
+import React, { ReactElement, ReactNode } from 'react';
+import {
+  FormControlProps,
+  SelectProps as MUISelectProps,
+  Select as MuiSelect,
+  MenuItem,
+  FormControl,
+} from '@mui/material';
 import { cx } from '@emotion/css';
+import { ThemeProvider } from '../../../../providers';
+import { DropdownDownGrayIcon, DropdownDownIcon } from '../../../icons';
 import { useTranslation } from 'react-i18next';
-import { FieldValues, useController } from 'react-hook-form';
-import { TControl, TSize } from '../../../../common/type';
-import { labelStyle, SelectComponent, splitStyle, MenuItem, optionWrapper } from './Select.style';
-import { isArray } from 'lodash';
-import Spinner, { SpinnerSize, SpinnerType } from '../../../Spinner';
-import { DropdownDownIcon, DropdownDownGrayIcon } from '../../../icons';
-import { PlayceThemeContext } from '../../../../providers';
 import { Size } from '../../../../common/enum';
-import Checkbox from '../../../Checkbox';
 
 export interface ISelectOption {
   value: any;
   label: ReactNode;
-  hidden?: boolean;
-  selected?: boolean;
   disabled?: boolean;
+  hidden?: boolean;
   split?: boolean;
   description?: string;
 }
 
-export type ISelectProps<T extends FieldValues> = {
+export type ISelectProps = {
   options: ISelectOption[];
-  icon?: ElementType;
   loading?: boolean;
-  isWidgetFilter?: boolean;
-  placeholder?: string;
-  defaultValue?: string | number;
-  onChange?: (e: SelectChangeEvent<T>) => void;
-  noDataLabel?: string;
-  size?: TSize;
-} & Omit<MUISelectProps, 'onChange'> &
-  TControl<T>;
+} & MUISelectProps &
+  Pick<FormControlProps, 'size' | 'disabled'>;
 
-function Select<T extends FieldValues>({
+function Select({
   displayEmpty = true,
-  variant = 'outlined',
   loading = false,
+  className,
+  size = Size.M,
+  options,
+  multiple,
+  disabled,
   ...props
-}: ISelectProps<T>): ReactElement {
-  const {
-    children,
-    options,
-    icon,
-    disabled,
-    name,
-    control,
-    rules,
-    placeholder,
-    defaultValue,
-    multiple,
-    noDataLabel = '',
-    size = Size.M,
-    MenuProps = {},
-  } = props;
-  const { sx, anchorOrigin, transformOrigin, ...Menu } = MenuProps;
-  const theme = useContext(PlayceThemeContext);
+}: ISelectProps): ReactElement {
   const { t } = useTranslation();
-  const {
-    field: { value, onChange, onBlur },
-  } = useController({
-    name,
-    rules,
-    control,
-  });
 
-  const handleChange = useCallback(
-    (event: SelectChangeEvent<any>) => {
-      onChange(event);
-      if (props?.onChange instanceof Function) {
-        props?.onChange(event);
-      }
-    },
-    [props, onChange],
-  );
-
-  const MenuSx = {
-    '& .MuiPaper-root': {
-      boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.2)',
-      transform: 'translateY(7px) !important',
-    },
-    '& .MuiList-root': {
-      padding: '4px',
-    },
-    ...sx,
-  };
-
-  const renderLabel = (label: React.ReactNode) => (
-    <span title={typeof label === 'string' ? label : ''} css={labelStyle}>
-      {label}
-    </span>
-  );
-
+  // const renderLabel = (label: React.ReactNode) => (
+  //   <span title={typeof label === 'string' ? label : ''} css={labelStyle(emotionTheme)}>
+  //     {label}
+  //   </span>
+  // );
   return (
-    <ThemeProvider theme={theme}>
-      <SelectComponent
-        {...props}
-        className={cx('wrap')}
-        MenuProps={{
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-            ...anchorOrigin,
-          },
-          transformOrigin: {
-            vertical: 'top',
-            horizontal: 'left',
-            ...transformOrigin,
-          },
-          sx: MenuSx,
-          ...Menu,
-        }}
-        displayEmpty={displayEmpty}
-        variant={variant}
-        IconComponent={icon || disabled ? DropdownDownGrayIcon : DropdownDownIcon}
-        disabled={disabled || loading}
-        onChange={handleChange}
-        onBlur={onBlur}
-        value={value || []}
-        renderValue={() =>
-          value ? options.find((option) => option.value === value)?.label : placeholder
-        }
-        size={size}
-        selected={!!value}
-        {...(defaultValue && { defaultValue: { defaultValue } })}
-      >
-        {children}
-        {loading ? (
-          <MenuItem key={1}>
-            {t('Loading...')}
-            <Spinner loading={loading} type={SpinnerType.spin} size={SpinnerSize.small} />
-          </MenuItem>
-        ) : options && options.length > 0 ? (
-          options.map(({ label, split, value: optionsValue, hidden, disabled, description }) =>
-            split ? (
-              <div key={optionsValue} css={splitStyle}>
-                {optionsValue}
-              </div>
-            ) : (
-              !hidden && (
-                <MenuItem key={optionsValue} value={optionsValue} disabled={disabled}>
-                  {multiple ? (
-                    <>
-                      <Checkbox
-                        value={value}
-                        checked={isArray(value) && value.includes(optionsValue)}
+    <ThemeProvider>
+      <FormControl size={size} disabled={disabled}>
+        <MuiSelect
+          className={cx('playce-select', className)}
+          displayEmpty={displayEmpty}
+          IconComponent={disabled ? DropdownDownGrayIcon : DropdownDownIcon}
+          {...props}
+        >
+          {/* 추후 menu 컴포넌트에서 진행하여 사용 */}
+          {options.map(({ value, label }) => (
+            <MenuItem value={value}>{label}</MenuItem>
+          ))}
+          {/* {options &&
+            options?.length > 0 &&
+            options.map(({ label, split, value, hidden, disabled, description, ...props }, index) =>
+              split ? (
+                <div key={index} css={splitStyle}>
+                  {value}
+                </div>
+              ) : (
+                (!values || !hidden) && (
+                  <MenuItem
+                    key={index}
+                    value={value}
+                    className={multiLabel}
+                    disabled={disabled}
+                    {...props}
+                  >
+                    {multiple ? (
+                      <>
+                        <Checkbox
+                          css={multiCheckbox}
+                          value={values}
+                          checked={isArray(values) && values.includes(value)}
+                          label={renderLabel(label)}
+                        />
+                      </>
+                    ) : description ? (
+                      <div css={optionWrapper}>
+                        {renderLabel(label)}
+                        <div className="desc">{description}</div>
+                      </div>
+                    ) : (
+                      <ListItemText
+                        css={labelStyle(emotionTheme)}
+                        title={label?.toString()}
+                        primary={label}
                       />
-                      {renderLabel(label)}
-                    </>
-                  ) : description ? (
-                    <div css={optionWrapper}>
-                      {renderLabel(label)}
-                      <div className="desc">{description}</div>
-                    </div>
-                  ) : (
-                    renderLabel(label)
-                  )}
-                </MenuItem>
-              )
-            ),
-          )
-        ) : (
-          <MenuItem>
-            <span css={labelStyle}>{t(noDataLabel)}</span>
-          </MenuItem>
-        )}
-      </SelectComponent>
+                    )}
+                  </MenuItem>
+                )
+              ),
+            )} */}
+        </MuiSelect>
+      </FormControl>
     </ThemeProvider>
   );
 }
