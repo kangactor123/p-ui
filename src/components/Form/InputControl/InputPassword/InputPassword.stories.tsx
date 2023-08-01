@@ -13,8 +13,8 @@ export default {
 const InputPassword: Story<TInputPasswordProps> = (args) => {
   const [password, setPassword] = useState<string>();
 
-  const handleChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value);
+  const handleChangePassword = (value: string) => {
+    setPassword(value);
   };
 
   return (
@@ -29,7 +29,7 @@ const InputPassword: Story<TInputPasswordProps> = (args) => {
       <StoryInputPassword
         {...args}
         name={'sample'}
-        value={password || ''}
+        value={password}
         size={Size.M}
         placeholder={'this is medium size'}
         onChange={handleChangePassword}
@@ -37,7 +37,7 @@ const InputPassword: Story<TInputPasswordProps> = (args) => {
       <StoryInputPassword
         {...args}
         name={'sample'}
-        value={password || ''}
+        value={password}
         size={Size.S}
         placeholder={'this is small size'}
         onChange={handleChangePassword}

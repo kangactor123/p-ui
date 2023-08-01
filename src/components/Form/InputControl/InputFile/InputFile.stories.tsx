@@ -20,13 +20,7 @@ const InputFile: Story<TInputFileProps> = (args) => (
   >
     <StoryInputFile {...args} name={'sample'} oldFileName="chip.json" size={Size.S} />
     <StoryInputFile {...args} name={'sample'} value="C:\file.json" size={Size.M} />
-    <StoryInputFile
-      {...args}
-      name={'sample'}
-      disabled={true}
-      placeholder="disabled"
-      size={Size.S}
-    />
+    <StoryInputFile {...args} name={'sample'} placeholder="disabled" size={Size.S} />
   </div>
 );
 export const Basic = InputFile.bind({});

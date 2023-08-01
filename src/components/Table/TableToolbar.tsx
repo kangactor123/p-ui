@@ -225,12 +225,9 @@ export function TableToolbar<TModel extends object>({
     }
   }, [searchKeyword, setGlobalFilter, onSearchKeyword]);
 
-  const handleKeywordChange = useCallback(
-    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      setSearchKeyword(value);
-    },
-    [],
-  );
+  const handleKeywordChange = useCallback((value: string) => {
+    setSearchKeyword(value);
+  }, []);
 
   const handleKeywordKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -274,7 +271,7 @@ export function TableToolbar<TModel extends object>({
         <SearchBar
           placeholder={t('Search')}
           variant="outlined"
-          onDelete={handleDeleteSearchKeyword}
+          // onDelete={handleDeleteSearchKeyword}
           onChange={handleKeywordChange}
           onKeyDown={handleKeywordKeyDown}
           onBlur={handleKeywordBlur}

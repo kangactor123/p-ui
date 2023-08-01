@@ -1,10 +1,6 @@
 import { css, Theme } from '@emotion/react';
 import { styled as MUIStyled, MenuItem as MUIMenuItem } from '@mui/material';
 
-export const wrap = (theme: Theme) => css`
-  max-width: 100%;
-`;
-
 export const formControlBox = css``;
 
 export const labelStyle = (theme: Theme) => css`

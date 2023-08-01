@@ -4,29 +4,23 @@ import { Size } from '../../../../common/enum';
 import { ThemeProvider } from '../../../../providers';
 import { InvisibleIcon, VisibleIcon } from '../../../icons';
 
-export type TInputPasswordProps = TextFieldProps & {
-  value: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
+export type TInputPasswordProps = Omit<TextFieldProps, 'onChange'> & {
   forwardedRef?: React.Ref<HTMLInputElement>;
-  onChange?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
 };
 
 function InputPassword({
-  value,
-  InputProps = {},
-  variant = 'outlined',
   size = Size.M,
-  setPassword,
   onChange,
+  forwardedRef,
   ...props
 }: TInputPasswordProps): ReactElement {
-  const { forwardedRef } = props;
-  const [isVisible, setIsVisible] = useState(false);
-  const visibleChange = () => setIsVisible((prev) => !prev);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const visibleChange = () => setShowPassword((prev) => !prev);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (onChange instanceof Function) {
-      onChange(event);
+      onChange(event.target.value);
     }
   };
 
@@ -34,21 +28,18 @@ function InputPassword({
     <ThemeProvider>
       <TextField
         size={size}
-        variant={variant}
-        value={value}
-        type={isVisible ? 'text' : 'password'}
+        type={showPassword ? 'text' : 'password'}
         onChange={handleChange}
+        inputRef={forwardedRef}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               <IconButton onClick={visibleChange} disableRipple>
-                {isVisible ? <VisibleIcon /> : <InvisibleIcon />}
+                {showPassword ? <VisibleIcon /> : <InvisibleIcon />}
               </IconButton>
             </InputAdornment>
           ),
-          ...InputProps,
         }}
-        inputRef={forwardedRef}
         {...props}
       />
     </ThemeProvider>

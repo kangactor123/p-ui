@@ -6,51 +6,28 @@ import { ThemeProvider } from '../../providers';
 import { t } from 'i18next';
 import { cx } from '@emotion/css';
 
-export type TSearchInputProps = TextFieldProps & {
-  placeholder?: string;
-  value?: string;
+export type TSearchInputProps = Omit<TextFieldProps, 'onChange'> & {
+  onChange: (value: string) => void;
   useClearBtn?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
-  onDelete?: () => void;
-  isShortWidth?: boolean;
 };
 
-function SearchBar(props: TSearchInputProps): ReactElement {
-  const {
-    value,
-    onChange,
-    onBlur,
-    onKeyDown,
-    onDelete,
-    InputProps = {},
-    placeholder = 'Search',
-    size = Size.S,
-    ...defaultProps
-  } = props;
-
+function SearchBar({
+  value,
+  onChange,
+  InputProps = {},
+  placeholder = 'Search',
+  size = Size.S,
+  ...props
+}: TSearchInputProps): ReactElement {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (onChange instanceof Function) {
-      onChange(event);
+      onChange(event.target.value);
     }
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
-    if (onBlur instanceof Function) {
-      onBlur(event);
-    }
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (onKeyDown instanceof Function) {
-      onKeyDown(event);
-    }
-  };
-
-  const handleDelete = () => {
-    if (onDelete instanceof Function) {
-      onDelete();
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (onChange instanceof Function) {
+      onChange('');
     }
   };
 
@@ -60,8 +37,6 @@ function SearchBar(props: TSearchInputProps): ReactElement {
         size={size}
         value={value}
         onChange={handleChange}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
         InputProps={{
           ...InputProps,
           className: cx('playce-search', InputProps?.className),
@@ -80,7 +55,7 @@ function SearchBar(props: TSearchInputProps): ReactElement {
             </InputAdornment>
           ),
         }}
-        {...defaultProps}
+        {...props}
       />
     </ThemeProvider>
   );

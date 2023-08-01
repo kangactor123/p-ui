@@ -17,20 +17,8 @@ export type TSampleFormControl = {
 const InputText: Story<TInputTextProps> = (args) => {
   const [value, setValue] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.currentTarget.value);
-  };
-
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    setValue(event.currentTarget.value);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === '13') setValue(value);
-  };
-
-  const handleClearValue = () => {
-    setValue('');
+  const handleChange = (value: string) => {
+    setValue(value);
   };
 
   return (
@@ -47,9 +35,6 @@ const InputText: Story<TInputTextProps> = (args) => {
         value={value}
         size={Size.S}
         onChange={handleChange}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
-        handleClear={handleClearValue}
         placeholder="small size Input"
       />
       <StoryInputText
@@ -57,9 +42,6 @@ const InputText: Story<TInputTextProps> = (args) => {
         value={value}
         size={Size.M}
         onChange={handleChange}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
-        handleClear={handleClearValue}
         placeholder="medium size Input"
         disabled={true}
       />

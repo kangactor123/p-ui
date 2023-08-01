@@ -8,7 +8,6 @@ import {
   FormControl,
 } from '@mui/material';
 import { cx } from '@emotion/css';
-import { wrap } from './Select.style';
 import { ThemeProvider } from '../../../../providers';
 import { DropdownDownGrayIcon, DropdownDownIcon } from '../../../icons';
 import { useTranslation } from 'react-i18next';
@@ -29,18 +28,17 @@ export type ISelectProps = {
 } & MUISelectProps &
   Pick<FormControlProps, 'size' | 'disabled'>;
 
-function Select(props: ISelectProps): ReactElement {
+function Select({
+  displayEmpty = true,
+  loading = false,
+  className,
+  size = Size.M,
+  options,
+  multiple,
+  disabled,
+  ...props
+}: ISelectProps): ReactElement {
   const { t } = useTranslation();
-  const {
-    displayEmpty = true,
-    variant = 'outlined',
-    loading = false,
-    className,
-    size = Size.M,
-    options,
-    multiple,
-    disabled,
-  } = props;
 
   // const renderLabel = (label: React.ReactNode) => (
   //   <span title={typeof label === 'string' ? label : ''} css={labelStyle(emotionTheme)}>
@@ -52,8 +50,6 @@ function Select(props: ISelectProps): ReactElement {
       <FormControl size={size} disabled={disabled}>
         <MuiSelect
           className={cx('playce-select', className)}
-          css={wrap}
-          variant={variant}
           displayEmpty={displayEmpty}
           IconComponent={disabled ? DropdownDownGrayIcon : DropdownDownIcon}
           {...props}

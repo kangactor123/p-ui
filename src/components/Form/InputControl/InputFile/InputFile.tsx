@@ -14,11 +14,11 @@ export type UploadFile =
     }
   | undefined;
 
-export type TInputFileProps = TextFieldProps & {
+export type TInputFileProps = Omit<TextFieldProps, 'onChange' | 'value'> & {
   onError?: (errorMsg: string | undefined) => void;
   onDeleteOld?: () => void;
-  value?: UploadFile | string;
   oldFileName?: string;
+  value?: UploadFile | string;
   accept?: string;
   onChange: (event: { name: string; value?: string; files?: [] }) => void;
 };
@@ -65,15 +65,16 @@ function InputFile({
   name,
   value,
   oldFileName,
-  inputProps = {},
-  variant = 'outlined',
   onFocus,
   onBlur,
   onError,
   onChange,
   onDeleteOld,
-  size = Size.S,
-  ...props
+  placeholder = 'Upload key file',
+  size = Size.M,
+  fullWidth = false,
+  accept,
+  ...fileInputProps
 }: TInputFileProps): ReactElement {
   const { t } = useTranslation();
 
@@ -84,22 +85,17 @@ function InputFile({
   const fileValue =
     fakeValue && fileRef && fileRef?.current && fileRef.current.files ? fakeValue : '';
 
-  const { fullWidth = false, accept } = props;
-
   const fileProps = {
-    ...props,
-    inputProps,
+    ...fileInputProps,
     value: fileValue,
   };
   const fakeProps = {
-    ...props,
+    ...fileInputProps,
     value: fakeValue,
   };
 
-  const placeholder = t(props.placeholder || 'Upload key file');
-
   const handleFocus = useCallback(
-    (event: any) => {
+    (event: React.FocusEvent<HTMLInputElement>) => {
       setTimeout(() => {
         const event = new Event('focus');
         inputRef.current?.dispatchEvent(event);
@@ -127,7 +123,7 @@ function InputFile({
   }, [accept, fakeValue, onError, t]);
 
   const handleBlur = useCallback(
-    (event: any) => {
+    (event: React.FocusEvent<HTMLInputElement>) => {
       const setTimeId = setTimeout(() => {
         const event = new Event('blur');
         inputRef.current?.dispatchEvent(event);
@@ -150,7 +146,7 @@ function InputFile({
     [onChange],
   );
 
-  const deleteFile = useCallback(() => {
+  const handleDeleteFile = useCallback(() => {
     onChange({ name: name || '' });
   }, [onChange, name]);
 
@@ -162,7 +158,6 @@ function InputFile({
             size={size}
             id={id}
             name={name}
-            variant={variant}
             inputRef={fileRef}
             type="file"
             onBlur={handleBlur}
@@ -179,7 +174,7 @@ function InputFile({
                 <InputAdornment position="end">
                   <IconButton disableRipple>
                     {value ? (
-                      <CloseSmallIcon onClick={deleteFile} css={iconFileDelete} />
+                      <CloseSmallIcon onClick={handleDeleteFile} css={iconFileDelete} />
                     ) : (
                       <IconFileUpload width={20} height={20} />
                     )}
