@@ -147,13 +147,24 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
           root: {
             maxWidth: '100%',
             margin: 0,
-            padding: '4px 0',
             gap: '8px',
             alignItems: 'flex-start',
+
+            '&.playce-checkbox': {
+              padding: '4px 0',
+            },
           },
           label: {
             ...theme.typo.p4,
             color: theme.palette.text.grey100,
+          },
+        },
+      },
+      MuiFormGroup: {
+        styleOverrides: {
+          root: {
+            width: '100%',
+            flexDirection: 'row',
           },
         },
       },
@@ -216,6 +227,44 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             '.playce-checkbox-label': {
               ...theme.typo.p4,
               color: theme.palette.text.grey100,
+            },
+          },
+        },
+      },
+      MuiRadio: {
+        styleOverrides: {
+          root: {
+            width: '16px',
+            height: '16px',
+            minWidth: '16px',
+            minHeight: '16px',
+            marginTop: '2px',
+            padding: 0,
+            border: `1px solid ${theme.palette.line.grey30}`,
+
+            '.playce-radio-icon-checked': {
+              width: '8px',
+              height: '8px',
+              backgroundColor: '#fff',
+              borderRadius: '50%',
+            },
+
+            ':hover': {
+              borderColor: theme.palette.line.grey100,
+            },
+
+            '&.Mui-checked': {
+              backgroundColor: theme.palette.main.primary,
+              border: 'none',
+            },
+
+            '&.Mui-disabled': {
+              backgroundColor: theme.palette.content.disabled.disabled,
+              border: 'none',
+
+              '.playce-radio-icon-checked': {
+                backgroundColor: theme.palette.greyScale.grey40,
+              },
             },
           },
         },

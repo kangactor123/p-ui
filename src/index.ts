@@ -21,6 +21,7 @@ export { default as ViewMore } from './components/ViewMore';
 export { default as ToggleButton } from './components/ToggleButton';
 export { default as Checkbox } from './components/Checkbox';
 export { default as Radio } from './components/Radio';
+export { default as RadioGroup } from './components/RadioGroup';
 
 export { default as FormRow } from './components/Form/FormRow';
 export { default as FormGroup } from './components/Form/FormGroup';
