@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useCallback } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { ThemeProvider } from '../../providers';
 import { RadioGroup as MUIRadioGroup, RadioGroupProps as MUIRadioGroupProps } from '@mui/material';
 import Radio from '../Radio';
@@ -6,7 +6,7 @@ import { cx } from '@emotion/css';
 
 export type RadioOption = {
   label: ReactNode;
-  value: unknown;
+  value: string | boolean;
   checked?: boolean;
   disabled?: boolean;
 };
