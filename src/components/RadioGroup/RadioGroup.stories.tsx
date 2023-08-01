@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ComponentMeta, Story } from '@storybook/react';
 import StoryRadioGroup, { RadioGroupProps } from './RadioGroup';
@@ -9,22 +9,24 @@ export default {
   component: StoryRadioGroup,
 } as ComponentMeta<typeof StoryRadioGroup>;
 
-const RadioGroupTemplate: Story<RadioGroupProps> = (args) => (
-  <div
-    css={css`
-      width: 300px;
-      .playce-radio-group {
-        justify-content: space-between;
-      }
-    `}
-  >
-    <StoryRadioGroup {...args} />
-  </div>
-);
+const RadioGroupTemplate: Story<RadioGroupProps> = (args) => {
+  return (
+    <div
+      css={css`
+        width: 300px;
+        .playce-radio-group {
+          justify-content: space-between;
+        }
+      `}
+    >
+      <StoryRadioGroup {...args} />
+    </div>
+  );
+};
 
-export const RadioGroup = RadioGroupTemplate.bind({});
+export const Basic = RadioGroupTemplate.bind({});
 
-RadioGroup.args = {
+Basic.args = {
   defaultValue: 'a',
   options: [
     { label: 'a', value: 'a' },
@@ -32,5 +34,35 @@ RadioGroup.args = {
     { label: 'c', value: 'c' },
     { label: 'd', value: 'd' },
     { label: 'e', value: 'e' },
+  ],
+};
+
+const BooleanRadioGroupTemplate: Story<RadioGroupProps<boolean>> = (args) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
+    console.log(value);
+  };
+
+  return (
+    <div
+      css={css`
+        width: 150px;
+        .playce-radio-group {
+          justify-content: space-between;
+        }
+      `}
+    >
+      <StoryRadioGroup<boolean> {...args} onChange={handleChange} />
+    </div>
+  );
+};
+
+export const BooleanRadio = BooleanRadioGroupTemplate.bind({});
+
+BooleanRadio.args = {
+  defaultValue: true,
+  useBooleanVal: true,
+  options: [
+    { label: 'true', value: true },
+    { label: 'false', value: false },
   ],
 };

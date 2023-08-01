@@ -1,24 +1,46 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode, useCallback } from 'react';
 import { ThemeProvider } from '../../providers';
 import { RadioGroup as MUIRadioGroup, RadioGroupProps as MUIRadioGroupProps } from '@mui/material';
 import Radio from '../Radio';
 import { cx } from '@emotion/css';
 
-export interface RadioGroupProps extends MUIRadioGroupProps {
-  options?: {
-    label: ReactNode;
-    value: unknown;
-    checked?: boolean;
-    disabled?: boolean;
-  }[];
+export type RadioOption = {
+  label: ReactNode;
+  value: unknown;
+  checked?: boolean;
+  disabled?: boolean;
+};
+
+export interface RadioGroupProps<T extends string | boolean = string>
+  extends Omit<MUIRadioGroupProps, 'onChange'> {
+  options?: RadioOption[];
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: T) => void;
+  useBooleanVal: boolean;
 }
 
-function RadioGroup({ options, className, ...props }: RadioGroupProps): ReactElement {
+function RadioGroup<T extends string | boolean = string>({
+  options,
+  className,
+  useBooleanVal,
+  onChange,
+  ...props
+}: RadioGroupProps<T>): ReactElement {
   // const { t } = useTranslation();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
+    const returnValue = useBooleanVal ? value === 'true' : value;
+    if (onChange instanceof Function) {
+      onChange(event, returnValue as T);
+    }
+  };
 
   return (
     <ThemeProvider>
-      <MUIRadioGroup className={cx('playce-radio-group', className)} {...props}>
+      <MUIRadioGroup
+        className={cx('playce-radio-group', className)}
+        onChange={handleChange}
+        {...props}
+      >
         {options?.map((option) => (
           <Radio {...option} />
         ))}
