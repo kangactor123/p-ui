@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { IconButton, TextFieldProps, InputAdornment, TextField } from '@mui/material';
 import { ClearIcon, SearchIcon } from '../icons';
 import { Size } from '../../common/enum';
@@ -6,29 +6,21 @@ import { ThemeProvider } from '../../providers';
 import { t } from 'i18next';
 import { cx } from '@emotion/css';
 
-export type TSearchInputProps = Omit<TextFieldProps, 'onChange'> & {
-  onChange: (value: string) => void;
+export type TSearchInputProps = TextFieldProps & {
   useClearBtn?: boolean;
 };
 
 function SearchBar({
   value,
-  onChange,
   InputProps = {},
   placeholder = 'Search',
   size = Size.S,
+  onChange,
   ...props
 }: TSearchInputProps): ReactElement {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (onChange instanceof Function) {
-      onChange(event.target.value);
-    }
-  };
-
+  const [innerValue, setInnerValue] = useState<unknown>(value);
   const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (onChange instanceof Function) {
-      onChange('');
-    }
+    onChange();
   };
 
   return (
@@ -36,7 +28,7 @@ function SearchBar({
       <TextField
         size={size}
         value={value}
-        onChange={handleChange}
+        onChange={onChange}
         InputProps={{
           ...InputProps,
           className: cx('playce-search', InputProps?.className),

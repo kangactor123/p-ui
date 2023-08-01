@@ -17,8 +17,8 @@ export type TSampleFormControl = {
 const InputText: Story<TInputTextProps> = (args) => {
   const [value, setValue] = useState('');
 
-  const handleChange = (value: string) => {
-    setValue(value);
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setValue(event.target.value);
   };
 
   return (
@@ -34,14 +34,14 @@ const InputText: Story<TInputTextProps> = (args) => {
         {...args}
         value={value}
         size={Size.S}
-        onChange={handleChange}
+        onChange={(e) => handleChange}
         placeholder="small size Input"
       />
       <StoryInputText
         {...args}
         value={value}
         size={Size.M}
-        onChange={handleChange}
+        onChange={(e) => handleChange}
         placeholder="medium size Input"
         disabled={true}
       />
