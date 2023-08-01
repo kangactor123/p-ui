@@ -38,7 +38,7 @@ Basic.args = {
 };
 
 const BooleanRadioGroupTemplate: Story<RadioGroupProps<boolean>> = (args) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
+  const handleChange = (value: boolean) => {
     console.log(value);
   };
 

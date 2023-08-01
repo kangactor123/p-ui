@@ -14,7 +14,7 @@ export type RadioOption = {
 export interface RadioGroupProps<T extends string | boolean = string>
   extends Omit<MUIRadioGroupProps, 'onChange'> {
   options?: RadioOption[];
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: T) => void;
+  onChange?: (value: T) => void;
   useBooleanVal: boolean;
 }
 
@@ -30,7 +30,7 @@ function RadioGroup<T extends string | boolean = string>({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
     const returnValue = useBooleanVal ? value === 'true' : value;
     if (onChange instanceof Function) {
-      onChange(event, returnValue as T);
+      onChange(returnValue as T);
     }
   };
 
