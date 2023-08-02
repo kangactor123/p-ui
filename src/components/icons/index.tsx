@@ -40,6 +40,10 @@ export { ReactComponent as CloseSmallIcon } from './svg/icon-close-small.svg';
 export { ReactComponent as FilesIcon } from './svg/icon-files.svg';
 export { ReactComponent as SuccessIcon } from './svg/icon-success.svg';
 export { ReactComponent as ErrorIcon } from './svg/icon-error.svg';
-
 export { ReactComponent as ArrowDownIcon } from './svg/icon-arrow-down.svg';
 export { ReactComponent as ArrowUpIcon } from './svg/icon-arrow-up.svg';
+export { ReactComponent as CloseSmallGrey100Icon } from './svg/ic-close-small-grey100.svg';
+export { ReactComponent as InfoBoxSuccessIcon } from './svg/ic-infobox-success.svg';
+export { ReactComponent as InfoBoxPositiveIcon } from './svg/ic-infobox-positive.svg';
+export { ReactComponent as InfoBoxWarningIcon } from './svg/ic-infobox-warning.svg';
+export { ReactComponent as InfoBoxNegativeIcon } from './svg/ic-infobox-negative.svg';

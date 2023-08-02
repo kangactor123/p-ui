@@ -95,7 +95,7 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
             color: theme.palette.text.white,
 
             ':hover, :active': {
-              backgroundColor: theme.palette.content.negative.negative50,
+              backgroundColor: theme.palette.content.negative.negative90,
             },
             ':disabled': {
               backgroundColor: theme.palette.content.disabled.disabled,

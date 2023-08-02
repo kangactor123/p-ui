@@ -22,6 +22,7 @@ export { default as ToggleButton } from './components/ToggleButton';
 export { default as Checkbox } from './components/Checkbox';
 export { default as Radio } from './components/Radio';
 export { default as RadioGroup } from './components/RadioGroup';
+export { default as InfoBox } from './components/InfoBox';
 
 export { default as FormRow } from './components/Form/FormRow';
 export { default as FormGroup } from './components/Form/FormGroup';
@@ -63,6 +64,8 @@ export * from './components/ViewMore';
 export * from './components/ToggleButton';
 export * from './components/Checkbox';
 export * from './components/Radio';
+export * from './components/RadioGroup';
+export * from './components/InfoBox';
 
 export * from './components/Form/FormRow';
 export * from './components/Form/FormGroup';
