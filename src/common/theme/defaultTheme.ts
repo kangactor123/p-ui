@@ -1,4 +1,4 @@
-type typography = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p1' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6';
+type typography = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p1' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6';
 
 export interface PlayceTheme {
   palette: {
@@ -65,6 +65,7 @@ export interface PlayceTheme {
       };
       negative: {
         negative: string;
+        negative90: string;
         negative50: string;
         negative10: string;
       };
@@ -184,7 +185,7 @@ export const defaultTheme: PlayceTheme = {
     content: {
       success: {
         success: '#1F94FA',
-        success50: '#DDEFFE',
+        success50: '#CCE7FF',
         success10: '#EBF6FF',
       },
       disabled: {
@@ -193,17 +194,18 @@ export const defaultTheme: PlayceTheme = {
       },
       positive: {
         positive: '#2DA02B',
-        positive50: '#A8F1A6',
+        positive50: '#CBF2CB',
         positive10: '#E4F6E4',
       },
       negative: {
         negative: '#DA3D3D',
-        negative50: '#BA3535',
+        negative90: '#920000',
+        negative50: '#FFE0DB',
         negative10: '#FFEAE7',
       },
       warning: {
         warning: '#F59638',
-        warning50: '#FEF5D1',
+        warning50: '#FFF4C7',
         warning10: '#FDEAD7',
       },
     },
@@ -282,6 +284,11 @@ export const defaultTheme: PlayceTheme = {
       fontSize: '13px',
       fontWeight: 600,
       lineHeight: '20px',
+    },
+    h6: {
+      fontSize: '15px',
+      fontWeight: 600,
+      lineHeight: '24px',
     },
     p1: {
       fontSize: '15px',
