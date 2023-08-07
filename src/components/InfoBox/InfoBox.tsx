@@ -20,7 +20,7 @@ export enum InfoStatus {
 }
 
 export interface InfoBoxProps {
-  status: InfoStatus;
+  status?: InfoStatus;
   title?: string;
   content?: ReactNode;
   isOpen?: boolean;
@@ -28,7 +28,7 @@ export interface InfoBoxProps {
 }
 
 function InfoBox({
-  status,
+  status = InfoStatus.Success,
   title = '',
   content = '',
   isOpen = true,
@@ -70,7 +70,7 @@ function InfoBox({
               <CloseSmallGrey100Icon />
             </Button>
           </Title>
-          <Content theme={emotionTheme}>{content}</Content>
+          {content && <Content theme={emotionTheme}>{content}</Content>}
         </InfoBoxWrap>
       )}
     </ThemeProvider>

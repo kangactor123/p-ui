@@ -15,7 +15,7 @@ export interface RadioGroupProps<T extends string | boolean = string>
   extends Omit<MUIRadioGroupProps, 'onChange'> {
   options?: RadioOption[];
   onChange?: (value: T) => void;
-  useBooleanVal: boolean;
+  useBooleanVal?: boolean;
 }
 
 function RadioGroup<T extends string | boolean = string>({

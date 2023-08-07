@@ -36,6 +36,10 @@ export const closeIcon = css`
   position: absolute;
   right: 10px;
   top: 10px;
+  width: 24px;
+  height: 16px;
+  min-width: 24px;
+  min-height: 24px;
 `;
 
 export const Content = styled.div(({ theme }) => ({
