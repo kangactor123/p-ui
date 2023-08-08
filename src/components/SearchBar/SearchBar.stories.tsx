@@ -11,8 +11,8 @@ export default {
 const SearchBar: Story<TSearchInputProps> = (args) => {
   const [value, setValue] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setValue(event.target.value);
+  const handleChange = (value: string) => {
+    setValue(value);
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {

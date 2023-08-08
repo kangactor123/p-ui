@@ -4,8 +4,9 @@ import { Size } from '../../../../common/enum';
 import { ThemeProvider } from '../../../../providers';
 import { InvisibleIcon, VisibleIcon } from '../../../icons';
 
-export type TInputPasswordProps = TextFieldProps & {
+export type TInputPasswordProps = Omit<TextFieldProps, 'onChange'> & {
   forwardedRef?: React.Ref<HTMLInputElement>;
+  onChange: (value: string) => void;
 };
 
 function InputPassword({
@@ -17,11 +18,18 @@ function InputPassword({
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const visibleChange = () => setShowPassword((prev) => !prev);
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (onChange instanceof Function) {
+      onChange(event.target.value);
+    }
+  };
+
   return (
     <ThemeProvider>
       <TextField
         size={size}
         type={showPassword ? 'text' : 'password'}
+        onChange={handleChange}
         inputRef={forwardedRef}
         InputProps={{
           endAdornment: (
