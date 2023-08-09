@@ -323,24 +323,26 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       },
       MuiOutlinedInput: {
         styleOverrides: {
-          root: ({ ownerState }) => ({
-            ':not(.playce-select)': {
-              ...(ownerState.size === Size.M && {
-                padding: '14px 12px 14px 12px !important',
-                height: '48px',
-              }),
-              ...(ownerState.size === Size.S && {
-                padding: '6px 12px 6px 12px !important',
-                height: '32px',
-              }),
-              border: `1px solid ${theme.palette.greyScale.grey30}`,
-            },
-            '&.playce-search': {
-              backgroundColor: theme.palette.greyScale.grey5,
-            },
-          }),
+          root: ({ ownerState }) => {
+            return {
+              ':not(.playce-select)': {
+                ...(ownerState.size === Size.M && {
+                  padding: '14px 12px 14px 12px !important',
+                  height: '48px',
+                }),
+                ...(ownerState.size === Size.S && {
+                  padding: '6px 12px 6px 12px !important',
+                  height: '32px',
+                }),
+              },
+
+              '&.playce-search': {
+                backgroundColor: theme.palette.greyScale.grey5,
+              },
+            };
+          },
           notchedOutline: {
-            border: 'none !important',
+            border: `1px solid ${theme.palette.greyScale.grey30}`,
           },
         },
       },
@@ -362,33 +364,30 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       },
       MuiSelect: {
         styleOverrides: {
-          select: ({ ownerState }) => {
-            console.log(ownerState);
-            return {
-              ...theme.typo.p4,
-              color: ownerState?.value ? theme.palette.text.grey100 : theme.palette.text.grey70,
-              width: '300px',
+          select: ({ ownerState }) => ({
+            ...theme.typo.p4,
+            color: ownerState?.value ? theme.palette.text.grey100 : theme.palette.text.grey70,
+            width: '300px',
+            border: `1px solid ${theme.palette.greyScale.grey30}`,
+            borderRadius: '3px',
+            backgroundColor: '#FFFFFF',
+            '&:hover': {
+              color: theme.palette.text.grey100,
+              backgroundColor: 'transparent',
+              border: `1px solid ${theme.palette.text.grey100}`,
+            },
+            '&.Mui-disabled': {
+              backgroundColor: theme.palette.content.disabled.disabled,
+              color: theme.palette.text.disabled,
               border: `1px solid ${theme.palette.greyScale.grey30}`,
-              borderRadius: '3px',
-              backgroundColor: '#FFFFFF',
-              '&:hover': {
-                color: theme.palette.text.grey100,
-                backgroundColor: 'transparent',
-                border: `1px solid ${theme.palette.text.grey100}`,
+            },
+            '&.MuiInputBase-input': {
+              '&.MuiOutlinedInput-input': {
+                paddingTop: 'unset',
+                padding: 'unset',
               },
-              '&.Mui-disabled': {
-                backgroundColor: theme.palette.content.disabled.disabled,
-                color: theme.palette.text.disabled,
-                border: `1px solid ${theme.palette.greyScale.grey30}`,
-              },
-              '&.MuiInputBase-input': {
-                '&.MuiOutlinedInput-input': {
-                  paddingTop: 'unset',
-                  padding: 'unset',
-                },
-              },
-            };
-          },
+            },
+          }),
           icon: {
             top: 'auto',
             right: '12px',
