@@ -14,7 +14,7 @@ function InputText({
   value = '',
   onChange,
   placeholder = 'this is placeholder',
-  size = Size.S,
+  size = Size.M,
   useClearBtn = false,
   ...props
 }: TInputTextProps): ReactElement {
