@@ -323,24 +323,22 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
       },
       MuiOutlinedInput: {
         styleOverrides: {
-          root: ({ ownerState }) => {
-            return {
-              ':not(.playce-select)': {
-                ...(ownerState.size === Size.M && {
-                  padding: '14px 12px 14px 12px !important',
-                  height: '48px',
-                }),
-                ...(ownerState.size === Size.S && {
-                  padding: '6px 12px 6px 12px !important',
-                  height: '32px',
-                }),
-              },
+          root: ({ ownerState }) => ({
+            ':not(.playce-select)': {
+              ...(ownerState.size === Size.M && {
+                padding: '14px 12px 14px 12px !important',
+                height: '48px',
+              }),
+              ...(ownerState.size === Size.S && {
+                padding: '6px 12px 6px 12px !important',
+                height: '32px',
+              }),
+            },
 
-              '&.playce-search': {
-                backgroundColor: theme.palette.greyScale.grey5,
-              },
-            };
-          },
+            '&.playce-search': {
+              backgroundColor: theme.palette.greyScale.grey5,
+            },
+          }),
           notchedOutline: {
             border: `1px solid ${theme.palette.greyScale.grey30}`,
           },
