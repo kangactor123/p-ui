@@ -25,14 +25,14 @@ const InfoBoxTemplate: Story<InfoBoxProps> = (args) => (
   />
 );
 
+export const Information = InfoBoxTemplate.bind({});
+Information.args = {
+  status: InfoStatus.Information,
+};
+
 export const Success = InfoBoxTemplate.bind({});
 Success.args = {
   status: InfoStatus.Success,
-};
-
-export const Positive = InfoBoxTemplate.bind({});
-Positive.args = {
-  status: InfoStatus.Positive,
 };
 
 export const Warning = InfoBoxTemplate.bind({});
@@ -40,7 +40,7 @@ Warning.args = {
   status: InfoStatus.Warning,
 };
 
-export const Negative = InfoBoxTemplate.bind({});
-Negative.args = {
-  status: InfoStatus.Negative,
+export const Error = InfoBoxTemplate.bind({});
+Error.args = {
+  status: InfoStatus.Error,
 };

@@ -2,13 +2,13 @@ import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const getStatusColor: { [key: string]: (theme: Theme) => string } = {
-  success: (theme: Theme) => theme.palette.content.success.success50,
-  positive: (theme: Theme) => theme.palette.content.positive.positive50,
+  information: (theme: Theme) => theme.palette.content.success.success50,
+  success: (theme: Theme) => theme.palette.content.positive.positive50,
   warning: (theme: Theme) => theme.palette.content.warning.warning50,
-  negative: (theme: Theme) => theme.palette.content.negative.negative50,
+  error: (theme: Theme) => theme.palette.content.negative.negative50,
 };
 
-export const InfoBoxWrap = styled.div<{ status: 'success' | 'positive' | 'warning' | 'negative' }>`
+export const InfoBoxWrap = styled.div<{ status: 'information' | 'success' | 'warning' | 'error' }>`
   width: 100%;
   padding: 15px 18px 15px 20px;
   background-color: ${({ theme, status }) => getStatusColor[status](theme)};

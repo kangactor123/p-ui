@@ -4,19 +4,19 @@ import { useEmotionTheme } from '../../common/theme';
 import { ThemeProvider } from '../../providers';
 import Button from '../Button';
 import {
+  InfoBoxInformationIcon,
   InfoBoxSuccessIcon,
-  InfoBoxPositiveIcon,
   InfoBoxWarningIcon,
-  InfoBoxNegativeIcon,
+  InfoBoxErrorIcon,
   CloseSmallGrey100Icon,
 } from '../icons';
 import { closeIcon, Content, InfoBoxWrap, statusIcon, Title } from './style';
 
 export enum InfoStatus {
+  Information = 'information',
   Success = 'success',
-  Positive = 'positive',
   Warning = 'warning',
-  Negative = 'negative',
+  Error = 'error',
 }
 
 export interface InfoBoxProps {
@@ -28,7 +28,7 @@ export interface InfoBoxProps {
 }
 
 function InfoBox({
-  status = InfoStatus.Success,
+  status = InfoStatus.Information,
   title = '',
   content = '',
   isOpen = true,
@@ -38,10 +38,10 @@ function InfoBox({
   const [open, setOpen] = useState<boolean>(isOpen);
 
   const getStatusIcon: { [key: string]: ReactElement } = {
+    information: <InfoBoxInformationIcon />,
     success: <InfoBoxSuccessIcon />,
-    positive: <InfoBoxPositiveIcon />,
     warning: <InfoBoxWarningIcon />,
-    negative: <InfoBoxNegativeIcon />,
+    error: <InfoBoxErrorIcon />,
   };
 
   const handleClickClose = () => {
