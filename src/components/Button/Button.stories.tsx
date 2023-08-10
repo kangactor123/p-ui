@@ -102,6 +102,13 @@ OutlinedPrimary.args = {
   color: 'primary',
 };
 
+// outlined white
+export const OutlinedWhite = ButtonTemplate.bind({});
+OutlinedWhite.args = {
+  variant: 'outlined',
+  color: 'white',
+};
+
 // text primary
 export const TextPrimary = ButtonTemplate.bind({});
 TextPrimary.args = {

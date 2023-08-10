@@ -7,6 +7,11 @@ import { Size } from '../enum';
 
 export const getMUITheme = (theme: EmotionTheme): MUITheme =>
   createTheme({
+    palette: {
+      white: {
+        main: '#fff',
+      },
+    },
     components: {
       MuiButton: {
         styleOverrides: {
@@ -28,6 +33,19 @@ export const getMUITheme = (theme: EmotionTheme): MUITheme =>
               },
               ':disabled': {
                 backgroundColor: theme.palette.content.disabled.disabled,
+                color: theme.palette.text.disabled,
+              },
+            },
+
+            '&.MuiButton-outlinedWhite': {
+              backgroundColor: '#fff',
+              color: theme.palette.greyScale.grey100,
+              border: `1px solid ${theme.palette.line.grey30}`,
+              ':hover, :active': {
+                backgroundColor: theme.palette.greyScale.grey10,
+                borderColor: theme.palette.line.grey20,
+              },
+              ':disabled': {
                 color: theme.palette.text.disabled,
               },
             },
